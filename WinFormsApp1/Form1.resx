@@ -117,4 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="cmsListBox.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>135, 17</value>
+  </metadata>
+  <metadata name="ttMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="ttMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="labelSVBAuthors.ToolTip" xml:space="preserve">
+    <value>Имя автора или список авторов, указываемый в начале описания (для 1–3 авторов) или после заглавия (для 4+ авторов). Формат: фамилия, инициалы; инициалы, фамилия.
+Пример: "Дорман В. Н.", "Дорман, В. Н.", "В. Н. Дорман"
+</value>
+  </data>
+  <data name="tbSVBAuthors.ToolTip" xml:space="preserve">
+    <value>Имя автора или список авторов, указываемый в начале описания (для 1–3 авторов) или после заглавия (для 4+ авторов). Формат: фамилия, инициалы; инициалы, фамилия.
+Пример: "Дорман В. Н.", "Дорман, В. Н.", "В. Н. Дорман"</value>
+  </data>
+  <data name="labelSVBPublishingLocation.ToolTip" xml:space="preserve">
+    <value>Город, где книга была издана.
+Пример: "Москва".
+Обратите внимание, для каждого места издания ниже 
+указывается издатель по порядку в списках ListBox: 1 место - 1 издатель, 2 место - 2 издатель.
+Если месту не был указан издатель, оно не отобразится в финальной версии строки.
+</value>
+  </data>
+  <data name="labelSVBPublisher.ToolTip" xml:space="preserve">
+    <value>Название издательства без сокращений в общем случае.
+Пример: "Юрайт" или "Издательство Урал. университета".
+Обратите внимание, для издателя выше указывается 
+место издания по порядку в списках ListBox: 1 место - 1 издатель, 2 место - 2 издатель.
+Если издателю не было указано место, он не отобразится в финальной версии строки.
+</value>
+  </data>
+  <data name="tbSVBPublishingLocation.ToolTip" xml:space="preserve">
+    <value>Город, где книга была издана.
+Пример: "Москва".
+Обратите внимание, для каждого места издания ниже 
+указывается издатель по порядку в списках ListBox: 1 место - 1 издатель, 2 место - 2 издатель.
+Если месту не был указан издатель, оно не отобразится в финальной версии строки.</value>
+  </data>
+  <data name="tbSVBOrganization.ToolTip" xml:space="preserve">
+    <value>Название учреждения, связанного с изданием (например, вуз), после авторов или редактора.
+Пример: "Московский государственный институт международных отношений (университет) Министерства иностранных дел Российской Федерации".</value>
+  </data>
+  <data name="labelSVBOrganization.ToolTip" xml:space="preserve">
+    <value>Название учреждения, связанного с изданием (например, вуз), после авторов или редактора.
+Пример: "Московский государственный институт международных отношений (университет) Министерства иностранных дел Российской Федерации".</value>
+  </data>
+  <data name="tbSVBEditor.ToolTip" xml:space="preserve">
+    <value>Это поле используется для указания редактора книги. Если редактор указан, необходимо выбрать подходящий тип редакторской ответственности:
+- под редакцией (сокращённо: под ред.)
+- под общей редакцией (сокращённо: под общ. ред.)
+- ответственный редактор (сокращённо: отв. ред.)
+Формат ввода редактора для всех типов: инициалы фамилия (например, Н. Р. Кельчевская).
+
+Примеры корректного оформления:
+под ред. Н. Р. Кельчевской
+под общ. ред. В. А. Иванова
+отв. ред. С. И. Ашмарина</value>
+  </data>
+  <data name="labelSVRDApprovalDate.ToolTip" xml:space="preserve">
+    <value>Дата принятия или утверждения документа с указанием органа.
+Пример: "утвержден и введен в действие Приказом Федерального агентства по техническому регулированию и метрологии от 28 июля 2017 г. № 767-ст" или "принят Государственной думой 24 мая 1996 года".</value>
+  </data>
+  <data name="tbSVRDApprovalDate.ToolTip" xml:space="preserve">
+    <value>Дата принятия или утверждения документа с указанием органа.
+Пример: "утвержден и введен в действие Приказом Федерального агентства по техническому регулированию и метрологии от 28 июля 2017 г. № 767-ст" или "принят Государственной думой 24 мая 1996 года".</value>
+  </data>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>62</value>
+  </metadata>
 </root>

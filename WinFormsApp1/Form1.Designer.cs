@@ -13,9 +13,9 @@
         private Label labelSVBPagesCount;
 
         // Новые элементы для поля "Автор(ы)"
-        private TextBox textBoxAuthors;
-        private Button buttonAddAuthor;
-        private ListBox listBoxAuthors;
+        private TextBox tbSVBAuthors;
+        private Button buttonSVBAuthorsAdd;
+        private ListBox lbSVBAuthors;
 
         // Метки для необязательных полей
         private Label labelSVBDocumentType;
@@ -33,18 +33,18 @@
         private TabPage tpSVRegulatoryDocument;
         private GroupBox gpSVBookRequired;
         private GroupBox gpSVBookOptional;
-        private TextBox textBoxTitle;
-        private TextBox textBoxPublishingLocation;
-        private TextBox textBoxPublisher;
-        private TextBox textBoxYear;
-        private TextBox textBoxPages;
-        private TextBox textBoxDocumentType;
-        private TextBox textBoxEditor;
-        private TextBox textBoxEditionNumber;
-        private TextBox textBoxSeries;
-        private TextBox textBoxISBN;
-        private TextBox textBoxTranslator;
-        private TextBox textBoxOrganization;
+        private TextBox tbSVBTitle;
+        private TextBox tbSVBPublishingLocation;
+        private TextBox tbSVBPublisher;
+        private TextBox tbSVBPublishYear;
+        private TextBox tbSVBPagesCount;
+        private TextBox tbSVBDocumentType;
+        private TextBox tbSVBEditor;
+        private TextBox tbSVBEditionNumber;
+        private TextBox tbSVBSeries;
+        private TextBox tbSVBISBN;
+        private TextBox tbSVBTranslator;
+        private TextBox tbSVBOrganization;
 
         protected override void Dispose(bool disposing)
         {
@@ -57,12 +57,31 @@
 
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             splitContainer1 = new SplitContainer();
-            label25 = new Label();
-            button2 = new Button();
+            splitContainer2 = new SplitContainer();
+            splitContainer3 = new SplitContainer();
             button1 = new Button();
-            listBox1 = new ListBox();
-            panel1 = new Panel();
+            panelRtbMLA = new Panel();
+            rtbMLA = new RichTextBox();
+            panelRtbGOST = new Panel();
+            rtbGOST = new RichTextBox();
+            panelConvertTitle = new Panel();
+            labelConvert = new Label();
+            labelGOST = new Label();
+            labelMLA = new Label();
+            buttonConvert = new Button();
+            buttonPDFExportResult = new Button();
+            buttonWordExportResult = new Button();
+            buttonCopyResult = new Button();
+            labelResult = new Label();
+            lbResult = new ListBox();
+            cmsListBox = new ContextMenuStrip(components);
+            tsmiDeleteSelected = new ToolStripMenuItem();
+            tsmiDeleteAll = new ToolStripMenuItem();
+            tsmiCopy = new ToolStripMenuItem();
+            panelAddRecord = new Panel();
             buttonAddRecord = new Button();
             cbWordAbbreviation = new CheckBox();
             tcCategories = new TabControl();
@@ -70,406 +89,442 @@
             tcSVTypes = new TabControl();
             tpSVBook = new TabPage();
             gpSVBookRequired = new GroupBox();
+            panelSVBookRequired = new Panel();
+            cbSVBAuthors = new CheckBox();
+            buttonSVBPublisherAdd = new Button();
+            lbSVBPublisher = new ListBox();
+            buttonSVBPublishingLocationAdd = new Button();
+            lbSVBPublishingLocation = new ListBox();
             labelSVBAuthors = new Label();
-            textBoxAuthors = new TextBox();
-            buttonAddAuthor = new Button();
-            listBoxAuthors = new ListBox();
-            labelSVBTitle = new Label();
-            textBoxTitle = new TextBox();
-            labelSVBPublishingLocation = new Label();
-            textBoxPublishingLocation = new TextBox();
-            labelSVBPublisher = new Label();
-            textBoxPublisher = new TextBox();
-            labelSVBPublishYear = new Label();
-            textBoxYear = new TextBox();
+            tbSVBAuthors = new TextBox();
+            tbSVBPagesCount = new TextBox();
+            buttonSVBAuthorsAdd = new Button();
             labelSVBPagesCount = new Label();
-            textBoxPages = new TextBox();
+            lbSVBAuthors = new ListBox();
+            tbSVBPublishYear = new TextBox();
+            labelSVBTitle = new Label();
+            labelSVBPublishYear = new Label();
+            tbSVBTitle = new TextBox();
+            tbSVBPublisher = new TextBox();
+            labelSVBPublishingLocation = new Label();
+            labelSVBPublisher = new Label();
+            tbSVBPublishingLocation = new TextBox();
             gpSVBookOptional = new GroupBox();
             panelSVBookOptional = new Panel();
+            cbSVBEditorType = new ComboBox();
+            lbSVBEditor = new ListBox();
+            buttonSVBEditorAdd = new Button();
+            labelSVBParallelTitle = new Label();
+            tbSVBParallelTitle = new TextBox();
+            labelSVBContentType = new Label();
+            tbSVBContentType = new TextBox();
             labelSVBDocumentType = new Label();
-            textBoxOrganization = new TextBox();
-            textBoxDocumentType = new TextBox();
-            labelSVBOrganization = new Label();
+            tbSVBOrganization = new TextBox();
+            tbSVBDocumentType = new TextBox();
             labelSVBEditor = new Label();
-            textBoxTranslator = new TextBox();
-            textBoxEditor = new TextBox();
+            tbSVBTranslator = new TextBox();
+            labelSVBOrganization = new Label();
+            tbSVBEditor = new TextBox();
             labelSVBTranslator = new Label();
             labelSVBEditionNumber = new Label();
-            textBoxISBN = new TextBox();
-            textBoxEditionNumber = new TextBox();
+            tbSVBISBN = new TextBox();
+            tbSVBEditionNumber = new TextBox();
             labelSVBISBN = new Label();
             labelSVBSeries = new Label();
-            textBoxSeries = new TextBox();
+            tbSVBSeries = new TextBox();
             tpSVRegulatoryDocument = new TabPage();
             gbSVRegulatoryDocumentRequired = new GroupBox();
             labelSVRDDocumentNumber = new Label();
-            textBox1 = new TextBox();
+            tbSVRDDocumentNumber = new TextBox();
             labelSVRDTitle = new Label();
-            textBox2 = new TextBox();
+            tbSVRDTitle = new TextBox();
             labelSVRDPublishingLocation = new Label();
-            textBox3 = new TextBox();
+            tbSVRDPublishingLocation = new TextBox();
             labelSVRDPublisher = new Label();
-            textBox4 = new TextBox();
+            tbSVRDPublisher = new TextBox();
             labelSVRDPublishYear = new Label();
-            textBox5 = new TextBox();
+            tbSVRDPublishYear = new TextBox();
             gbSVRegulatoryDocumentOptional = new GroupBox();
             panelSVRegulatoryDocumentOptional = new Panel();
             labelSVRDCountry = new Label();
             labelSVRDDocumentType = new Label();
-            textBox16 = new TextBox();
-            textBox13 = new TextBox();
+            tbSVRDCountry = new TextBox();
+            tbSVRDOfficialEdition = new TextBox();
             labelSVRDAdditions = new Label();
             labelSVRDOfficialEdition = new Label();
-            textBox15 = new TextBox();
-            textBox12 = new TextBox();
+            tbSVRDAdditions = new TextBox();
+            tbSVRDTitleTranslation = new TextBox();
             labelSVRDAbbreviation = new Label();
             labelSVRDTitleTranslation = new Label();
-            textBox14 = new TextBox();
-            textBox11 = new TextBox();
+            tbSVRDAbbreviation = new TextBox();
+            tbSVRDISBN = new TextBox();
             labelSVRDPagesCount = new Label();
             labelSVRDISBN = new Label();
-            textBox6 = new TextBox();
-            textBox10 = new TextBox();
+            tbSVRDPagesCount = new TextBox();
+            tbSVRDDeveloper = new TextBox();
             labelSVRDDeveloper = new Label();
-            textBox7 = new TextBox();
-            textBox9 = new TextBox();
+            tbSVRDDocumentType = new TextBox();
+            tbSVRDImplementDate = new TextBox();
             labelSVRDApprovalDate = new Label();
             labelSVRDImplementDate = new Label();
-            textBox8 = new TextBox();
+            tbSVRDApprovalDate = new TextBox();
             tpSVDissertationAbstract = new TabPage();
             gbSVDissertationAbstractRequired = new GroupBox();
-            label24 = new Label();
-            textBox24 = new TextBox();
-            label23 = new Label();
-            textBox23 = new TextBox();
-            label22 = new Label();
-            textBox22 = new TextBox();
-            label17 = new Label();
-            textBox17 = new TextBox();
-            label18 = new Label();
-            textBox18 = new TextBox();
-            label19 = new Label();
-            textBox19 = new TextBox();
-            label20 = new Label();
-            textBox20 = new TextBox();
-            label21 = new Label();
-            textBox21 = new TextBox();
+            panelSVDissertationAbstractRequired = new Panel();
+            labelSVDADefenseLocation = new Label();
+            labelSVDAAuthor = new Label();
+            tbSVDADefenseLocation = new TextBox();
+            tbSVDAPublishingLocation = new TextBox();
+            labelSVDAPagesCount = new Label();
+            labelSVDAPublishingLocation = new Label();
+            tbSVDAPagesCount = new TextBox();
+            tbSVDADegree = new TextBox();
+            labelSVDAPublishYear = new Label();
+            labelSVDADegree = new Label();
+            tbSVDAPublishYear = new TextBox();
+            tbSVDASpecialty = new TextBox();
+            labelSVDATitle = new Label();
+            labelSVDASpecialty = new Label();
+            tbSVDATitle = new TextBox();
+            tbSVDAAuthor = new TextBox();
             gbSVDissertationAbstractOptional = new GroupBox();
-            label26 = new Label();
-            textBox26 = new TextBox();
-            label27 = new Label();
-            textBox27 = new TextBox();
-            label28 = new Label();
-            textBox28 = new TextBox();
-            label29 = new Label();
-            textBox29 = new TextBox();
+            labelSVDADocumentType = new Label();
+            tbSVDADocumentType = new TextBox();
+            labelSVDAAuthorFullName = new Label();
+            tbSVDAAuthorFullName = new TextBox();
+            labelSVDAOrganization = new Label();
+            tbSVDAOrganization = new TextBox();
+            labelSVDABibliography = new Label();
+            tbSVDABibliography = new TextBox();
             tpSVDissertation = new TabPage();
             gbSVDissertationRequired = new GroupBox();
-            label30 = new Label();
-            textBox30 = new TextBox();
-            label31 = new Label();
-            textBox31 = new TextBox();
-            label32 = new Label();
-            textBox32 = new TextBox();
-            label33 = new Label();
-            textBox33 = new TextBox();
-            label34 = new Label();
-            textBox34 = new TextBox();
-            label35 = new Label();
-            textBox35 = new TextBox();
-            label36 = new Label();
-            textBox36 = new TextBox();
+            panelSVDissertationRequired = new Panel();
+            labelSVDPagesCount = new Label();
+            labelSVDAuthor = new Label();
+            tbSVDPagesCount = new TextBox();
+            tbSVDPublishingLocation = new TextBox();
+            labelSVDPublishYear = new Label();
+            labelSVDPublishingLocation = new Label();
+            tbSVDPublishYear = new TextBox();
+            tbSVDDegree = new TextBox();
+            labelSVDTitle = new Label();
+            labelSVDDegree = new Label();
+            tbSVDTitle = new TextBox();
+            tbSVDSpecialty = new TextBox();
+            labelSVDSpecialty = new Label();
+            tbSVDAuthor = new TextBox();
             gbSVDissertationOptional = new GroupBox();
-            label37 = new Label();
-            textBox37 = new TextBox();
-            label38 = new Label();
-            textBox38 = new TextBox();
-            label39 = new Label();
-            textBox39 = new TextBox();
-            label40 = new Label();
-            textBox40 = new TextBox();
+            labelSVDDocumentType = new Label();
+            tbSVDDocumentType = new TextBox();
+            labelSVDAuthorFullName = new Label();
+            tbSVDAuthorFullName = new TextBox();
+            labelSVDOrganization = new Label();
+            tbSVDOrganization = new TextBox();
+            labelSVDBibliography = new Label();
+            tbSVDBibliography = new TextBox();
             tpMultiVolume = new TabPage();
             tcMVTypes = new TabControl();
             tpMVWholeMultivolume = new TabPage();
             gbMVWholeMultivolumeRequired = new GroupBox();
-            label53 = new Label();
-            textBox52 = new TextBox();
-            label41 = new Label();
-            textBox25 = new TextBox();
-            button4 = new Button();
-            listBox2 = new ListBox();
-            label42 = new Label();
-            textBox41 = new TextBox();
-            label43 = new Label();
-            textBox42 = new TextBox();
-            label44 = new Label();
-            textBox43 = new TextBox();
-            label45 = new Label();
-            textBox44 = new TextBox();
-            label46 = new Label();
-            textBox45 = new TextBox();
+            panelMVWholeMultivolumeRequired = new Panel();
+            labelMVWMPagesCount = new Label();
+            labelMVWMAuthors = new Label();
+            tbMVWMPagesCount = new TextBox();
+            tbMVWMPublishYear = new TextBox();
+            labelMVWMPublishYear = new Label();
+            tbMVWMAuthors = new TextBox();
+            tbMVWMPublisher = new TextBox();
+            buttonMVWMAuthorsAdd = new Button();
+            labelMVWMPublisher = new Label();
+            lbMVWMAuthors = new ListBox();
+            tbMVWMPublishingLocation = new TextBox();
+            labelMVWMTitle = new Label();
+            labelMVWMPublishingLocation = new Label();
+            tbMVWMTitle = new TextBox();
+            tbMVWMVolumesNumber = new TextBox();
+            labelMVWMVolumesNumber = new Label();
             gbMVWholeMultivolumeOptional = new GroupBox();
-            panelMVWholeMultivolumeOptional = new Panel();
-            label47 = new Label();
-            label48 = new Label();
-            textBox46 = new TextBox();
-            textBox51 = new TextBox();
-            label52 = new Label();
-            textBox47 = new TextBox();
-            textBox50 = new TextBox();
-            label49 = new Label();
-            label51 = new Label();
-            textBox48 = new TextBox();
-            textBox49 = new TextBox();
-            label50 = new Label();
+            labelMVWMDocumentType = new Label();
+            labelMVWMSeries = new Label();
+            tbMVWMSeries = new TextBox();
+            labelMVWMResponsibilityArea = new Label();
+            tbMVWMResponsibilityArea = new TextBox();
+            labelMVWMEditionNumber = new Label();
+            labelMVWMEditor = new Label();
+            tbMVWMDocumentType = new TextBox();
+            labelMVWMISBN = new Label();
+            tbMVWMEditionNumber = new TextBox();
+            tbMVWMEditor = new TextBox();
+            tbMVWMISBN = new TextBox();
             tpMVSeparateVolume = new TabPage();
             gbMVSeparateVolumeRequired = new GroupBox();
-            label68 = new Label();
-            textBox67 = new TextBox();
-            label67 = new Label();
-            textBox66 = new TextBox();
-            label54 = new Label();
-            textBox53 = new TextBox();
-            label55 = new Label();
-            textBox54 = new TextBox();
-            button5 = new Button();
-            listBox3 = new ListBox();
-            label56 = new Label();
-            textBox55 = new TextBox();
-            label57 = new Label();
-            textBox56 = new TextBox();
-            label58 = new Label();
-            textBox57 = new TextBox();
-            label59 = new Label();
-            textBox58 = new TextBox();
-            label60 = new Label();
-            textBox59 = new TextBox();
+            panelMVSeparateVolumeRequired = new Panel();
+            labelMVSVPagesCount = new Label();
+            labelMVSVAuthors = new Label();
+            tbMVSVPagesCount = new TextBox();
+            tbMVSVPublishingLocation = new TextBox();
+            labelMVSVPublishYear = new Label();
+            labelMVSVPublishingLocation = new Label();
+            tbMVSVPublishYear = new TextBox();
+            tbMVSVVolumeTitle = new TextBox();
+            labelMVSVPublisher = new Label();
+            labelMVSVVolumeTitle = new Label();
+            tbMVSVPublisher = new TextBox();
+            tbMVSVVolumeNumber = new TextBox();
+            labelMVSVVolumeNumber = new Label();
+            tbMVSVAuthors = new TextBox();
+            tbMVSVVolumesCount = new TextBox();
+            buttonMVSVAuthorsAdd = new Button();
+            labelMVSVVolumesCount = new Label();
+            lbMVSVAuthors = new ListBox();
+            tbMVSVTitle = new TextBox();
+            labelMVSVTitle = new Label();
             gbMVSeparateVolumeOptional = new GroupBox();
-            panelMVSeparateVolumeOptional = new Panel();
-            label61 = new Label();
-            textBox60 = new TextBox();
-            textBox65 = new TextBox();
-            label62 = new Label();
-            label66 = new Label();
-            textBox61 = new TextBox();
-            textBox64 = new TextBox();
-            label63 = new Label();
-            label65 = new Label();
-            textBox62 = new TextBox();
-            textBox63 = new TextBox();
-            label64 = new Label();
+            labelMVSVDocumentType = new Label();
+            tbMVSVDocumentType = new TextBox();
+            tbMVSVSeries = new TextBox();
+            labelMVSVEditionNumber = new Label();
+            labelMVSVEditor = new Label();
+            tbMVSVISBN = new TextBox();
+            tbMVSVResponsibilityArea = new TextBox();
+            tbMVSVEditionNumber = new TextBox();
+            labelMVSVSeries = new Label();
+            labelMVSVResponsibilityArea = new Label();
+            labelMVSVISBN = new Label();
+            tbMVSVEditor = new TextBox();
             tpElectronicResources = new TabPage();
             tcERTypes = new TabControl();
             tpEREbook = new TabPage();
             gbEREbookRequired = new GroupBox();
-            label173 = new Label();
-            textBox172 = new TextBox();
-            label69 = new Label();
-            textBox68 = new TextBox();
-            button6 = new Button();
-            listBox4 = new ListBox();
-            label70 = new Label();
-            textBox69 = new TextBox();
-            label71 = new Label();
-            textBox70 = new TextBox();
-            label72 = new Label();
-            textBox71 = new TextBox();
-            label73 = new Label();
-            textBox72 = new TextBox();
-            label74 = new Label();
-            textBox73 = new TextBox();
+            panelEREbookRequired = new Panel();
+            labelEREbAccessDate = new Label();
+            labelEREbAuthors = new Label();
+            tbEREbAccessDate = new TextBox();
+            tbEREbURL = new TextBox();
+            labelEREbURL = new Label();
+            tbEREbAuthors = new TextBox();
+            tbEREbPublishYear = new TextBox();
+            labelEREbAuthorsAdd = new Button();
+            labelEREbPublishYear = new Label();
+            lbEREbAuthors = new ListBox();
+            tbEREbPublisher = new TextBox();
+            labelEREbTitle = new Label();
+            labelEREbPublisher = new Label();
+            tbEREbTitle = new TextBox();
+            tbEREbPublishingLocation = new TextBox();
+            labelEREbPublishingLocation = new Label();
             gbEREbookOptional = new GroupBox();
             panelEREbookOptional = new Panel();
-            label174 = new Label();
-            label81 = new Label();
-            textBox173 = new TextBox();
-            textBox80 = new TextBox();
-            label75 = new Label();
-            textBox79 = new TextBox();
-            textBox74 = new TextBox();
-            label80 = new Label();
-            label76 = new Label();
-            textBox78 = new TextBox();
-            textBox75 = new TextBox();
-            label79 = new Label();
-            label77 = new Label();
-            textBox77 = new TextBox();
-            textBox76 = new TextBox();
-            label78 = new Label();
+            labelEREbAccessMode = new Label();
+            labelEREbISBN = new Label();
+            tbEREbAccessMode = new TextBox();
+            tbEREbISBN = new TextBox();
+            labelEREbDocumentType = new Label();
+            tbEREbSeries = new TextBox();
+            tbEREbDocumentType = new TextBox();
+            labelEREbSeries = new Label();
+            labelEREbResponsibilityArea = new Label();
+            tbEREbPagesCount = new TextBox();
+            tbEREbResponsibilityArea = new TextBox();
+            labelEREbPagesCount = new Label();
+            labelEREbEditor = new Label();
+            tbEREbEditionNumber = new TextBox();
+            tbEREbEditor = new TextBox();
+            labelEREbEditionNumber = new Label();
             tpERMultimediaEdition = new TabPage();
             gbERMultimediaEditionRequired = new GroupBox();
-            label83 = new Label();
-            textBox82 = new TextBox();
-            button3 = new Button();
-            listBox6 = new ListBox();
-            label84 = new Label();
-            textBox83 = new TextBox();
-            label85 = new Label();
-            textBox84 = new TextBox();
-            label86 = new Label();
-            textBox85 = new TextBox();
-            label87 = new Label();
-            textBox86 = new TextBox();
-            label88 = new Label();
-            textBox87 = new TextBox();
+            panelERMultimediaEditionRequired = new Panel();
+            labelERMEAuthors = new Label();
+            tbERMEAuthors = new TextBox();
+            tbERMEDataCarrier = new TextBox();
+            buttonERMEAuthorsAdd = new Button();
+            labelERMEDataCarrier = new Label();
+            lbERMEAuthors = new ListBox();
+            tbERMEPublishYear = new TextBox();
+            labelERMETitle = new Label();
+            labelERMEPublishYear = new Label();
+            tbERMETitle = new TextBox();
+            tbERMEPublisher = new TextBox();
+            labelERMEPublishingLocation = new Label();
+            labelERMEPublisher = new Label();
+            tbERMEPublishingLocation = new TextBox();
             gbERMultimediaEditionOptional = new GroupBox();
-            panelERMultimediaEditionOptional = new Panel();
-            label90 = new Label();
-            textBox89 = new TextBox();
-            textBox94 = new TextBox();
-            label91 = new Label();
-            label95 = new Label();
-            textBox90 = new TextBox();
-            textBox93 = new TextBox();
-            label92 = new Label();
-            label94 = new Label();
-            textBox91 = new TextBox();
-            textBox92 = new TextBox();
-            label93 = new Label();
+            labelERMEDocumentType = new Label();
+            labelERMEResponsibilityArea = new Label();
+            tbERMENotation = new TextBox();
+            tbERMEDocumentType = new TextBox();
+            labelERMEEditor = new Label();
+            labelERMEOrganization = new Label();
+            tbERMEResponsibilityArea = new TextBox();
+            tbERMEISBN = new TextBox();
+            labelERMENotation = new Label();
+            tbERMEOrganization = new TextBox();
+            labelERMEISBN = new Label();
+            tbERMEEditor = new TextBox();
             tpEREjournalArticle = new TabPage();
             gbEREjournalArticleReqired = new GroupBox();
-            label82 = new Label();
-            textBox81 = new TextBox();
-            label97 = new Label();
-            textBox96 = new TextBox();
-            label98 = new Label();
-            textBox97 = new TextBox();
-            button8 = new Button();
-            listBox7 = new ListBox();
-            label99 = new Label();
-            textBox98 = new TextBox();
-            label100 = new Label();
-            textBox99 = new TextBox();
-            label101 = new Label();
-            textBox100 = new TextBox();
-            label102 = new Label();
-            textBox101 = new TextBox();
-            label103 = new Label();
-            textBox102 = new TextBox();
+            panelEREjournalArticleReqired = new Panel();
+            labelEREjAAccessDate = new Label();
+            labelEREjAAuthors = new Label();
+            tbEREjAAccessDate = new TextBox();
+            tbEREjAPages = new TextBox();
+            labelEREjAURL = new Label();
+            labelEREjAPages = new Label();
+            tbEREjAURL = new TextBox();
+            tbEREjAJournalNumber = new TextBox();
+            labelEREjAJournalNumber = new Label();
+            tbEREjAAuthors = new TextBox();
+            tbEREjAYear = new TextBox();
+            tbEREjAAuthorsAdd = new Button();
+            labelEREjAYear = new Label();
+            lbEREjAAuthors = new ListBox();
+            tbEREjAJournalName = new TextBox();
+            labelEREjATitle = new Label();
+            labelEREjAJournalName = new Label();
+            tbEREjATitle = new TextBox();
             gbEREjournalArticleOptional = new GroupBox();
-            label105 = new Label();
-            textBox104 = new TextBox();
+            labelEREjAAccessMode = new Label();
+            tbEREjAAccessMode = new TextBox();
             tpERWebsite = new TabPage();
             gbERWebsiteRequired = new GroupBox();
-            label112 = new Label();
-            textBox111 = new TextBox();
-            label113 = new Label();
-            textBox112 = new TextBox();
-            label114 = new Label();
-            textBox113 = new TextBox();
+            labelERWWebsiteURL = new Label();
+            tbERWWebsiteURL = new TextBox();
+            labelERWWebsiteName = new Label();
+            tbERWWebsiteName = new TextBox();
+            labelERWAccessDate = new Label();
+            tbERWAccessDate = new TextBox();
             gbERWebsiteOptional = new GroupBox();
-            label89 = new Label();
-            textBox88 = new TextBox();
-            label117 = new Label();
-            textBox116 = new TextBox();
-            label118 = new Label();
-            textBox117 = new TextBox();
-            label119 = new Label();
-            textBox118 = new TextBox();
-            label120 = new Label();
-            textBox119 = new TextBox();
+            labelERWFounder = new Label();
+            tbERWFounder = new TextBox();
+            labelERWDocumentType = new Label();
+            tbERWDocumentType = new TextBox();
+            labelERWPublishingLocation = new Label();
+            tbERWPublishingLocation = new TextBox();
+            labelERWCreationYear = new Label();
+            tbERWCreationYear = new TextBox();
+            labelERWAccessMode = new Label();
+            tbERWAccessMode = new TextBox();
             tpConstituentParts = new TabPage();
             tcCPTypes = new TabControl();
             tpCPBookArticle = new TabPage();
             gbCPBookArticleRequired = new GroupBox();
-            label130 = new Label();
-            textBox129 = new TextBox();
-            label129 = new Label();
-            textBox128 = new TextBox();
-            label123 = new Label();
-            textBox122 = new TextBox();
-            button12 = new Button();
-            listBox11 = new ListBox();
-            label121 = new Label();
-            textBox120 = new TextBox();
-            button7 = new Button();
-            listBox5 = new ListBox();
-            label122 = new Label();
-            textBox121 = new TextBox();
-            label124 = new Label();
-            textBox123 = new TextBox();
-            label125 = new Label();
-            textBox124 = new TextBox();
-            label126 = new Label();
-            textBox125 = new TextBox();
+            panelCPBookArticleRequired = new Panel();
+            labelCPBAPages = new Label();
+            labelCPBAArticleAuthors = new Label();
+            tbCPBAPages = new TextBox();
+            tbCPBAPublisher = new TextBox();
+            labelCPBAPublishYear = new Label();
+            labelCPBAPublisher = new Label();
+            tbCPBAPublishYear = new TextBox();
+            tbCPBAPublishingLocation = new TextBox();
+            labelCPBABookAuthors = new Label();
+            labelCPBAPublishingLocation = new Label();
+            tbCPBABookAuthors = new TextBox();
+            tbCPBABookTitle = new TextBox();
+            buttonCPBABookAuthorsAdd = new Button();
+            labelCPBABookTitle = new Label();
+            lbCPBABookAuthors = new ListBox();
+            tbCPBAArticleTitle = new TextBox();
+            labelCPBAArticleTitle = new Label();
+            tbCPBAArticleAuthors = new TextBox();
+            lbCPBAArticleAuthors = new ListBox();
+            buttonCPBAArticleAuthorsAdd = new Button();
             gbCPBookArticleOptional = new GroupBox();
-            label127 = new Label();
-            textBox126 = new TextBox();
-            label128 = new Label();
-            textBox127 = new TextBox();
+            labelCPBABookDocumentType = new Label();
+            tbCPBABookDocumentType = new TextBox();
+            labelCPBABookEditor = new Label();
+            tbCPBABookEditor = new TextBox();
             tpCPJournalArticle = new TabPage();
             gbCPJournalArticleRequired = new GroupBox();
-            label96 = new Label();
-            textBox95 = new TextBox();
-            button9 = new Button();
-            listBox8 = new ListBox();
-            label104 = new Label();
-            textBox103 = new TextBox();
-            label106 = new Label();
-            textBox105 = new TextBox();
-            label107 = new Label();
-            textBox106 = new TextBox();
-            label108 = new Label();
-            textBox107 = new TextBox();
-            label109 = new Label();
-            textBox108 = new TextBox();
+            panelCPJournalArticleRequired = new Panel();
+            labelCPJAAuthors = new Label();
+            tbCPJAAuthors = new TextBox();
+            tbCPJAPages = new TextBox();
+            buttonCPJAAuthorsAdd = new Button();
+            labelCPJAPages = new Label();
+            lbCPJAAuthors = new ListBox();
+            tbCPJAJournalNumber = new TextBox();
+            labelCPJAArticleTitle = new Label();
+            labelCPJAJournalNumber = new Label();
+            tbCPJAArticleTitle = new TextBox();
+            tbCPJAYear = new TextBox();
+            labelCPJAJournalName = new Label();
+            labelCPJAYear = new Label();
+            tbCPJAJournalName = new TextBox();
             gbCPJournalArticleOptional = new GroupBox();
-            label110 = new Label();
-            textBox109 = new TextBox();
+            labelCPJADOI = new Label();
+            tbCPJADOI = new TextBox();
             tpCPNewspaperArticle = new TabPage();
             gbCPNewspaperArticleReqired = new GroupBox();
-            label137 = new Label();
-            textBox136 = new TextBox();
-            button10 = new Button();
-            listBox9 = new ListBox();
-            label138 = new Label();
-            textBox137 = new TextBox();
-            label139 = new Label();
-            textBox138 = new TextBox();
-            label140 = new Label();
-            textBox139 = new TextBox();
-            label141 = new Label();
-            textBox140 = new TextBox();
-            label142 = new Label();
-            textBox141 = new TextBox();
+            panelCPNewspaperArticleReqired = new Panel();
+            labelCPNAAuthors = new Label();
+            tbCPNAAuthors = new TextBox();
+            tbCPNAPages = new TextBox();
+            buttonCPNAAuthorsAdd = new Button();
+            labelCPNAPages = new Label();
+            lbCPNAAuthors = new ListBox();
+            tbCPNAReleaseDate = new TextBox();
+            labelCPNAArticleTitle = new Label();
+            labelCPNAReleaseDate = new Label();
+            tbCPNAArticleTitle = new TextBox();
+            tbCPNAYear = new TextBox();
+            labelCPNANewspaperName = new Label();
+            labelCPNAYear = new Label();
+            tbCPNANewspaperName = new TextBox();
             gbCPNewspaperArticleOptional = new GroupBox();
-            label143 = new Label();
-            textBox142 = new TextBox();
-            label144 = new Label();
-            textBox143 = new TextBox();
+            labelCPNAAdditionalInformation = new Label();
+            tbCPNAAdditionalInformation = new TextBox();
+            labelCPNAInterviewer = new Label();
+            tbCPNAInterviewer = new TextBox();
             tpCPWebsiteArticle = new TabPage();
             gbCPWebsiteArticleRequired = new GroupBox();
-            label150 = new Label();
-            textBox149 = new TextBox();
-            button11 = new Button();
-            listBox10 = new ListBox();
-            label151 = new Label();
-            textBox150 = new TextBox();
-            label152 = new Label();
-            textBox151 = new TextBox();
-            label153 = new Label();
-            textBox152 = new TextBox();
-            label154 = new Label();
-            textBox153 = new TextBox();
+            panelCPWebsiteArticleRequired = new Panel();
+            labelCPWAAuthors = new Label();
+            tbCPWAAuthors = new TextBox();
+            tbCPWAAccessDate = new TextBox();
+            buttonCPWAAuthorsAdd = new Button();
+            labelCPWAAccessDate = new Label();
+            lbCPWAAuthors = new ListBox();
+            tbCPWAURL = new TextBox();
+            labelCPWAArticleTitle = new Label();
+            labelCPWAURL = new Label();
+            tbCPWAArticleTitle = new TextBox();
+            tbCPWAWebsiteName = new TextBox();
+            labelCPWAWebsiteName = new Label();
             gbCPWebsiteArticleOptional = new GroupBox();
-            label156 = new Label();
-            textBox155 = new TextBox();
-            label157 = new Label();
-            textBox156 = new TextBox();
-            label158 = new Label();
-            textBox157 = new TextBox();
-            label159 = new Label();
-            textBox158 = new TextBox();
+            labelCPWAWebsiteType = new Label();
+            tbCPWAWebsiteType = new TextBox();
+            labelCPWAPublishingYear = new Label();
+            tbCPWAPublishingYear = new TextBox();
+            labelCPWAPublishingDate = new Label();
+            tbCPWAPublishingDate = new TextBox();
+            labelCPWAAdditionalInformation = new Label();
+            tbCPWAAdditionalInformation = new TextBox();
+            ttMain = new ToolTip(components);
+            tpSVConferenceMaterials = new TabPage();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
-            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
+            splitContainer2.Panel1.SuspendLayout();
+            splitContainer2.Panel2.SuspendLayout();
+            splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer3).BeginInit();
+            splitContainer3.Panel1.SuspendLayout();
+            splitContainer3.Panel2.SuspendLayout();
+            splitContainer3.SuspendLayout();
+            panelRtbMLA.SuspendLayout();
+            panelRtbGOST.SuspendLayout();
+            panelConvertTitle.SuspendLayout();
+            cmsListBox.SuspendLayout();
+            panelAddRecord.SuspendLayout();
             tcCategories.SuspendLayout();
             tpSingleVolume.SuspendLayout();
             tcSVTypes.SuspendLayout();
             tpSVBook.SuspendLayout();
             gpSVBookRequired.SuspendLayout();
+            panelSVBookRequired.SuspendLayout();
             gpSVBookOptional.SuspendLayout();
             panelSVBookOptional.SuspendLayout();
             tpSVRegulatoryDocument.SuspendLayout();
@@ -478,32 +533,36 @@
             panelSVRegulatoryDocumentOptional.SuspendLayout();
             tpSVDissertationAbstract.SuspendLayout();
             gbSVDissertationAbstractRequired.SuspendLayout();
+            panelSVDissertationAbstractRequired.SuspendLayout();
             gbSVDissertationAbstractOptional.SuspendLayout();
             tpSVDissertation.SuspendLayout();
             gbSVDissertationRequired.SuspendLayout();
+            panelSVDissertationRequired.SuspendLayout();
             gbSVDissertationOptional.SuspendLayout();
             tpMultiVolume.SuspendLayout();
             tcMVTypes.SuspendLayout();
             tpMVWholeMultivolume.SuspendLayout();
             gbMVWholeMultivolumeRequired.SuspendLayout();
+            panelMVWholeMultivolumeRequired.SuspendLayout();
             gbMVWholeMultivolumeOptional.SuspendLayout();
-            panelMVWholeMultivolumeOptional.SuspendLayout();
             tpMVSeparateVolume.SuspendLayout();
             gbMVSeparateVolumeRequired.SuspendLayout();
+            panelMVSeparateVolumeRequired.SuspendLayout();
             gbMVSeparateVolumeOptional.SuspendLayout();
-            panelMVSeparateVolumeOptional.SuspendLayout();
             tpElectronicResources.SuspendLayout();
             tcERTypes.SuspendLayout();
             tpEREbook.SuspendLayout();
             gbEREbookRequired.SuspendLayout();
+            panelEREbookRequired.SuspendLayout();
             gbEREbookOptional.SuspendLayout();
             panelEREbookOptional.SuspendLayout();
             tpERMultimediaEdition.SuspendLayout();
             gbERMultimediaEditionRequired.SuspendLayout();
+            panelERMultimediaEditionRequired.SuspendLayout();
             gbERMultimediaEditionOptional.SuspendLayout();
-            panelERMultimediaEditionOptional.SuspendLayout();
             tpEREjournalArticle.SuspendLayout();
             gbEREjournalArticleReqired.SuspendLayout();
+            panelEREjournalArticleReqired.SuspendLayout();
             gbEREjournalArticleOptional.SuspendLayout();
             tpERWebsite.SuspendLayout();
             gbERWebsiteRequired.SuspendLayout();
@@ -512,15 +571,19 @@
             tcCPTypes.SuspendLayout();
             tpCPBookArticle.SuspendLayout();
             gbCPBookArticleRequired.SuspendLayout();
+            panelCPBookArticleRequired.SuspendLayout();
             gbCPBookArticleOptional.SuspendLayout();
             tpCPJournalArticle.SuspendLayout();
             gbCPJournalArticleRequired.SuspendLayout();
+            panelCPJournalArticleRequired.SuspendLayout();
             gbCPJournalArticleOptional.SuspendLayout();
             tpCPNewspaperArticle.SuspendLayout();
             gbCPNewspaperArticleReqired.SuspendLayout();
+            panelCPNewspaperArticleReqired.SuspendLayout();
             gbCPNewspaperArticleOptional.SuspendLayout();
             tpCPWebsiteArticle.SuspendLayout();
             gbCPWebsiteArticleRequired.SuspendLayout();
+            panelCPWebsiteArticleRequired.SuspendLayout();
             gbCPWebsiteArticleOptional.SuspendLayout();
             SuspendLayout();
             // 
@@ -528,72 +591,271 @@
             // 
             splitContainer1.BorderStyle = BorderStyle.FixedSingle;
             splitContainer1.Dock = DockStyle.Fill;
+            splitContainer1.IsSplitterFixed = true;
             splitContainer1.Location = new Point(0, 0);
             splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            splitContainer1.Panel1.Controls.Add(label25);
-            splitContainer1.Panel1.Controls.Add(button2);
-            splitContainer1.Panel1.Controls.Add(button1);
-            splitContainer1.Panel1.Controls.Add(listBox1);
+            splitContainer1.Panel1.Controls.Add(splitContainer2);
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(panel1);
+            splitContainer1.Panel2.Controls.Add(panelAddRecord);
             splitContainer1.Panel2.Controls.Add(tcCategories);
-            splitContainer1.Size = new Size(831, 847);
-            splitContainer1.SplitterDistance = 298;
+            splitContainer1.Size = new Size(837, 808);
+            splitContainer1.SplitterDistance = 300;
             splitContainer1.TabIndex = 0;
             // 
-            // label25
+            // splitContainer2
             // 
-            label25.AutoSize = true;
-            label25.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label25.Location = new Point(96, 29);
-            label25.Name = "label25";
-            label25.Size = new Size(96, 25);
-            label25.TabIndex = 3;
-            label25.Text = "Результат";
+            splitContainer2.BorderStyle = BorderStyle.FixedSingle;
+            splitContainer2.Dock = DockStyle.Fill;
+            splitContainer2.IsSplitterFixed = true;
+            splitContainer2.Location = new Point(0, 0);
+            splitContainer2.Name = "splitContainer2";
+            splitContainer2.Orientation = Orientation.Horizontal;
             // 
-            // button2
+            // splitContainer2.Panel1
             // 
-            button2.Location = new Point(75, 762);
-            button2.Name = "button2";
-            button2.Size = new Size(166, 23);
-            button2.TabIndex = 2;
-            button2.Text = "Экспорт в Word";
-            button2.UseVisualStyleBackColor = true;
+            splitContainer2.Panel1.Controls.Add(splitContainer3);
+            // 
+            // splitContainer2.Panel2
+            // 
+            splitContainer2.Panel2.Controls.Add(buttonPDFExportResult);
+            splitContainer2.Panel2.Controls.Add(buttonWordExportResult);
+            splitContainer2.Panel2.Controls.Add(buttonCopyResult);
+            splitContainer2.Panel2.Controls.Add(labelResult);
+            splitContainer2.Panel2.Controls.Add(lbResult);
+            splitContainer2.Size = new Size(300, 808);
+            splitContainer2.SplitterDistance = 389;
+            splitContainer2.TabIndex = 0;
+            // 
+            // splitContainer3
+            // 
+            splitContainer3.BorderStyle = BorderStyle.FixedSingle;
+            splitContainer3.Dock = DockStyle.Fill;
+            splitContainer3.IsSplitterFixed = true;
+            splitContainer3.Location = new Point(0, 0);
+            splitContainer3.Name = "splitContainer3";
+            splitContainer3.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            splitContainer3.Panel1.Controls.Add(button1);
+            // 
+            // splitContainer3.Panel2
+            // 
+            splitContainer3.Panel2.Controls.Add(panelRtbMLA);
+            splitContainer3.Panel2.Controls.Add(panelRtbGOST);
+            splitContainer3.Panel2.Controls.Add(panelConvertTitle);
+            splitContainer3.Panel2.Controls.Add(labelGOST);
+            splitContainer3.Panel2.Controls.Add(labelMLA);
+            splitContainer3.Panel2.Controls.Add(buttonConvert);
+            splitContainer3.Size = new Size(300, 389);
+            splitContainer3.SplitterDistance = 47;
+            splitContainer3.TabIndex = 0;
             // 
             // button1
             // 
-            button1.Location = new Point(75, 733);
+            button1.BackColor = SystemColors.ActiveBorder;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button1.Location = new Point(4, 3);
             button1.Name = "button1";
-            button1.Size = new Size(154, 23);
-            button1.TabIndex = 1;
-            button1.Text = "Скопировать";
-            button1.UseVisualStyleBackColor = true;
+            button1.Size = new Size(291, 39);
+            button1.TabIndex = 0;
+            button1.Text = "Вернуться в меню";
+            button1.UseVisualStyleBackColor = false;
             // 
-            // listBox1
+            // panelRtbMLA
             // 
-            listBox1.BackColor = SystemColors.InactiveBorder;
-            listBox1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 17;
-            listBox1.Location = new Point(3, 57);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(290, 633);
-            listBox1.TabIndex = 0;
+            panelRtbMLA.BorderStyle = BorderStyle.FixedSingle;
+            panelRtbMLA.Controls.Add(rtbMLA);
+            panelRtbMLA.Location = new Point(4, 204);
+            panelRtbMLA.Name = "panelRtbMLA";
+            panelRtbMLA.Size = new Size(291, 90);
+            panelRtbMLA.TabIndex = 4;
             // 
-            // panel1
+            // rtbMLA
             // 
-            panel1.BackColor = SystemColors.ControlLight;
-            panel1.Controls.Add(buttonAddRecord);
-            panel1.Controls.Add(cbWordAbbreviation);
-            panel1.Location = new Point(10, 799);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(505, 42);
-            panel1.TabIndex = 2;
+            rtbMLA.BorderStyle = BorderStyle.None;
+            rtbMLA.Location = new Point(0, 0);
+            rtbMLA.Name = "rtbMLA";
+            rtbMLA.ScrollBars = RichTextBoxScrollBars.Vertical;
+            rtbMLA.Size = new Size(290, 90);
+            rtbMLA.TabIndex = 6;
+            rtbMLA.Text = "";
+            // 
+            // panelRtbGOST
+            // 
+            panelRtbGOST.BorderStyle = BorderStyle.FixedSingle;
+            panelRtbGOST.Controls.Add(rtbGOST);
+            panelRtbGOST.Location = new Point(4, 88);
+            panelRtbGOST.Name = "panelRtbGOST";
+            panelRtbGOST.Size = new Size(291, 90);
+            panelRtbGOST.TabIndex = 11;
+            // 
+            // rtbGOST
+            // 
+            rtbGOST.BorderStyle = BorderStyle.None;
+            rtbGOST.Location = new Point(0, 0);
+            rtbGOST.Name = "rtbGOST";
+            rtbGOST.ScrollBars = RichTextBoxScrollBars.Vertical;
+            rtbGOST.Size = new Size(290, 90);
+            rtbGOST.TabIndex = 8;
+            rtbGOST.Text = "";
+            // 
+            // panelConvertTitle
+            // 
+            panelConvertTitle.BackColor = SystemColors.ControlLight;
+            panelConvertTitle.Controls.Add(labelConvert);
+            panelConvertTitle.Location = new Point(2, 3);
+            panelConvertTitle.Name = "panelConvertTitle";
+            panelConvertTitle.Size = new Size(293, 59);
+            panelConvertTitle.TabIndex = 10;
+            // 
+            // labelConvert
+            // 
+            labelConvert.AutoSize = true;
+            labelConvert.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelConvert.Location = new Point(63, 3);
+            labelConvert.Name = "labelConvert";
+            labelConvert.Size = new Size(175, 50);
+            labelConvert.TabIndex = 5;
+            labelConvert.Text = "Конвертировать в \r\n нужный формат";
+            // 
+            // labelGOST
+            // 
+            labelGOST.AutoSize = true;
+            labelGOST.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelGOST.Location = new Point(70, 65);
+            labelGOST.Name = "labelGOST";
+            labelGOST.Size = new Size(166, 20);
+            labelGOST.TabIndex = 9;
+            labelGOST.Text = "Киберленинка «ГОСТ»";
+            // 
+            // labelMLA
+            // 
+            labelMLA.AutoSize = true;
+            labelMLA.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelMLA.Location = new Point(70, 181);
+            labelMLA.Name = "labelMLA";
+            labelMLA.Size = new Size(161, 20);
+            labelMLA.TabIndex = 7;
+            labelMLA.Text = "Киберленинка «MLA»";
+            // 
+            // buttonConvert
+            // 
+            buttonConvert.BackColor = SystemColors.Info;
+            buttonConvert.FlatStyle = FlatStyle.Flat;
+            buttonConvert.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonConvert.Location = new Point(4, 299);
+            buttonConvert.Name = "buttonConvert";
+            buttonConvert.Size = new Size(291, 34);
+            buttonConvert.TabIndex = 4;
+            buttonConvert.Text = "Конвертировать";
+            buttonConvert.UseVisualStyleBackColor = false;
+            // 
+            // buttonPDFExportResult
+            // 
+            buttonPDFExportResult.BackColor = Color.IndianRed;
+            buttonPDFExportResult.FlatStyle = FlatStyle.Flat;
+            buttonPDFExportResult.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonPDFExportResult.Location = new Point(151, 370);
+            buttonPDFExportResult.Name = "buttonPDFExportResult";
+            buttonPDFExportResult.Size = new Size(144, 40);
+            buttonPDFExportResult.TabIndex = 4;
+            buttonPDFExportResult.Text = "Экспорт в PDF";
+            buttonPDFExportResult.UseVisualStyleBackColor = false;
+            // 
+            // buttonWordExportResult
+            // 
+            buttonWordExportResult.BackColor = SystemColors.ActiveCaption;
+            buttonWordExportResult.FlatStyle = FlatStyle.Flat;
+            buttonWordExportResult.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonWordExportResult.Location = new Point(3, 370);
+            buttonWordExportResult.Name = "buttonWordExportResult";
+            buttonWordExportResult.Size = new Size(144, 40);
+            buttonWordExportResult.TabIndex = 3;
+            buttonWordExportResult.Text = "Экспорт в Word";
+            buttonWordExportResult.UseVisualStyleBackColor = false;
+            // 
+            // buttonCopyResult
+            // 
+            buttonCopyResult.BackColor = Color.SandyBrown;
+            buttonCopyResult.FlatStyle = FlatStyle.Flat;
+            buttonCopyResult.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonCopyResult.Location = new Point(3, 327);
+            buttonCopyResult.Name = "buttonCopyResult";
+            buttonCopyResult.Size = new Size(292, 40);
+            buttonCopyResult.TabIndex = 2;
+            buttonCopyResult.Text = "Скопировать все";
+            buttonCopyResult.UseVisualStyleBackColor = false;
+            buttonCopyResult.Click += buttonCopyResult_Click;
+            // 
+            // labelResult
+            // 
+            labelResult.AutoSize = true;
+            labelResult.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            labelResult.Location = new Point(103, 10);
+            labelResult.Name = "labelResult";
+            labelResult.Size = new Size(96, 25);
+            labelResult.TabIndex = 1;
+            labelResult.Text = "Результат";
+            // 
+            // lbResult
+            // 
+            lbResult.BackColor = SystemColors.ControlLight;
+            lbResult.BorderStyle = BorderStyle.FixedSingle;
+            lbResult.ContextMenuStrip = cmsListBox;
+            lbResult.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lbResult.FormattingEnabled = true;
+            lbResult.HorizontalScrollbar = true;
+            lbResult.ItemHeight = 20;
+            lbResult.Location = new Point(3, 42);
+            lbResult.Name = "lbResult";
+            lbResult.Size = new Size(292, 282);
+            lbResult.TabIndex = 0;
+            lbResult.MouseDown += ListBox_MouseDown;
+            // 
+            // cmsListBox
+            // 
+            cmsListBox.Items.AddRange(new ToolStripItem[] { tsmiDeleteSelected, tsmiDeleteAll, tsmiCopy });
+            cmsListBox.Name = "contextMenuStrip1";
+            cmsListBox.Size = new Size(147, 70);
+            cmsListBox.Opening += cmsListBox_Opening;
+            // 
+            // tsmiDeleteSelected
+            // 
+            tsmiDeleteSelected.Name = "tsmiDeleteSelected";
+            tsmiDeleteSelected.Size = new Size(146, 22);
+            tsmiDeleteSelected.Text = "Удалить";
+            tsmiDeleteSelected.Click += tsmiDeleteSelected_Click;
+            // 
+            // tsmiDeleteAll
+            // 
+            tsmiDeleteAll.Name = "tsmiDeleteAll";
+            tsmiDeleteAll.Size = new Size(146, 22);
+            tsmiDeleteAll.Text = "Удалить все";
+            tsmiDeleteAll.Click += tsmiDeleteAll_Click;
+            // 
+            // tsmiCopy
+            // 
+            tsmiCopy.Name = "tsmiCopy";
+            tsmiCopy.Size = new Size(146, 22);
+            tsmiCopy.Text = "Скопировать";
+            tsmiCopy.Click += tsmiCopy_Click;
+            // 
+            // panelAddRecord
+            // 
+            panelAddRecord.BackColor = SystemColors.ControlLight;
+            panelAddRecord.Controls.Add(buttonAddRecord);
+            panelAddRecord.Controls.Add(cbWordAbbreviation);
+            panelAddRecord.Location = new Point(10, 757);
+            panelAddRecord.Name = "panelAddRecord";
+            panelAddRecord.Size = new Size(509, 42);
+            panelAddRecord.TabIndex = 2;
             // 
             // buttonAddRecord
             // 
@@ -602,10 +864,11 @@
             buttonAddRecord.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             buttonAddRecord.Location = new Point(304, 4);
             buttonAddRecord.Name = "buttonAddRecord";
-            buttonAddRecord.Size = new Size(196, 34);
+            buttonAddRecord.Size = new Size(202, 34);
             buttonAddRecord.TabIndex = 1;
             buttonAddRecord.Text = "Добавить";
             buttonAddRecord.UseVisualStyleBackColor = false;
+            buttonAddRecord.Click += buttonAddRecord_Click;
             // 
             // cbWordAbbreviation
             // 
@@ -628,7 +891,7 @@
             tcCategories.Name = "tcCategories";
             tcCategories.RightToLeft = RightToLeft.No;
             tcCategories.SelectedIndex = 0;
-            tcCategories.Size = new Size(526, 790);
+            tcCategories.Size = new Size(529, 748);
             tcCategories.TabIndex = 1;
             // 
             // tpSingleVolume
@@ -638,13 +901,14 @@
             tpSingleVolume.Location = new Point(4, 24);
             tpSingleVolume.Name = "tpSingleVolume";
             tpSingleVolume.Padding = new Padding(3);
-            tpSingleVolume.Size = new Size(518, 762);
+            tpSingleVolume.Size = new Size(521, 720);
             tpSingleVolume.TabIndex = 0;
             tpSingleVolume.Text = "Одночастные (однотомные) ресурсы";
             // 
             // tcSVTypes
             // 
             tcSVTypes.Controls.Add(tpSVBook);
+            tcSVTypes.Controls.Add(tpSVConferenceMaterials);
             tcSVTypes.Controls.Add(tpSVRegulatoryDocument);
             tcSVTypes.Controls.Add(tpSVDissertationAbstract);
             tcSVTypes.Controls.Add(tpSVDissertation);
@@ -652,7 +916,7 @@
             tcSVTypes.Location = new Point(3, 6);
             tcSVTypes.Name = "tcSVTypes";
             tcSVTypes.SelectedIndex = 0;
-            tcSVTypes.Size = new Size(513, 752);
+            tcSVTypes.Size = new Size(513, 709);
             tcSVTypes.TabIndex = 0;
             // 
             // tpSVBook
@@ -663,153 +927,232 @@
             tpSVBook.Location = new Point(4, 24);
             tpSVBook.Name = "tpSVBook";
             tpSVBook.Padding = new Padding(3);
-            tpSVBook.Size = new Size(505, 724);
+            tpSVBook.Size = new Size(505, 681);
             tpSVBook.TabIndex = 0;
             tpSVBook.Text = "Книга";
             // 
             // gpSVBookRequired
             // 
-            gpSVBookRequired.Controls.Add(labelSVBAuthors);
-            gpSVBookRequired.Controls.Add(textBoxAuthors);
-            gpSVBookRequired.Controls.Add(buttonAddAuthor);
-            gpSVBookRequired.Controls.Add(listBoxAuthors);
-            gpSVBookRequired.Controls.Add(labelSVBTitle);
-            gpSVBookRequired.Controls.Add(textBoxTitle);
-            gpSVBookRequired.Controls.Add(labelSVBPublishingLocation);
-            gpSVBookRequired.Controls.Add(textBoxPublishingLocation);
-            gpSVBookRequired.Controls.Add(labelSVBPublisher);
-            gpSVBookRequired.Controls.Add(textBoxPublisher);
-            gpSVBookRequired.Controls.Add(labelSVBPublishYear);
-            gpSVBookRequired.Controls.Add(textBoxYear);
-            gpSVBookRequired.Controls.Add(labelSVBPagesCount);
-            gpSVBookRequired.Controls.Add(textBoxPages);
+            gpSVBookRequired.Controls.Add(panelSVBookRequired);
             gpSVBookRequired.Location = new Point(10, 10);
             gpSVBookRequired.Name = "gpSVBookRequired";
-            gpSVBookRequired.Size = new Size(488, 400);
+            gpSVBookRequired.Size = new Size(488, 330);
             gpSVBookRequired.TabIndex = 0;
             gpSVBookRequired.TabStop = false;
             gpSVBookRequired.Text = "Обязательные поля";
             // 
+            // panelSVBookRequired
+            // 
+            panelSVBookRequired.AutoScroll = true;
+            panelSVBookRequired.Controls.Add(cbSVBAuthors);
+            panelSVBookRequired.Controls.Add(buttonSVBPublisherAdd);
+            panelSVBookRequired.Controls.Add(lbSVBPublisher);
+            panelSVBookRequired.Controls.Add(buttonSVBPublishingLocationAdd);
+            panelSVBookRequired.Controls.Add(lbSVBPublishingLocation);
+            panelSVBookRequired.Controls.Add(labelSVBAuthors);
+            panelSVBookRequired.Controls.Add(tbSVBAuthors);
+            panelSVBookRequired.Controls.Add(tbSVBPagesCount);
+            panelSVBookRequired.Controls.Add(buttonSVBAuthorsAdd);
+            panelSVBookRequired.Controls.Add(labelSVBPagesCount);
+            panelSVBookRequired.Controls.Add(lbSVBAuthors);
+            panelSVBookRequired.Controls.Add(tbSVBPublishYear);
+            panelSVBookRequired.Controls.Add(labelSVBTitle);
+            panelSVBookRequired.Controls.Add(labelSVBPublishYear);
+            panelSVBookRequired.Controls.Add(tbSVBTitle);
+            panelSVBookRequired.Controls.Add(tbSVBPublisher);
+            panelSVBookRequired.Controls.Add(labelSVBPublishingLocation);
+            panelSVBookRequired.Controls.Add(labelSVBPublisher);
+            panelSVBookRequired.Controls.Add(tbSVBPublishingLocation);
+            panelSVBookRequired.Location = new Point(10, 22);
+            panelSVBookRequired.Name = "panelSVBookRequired";
+            panelSVBookRequired.Size = new Size(473, 302);
+            panelSVBookRequired.TabIndex = 14;
+            // 
+            // cbSVBAuthors
+            // 
+            cbSVBAuthors.AutoSize = true;
+            cbSVBAuthors.Location = new Point(371, 22);
+            cbSVBAuthors.Name = "cbSVBAuthors";
+            cbSVBAuthors.Size = new Size(79, 19);
+            cbSVBAuthors.TabIndex = 18;
+            cbSVBAuthors.Text = "5 авторов";
+            ttMain.SetToolTip(cbSVBAuthors, "Включить логику формирования для 5 и более авторов.\r\n[Включается автоматически при добавлении 5 и более авторов]");
+            cbSVBAuthors.UseVisualStyleBackColor = true;
+            // 
+            // buttonSVBPublisherAdd
+            // 
+            buttonSVBPublisherAdd.Location = new Point(360, 308);
+            buttonSVBPublisherAdd.Name = "buttonSVBPublisherAdd";
+            buttonSVBPublisherAdd.Size = new Size(90, 23);
+            buttonSVBPublisherAdd.TabIndex = 17;
+            buttonSVBPublisherAdd.Text = "Добавить";
+            buttonSVBPublisherAdd.UseVisualStyleBackColor = true;
+            buttonSVBPublisherAdd.Click += buttonSVBPublisherAdd_Click;
+            // 
+            // lbSVBPublisher
+            // 
+            lbSVBPublisher.ContextMenuStrip = cmsListBox;
+            lbSVBPublisher.ItemHeight = 15;
+            lbSVBPublisher.Location = new Point(0, 337);
+            lbSVBPublisher.Name = "lbSVBPublisher";
+            lbSVBPublisher.Size = new Size(450, 64);
+            lbSVBPublisher.TabIndex = 16;
+            lbSVBPublisher.MouseDown += ListBox_MouseDown;
+            // 
+            // buttonSVBPublishingLocationAdd
+            // 
+            buttonSVBPublishingLocationAdd.Location = new Point(360, 190);
+            buttonSVBPublishingLocationAdd.Name = "buttonSVBPublishingLocationAdd";
+            buttonSVBPublishingLocationAdd.Size = new Size(90, 23);
+            buttonSVBPublishingLocationAdd.TabIndex = 15;
+            buttonSVBPublishingLocationAdd.Text = "Добавить";
+            buttonSVBPublishingLocationAdd.UseVisualStyleBackColor = true;
+            buttonSVBPublishingLocationAdd.Click += buttonSVBPublishingLocationAdd_Click;
+            // 
+            // lbSVBPublishingLocation
+            // 
+            lbSVBPublishingLocation.ContextMenuStrip = cmsListBox;
+            lbSVBPublishingLocation.ItemHeight = 15;
+            lbSVBPublishingLocation.Location = new Point(0, 219);
+            lbSVBPublishingLocation.Name = "lbSVBPublishingLocation";
+            lbSVBPublishingLocation.Size = new Size(450, 64);
+            lbSVBPublishingLocation.TabIndex = 14;
+            lbSVBPublishingLocation.MouseDown += ListBox_MouseDown;
+            // 
             // labelSVBAuthors
             // 
             labelSVBAuthors.AutoSize = true;
-            labelSVBAuthors.Location = new Point(10, 20);
+            labelSVBAuthors.Location = new Point(0, 0);
             labelSVBAuthors.Name = "labelSVBAuthors";
             labelSVBAuthors.Size = new Size(57, 15);
             labelSVBAuthors.TabIndex = 0;
             labelSVBAuthors.Text = "Автор(ы)";
+            ttMain.SetToolTip(labelSVBAuthors, resources.GetString("labelSVBAuthors.ToolTip"));
             // 
-            // textBoxAuthors
+            // tbSVBAuthors
             // 
-            textBoxAuthors.Location = new Point(10, 40);
-            textBoxAuthors.Name = "textBoxAuthors";
-            textBoxAuthors.Size = new Size(350, 23);
-            textBoxAuthors.TabIndex = 1;
+            tbSVBAuthors.Location = new Point(0, 20);
+            tbSVBAuthors.Name = "tbSVBAuthors";
+            tbSVBAuthors.Size = new Size(269, 23);
+            tbSVBAuthors.TabIndex = 1;
+            ttMain.SetToolTip(tbSVBAuthors, resources.GetString("tbSVBAuthors.ToolTip"));
             // 
-            // buttonAddAuthor
+            // tbSVBPagesCount
             // 
-            buttonAddAuthor.Location = new Point(370, 40);
-            buttonAddAuthor.Name = "buttonAddAuthor";
-            buttonAddAuthor.Size = new Size(90, 23);
-            buttonAddAuthor.TabIndex = 2;
-            buttonAddAuthor.Text = "Добавить";
-            buttonAddAuthor.UseVisualStyleBackColor = true;
-            buttonAddAuthor.Click += buttonAddAuthor_Click;
+            tbSVBPagesCount.Location = new Point(0, 474);
+            tbSVBPagesCount.Name = "tbSVBPagesCount";
+            tbSVBPagesCount.Size = new Size(450, 23);
+            tbSVBPagesCount.TabIndex = 13;
+            ttMain.SetToolTip(tbSVBPagesCount, "Общий объем книги в страницах.\r\nПример: \"134\".\r\n");
             // 
-            // listBoxAuthors
+            // buttonSVBAuthorsAdd
             // 
-            listBoxAuthors.ItemHeight = 15;
-            listBoxAuthors.Location = new Point(10, 70);
-            listBoxAuthors.Name = "listBoxAuthors";
-            listBoxAuthors.Size = new Size(450, 64);
-            listBoxAuthors.TabIndex = 3;
-            // 
-            // labelSVBTitle
-            // 
-            labelSVBTitle.AutoSize = true;
-            labelSVBTitle.Location = new Point(10, 140);
-            labelSVBTitle.Name = "labelSVBTitle";
-            labelSVBTitle.Size = new Size(57, 15);
-            labelSVBTitle.TabIndex = 4;
-            labelSVBTitle.Text = "Заглавие";
-            // 
-            // textBoxTitle
-            // 
-            textBoxTitle.Location = new Point(10, 160);
-            textBoxTitle.Name = "textBoxTitle";
-            textBoxTitle.Size = new Size(450, 23);
-            textBoxTitle.TabIndex = 5;
-            // 
-            // labelSVBPublishingLocation
-            // 
-            labelSVBPublishingLocation.AutoSize = true;
-            labelSVBPublishingLocation.Location = new Point(10, 190);
-            labelSVBPublishingLocation.Name = "labelSVBPublishingLocation";
-            labelSVBPublishingLocation.Size = new Size(89, 15);
-            labelSVBPublishingLocation.TabIndex = 6;
-            labelSVBPublishingLocation.Text = "Место издания";
-            // 
-            // textBoxPublishingLocation
-            // 
-            textBoxPublishingLocation.Location = new Point(10, 210);
-            textBoxPublishingLocation.Name = "textBoxPublishingLocation";
-            textBoxPublishingLocation.Size = new Size(450, 23);
-            textBoxPublishingLocation.TabIndex = 7;
-            // 
-            // labelSVBPublisher
-            // 
-            labelSVBPublisher.AutoSize = true;
-            labelSVBPublisher.Location = new Point(10, 240);
-            labelSVBPublisher.Name = "labelSVBPublisher";
-            labelSVBPublisher.Size = new Size(81, 15);
-            labelSVBPublisher.TabIndex = 8;
-            labelSVBPublisher.Text = "Издательство";
-            // 
-            // textBoxPublisher
-            // 
-            textBoxPublisher.Location = new Point(10, 260);
-            textBoxPublisher.Name = "textBoxPublisher";
-            textBoxPublisher.Size = new Size(450, 23);
-            textBoxPublisher.TabIndex = 9;
-            // 
-            // labelSVBPublishYear
-            // 
-            labelSVBPublishYear.AutoSize = true;
-            labelSVBPublishYear.Location = new Point(10, 290);
-            labelSVBPublishYear.Name = "labelSVBPublishYear";
-            labelSVBPublishYear.Size = new Size(73, 15);
-            labelSVBPublishYear.TabIndex = 10;
-            labelSVBPublishYear.Text = "Год издания";
-            // 
-            // textBoxYear
-            // 
-            textBoxYear.Location = new Point(10, 310);
-            textBoxYear.Name = "textBoxYear";
-            textBoxYear.Size = new Size(450, 23);
-            textBoxYear.TabIndex = 11;
+            buttonSVBAuthorsAdd.Location = new Point(275, 20);
+            buttonSVBAuthorsAdd.Name = "buttonSVBAuthorsAdd";
+            buttonSVBAuthorsAdd.Size = new Size(90, 23);
+            buttonSVBAuthorsAdd.TabIndex = 2;
+            buttonSVBAuthorsAdd.Text = "Добавить";
+            buttonSVBAuthorsAdd.UseVisualStyleBackColor = true;
+            buttonSVBAuthorsAdd.Click += buttonSVBAuthorsAdd_Click;
             // 
             // labelSVBPagesCount
             // 
             labelSVBPagesCount.AutoSize = true;
-            labelSVBPagesCount.Location = new Point(10, 340);
+            labelSVBPagesCount.Location = new Point(0, 454);
             labelSVBPagesCount.Name = "labelSVBPagesCount";
             labelSVBPagesCount.Size = new Size(120, 15);
             labelSVBPagesCount.TabIndex = 12;
             labelSVBPagesCount.Text = "Количество страниц";
+            ttMain.SetToolTip(labelSVBPagesCount, "Общий объем книги в страницах.\r\nПример: \"134\".");
             // 
-            // textBoxPages
+            // lbSVBAuthors
             // 
-            textBoxPages.Location = new Point(10, 360);
-            textBoxPages.Name = "textBoxPages";
-            textBoxPages.Size = new Size(450, 23);
-            textBoxPages.TabIndex = 13;
+            lbSVBAuthors.ContextMenuStrip = cmsListBox;
+            lbSVBAuthors.ItemHeight = 15;
+            lbSVBAuthors.Location = new Point(0, 49);
+            lbSVBAuthors.Name = "lbSVBAuthors";
+            lbSVBAuthors.Size = new Size(450, 64);
+            lbSVBAuthors.TabIndex = 3;
+            lbSVBAuthors.MouseDown += ListBox_MouseDown;
+            // 
+            // tbSVBPublishYear
+            // 
+            tbSVBPublishYear.Location = new Point(0, 424);
+            tbSVBPublishYear.Name = "tbSVBPublishYear";
+            tbSVBPublishYear.Size = new Size(450, 23);
+            tbSVBPublishYear.TabIndex = 11;
+            ttMain.SetToolTip(tbSVBPublishYear, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".");
+            // 
+            // labelSVBTitle
+            // 
+            labelSVBTitle.AutoSize = true;
+            labelSVBTitle.Location = new Point(0, 120);
+            labelSVBTitle.Name = "labelSVBTitle";
+            labelSVBTitle.Size = new Size(57, 15);
+            labelSVBTitle.TabIndex = 4;
+            labelSVBTitle.Text = "Заглавие";
+            ttMain.SetToolTip(labelSVBTitle, "Полное название книги, как указано в источнике, без сокращений.\r\nПример: \"Экономика организации. Ресурсы коммерческой организации\".");
+            // 
+            // labelSVBPublishYear
+            // 
+            labelSVBPublishYear.AutoSize = true;
+            labelSVBPublishYear.Location = new Point(0, 404);
+            labelSVBPublishYear.Name = "labelSVBPublishYear";
+            labelSVBPublishYear.Size = new Size(73, 15);
+            labelSVBPublishYear.TabIndex = 10;
+            labelSVBPublishYear.Text = "Год издания";
+            ttMain.SetToolTip(labelSVBPublishYear, "Год публикации книги в формате четырёх цифр.\nПример: \"2019\".");
+            // 
+            // tbSVBTitle
+            // 
+            tbSVBTitle.Location = new Point(0, 140);
+            tbSVBTitle.Name = "tbSVBTitle";
+            tbSVBTitle.Size = new Size(450, 23);
+            tbSVBTitle.TabIndex = 5;
+            ttMain.SetToolTip(tbSVBTitle, "Полное название книги, как указано в источнике, без сокращений.\r\nПример: \"Экономика организации. Ресурсы коммерческой организации\".");
+            // 
+            // tbSVBPublisher
+            // 
+            tbSVBPublisher.Location = new Point(0, 308);
+            tbSVBPublisher.Name = "tbSVBPublisher";
+            tbSVBPublisher.Size = new Size(354, 23);
+            tbSVBPublisher.TabIndex = 9;
+            ttMain.SetToolTip(tbSVBPublisher, "Название издательства без сокращений в общем случае.\r\nПример: \"Юрайт\" или \"Издательство Урал. университета\".\r\n");
+            // 
+            // labelSVBPublishingLocation
+            // 
+            labelSVBPublishingLocation.AutoSize = true;
+            labelSVBPublishingLocation.Location = new Point(0, 170);
+            labelSVBPublishingLocation.Name = "labelSVBPublishingLocation";
+            labelSVBPublishingLocation.Size = new Size(89, 15);
+            labelSVBPublishingLocation.TabIndex = 6;
+            labelSVBPublishingLocation.Text = "Место издания";
+            ttMain.SetToolTip(labelSVBPublishingLocation, resources.GetString("labelSVBPublishingLocation.ToolTip"));
+            // 
+            // labelSVBPublisher
+            // 
+            labelSVBPublisher.AutoSize = true;
+            labelSVBPublisher.Location = new Point(0, 288);
+            labelSVBPublisher.Name = "labelSVBPublisher";
+            labelSVBPublisher.Size = new Size(81, 15);
+            labelSVBPublisher.TabIndex = 8;
+            labelSVBPublisher.Text = "Издательство";
+            ttMain.SetToolTip(labelSVBPublisher, resources.GetString("labelSVBPublisher.ToolTip"));
+            // 
+            // tbSVBPublishingLocation
+            // 
+            tbSVBPublishingLocation.Location = new Point(0, 190);
+            tbSVBPublishingLocation.Name = "tbSVBPublishingLocation";
+            tbSVBPublishingLocation.Size = new Size(354, 23);
+            tbSVBPublishingLocation.TabIndex = 7;
+            ttMain.SetToolTip(tbSVBPublishingLocation, resources.GetString("tbSVBPublishingLocation.ToolTip"));
             // 
             // gpSVBookOptional
             // 
             gpSVBookOptional.Controls.Add(panelSVBookOptional);
-            gpSVBookOptional.Location = new Point(10, 416);
+            gpSVBookOptional.Location = new Point(10, 346);
             gpSVBookOptional.Name = "gpSVBookOptional";
-            gpSVBookOptional.Size = new Size(488, 302);
+            gpSVBookOptional.Size = new Size(488, 330);
             gpSVBookOptional.TabIndex = 1;
             gpSVBookOptional.TabStop = false;
             gpSVBookOptional.Text = "Необязательные поля";
@@ -817,136 +1160,222 @@
             // panelSVBookOptional
             // 
             panelSVBookOptional.AutoScroll = true;
+            panelSVBookOptional.Controls.Add(cbSVBEditorType);
+            panelSVBookOptional.Controls.Add(lbSVBEditor);
+            panelSVBookOptional.Controls.Add(buttonSVBEditorAdd);
+            panelSVBookOptional.Controls.Add(labelSVBParallelTitle);
+            panelSVBookOptional.Controls.Add(tbSVBParallelTitle);
+            panelSVBookOptional.Controls.Add(labelSVBContentType);
+            panelSVBookOptional.Controls.Add(tbSVBContentType);
             panelSVBookOptional.Controls.Add(labelSVBDocumentType);
-            panelSVBookOptional.Controls.Add(textBoxOrganization);
-            panelSVBookOptional.Controls.Add(textBoxDocumentType);
-            panelSVBookOptional.Controls.Add(labelSVBOrganization);
+            panelSVBookOptional.Controls.Add(tbSVBOrganization);
+            panelSVBookOptional.Controls.Add(tbSVBDocumentType);
             panelSVBookOptional.Controls.Add(labelSVBEditor);
-            panelSVBookOptional.Controls.Add(textBoxTranslator);
-            panelSVBookOptional.Controls.Add(textBoxEditor);
+            panelSVBookOptional.Controls.Add(tbSVBTranslator);
+            panelSVBookOptional.Controls.Add(labelSVBOrganization);
+            panelSVBookOptional.Controls.Add(tbSVBEditor);
             panelSVBookOptional.Controls.Add(labelSVBTranslator);
             panelSVBookOptional.Controls.Add(labelSVBEditionNumber);
-            panelSVBookOptional.Controls.Add(textBoxISBN);
-            panelSVBookOptional.Controls.Add(textBoxEditionNumber);
+            panelSVBookOptional.Controls.Add(tbSVBISBN);
+            panelSVBookOptional.Controls.Add(tbSVBEditionNumber);
             panelSVBookOptional.Controls.Add(labelSVBISBN);
             panelSVBookOptional.Controls.Add(labelSVBSeries);
-            panelSVBookOptional.Controls.Add(textBoxSeries);
+            panelSVBookOptional.Controls.Add(tbSVBSeries);
             panelSVBookOptional.Location = new Point(10, 22);
             panelSVBookOptional.Name = "panelSVBookOptional";
-            panelSVBookOptional.Size = new Size(473, 274);
+            panelSVBookOptional.Size = new Size(473, 302);
             panelSVBookOptional.TabIndex = 14;
+            // 
+            // cbSVBEditorType
+            // 
+            cbSVBEditorType.FormattingEnabled = true;
+            cbSVBEditorType.Items.AddRange(new object[] { "\"Под редакцией\"", "\"Под общей редакцией\"", "\"Ответственный редактор\"" });
+            cbSVBEditorType.Location = new Point(194, 157);
+            cbSVBEditorType.Name = "cbSVBEditorType";
+            cbSVBEditorType.Size = new Size(160, 23);
+            cbSVBEditorType.TabIndex = 20;
+            // 
+            // lbSVBEditor
+            // 
+            lbSVBEditor.ContextMenuStrip = cmsListBox;
+            lbSVBEditor.ItemHeight = 15;
+            lbSVBEditor.Location = new Point(0, 187);
+            lbSVBEditor.Name = "lbSVBEditor";
+            lbSVBEditor.Size = new Size(450, 64);
+            lbSVBEditor.TabIndex = 19;
+            lbSVBEditor.MouseDown += ListBox_MouseDown;
+            // 
+            // buttonSVBEditorAdd
+            // 
+            buttonSVBEditorAdd.Location = new Point(360, 157);
+            buttonSVBEditorAdd.Name = "buttonSVBEditorAdd";
+            buttonSVBEditorAdd.Size = new Size(90, 23);
+            buttonSVBEditorAdd.TabIndex = 18;
+            buttonSVBEditorAdd.Text = "Добавить";
+            buttonSVBEditorAdd.UseVisualStyleBackColor = true;
+            buttonSVBEditorAdd.Click += buttonSVBEditorAdd_Click;
+            // 
+            // labelSVBParallelTitle
+            // 
+            labelSVBParallelTitle.AutoSize = true;
+            labelSVBParallelTitle.Location = new Point(0, 0);
+            labelSVBParallelTitle.Name = "labelSVBParallelTitle";
+            labelSVBParallelTitle.Size = new Size(139, 15);
+            labelSVBParallelTitle.TabIndex = 16;
+            labelSVBParallelTitle.Text = "Параллельное заглавие";
+            ttMain.SetToolTip(labelSVBParallelTitle, "Заглавие, повторённое в документе на другом языке (или в другой письменности), \r\nуказываемое в библиографической записи через знак \"=\".\r\nПример: \"Theorie und Praktikum in der deutschen Grammatik\"");
+            // 
+            // tbSVBParallelTitle
+            // 
+            tbSVBParallelTitle.Location = new Point(0, 20);
+            tbSVBParallelTitle.Name = "tbSVBParallelTitle";
+            tbSVBParallelTitle.Size = new Size(450, 23);
+            tbSVBParallelTitle.TabIndex = 17;
+            ttMain.SetToolTip(tbSVBParallelTitle, "Заглавие, повторённое в документе на другом языке (или в другой письменности), \r\nуказываемое в библиографической записи через знак \"=\".\r\nПример: \"Theorie und Praktikum in der deutschen Grammatik\"\r\n");
+            // 
+            // labelSVBContentType
+            // 
+            labelSVBContentType.AutoSize = true;
+            labelSVBContentType.Location = new Point(0, 92);
+            labelSVBContentType.Name = "labelSVBContentType";
+            labelSVBContentType.Size = new Size(97, 15);
+            labelSVBContentType.TabIndex = 14;
+            labelSVBContentType.Text = "Вид содержания";
+            ttMain.SetToolTip(labelSVBContentType, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            // 
+            // tbSVBContentType
+            // 
+            tbSVBContentType.Location = new Point(0, 112);
+            tbSVBContentType.Name = "tbSVBContentType";
+            tbSVBContentType.Size = new Size(450, 23);
+            tbSVBContentType.TabIndex = 15;
+            ttMain.SetToolTip(tbSVBContentType, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // labelSVBDocumentType
             // 
             labelSVBDocumentType.AutoSize = true;
-            labelSVBDocumentType.Location = new Point(0, 0);
+            labelSVBDocumentType.Location = new Point(0, 46);
             labelSVBDocumentType.Name = "labelSVBDocumentType";
             labelSVBDocumentType.Size = new Size(88, 15);
             labelSVBDocumentType.TabIndex = 0;
             labelSVBDocumentType.Text = "Вид документа";
+            ttMain.SetToolTip(labelSVBDocumentType, "Уточняет тип издания (учебник, монография и т.д.).\r\nВ квадратных скобках указывается, если вид документа не указан в самом источнике напрямую.\r\nПример: \"учебное пособие\" или \"[монография]\".");
             // 
-            // textBoxOrganization
+            // tbSVBOrganization
             // 
-            textBoxOrganization.Location = new Point(0, 320);
-            textBoxOrganization.Name = "textBoxOrganization";
-            textBoxOrganization.Size = new Size(450, 23);
-            textBoxOrganization.TabIndex = 13;
+            tbSVBOrganization.Location = new Point(0, 470);
+            tbSVBOrganization.Name = "tbSVBOrganization";
+            tbSVBOrganization.Size = new Size(450, 23);
+            tbSVBOrganization.TabIndex = 13;
+            ttMain.SetToolTip(tbSVBOrganization, resources.GetString("tbSVBOrganization.ToolTip"));
             // 
-            // textBoxDocumentType
+            // tbSVBDocumentType
             // 
-            textBoxDocumentType.Location = new Point(0, 20);
-            textBoxDocumentType.Name = "textBoxDocumentType";
-            textBoxDocumentType.Size = new Size(450, 23);
-            textBoxDocumentType.TabIndex = 1;
-            // 
-            // labelSVBOrganization
-            // 
-            labelSVBOrganization.AutoSize = true;
-            labelSVBOrganization.Location = new Point(0, 300);
-            labelSVBOrganization.Name = "labelSVBOrganization";
-            labelSVBOrganization.Size = new Size(79, 15);
-            labelSVBOrganization.TabIndex = 12;
-            labelSVBOrganization.Text = "Организация";
+            tbSVBDocumentType.Location = new Point(0, 66);
+            tbSVBDocumentType.Name = "tbSVBDocumentType";
+            tbSVBDocumentType.Size = new Size(450, 23);
+            tbSVBDocumentType.TabIndex = 1;
+            ttMain.SetToolTip(tbSVBDocumentType, "Уточняет тип издания (учебник, монография и т.д.).\r\nВ квадратных скобках указывается, если вид документа не указан в самом источнике напрямую.\r\nПример: \"учебное пособие\" или \"[монография]\".");
             // 
             // labelSVBEditor
             // 
             labelSVBEditor.AutoSize = true;
-            labelSVBEditor.Location = new Point(0, 50);
+            labelSVBEditor.Location = new Point(0, 138);
             labelSVBEditor.Name = "labelSVBEditor";
             labelSVBEditor.Size = new Size(57, 15);
             labelSVBEditor.TabIndex = 2;
             labelSVBEditor.Text = "Редактор";
+            ttMain.SetToolTip(labelSVBEditor, "Имя редактора, если он указан, которое добавляется после \"; под редакцией\". Формат: инициалы, фамилия в родительском падеже.\r\nПример: \"Н. Р. Кельчевской\".");
             // 
-            // textBoxTranslator
+            // tbSVBTranslator
             // 
-            textBoxTranslator.Location = new Point(0, 270);
-            textBoxTranslator.Name = "textBoxTranslator";
-            textBoxTranslator.Size = new Size(450, 23);
-            textBoxTranslator.TabIndex = 11;
+            tbSVBTranslator.Location = new Point(0, 424);
+            tbSVBTranslator.Name = "tbSVBTranslator";
+            tbSVBTranslator.Size = new Size(450, 23);
+            tbSVBTranslator.TabIndex = 11;
+            ttMain.SetToolTip(tbSVBTranslator, "Имя переводчика для переводных изданий, после \"; перевод с …\".\r\nПример: \"английского А. Ю. Заякина\".\r\n");
             // 
-            // textBoxEditor
+            // labelSVBOrganization
             // 
-            textBoxEditor.Location = new Point(0, 70);
-            textBoxEditor.Name = "textBoxEditor";
-            textBoxEditor.Size = new Size(450, 23);
-            textBoxEditor.TabIndex = 3;
+            labelSVBOrganization.AutoSize = true;
+            labelSVBOrganization.Location = new Point(0, 450);
+            labelSVBOrganization.Name = "labelSVBOrganization";
+            labelSVBOrganization.Size = new Size(79, 15);
+            labelSVBOrganization.TabIndex = 12;
+            labelSVBOrganization.Text = "Организация";
+            ttMain.SetToolTip(labelSVBOrganization, resources.GetString("labelSVBOrganization.ToolTip"));
+            // 
+            // tbSVBEditor
+            // 
+            tbSVBEditor.Location = new Point(0, 158);
+            tbSVBEditor.Name = "tbSVBEditor";
+            tbSVBEditor.Size = new Size(188, 23);
+            tbSVBEditor.TabIndex = 3;
+            ttMain.SetToolTip(tbSVBEditor, resources.GetString("tbSVBEditor.ToolTip"));
             // 
             // labelSVBTranslator
             // 
             labelSVBTranslator.AutoSize = true;
-            labelSVBTranslator.Location = new Point(0, 250);
+            labelSVBTranslator.Location = new Point(0, 404);
             labelSVBTranslator.Name = "labelSVBTranslator";
             labelSVBTranslator.Size = new Size(74, 15);
             labelSVBTranslator.TabIndex = 10;
             labelSVBTranslator.Text = "Переводчик";
+            ttMain.SetToolTip(labelSVBTranslator, "Имя переводчика для переводных изданий, после \"; перевод с …\".\r\nПример: \"английского А. Ю. Заякина\".");
             // 
             // labelSVBEditionNumber
             // 
             labelSVBEditionNumber.AutoSize = true;
-            labelSVBEditionNumber.Location = new Point(0, 100);
+            labelSVBEditionNumber.Location = new Point(0, 254);
             labelSVBEditionNumber.Name = "labelSVBEditionNumber";
             labelSVBEditionNumber.Size = new Size(92, 15);
             labelSVBEditionNumber.TabIndex = 4;
             labelSVBEditionNumber.Text = "Номер издания";
+            ttMain.SetToolTip(labelSVBEditionNumber, "Номер издания и уточнения (переработанное, дополненное), если не первое, перед местом издания.\r\nПример: \"2-е издание, переработанное и дополненное\".");
             // 
-            // textBoxISBN
+            // tbSVBISBN
             // 
-            textBoxISBN.Location = new Point(0, 220);
-            textBoxISBN.Name = "textBoxISBN";
-            textBoxISBN.Size = new Size(450, 23);
-            textBoxISBN.TabIndex = 9;
+            tbSVBISBN.Location = new Point(0, 374);
+            tbSVBISBN.Name = "tbSVBISBN";
+            tbSVBISBN.Size = new Size(450, 23);
+            tbSVBISBN.TabIndex = 9;
+            ttMain.SetToolTip(tbSVBISBN, "Международный стандартный номер книги.\r\nПример: \"978-5-534-10585-8\".");
             // 
-            // textBoxEditionNumber
+            // tbSVBEditionNumber
             // 
-            textBoxEditionNumber.Location = new Point(0, 120);
-            textBoxEditionNumber.Name = "textBoxEditionNumber";
-            textBoxEditionNumber.Size = new Size(450, 23);
-            textBoxEditionNumber.TabIndex = 5;
+            tbSVBEditionNumber.Location = new Point(0, 274);
+            tbSVBEditionNumber.Name = "tbSVBEditionNumber";
+            tbSVBEditionNumber.Size = new Size(450, 23);
+            tbSVBEditionNumber.TabIndex = 5;
+            ttMain.SetToolTip(tbSVBEditionNumber, "Номер издания и уточнения (переработанное, дополненное), если не первое, перед местом издания.\r\nПример: \"2-е издание, перераб. и доп.\".");
             // 
             // labelSVBISBN
             // 
             labelSVBISBN.AutoSize = true;
-            labelSVBISBN.Location = new Point(0, 200);
+            labelSVBISBN.Location = new Point(0, 354);
             labelSVBISBN.Name = "labelSVBISBN";
             labelSVBISBN.Size = new Size(32, 15);
             labelSVBISBN.TabIndex = 8;
             labelSVBISBN.Text = "ISBN";
+            ttMain.SetToolTip(labelSVBISBN, "Международный стандартный номер книги.\r\nПример: \"978-5-534-10585-8\".");
             // 
             // labelSVBSeries
             // 
             labelSVBSeries.AutoSize = true;
-            labelSVBSeries.Location = new Point(0, 150);
+            labelSVBSeries.Location = new Point(0, 304);
             labelSVBSeries.Name = "labelSVBSeries";
             labelSVBSeries.Size = new Size(41, 15);
             labelSVBSeries.TabIndex = 6;
             labelSVBSeries.Text = "Серия";
+            ttMain.SetToolTip(labelSVBSeries, "Название серии, в которой издана книга.\r\nПример: \"Профессиональное образование\".");
             // 
-            // textBoxSeries
+            // tbSVBSeries
             // 
-            textBoxSeries.Location = new Point(0, 170);
-            textBoxSeries.Name = "textBoxSeries";
-            textBoxSeries.Size = new Size(450, 23);
-            textBoxSeries.TabIndex = 7;
+            tbSVBSeries.Location = new Point(0, 324);
+            tbSVBSeries.Name = "tbSVBSeries";
+            tbSVBSeries.Size = new Size(450, 23);
+            tbSVBSeries.TabIndex = 7;
+            ttMain.SetToolTip(tbSVBSeries, "Название серии, в которой издана книга.\r\nПример: \"Профессиональное образование\".\r\n");
             // 
             // tpSVRegulatoryDocument
             // 
@@ -956,25 +1385,25 @@
             tpSVRegulatoryDocument.Location = new Point(4, 24);
             tpSVRegulatoryDocument.Name = "tpSVRegulatoryDocument";
             tpSVRegulatoryDocument.Padding = new Padding(3);
-            tpSVRegulatoryDocument.Size = new Size(505, 724);
+            tpSVRegulatoryDocument.Size = new Size(505, 681);
             tpSVRegulatoryDocument.TabIndex = 1;
             tpSVRegulatoryDocument.Text = "Нормативный документ";
             // 
             // gbSVRegulatoryDocumentRequired
             // 
             gbSVRegulatoryDocumentRequired.Controls.Add(labelSVRDDocumentNumber);
-            gbSVRegulatoryDocumentRequired.Controls.Add(textBox1);
+            gbSVRegulatoryDocumentRequired.Controls.Add(tbSVRDDocumentNumber);
             gbSVRegulatoryDocumentRequired.Controls.Add(labelSVRDTitle);
-            gbSVRegulatoryDocumentRequired.Controls.Add(textBox2);
+            gbSVRegulatoryDocumentRequired.Controls.Add(tbSVRDTitle);
             gbSVRegulatoryDocumentRequired.Controls.Add(labelSVRDPublishingLocation);
-            gbSVRegulatoryDocumentRequired.Controls.Add(textBox3);
+            gbSVRegulatoryDocumentRequired.Controls.Add(tbSVRDPublishingLocation);
             gbSVRegulatoryDocumentRequired.Controls.Add(labelSVRDPublisher);
-            gbSVRegulatoryDocumentRequired.Controls.Add(textBox4);
+            gbSVRegulatoryDocumentRequired.Controls.Add(tbSVRDPublisher);
             gbSVRegulatoryDocumentRequired.Controls.Add(labelSVRDPublishYear);
-            gbSVRegulatoryDocumentRequired.Controls.Add(textBox5);
+            gbSVRegulatoryDocumentRequired.Controls.Add(tbSVRDPublishYear);
             gbSVRegulatoryDocumentRequired.Location = new Point(10, 10);
             gbSVRegulatoryDocumentRequired.Name = "gbSVRegulatoryDocumentRequired";
-            gbSVRegulatoryDocumentRequired.Size = new Size(488, 263);
+            gbSVRegulatoryDocumentRequired.Size = new Size(488, 330);
             gbSVRegulatoryDocumentRequired.TabIndex = 2;
             gbSVRegulatoryDocumentRequired.TabStop = false;
             gbSVRegulatoryDocumentRequired.Text = "Обязательные поля";
@@ -987,13 +1416,15 @@
             labelSVRDDocumentNumber.Size = new Size(106, 15);
             labelSVRDDocumentNumber.TabIndex = 14;
             labelSVRDDocumentNumber.Text = "Номер документа";
+            ttMain.SetToolTip(labelSVRDDocumentNumber, "Уникальный номер документа (ГОСТа, закона), включая префиксы.\nПример: \"ГОСТ Р 57564–2017\" или \"№ 131-ФЗ\".");
             // 
-            // textBox1
+            // tbSVRDDocumentNumber
             // 
-            textBox1.Location = new Point(10, 87);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(450, 23);
-            textBox1.TabIndex = 15;
+            tbSVRDDocumentNumber.Location = new Point(10, 87);
+            tbSVRDDocumentNumber.Name = "tbSVRDDocumentNumber";
+            tbSVRDDocumentNumber.Size = new Size(450, 23);
+            tbSVRDDocumentNumber.TabIndex = 15;
+            ttMain.SetToolTip(tbSVRDDocumentNumber, "Уникальный номер документа (ГОСТа, закона), включая префиксы.\r\nПример: \"ГОСТ Р 57564–2017\" или \"№ 131-ФЗ\".");
             // 
             // labelSVRDTitle
             // 
@@ -1003,13 +1434,15 @@
             labelSVRDTitle.Size = new Size(57, 15);
             labelSVRDTitle.TabIndex = 4;
             labelSVRDTitle.Text = "Заглавие";
+            ttMain.SetToolTip(labelSVRDTitle, "Полное название документа, как указано в источнике.\r\nПример: \"Организация и проведение работ по международной стандартизации в Российской Федерации\" или \"Уголовный кодекс Российской Федерации\".");
             // 
-            // textBox2
+            // tbSVRDTitle
             // 
-            textBox2.Location = new Point(10, 40);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(450, 23);
-            textBox2.TabIndex = 5;
+            tbSVRDTitle.Location = new Point(10, 40);
+            tbSVRDTitle.Name = "tbSVRDTitle";
+            tbSVRDTitle.Size = new Size(450, 23);
+            tbSVRDTitle.TabIndex = 5;
+            ttMain.SetToolTip(tbSVRDTitle, "Полное название документа, как указано в источнике.\nПример: \"Организация и проведение работ по международной стандартизации в Российской Федерации\" или \"Уголовный кодекс Российской Федерации\".");
             // 
             // labelSVRDPublishingLocation
             // 
@@ -1019,13 +1452,15 @@
             labelSVRDPublishingLocation.Size = new Size(89, 15);
             labelSVRDPublishingLocation.TabIndex = 6;
             labelSVRDPublishingLocation.Text = "Место издания";
+            ttMain.SetToolTip(labelSVRDPublishingLocation, "Город, где документ опубликован.\nПример: \"Москва\".");
             // 
-            // textBox3
+            // tbSVRDPublishingLocation
             // 
-            textBox3.Location = new Point(10, 135);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(450, 23);
-            textBox3.TabIndex = 7;
+            tbSVRDPublishingLocation.Location = new Point(10, 135);
+            tbSVRDPublishingLocation.Name = "tbSVRDPublishingLocation";
+            tbSVRDPublishingLocation.Size = new Size(450, 23);
+            tbSVRDPublishingLocation.TabIndex = 7;
+            ttMain.SetToolTip(tbSVRDPublishingLocation, "Город, где документ опубликован.\nПример: \"Москва\".");
             // 
             // labelSVRDPublisher
             // 
@@ -1035,13 +1470,15 @@
             labelSVRDPublisher.Size = new Size(230, 15);
             labelSVRDPublisher.TabIndex = 8;
             labelSVRDPublisher.Text = "Издательство или источник публикации";
+            ttMain.SetToolTip(labelSVRDPublisher, "Издательство (для ГОСТов) или официальный источник (для законов).\nПример: \"Стандартинформ\" (ГОСТ) или \"Эксмо\" (закон).");
             // 
-            // textBox4
+            // tbSVRDPublisher
             // 
-            textBox4.Location = new Point(10, 181);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(450, 23);
-            textBox4.TabIndex = 9;
+            tbSVRDPublisher.Location = new Point(10, 181);
+            tbSVRDPublisher.Name = "tbSVRDPublisher";
+            tbSVRDPublisher.Size = new Size(450, 23);
+            tbSVRDPublisher.TabIndex = 9;
+            ttMain.SetToolTip(tbSVRDPublisher, "Издательство (для ГОСТов) или официальный источник (для законов).\nПример: \"Стандартинформ\" (ГОСТ) или \"Эксмо\" (закон).");
             // 
             // labelSVRDPublishYear
             // 
@@ -1051,20 +1488,22 @@
             labelSVRDPublishYear.Size = new Size(73, 15);
             labelSVRDPublishYear.TabIndex = 10;
             labelSVRDPublishYear.Text = "Год издания";
+            ttMain.SetToolTip(labelSVRDPublishYear, "Год публикации документа.\nПример: \"2017\".");
             // 
-            // textBox5
+            // tbSVRDPublishYear
             // 
-            textBox5.Location = new Point(10, 227);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(450, 23);
-            textBox5.TabIndex = 11;
+            tbSVRDPublishYear.Location = new Point(10, 227);
+            tbSVRDPublishYear.Name = "tbSVRDPublishYear";
+            tbSVRDPublishYear.Size = new Size(450, 23);
+            tbSVRDPublishYear.TabIndex = 11;
+            ttMain.SetToolTip(tbSVRDPublishYear, "Год публикации документа.\r\nПример: \"2017\".");
             // 
             // gbSVRegulatoryDocumentOptional
             // 
             gbSVRegulatoryDocumentOptional.Controls.Add(panelSVRegulatoryDocumentOptional);
-            gbSVRegulatoryDocumentOptional.Location = new Point(10, 279);
+            gbSVRegulatoryDocumentOptional.Location = new Point(10, 346);
             gbSVRegulatoryDocumentOptional.Name = "gbSVRegulatoryDocumentOptional";
-            gbSVRegulatoryDocumentOptional.Size = new Size(488, 439);
+            gbSVRegulatoryDocumentOptional.Size = new Size(488, 330);
             gbSVRegulatoryDocumentOptional.TabIndex = 3;
             gbSVRegulatoryDocumentOptional.TabStop = false;
             gbSVRegulatoryDocumentOptional.Text = "Необязательные поля";
@@ -1074,29 +1513,29 @@
             panelSVRegulatoryDocumentOptional.AutoScroll = true;
             panelSVRegulatoryDocumentOptional.Controls.Add(labelSVRDCountry);
             panelSVRegulatoryDocumentOptional.Controls.Add(labelSVRDDocumentType);
-            panelSVRegulatoryDocumentOptional.Controls.Add(textBox16);
-            panelSVRegulatoryDocumentOptional.Controls.Add(textBox13);
+            panelSVRegulatoryDocumentOptional.Controls.Add(tbSVRDCountry);
+            panelSVRegulatoryDocumentOptional.Controls.Add(tbSVRDOfficialEdition);
             panelSVRegulatoryDocumentOptional.Controls.Add(labelSVRDAdditions);
             panelSVRegulatoryDocumentOptional.Controls.Add(labelSVRDOfficialEdition);
-            panelSVRegulatoryDocumentOptional.Controls.Add(textBox15);
-            panelSVRegulatoryDocumentOptional.Controls.Add(textBox12);
+            panelSVRegulatoryDocumentOptional.Controls.Add(tbSVRDAdditions);
+            panelSVRegulatoryDocumentOptional.Controls.Add(tbSVRDTitleTranslation);
             panelSVRegulatoryDocumentOptional.Controls.Add(labelSVRDAbbreviation);
             panelSVRegulatoryDocumentOptional.Controls.Add(labelSVRDTitleTranslation);
-            panelSVRegulatoryDocumentOptional.Controls.Add(textBox14);
-            panelSVRegulatoryDocumentOptional.Controls.Add(textBox11);
+            panelSVRegulatoryDocumentOptional.Controls.Add(tbSVRDAbbreviation);
+            panelSVRegulatoryDocumentOptional.Controls.Add(tbSVRDISBN);
             panelSVRegulatoryDocumentOptional.Controls.Add(labelSVRDPagesCount);
             panelSVRegulatoryDocumentOptional.Controls.Add(labelSVRDISBN);
-            panelSVRegulatoryDocumentOptional.Controls.Add(textBox6);
-            panelSVRegulatoryDocumentOptional.Controls.Add(textBox10);
+            panelSVRegulatoryDocumentOptional.Controls.Add(tbSVRDPagesCount);
+            panelSVRegulatoryDocumentOptional.Controls.Add(tbSVRDDeveloper);
             panelSVRegulatoryDocumentOptional.Controls.Add(labelSVRDDeveloper);
-            panelSVRegulatoryDocumentOptional.Controls.Add(textBox7);
-            panelSVRegulatoryDocumentOptional.Controls.Add(textBox9);
+            panelSVRegulatoryDocumentOptional.Controls.Add(tbSVRDDocumentType);
+            panelSVRegulatoryDocumentOptional.Controls.Add(tbSVRDImplementDate);
             panelSVRegulatoryDocumentOptional.Controls.Add(labelSVRDApprovalDate);
             panelSVRegulatoryDocumentOptional.Controls.Add(labelSVRDImplementDate);
-            panelSVRegulatoryDocumentOptional.Controls.Add(textBox8);
+            panelSVRegulatoryDocumentOptional.Controls.Add(tbSVRDApprovalDate);
             panelSVRegulatoryDocumentOptional.Location = new Point(10, 22);
             panelSVRegulatoryDocumentOptional.Name = "panelSVRegulatoryDocumentOptional";
-            panelSVRegulatoryDocumentOptional.Size = new Size(473, 411);
+            panelSVRegulatoryDocumentOptional.Size = new Size(473, 302);
             panelSVRegulatoryDocumentOptional.TabIndex = 22;
             // 
             // labelSVRDCountry
@@ -1107,6 +1546,7 @@
             labelSVRDCountry.Size = new Size(46, 15);
             labelSVRDCountry.TabIndex = 20;
             labelSVRDCountry.Text = "Страна";
+            ttMain.SetToolTip(labelSVRDCountry, "Юрисдикция документа.\nПример: \"Российская Федерация\".");
             // 
             // labelSVRDDocumentType
             // 
@@ -1116,20 +1556,23 @@
             labelSVRDDocumentType.Size = new Size(88, 15);
             labelSVRDDocumentType.TabIndex = 0;
             labelSVRDDocumentType.Text = "Вид документа";
+            ttMain.SetToolTip(labelSVRDDocumentType, "Уточняет тип документа (стандарт, закон).\nПример: \"национальный стандарт Российской Федерации\" или \"федеральный закон\".");
             // 
-            // textBox16
+            // tbSVRDCountry
             // 
-            textBox16.Location = new Point(0, 491);
-            textBox16.Name = "textBox16";
-            textBox16.Size = new Size(450, 23);
-            textBox16.TabIndex = 21;
+            tbSVRDCountry.Location = new Point(0, 491);
+            tbSVRDCountry.Name = "tbSVRDCountry";
+            tbSVRDCountry.Size = new Size(450, 23);
+            tbSVRDCountry.TabIndex = 21;
+            ttMain.SetToolTip(tbSVRDCountry, "Юрисдикция документа.\nПример: \"Российская Федерация\".");
             // 
-            // textBox13
+            // tbSVRDOfficialEdition
             // 
-            textBox13.Location = new Point(0, 360);
-            textBox13.Name = "textBox13";
-            textBox13.Size = new Size(450, 23);
-            textBox13.TabIndex = 13;
+            tbSVRDOfficialEdition.Location = new Point(0, 360);
+            tbSVRDOfficialEdition.Name = "tbSVRDOfficialEdition";
+            tbSVRDOfficialEdition.Size = new Size(450, 23);
+            tbSVRDOfficialEdition.TabIndex = 13;
+            ttMain.SetToolTip(tbSVRDOfficialEdition, "Указание официального статуса документа.\nПример: \"издание официальное\".");
             // 
             // labelSVRDAdditions
             // 
@@ -1139,6 +1582,7 @@
             labelSVRDAdditions.Size = new Size(149, 15);
             labelSVRDAdditions.TabIndex = 18;
             labelSVRDAdditions.Text = "Дополнения и изменения";
+            ttMain.SetToolTip(labelSVRDAdditions, "Указание актуальности текста с датой изменений.\nПример: \"текст с изменениями и дополнениями на 1 августа 2017 года\".");
             // 
             // labelSVRDOfficialEdition
             // 
@@ -1148,20 +1592,23 @@
             labelSVRDOfficialEdition.Size = new Size(132, 15);
             labelSVRDOfficialEdition.TabIndex = 12;
             labelSVRDOfficialEdition.Text = "Издание официальное";
+            ttMain.SetToolTip(labelSVRDOfficialEdition, "Указание официального статуса документа.\nПример: \"издание официальное\".");
             // 
-            // textBox15
+            // tbSVRDAdditions
             // 
-            textBox15.Location = new Point(0, 447);
-            textBox15.Name = "textBox15";
-            textBox15.Size = new Size(450, 23);
-            textBox15.TabIndex = 19;
+            tbSVRDAdditions.Location = new Point(0, 447);
+            tbSVRDAdditions.Name = "tbSVRDAdditions";
+            tbSVRDAdditions.Size = new Size(450, 23);
+            tbSVRDAdditions.TabIndex = 19;
+            ttMain.SetToolTip(tbSVRDAdditions, "Указание актуальности текста с датой изменений.\nПример: \"текст с изменениями и дополнениями на 1 августа 2017 года\".");
             // 
-            // textBox12
+            // tbSVRDTitleTranslation
             // 
-            textBox12.Location = new Point(0, 312);
-            textBox12.Name = "textBox12";
-            textBox12.Size = new Size(450, 23);
-            textBox12.TabIndex = 11;
+            tbSVRDTitleTranslation.Location = new Point(0, 312);
+            tbSVRDTitleTranslation.Name = "tbSVRDTitleTranslation";
+            tbSVRDTitleTranslation.Size = new Size(450, 23);
+            tbSVRDTitleTranslation.TabIndex = 11;
+            ttMain.SetToolTip(tbSVRDTitleTranslation, "Английский перевод названия (для ГОСТов).\nПример: \"= Organization and implementation of activity on international standardization in Russian Federation\".");
             // 
             // labelSVRDAbbreviation
             // 
@@ -1171,6 +1618,7 @@
             labelSVRDAbbreviation.Size = new Size(78, 15);
             labelSVRDAbbreviation.TabIndex = 16;
             labelSVRDAbbreviation.Text = "Сокращение";
+            ttMain.SetToolTip(labelSVRDAbbreviation, "Краткое обозначение документа (для кодексов).\nПример: \"УК\".");
             // 
             // labelSVRDTitleTranslation
             // 
@@ -1180,20 +1628,23 @@
             labelSVRDTitleTranslation.Size = new Size(189, 15);
             labelSVRDTitleTranslation.TabIndex = 10;
             labelSVRDTitleTranslation.Text = "Перевод заглавия на английский";
+            ttMain.SetToolTip(labelSVRDTitleTranslation, "Английский перевод названия (для ГОСТов).\nПример: \"= Organization and implementation of activity on international standardization in Russian Federation\".");
             // 
-            // textBox14
+            // tbSVRDAbbreviation
             // 
-            textBox14.Location = new Point(0, 404);
-            textBox14.Name = "textBox14";
-            textBox14.Size = new Size(450, 23);
-            textBox14.TabIndex = 17;
+            tbSVRDAbbreviation.Location = new Point(0, 404);
+            tbSVRDAbbreviation.Name = "tbSVRDAbbreviation";
+            tbSVRDAbbreviation.Size = new Size(450, 23);
+            tbSVRDAbbreviation.TabIndex = 17;
+            ttMain.SetToolTip(tbSVRDAbbreviation, "Краткое обозначение документа (для кодексов).\nПример: \"УК\".");
             // 
-            // textBox11
+            // tbSVRDISBN
             // 
-            textBox11.Location = new Point(0, 262);
-            textBox11.Name = "textBox11";
-            textBox11.Size = new Size(450, 23);
-            textBox11.TabIndex = 9;
+            tbSVRDISBN.Location = new Point(0, 262);
+            tbSVRDISBN.Name = "tbSVRDISBN";
+            tbSVRDISBN.Size = new Size(450, 23);
+            tbSVRDISBN.TabIndex = 9;
+            ttMain.SetToolTip(tbSVRDISBN, "Номер ISBN, если документ издан в книжной форме.\nПример: \"ISBN 978-5-04-004029-2\".");
             // 
             // labelSVRDPagesCount
             // 
@@ -1203,6 +1654,7 @@
             labelSVRDPagesCount.Size = new Size(120, 15);
             labelSVRDPagesCount.TabIndex = 14;
             labelSVRDPagesCount.Text = "Количество страниц";
+            ttMain.SetToolTip(labelSVRDPagesCount, "Объем документа в страницах.\nПример: \"43 с.\" или \"350 с.\".");
             // 
             // labelSVRDISBN
             // 
@@ -1212,20 +1664,23 @@
             labelSVRDISBN.Size = new Size(32, 15);
             labelSVRDISBN.TabIndex = 8;
             labelSVRDISBN.Text = "ISBN";
+            ttMain.SetToolTip(labelSVRDISBN, "Номер ISBN, если документ издан в книжной форме.\nПример: \"ISBN 978-5-04-004029-2\".");
             // 
-            // textBox6
+            // tbSVRDPagesCount
             // 
-            textBox6.Location = new Point(0, 216);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(450, 23);
-            textBox6.TabIndex = 15;
+            tbSVRDPagesCount.Location = new Point(0, 216);
+            tbSVRDPagesCount.Name = "tbSVRDPagesCount";
+            tbSVRDPagesCount.Size = new Size(450, 23);
+            tbSVRDPagesCount.TabIndex = 15;
+            ttMain.SetToolTip(tbSVRDPagesCount, "Объем документа в страницах.\nПример: \"43 с.\" или \"350 с.\".");
             // 
-            // textBox10
+            // tbSVRDDeveloper
             // 
-            textBox10.Location = new Point(0, 170);
-            textBox10.Name = "textBox10";
-            textBox10.Size = new Size(450, 23);
-            textBox10.TabIndex = 7;
+            tbSVRDDeveloper.Location = new Point(0, 170);
+            tbSVRDDeveloper.Name = "tbSVRDDeveloper";
+            tbSVRDDeveloper.Size = new Size(450, 23);
+            tbSVRDDeveloper.TabIndex = 7;
+            ttMain.SetToolTip(tbSVRDDeveloper, "Организация, разработавшая документ (для ГОСТов).\nПример: \"разработан Всероссийским научно-исследовательским институтом стандартизации и сертификации в машиностроении (ВНИИНМАШ)\".");
             // 
             // labelSVRDDeveloper
             // 
@@ -1235,20 +1690,23 @@
             labelSVRDDeveloper.Size = new Size(77, 15);
             labelSVRDDeveloper.TabIndex = 6;
             labelSVRDDeveloper.Text = "Разработчик";
+            ttMain.SetToolTip(labelSVRDDeveloper, "Организация, разработавшая документ (для ГОСТов).\nПример: \"разработан Всероссийским научно-исследовательским институтом стандартизации и сертификации в машиностроении (ВНИИНМАШ)\".");
             // 
-            // textBox7
+            // tbSVRDDocumentType
             // 
-            textBox7.Location = new Point(0, 20);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(450, 23);
-            textBox7.TabIndex = 1;
+            tbSVRDDocumentType.Location = new Point(0, 20);
+            tbSVRDDocumentType.Name = "tbSVRDDocumentType";
+            tbSVRDDocumentType.Size = new Size(450, 23);
+            tbSVRDDocumentType.TabIndex = 1;
+            ttMain.SetToolTip(tbSVRDDocumentType, "Уточняет тип документа (стандарт, закон).\r\nПример: \"национальный стандарт Российской Федерации\" или \"федеральный закон\".");
             // 
-            // textBox9
+            // tbSVRDImplementDate
             // 
-            textBox9.Location = new Point(0, 120);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(450, 23);
-            textBox9.TabIndex = 5;
+            tbSVRDImplementDate.Location = new Point(0, 120);
+            tbSVRDImplementDate.Name = "tbSVRDImplementDate";
+            tbSVRDImplementDate.Size = new Size(450, 23);
+            tbSVRDImplementDate.TabIndex = 5;
+            ttMain.SetToolTip(tbSVRDImplementDate, "Дата начала действия или одобрения документа.\nПример: \"дата введения 2017-12-01\" или \"одобрен Советом Федерации 5 июня 1996 года\".");
             // 
             // labelSVRDApprovalDate
             // 
@@ -1258,6 +1716,7 @@
             labelSVRDApprovalDate.Size = new Size(163, 15);
             labelSVRDApprovalDate.TabIndex = 2;
             labelSVRDApprovalDate.Text = "Дата утверждения/принятия";
+            ttMain.SetToolTip(labelSVRDApprovalDate, resources.GetString("labelSVRDApprovalDate.ToolTip"));
             // 
             // labelSVRDImplementDate
             // 
@@ -1267,13 +1726,15 @@
             labelSVRDImplementDate.Size = new Size(150, 15);
             labelSVRDImplementDate.TabIndex = 4;
             labelSVRDImplementDate.Text = "Дата введения/одобрения";
+            ttMain.SetToolTip(labelSVRDImplementDate, "Дата начала действия или одобрения документа.\nПример: \"дата введения 2017-12-01\" или \"одобрен Советом Федерации 5 июня 1996 года\".");
             // 
-            // textBox8
+            // tbSVRDApprovalDate
             // 
-            textBox8.Location = new Point(0, 70);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(450, 23);
-            textBox8.TabIndex = 3;
+            tbSVRDApprovalDate.Location = new Point(0, 70);
+            tbSVRDApprovalDate.Name = "tbSVRDApprovalDate";
+            tbSVRDApprovalDate.Size = new Size(450, 23);
+            tbSVRDApprovalDate.TabIndex = 3;
+            ttMain.SetToolTip(tbSVRDApprovalDate, resources.GetString("tbSVRDApprovalDate.ToolTip"));
             // 
             // tpSVDissertationAbstract
             // 
@@ -1283,243 +1744,252 @@
             tpSVDissertationAbstract.Location = new Point(4, 24);
             tpSVDissertationAbstract.Name = "tpSVDissertationAbstract";
             tpSVDissertationAbstract.Padding = new Padding(3);
-            tpSVDissertationAbstract.Size = new Size(505, 724);
+            tpSVDissertationAbstract.Size = new Size(505, 681);
             tpSVDissertationAbstract.TabIndex = 2;
             tpSVDissertationAbstract.Text = "Автореферат диссертации";
             // 
             // gbSVDissertationAbstractRequired
             // 
-            gbSVDissertationAbstractRequired.Controls.Add(label24);
-            gbSVDissertationAbstractRequired.Controls.Add(textBox24);
-            gbSVDissertationAbstractRequired.Controls.Add(label23);
-            gbSVDissertationAbstractRequired.Controls.Add(textBox23);
-            gbSVDissertationAbstractRequired.Controls.Add(label22);
-            gbSVDissertationAbstractRequired.Controls.Add(textBox22);
-            gbSVDissertationAbstractRequired.Controls.Add(label17);
-            gbSVDissertationAbstractRequired.Controls.Add(textBox17);
-            gbSVDissertationAbstractRequired.Controls.Add(label18);
-            gbSVDissertationAbstractRequired.Controls.Add(textBox18);
-            gbSVDissertationAbstractRequired.Controls.Add(label19);
-            gbSVDissertationAbstractRequired.Controls.Add(textBox19);
-            gbSVDissertationAbstractRequired.Controls.Add(label20);
-            gbSVDissertationAbstractRequired.Controls.Add(textBox20);
-            gbSVDissertationAbstractRequired.Controls.Add(label21);
-            gbSVDissertationAbstractRequired.Controls.Add(textBox21);
+            gbSVDissertationAbstractRequired.Controls.Add(panelSVDissertationAbstractRequired);
             gbSVDissertationAbstractRequired.Location = new Point(10, 10);
             gbSVDissertationAbstractRequired.Name = "gbSVDissertationAbstractRequired";
-            gbSVDissertationAbstractRequired.Size = new Size(488, 398);
+            gbSVDissertationAbstractRequired.Size = new Size(488, 330);
             gbSVDissertationAbstractRequired.TabIndex = 4;
             gbSVDissertationAbstractRequired.TabStop = false;
             gbSVDissertationAbstractRequired.Text = "Обязательные поля";
             // 
-            // label24
+            // panelSVDissertationAbstractRequired
             // 
-            label24.AutoSize = true;
-            label24.Location = new Point(10, 346);
-            label24.Name = "label24";
-            label24.Size = new Size(88, 15);
-            label24.TabIndex = 20;
-            label24.Text = "Место защиты";
+            panelSVDissertationAbstractRequired.AutoScroll = true;
+            panelSVDissertationAbstractRequired.Controls.Add(labelSVDADefenseLocation);
+            panelSVDissertationAbstractRequired.Controls.Add(labelSVDAAuthor);
+            panelSVDissertationAbstractRequired.Controls.Add(tbSVDADefenseLocation);
+            panelSVDissertationAbstractRequired.Controls.Add(tbSVDAPublishingLocation);
+            panelSVDissertationAbstractRequired.Controls.Add(labelSVDAPagesCount);
+            panelSVDissertationAbstractRequired.Controls.Add(labelSVDAPublishingLocation);
+            panelSVDissertationAbstractRequired.Controls.Add(tbSVDAPagesCount);
+            panelSVDissertationAbstractRequired.Controls.Add(tbSVDADegree);
+            panelSVDissertationAbstractRequired.Controls.Add(labelSVDAPublishYear);
+            panelSVDissertationAbstractRequired.Controls.Add(labelSVDADegree);
+            panelSVDissertationAbstractRequired.Controls.Add(tbSVDAPublishYear);
+            panelSVDissertationAbstractRequired.Controls.Add(tbSVDASpecialty);
+            panelSVDissertationAbstractRequired.Controls.Add(labelSVDATitle);
+            panelSVDissertationAbstractRequired.Controls.Add(labelSVDASpecialty);
+            panelSVDissertationAbstractRequired.Controls.Add(tbSVDATitle);
+            panelSVDissertationAbstractRequired.Controls.Add(tbSVDAAuthor);
+            panelSVDissertationAbstractRequired.Location = new Point(10, 22);
+            panelSVDissertationAbstractRequired.Name = "panelSVDissertationAbstractRequired";
+            panelSVDissertationAbstractRequired.Size = new Size(472, 302);
+            panelSVDissertationAbstractRequired.TabIndex = 8;
             // 
-            // textBox24
+            // labelSVDADefenseLocation
             // 
-            textBox24.Location = new Point(10, 366);
-            textBox24.Name = "textBox24";
-            textBox24.Size = new Size(450, 23);
-            textBox24.TabIndex = 21;
+            labelSVDADefenseLocation.AutoSize = true;
+            labelSVDADefenseLocation.Location = new Point(0, 326);
+            labelSVDADefenseLocation.Name = "labelSVDADefenseLocation";
+            labelSVDADefenseLocation.Size = new Size(88, 15);
+            labelSVDADefenseLocation.TabIndex = 20;
+            labelSVDADefenseLocation.Text = "Место защиты";
             // 
-            // label23
+            // labelSVDAAuthor
             // 
-            label23.AutoSize = true;
-            label23.Location = new Point(10, 301);
-            label23.Name = "label23";
-            label23.Size = new Size(120, 15);
-            label23.TabIndex = 18;
-            label23.Text = "Количество страниц";
+            labelSVDAAuthor.AutoSize = true;
+            labelSVDAAuthor.Location = new Point(0, 0);
+            labelSVDAAuthor.Name = "labelSVDAAuthor";
+            labelSVDAAuthor.Size = new Size(40, 15);
+            labelSVDAAuthor.TabIndex = 4;
+            labelSVDAAuthor.Text = "Автор";
             // 
-            // textBox23
+            // tbSVDADefenseLocation
             // 
-            textBox23.Location = new Point(10, 321);
-            textBox23.Name = "textBox23";
-            textBox23.Size = new Size(450, 23);
-            textBox23.TabIndex = 19;
+            tbSVDADefenseLocation.Location = new Point(0, 346);
+            tbSVDADefenseLocation.Name = "tbSVDADefenseLocation";
+            tbSVDADefenseLocation.Size = new Size(450, 23);
+            tbSVDADefenseLocation.TabIndex = 21;
             // 
-            // label22
+            // tbSVDAPublishingLocation
             // 
-            label22.AutoSize = true;
-            label22.Location = new Point(10, 254);
-            label22.Name = "label22";
-            label22.Size = new Size(73, 15);
-            label22.TabIndex = 16;
-            label22.Text = "Год издания";
+            tbSVDAPublishingLocation.Location = new Point(0, 207);
+            tbSVDAPublishingLocation.Name = "tbSVDAPublishingLocation";
+            tbSVDAPublishingLocation.Size = new Size(450, 23);
+            tbSVDAPublishingLocation.TabIndex = 11;
             // 
-            // textBox22
+            // labelSVDAPagesCount
             // 
-            textBox22.Location = new Point(10, 274);
-            textBox22.Name = "textBox22";
-            textBox22.Size = new Size(450, 23);
-            textBox22.TabIndex = 17;
+            labelSVDAPagesCount.AutoSize = true;
+            labelSVDAPagesCount.Location = new Point(0, 281);
+            labelSVDAPagesCount.Name = "labelSVDAPagesCount";
+            labelSVDAPagesCount.Size = new Size(120, 15);
+            labelSVDAPagesCount.TabIndex = 18;
+            labelSVDAPagesCount.Text = "Количество страниц";
             // 
-            // label17
+            // labelSVDAPublishingLocation
             // 
-            label17.AutoSize = true;
-            label17.Location = new Point(10, 67);
-            label17.Name = "label17";
-            label17.Size = new Size(57, 15);
-            label17.TabIndex = 14;
-            label17.Text = "Заглавие";
+            labelSVDAPublishingLocation.AutoSize = true;
+            labelSVDAPublishingLocation.Location = new Point(0, 187);
+            labelSVDAPublishingLocation.Name = "labelSVDAPublishingLocation";
+            labelSVDAPublishingLocation.Size = new Size(89, 15);
+            labelSVDAPublishingLocation.TabIndex = 10;
+            labelSVDAPublishingLocation.Text = "Место издания";
             // 
-            // textBox17
+            // tbSVDAPagesCount
             // 
-            textBox17.Location = new Point(10, 87);
-            textBox17.Name = "textBox17";
-            textBox17.Size = new Size(450, 23);
-            textBox17.TabIndex = 15;
+            tbSVDAPagesCount.Location = new Point(0, 301);
+            tbSVDAPagesCount.Name = "tbSVDAPagesCount";
+            tbSVDAPagesCount.Size = new Size(450, 23);
+            tbSVDAPagesCount.TabIndex = 19;
             // 
-            // label18
+            // tbSVDADegree
             // 
-            label18.AutoSize = true;
-            label18.Location = new Point(10, 20);
-            label18.Name = "label18";
-            label18.Size = new Size(40, 15);
-            label18.TabIndex = 4;
-            label18.Text = "Автор";
+            tbSVDADegree.Location = new Point(0, 161);
+            tbSVDADegree.Name = "tbSVDADegree";
+            tbSVDADegree.Size = new Size(450, 23);
+            tbSVDADegree.TabIndex = 9;
             // 
-            // textBox18
+            // labelSVDAPublishYear
             // 
-            textBox18.Location = new Point(10, 40);
-            textBox18.Name = "textBox18";
-            textBox18.Size = new Size(450, 23);
-            textBox18.TabIndex = 5;
+            labelSVDAPublishYear.AutoSize = true;
+            labelSVDAPublishYear.Location = new Point(0, 234);
+            labelSVDAPublishYear.Name = "labelSVDAPublishYear";
+            labelSVDAPublishYear.Size = new Size(73, 15);
+            labelSVDAPublishYear.TabIndex = 16;
+            labelSVDAPublishYear.Text = "Год издания";
             // 
-            // label19
+            // labelSVDADegree
             // 
-            label19.AutoSize = true;
-            label19.Location = new Point(10, 115);
-            label19.Name = "label19";
-            label19.Size = new Size(185, 15);
-            label19.TabIndex = 6;
-            label19.Text = "Специальность (код и название)";
+            labelSVDADegree.AutoSize = true;
+            labelSVDADegree.Location = new Point(0, 141);
+            labelSVDADegree.Name = "labelSVDADegree";
+            labelSVDADegree.Size = new Size(52, 15);
+            labelSVDADegree.TabIndex = 8;
+            labelSVDADegree.Text = "Степень";
             // 
-            // textBox19
+            // tbSVDAPublishYear
             // 
-            textBox19.Location = new Point(10, 135);
-            textBox19.Name = "textBox19";
-            textBox19.Size = new Size(450, 23);
-            textBox19.TabIndex = 7;
+            tbSVDAPublishYear.Location = new Point(0, 254);
+            tbSVDAPublishYear.Name = "tbSVDAPublishYear";
+            tbSVDAPublishYear.Size = new Size(450, 23);
+            tbSVDAPublishYear.TabIndex = 17;
             // 
-            // label20
+            // tbSVDASpecialty
             // 
-            label20.AutoSize = true;
-            label20.Location = new Point(10, 161);
-            label20.Name = "label20";
-            label20.Size = new Size(52, 15);
-            label20.TabIndex = 8;
-            label20.Text = "Степень";
+            tbSVDASpecialty.Location = new Point(0, 115);
+            tbSVDASpecialty.Name = "tbSVDASpecialty";
+            tbSVDASpecialty.Size = new Size(450, 23);
+            tbSVDASpecialty.TabIndex = 7;
             // 
-            // textBox20
+            // labelSVDATitle
             // 
-            textBox20.Location = new Point(10, 181);
-            textBox20.Name = "textBox20";
-            textBox20.Size = new Size(450, 23);
-            textBox20.TabIndex = 9;
+            labelSVDATitle.AutoSize = true;
+            labelSVDATitle.Location = new Point(0, 47);
+            labelSVDATitle.Name = "labelSVDATitle";
+            labelSVDATitle.Size = new Size(57, 15);
+            labelSVDATitle.TabIndex = 14;
+            labelSVDATitle.Text = "Заглавие";
             // 
-            // label21
+            // labelSVDASpecialty
             // 
-            label21.AutoSize = true;
-            label21.Location = new Point(10, 207);
-            label21.Name = "label21";
-            label21.Size = new Size(89, 15);
-            label21.TabIndex = 10;
-            label21.Text = "Место издания";
+            labelSVDASpecialty.AutoSize = true;
+            labelSVDASpecialty.Location = new Point(0, 95);
+            labelSVDASpecialty.Name = "labelSVDASpecialty";
+            labelSVDASpecialty.Size = new Size(185, 15);
+            labelSVDASpecialty.TabIndex = 6;
+            labelSVDASpecialty.Text = "Специальность (код и название)";
             // 
-            // textBox21
+            // tbSVDATitle
             // 
-            textBox21.Location = new Point(10, 227);
-            textBox21.Name = "textBox21";
-            textBox21.Size = new Size(450, 23);
-            textBox21.TabIndex = 11;
+            tbSVDATitle.Location = new Point(0, 67);
+            tbSVDATitle.Name = "tbSVDATitle";
+            tbSVDATitle.Size = new Size(450, 23);
+            tbSVDATitle.TabIndex = 15;
+            // 
+            // tbSVDAAuthor
+            // 
+            tbSVDAAuthor.Location = new Point(0, 20);
+            tbSVDAAuthor.Name = "tbSVDAAuthor";
+            tbSVDAAuthor.Size = new Size(450, 23);
+            tbSVDAAuthor.TabIndex = 5;
             // 
             // gbSVDissertationAbstractOptional
             // 
-            gbSVDissertationAbstractOptional.Controls.Add(label26);
-            gbSVDissertationAbstractOptional.Controls.Add(textBox26);
-            gbSVDissertationAbstractOptional.Controls.Add(label27);
-            gbSVDissertationAbstractOptional.Controls.Add(textBox27);
-            gbSVDissertationAbstractOptional.Controls.Add(label28);
-            gbSVDissertationAbstractOptional.Controls.Add(textBox28);
-            gbSVDissertationAbstractOptional.Controls.Add(label29);
-            gbSVDissertationAbstractOptional.Controls.Add(textBox29);
-            gbSVDissertationAbstractOptional.Location = new Point(10, 414);
+            gbSVDissertationAbstractOptional.Controls.Add(labelSVDADocumentType);
+            gbSVDissertationAbstractOptional.Controls.Add(tbSVDADocumentType);
+            gbSVDissertationAbstractOptional.Controls.Add(labelSVDAAuthorFullName);
+            gbSVDissertationAbstractOptional.Controls.Add(tbSVDAAuthorFullName);
+            gbSVDissertationAbstractOptional.Controls.Add(labelSVDAOrganization);
+            gbSVDissertationAbstractOptional.Controls.Add(tbSVDAOrganization);
+            gbSVDissertationAbstractOptional.Controls.Add(labelSVDABibliography);
+            gbSVDissertationAbstractOptional.Controls.Add(tbSVDABibliography);
+            gbSVDissertationAbstractOptional.Location = new Point(10, 346);
             gbSVDissertationAbstractOptional.Name = "gbSVDissertationAbstractOptional";
-            gbSVDissertationAbstractOptional.Size = new Size(488, 304);
+            gbSVDissertationAbstractOptional.Size = new Size(488, 330);
             gbSVDissertationAbstractOptional.TabIndex = 5;
             gbSVDissertationAbstractOptional.TabStop = false;
             gbSVDissertationAbstractOptional.Text = "Необязательные поля";
             // 
-            // label26
+            // labelSVDADocumentType
             // 
-            label26.AutoSize = true;
-            label26.Location = new Point(10, 28);
-            label26.Name = "label26";
-            label26.Size = new Size(88, 15);
-            label26.TabIndex = 0;
-            label26.Text = "Вид документа";
+            labelSVDADocumentType.AutoSize = true;
+            labelSVDADocumentType.Location = new Point(10, 28);
+            labelSVDADocumentType.Name = "labelSVDADocumentType";
+            labelSVDADocumentType.Size = new Size(88, 15);
+            labelSVDADocumentType.TabIndex = 0;
+            labelSVDADocumentType.Text = "Вид документа";
             // 
-            // textBox26
+            // tbSVDADocumentType
             // 
-            textBox26.Location = new Point(10, 48);
-            textBox26.Name = "textBox26";
-            textBox26.Size = new Size(450, 23);
-            textBox26.TabIndex = 1;
+            tbSVDADocumentType.Location = new Point(10, 48);
+            tbSVDADocumentType.Name = "tbSVDADocumentType";
+            tbSVDADocumentType.Size = new Size(450, 23);
+            tbSVDADocumentType.TabIndex = 1;
             // 
-            // label27
+            // labelSVDAAuthorFullName
             // 
-            label27.AutoSize = true;
-            label27.Location = new Point(10, 78);
-            label27.Name = "label27";
-            label27.Size = new Size(115, 15);
-            label27.TabIndex = 2;
-            label27.Text = "Полное имя автора";
+            labelSVDAAuthorFullName.AutoSize = true;
+            labelSVDAAuthorFullName.Location = new Point(10, 78);
+            labelSVDAAuthorFullName.Name = "labelSVDAAuthorFullName";
+            labelSVDAAuthorFullName.Size = new Size(115, 15);
+            labelSVDAAuthorFullName.TabIndex = 2;
+            labelSVDAAuthorFullName.Text = "Полное имя автора";
             // 
-            // textBox27
+            // tbSVDAAuthorFullName
             // 
-            textBox27.Location = new Point(10, 98);
-            textBox27.Name = "textBox27";
-            textBox27.Size = new Size(450, 23);
-            textBox27.TabIndex = 3;
+            tbSVDAAuthorFullName.Location = new Point(10, 98);
+            tbSVDAAuthorFullName.Name = "tbSVDAAuthorFullName";
+            tbSVDAAuthorFullName.Size = new Size(450, 23);
+            tbSVDAAuthorFullName.TabIndex = 3;
             // 
-            // label28
+            // labelSVDAOrganization
             // 
-            label28.AutoSize = true;
-            label28.Location = new Point(10, 128);
-            label28.Name = "label28";
-            label28.Size = new Size(79, 15);
-            label28.TabIndex = 4;
-            label28.Text = "Организация";
+            labelSVDAOrganization.AutoSize = true;
+            labelSVDAOrganization.Location = new Point(10, 128);
+            labelSVDAOrganization.Name = "labelSVDAOrganization";
+            labelSVDAOrganization.Size = new Size(79, 15);
+            labelSVDAOrganization.TabIndex = 4;
+            labelSVDAOrganization.Text = "Организация";
             // 
-            // textBox28
+            // tbSVDAOrganization
             // 
-            textBox28.Location = new Point(10, 148);
-            textBox28.Name = "textBox28";
-            textBox28.Size = new Size(450, 23);
-            textBox28.TabIndex = 5;
+            tbSVDAOrganization.Location = new Point(10, 148);
+            tbSVDAOrganization.Name = "tbSVDAOrganization";
+            tbSVDAOrganization.Size = new Size(450, 23);
+            tbSVDAOrganization.TabIndex = 5;
             // 
-            // label29
+            // labelSVDABibliography
             // 
-            label29.AutoSize = true;
-            label29.Location = new Point(10, 178);
-            label29.Name = "label29";
-            label29.Size = new Size(199, 15);
-            label29.TabIndex = 6;
-            label29.Text = "Библиография (диапазон страниц)";
+            labelSVDABibliography.AutoSize = true;
+            labelSVDABibliography.Location = new Point(10, 178);
+            labelSVDABibliography.Name = "labelSVDABibliography";
+            labelSVDABibliography.Size = new Size(199, 15);
+            labelSVDABibliography.TabIndex = 6;
+            labelSVDABibliography.Text = "Библиография (диапазон страниц)";
             // 
-            // textBox29
+            // tbSVDABibliography
             // 
-            textBox29.Location = new Point(10, 198);
-            textBox29.Name = "textBox29";
-            textBox29.Size = new Size(450, 23);
-            textBox29.TabIndex = 7;
+            tbSVDABibliography.Location = new Point(10, 198);
+            tbSVDABibliography.Name = "tbSVDABibliography";
+            tbSVDABibliography.Size = new Size(450, 23);
+            tbSVDABibliography.TabIndex = 7;
             // 
             // tpSVDissertation
             // 
@@ -1529,225 +1999,234 @@
             tpSVDissertation.Location = new Point(4, 24);
             tpSVDissertation.Name = "tpSVDissertation";
             tpSVDissertation.Padding = new Padding(3);
-            tpSVDissertation.Size = new Size(505, 724);
+            tpSVDissertation.Size = new Size(505, 681);
             tpSVDissertation.TabIndex = 3;
             tpSVDissertation.Text = "Диссертация";
             // 
             // gbSVDissertationRequired
             // 
-            gbSVDissertationRequired.Controls.Add(label30);
-            gbSVDissertationRequired.Controls.Add(textBox30);
-            gbSVDissertationRequired.Controls.Add(label31);
-            gbSVDissertationRequired.Controls.Add(textBox31);
-            gbSVDissertationRequired.Controls.Add(label32);
-            gbSVDissertationRequired.Controls.Add(textBox32);
-            gbSVDissertationRequired.Controls.Add(label33);
-            gbSVDissertationRequired.Controls.Add(textBox33);
-            gbSVDissertationRequired.Controls.Add(label34);
-            gbSVDissertationRequired.Controls.Add(textBox34);
-            gbSVDissertationRequired.Controls.Add(label35);
-            gbSVDissertationRequired.Controls.Add(textBox35);
-            gbSVDissertationRequired.Controls.Add(label36);
-            gbSVDissertationRequired.Controls.Add(textBox36);
+            gbSVDissertationRequired.Controls.Add(panelSVDissertationRequired);
             gbSVDissertationRequired.Location = new Point(10, 10);
             gbSVDissertationRequired.Name = "gbSVDissertationRequired";
-            gbSVDissertationRequired.Size = new Size(488, 355);
+            gbSVDissertationRequired.Size = new Size(488, 330);
             gbSVDissertationRequired.TabIndex = 6;
             gbSVDissertationRequired.TabStop = false;
             gbSVDissertationRequired.Text = "Обязательные поля";
             // 
-            // label30
+            // panelSVDissertationRequired
             // 
-            label30.AutoSize = true;
-            label30.Location = new Point(10, 301);
-            label30.Name = "label30";
-            label30.Size = new Size(120, 15);
-            label30.TabIndex = 18;
-            label30.Text = "Количество страниц";
+            panelSVDissertationRequired.AutoScroll = true;
+            panelSVDissertationRequired.Controls.Add(labelSVDPagesCount);
+            panelSVDissertationRequired.Controls.Add(labelSVDAuthor);
+            panelSVDissertationRequired.Controls.Add(tbSVDPagesCount);
+            panelSVDissertationRequired.Controls.Add(tbSVDPublishingLocation);
+            panelSVDissertationRequired.Controls.Add(labelSVDPublishYear);
+            panelSVDissertationRequired.Controls.Add(labelSVDPublishingLocation);
+            panelSVDissertationRequired.Controls.Add(tbSVDPublishYear);
+            panelSVDissertationRequired.Controls.Add(tbSVDDegree);
+            panelSVDissertationRequired.Controls.Add(labelSVDTitle);
+            panelSVDissertationRequired.Controls.Add(labelSVDDegree);
+            panelSVDissertationRequired.Controls.Add(tbSVDTitle);
+            panelSVDissertationRequired.Controls.Add(tbSVDSpecialty);
+            panelSVDissertationRequired.Controls.Add(labelSVDSpecialty);
+            panelSVDissertationRequired.Controls.Add(tbSVDAuthor);
+            panelSVDissertationRequired.Location = new Point(10, 22);
+            panelSVDissertationRequired.Name = "panelSVDissertationRequired";
+            panelSVDissertationRequired.Size = new Size(472, 302);
+            panelSVDissertationRequired.TabIndex = 8;
             // 
-            // textBox30
+            // labelSVDPagesCount
             // 
-            textBox30.Location = new Point(10, 321);
-            textBox30.Name = "textBox30";
-            textBox30.Size = new Size(450, 23);
-            textBox30.TabIndex = 19;
+            labelSVDPagesCount.AutoSize = true;
+            labelSVDPagesCount.Location = new Point(0, 281);
+            labelSVDPagesCount.Name = "labelSVDPagesCount";
+            labelSVDPagesCount.Size = new Size(120, 15);
+            labelSVDPagesCount.TabIndex = 18;
+            labelSVDPagesCount.Text = "Количество страниц";
             // 
-            // label31
+            // labelSVDAuthor
             // 
-            label31.AutoSize = true;
-            label31.Location = new Point(10, 254);
-            label31.Name = "label31";
-            label31.Size = new Size(73, 15);
-            label31.TabIndex = 16;
-            label31.Text = "Год издания";
+            labelSVDAuthor.AutoSize = true;
+            labelSVDAuthor.Location = new Point(0, 0);
+            labelSVDAuthor.Name = "labelSVDAuthor";
+            labelSVDAuthor.Size = new Size(40, 15);
+            labelSVDAuthor.TabIndex = 4;
+            labelSVDAuthor.Text = "Автор";
             // 
-            // textBox31
+            // tbSVDPagesCount
             // 
-            textBox31.Location = new Point(10, 274);
-            textBox31.Name = "textBox31";
-            textBox31.Size = new Size(450, 23);
-            textBox31.TabIndex = 17;
+            tbSVDPagesCount.Location = new Point(0, 301);
+            tbSVDPagesCount.Name = "tbSVDPagesCount";
+            tbSVDPagesCount.Size = new Size(450, 23);
+            tbSVDPagesCount.TabIndex = 19;
             // 
-            // label32
+            // tbSVDPublishingLocation
             // 
-            label32.AutoSize = true;
-            label32.Location = new Point(10, 67);
-            label32.Name = "label32";
-            label32.Size = new Size(57, 15);
-            label32.TabIndex = 14;
-            label32.Text = "Заглавие";
+            tbSVDPublishingLocation.Location = new Point(0, 207);
+            tbSVDPublishingLocation.Name = "tbSVDPublishingLocation";
+            tbSVDPublishingLocation.Size = new Size(450, 23);
+            tbSVDPublishingLocation.TabIndex = 11;
             // 
-            // textBox32
+            // labelSVDPublishYear
             // 
-            textBox32.Location = new Point(10, 87);
-            textBox32.Name = "textBox32";
-            textBox32.Size = new Size(450, 23);
-            textBox32.TabIndex = 15;
+            labelSVDPublishYear.AutoSize = true;
+            labelSVDPublishYear.Location = new Point(0, 234);
+            labelSVDPublishYear.Name = "labelSVDPublishYear";
+            labelSVDPublishYear.Size = new Size(73, 15);
+            labelSVDPublishYear.TabIndex = 16;
+            labelSVDPublishYear.Text = "Год издания";
             // 
-            // label33
+            // labelSVDPublishingLocation
             // 
-            label33.AutoSize = true;
-            label33.Location = new Point(10, 20);
-            label33.Name = "label33";
-            label33.Size = new Size(40, 15);
-            label33.TabIndex = 4;
-            label33.Text = "Автор";
+            labelSVDPublishingLocation.AutoSize = true;
+            labelSVDPublishingLocation.Location = new Point(0, 187);
+            labelSVDPublishingLocation.Name = "labelSVDPublishingLocation";
+            labelSVDPublishingLocation.Size = new Size(89, 15);
+            labelSVDPublishingLocation.TabIndex = 10;
+            labelSVDPublishingLocation.Text = "Место издания";
             // 
-            // textBox33
+            // tbSVDPublishYear
             // 
-            textBox33.Location = new Point(10, 40);
-            textBox33.Name = "textBox33";
-            textBox33.Size = new Size(450, 23);
-            textBox33.TabIndex = 5;
+            tbSVDPublishYear.Location = new Point(0, 254);
+            tbSVDPublishYear.Name = "tbSVDPublishYear";
+            tbSVDPublishYear.Size = new Size(450, 23);
+            tbSVDPublishYear.TabIndex = 17;
             // 
-            // label34
+            // tbSVDDegree
             // 
-            label34.AutoSize = true;
-            label34.Location = new Point(10, 115);
-            label34.Name = "label34";
-            label34.Size = new Size(185, 15);
-            label34.TabIndex = 6;
-            label34.Text = "Специальность (код и название)";
+            tbSVDDegree.Location = new Point(0, 161);
+            tbSVDDegree.Name = "tbSVDDegree";
+            tbSVDDegree.Size = new Size(450, 23);
+            tbSVDDegree.TabIndex = 9;
             // 
-            // textBox34
+            // labelSVDTitle
             // 
-            textBox34.Location = new Point(10, 135);
-            textBox34.Name = "textBox34";
-            textBox34.Size = new Size(450, 23);
-            textBox34.TabIndex = 7;
+            labelSVDTitle.AutoSize = true;
+            labelSVDTitle.Location = new Point(0, 47);
+            labelSVDTitle.Name = "labelSVDTitle";
+            labelSVDTitle.Size = new Size(57, 15);
+            labelSVDTitle.TabIndex = 14;
+            labelSVDTitle.Text = "Заглавие";
             // 
-            // label35
+            // labelSVDDegree
             // 
-            label35.AutoSize = true;
-            label35.Location = new Point(10, 161);
-            label35.Name = "label35";
-            label35.Size = new Size(52, 15);
-            label35.TabIndex = 8;
-            label35.Text = "Степень";
+            labelSVDDegree.AutoSize = true;
+            labelSVDDegree.Location = new Point(0, 141);
+            labelSVDDegree.Name = "labelSVDDegree";
+            labelSVDDegree.Size = new Size(52, 15);
+            labelSVDDegree.TabIndex = 8;
+            labelSVDDegree.Text = "Степень";
             // 
-            // textBox35
+            // tbSVDTitle
             // 
-            textBox35.Location = new Point(10, 181);
-            textBox35.Name = "textBox35";
-            textBox35.Size = new Size(450, 23);
-            textBox35.TabIndex = 9;
+            tbSVDTitle.Location = new Point(0, 67);
+            tbSVDTitle.Name = "tbSVDTitle";
+            tbSVDTitle.Size = new Size(450, 23);
+            tbSVDTitle.TabIndex = 15;
             // 
-            // label36
+            // tbSVDSpecialty
             // 
-            label36.AutoSize = true;
-            label36.Location = new Point(10, 207);
-            label36.Name = "label36";
-            label36.Size = new Size(89, 15);
-            label36.TabIndex = 10;
-            label36.Text = "Место издания";
+            tbSVDSpecialty.Location = new Point(0, 115);
+            tbSVDSpecialty.Name = "tbSVDSpecialty";
+            tbSVDSpecialty.Size = new Size(450, 23);
+            tbSVDSpecialty.TabIndex = 7;
             // 
-            // textBox36
+            // labelSVDSpecialty
             // 
-            textBox36.Location = new Point(10, 227);
-            textBox36.Name = "textBox36";
-            textBox36.Size = new Size(450, 23);
-            textBox36.TabIndex = 11;
+            labelSVDSpecialty.AutoSize = true;
+            labelSVDSpecialty.Location = new Point(0, 95);
+            labelSVDSpecialty.Name = "labelSVDSpecialty";
+            labelSVDSpecialty.Size = new Size(185, 15);
+            labelSVDSpecialty.TabIndex = 6;
+            labelSVDSpecialty.Text = "Специальность (код и название)";
+            // 
+            // tbSVDAuthor
+            // 
+            tbSVDAuthor.Location = new Point(0, 20);
+            tbSVDAuthor.Name = "tbSVDAuthor";
+            tbSVDAuthor.Size = new Size(450, 23);
+            tbSVDAuthor.TabIndex = 5;
             // 
             // gbSVDissertationOptional
             // 
-            gbSVDissertationOptional.Controls.Add(label37);
-            gbSVDissertationOptional.Controls.Add(textBox37);
-            gbSVDissertationOptional.Controls.Add(label38);
-            gbSVDissertationOptional.Controls.Add(textBox38);
-            gbSVDissertationOptional.Controls.Add(label39);
-            gbSVDissertationOptional.Controls.Add(textBox39);
-            gbSVDissertationOptional.Controls.Add(label40);
-            gbSVDissertationOptional.Controls.Add(textBox40);
-            gbSVDissertationOptional.Location = new Point(10, 371);
+            gbSVDissertationOptional.Controls.Add(labelSVDDocumentType);
+            gbSVDissertationOptional.Controls.Add(tbSVDDocumentType);
+            gbSVDissertationOptional.Controls.Add(labelSVDAuthorFullName);
+            gbSVDissertationOptional.Controls.Add(tbSVDAuthorFullName);
+            gbSVDissertationOptional.Controls.Add(labelSVDOrganization);
+            gbSVDissertationOptional.Controls.Add(tbSVDOrganization);
+            gbSVDissertationOptional.Controls.Add(labelSVDBibliography);
+            gbSVDissertationOptional.Controls.Add(tbSVDBibliography);
+            gbSVDissertationOptional.Location = new Point(10, 346);
             gbSVDissertationOptional.Name = "gbSVDissertationOptional";
-            gbSVDissertationOptional.Size = new Size(488, 347);
+            gbSVDissertationOptional.Size = new Size(488, 330);
             gbSVDissertationOptional.TabIndex = 7;
             gbSVDissertationOptional.TabStop = false;
             gbSVDissertationOptional.Text = "Необязательные поля";
             // 
-            // label37
+            // labelSVDDocumentType
             // 
-            label37.AutoSize = true;
-            label37.Location = new Point(10, 28);
-            label37.Name = "label37";
-            label37.Size = new Size(88, 15);
-            label37.TabIndex = 0;
-            label37.Text = "Вид документа";
+            labelSVDDocumentType.AutoSize = true;
+            labelSVDDocumentType.Location = new Point(10, 28);
+            labelSVDDocumentType.Name = "labelSVDDocumentType";
+            labelSVDDocumentType.Size = new Size(88, 15);
+            labelSVDDocumentType.TabIndex = 0;
+            labelSVDDocumentType.Text = "Вид документа";
             // 
-            // textBox37
+            // tbSVDDocumentType
             // 
-            textBox37.Location = new Point(10, 48);
-            textBox37.Name = "textBox37";
-            textBox37.Size = new Size(450, 23);
-            textBox37.TabIndex = 1;
+            tbSVDDocumentType.Location = new Point(10, 48);
+            tbSVDDocumentType.Name = "tbSVDDocumentType";
+            tbSVDDocumentType.Size = new Size(450, 23);
+            tbSVDDocumentType.TabIndex = 1;
             // 
-            // label38
+            // labelSVDAuthorFullName
             // 
-            label38.AutoSize = true;
-            label38.Location = new Point(10, 78);
-            label38.Name = "label38";
-            label38.Size = new Size(115, 15);
-            label38.TabIndex = 2;
-            label38.Text = "Полное имя автора";
+            labelSVDAuthorFullName.AutoSize = true;
+            labelSVDAuthorFullName.Location = new Point(10, 78);
+            labelSVDAuthorFullName.Name = "labelSVDAuthorFullName";
+            labelSVDAuthorFullName.Size = new Size(115, 15);
+            labelSVDAuthorFullName.TabIndex = 2;
+            labelSVDAuthorFullName.Text = "Полное имя автора";
             // 
-            // textBox38
+            // tbSVDAuthorFullName
             // 
-            textBox38.Location = new Point(10, 98);
-            textBox38.Name = "textBox38";
-            textBox38.Size = new Size(450, 23);
-            textBox38.TabIndex = 3;
+            tbSVDAuthorFullName.Location = new Point(10, 98);
+            tbSVDAuthorFullName.Name = "tbSVDAuthorFullName";
+            tbSVDAuthorFullName.Size = new Size(450, 23);
+            tbSVDAuthorFullName.TabIndex = 3;
             // 
-            // label39
+            // labelSVDOrganization
             // 
-            label39.AutoSize = true;
-            label39.Location = new Point(10, 128);
-            label39.Name = "label39";
-            label39.Size = new Size(79, 15);
-            label39.TabIndex = 4;
-            label39.Text = "Организация";
+            labelSVDOrganization.AutoSize = true;
+            labelSVDOrganization.Location = new Point(10, 128);
+            labelSVDOrganization.Name = "labelSVDOrganization";
+            labelSVDOrganization.Size = new Size(79, 15);
+            labelSVDOrganization.TabIndex = 4;
+            labelSVDOrganization.Text = "Организация";
             // 
-            // textBox39
+            // tbSVDOrganization
             // 
-            textBox39.Location = new Point(10, 148);
-            textBox39.Name = "textBox39";
-            textBox39.Size = new Size(450, 23);
-            textBox39.TabIndex = 5;
+            tbSVDOrganization.Location = new Point(10, 148);
+            tbSVDOrganization.Name = "tbSVDOrganization";
+            tbSVDOrganization.Size = new Size(450, 23);
+            tbSVDOrganization.TabIndex = 5;
             // 
-            // label40
+            // labelSVDBibliography
             // 
-            label40.AutoSize = true;
-            label40.Location = new Point(10, 178);
-            label40.Name = "label40";
-            label40.Size = new Size(199, 15);
-            label40.TabIndex = 6;
-            label40.Text = "Библиография (диапазон страниц)";
+            labelSVDBibliography.AutoSize = true;
+            labelSVDBibliography.Location = new Point(10, 178);
+            labelSVDBibliography.Name = "labelSVDBibliography";
+            labelSVDBibliography.Size = new Size(199, 15);
+            labelSVDBibliography.TabIndex = 6;
+            labelSVDBibliography.Text = "Библиография (диапазон страниц)";
             // 
-            // textBox40
+            // tbSVDBibliography
             // 
-            textBox40.Location = new Point(10, 198);
-            textBox40.Name = "textBox40";
-            textBox40.Size = new Size(450, 23);
-            textBox40.TabIndex = 7;
+            tbSVDBibliography.Location = new Point(10, 198);
+            tbSVDBibliography.Name = "tbSVDBibliography";
+            tbSVDBibliography.Size = new Size(450, 23);
+            tbSVDBibliography.TabIndex = 7;
             // 
             // tpMultiVolume
             // 
@@ -1756,7 +2235,7 @@
             tpMultiVolume.Location = new Point(4, 24);
             tpMultiVolume.Name = "tpMultiVolume";
             tpMultiVolume.Padding = new Padding(3);
-            tpMultiVolume.Size = new Size(518, 762);
+            tpMultiVolume.Size = new Size(521, 720);
             tpMultiVolume.TabIndex = 1;
             tpMultiVolume.Text = "Многочастные (многотомные) ресурсы";
             // 
@@ -1768,7 +2247,7 @@
             tcMVTypes.Location = new Point(3, 6);
             tcMVTypes.Name = "tcMVTypes";
             tcMVTypes.SelectedIndex = 0;
-            tcMVTypes.Size = new Size(513, 752);
+            tcMVTypes.Size = new Size(513, 709);
             tcMVTypes.TabIndex = 1;
             // 
             // tpMVWholeMultivolume
@@ -1779,290 +2258,289 @@
             tpMVWholeMultivolume.Location = new Point(4, 24);
             tpMVWholeMultivolume.Name = "tpMVWholeMultivolume";
             tpMVWholeMultivolume.Padding = new Padding(3);
-            tpMVWholeMultivolume.Size = new Size(505, 724);
+            tpMVWholeMultivolume.Size = new Size(505, 681);
             tpMVWholeMultivolume.TabIndex = 0;
             tpMVWholeMultivolume.Text = "Многотомное издание в целом";
             // 
             // gbMVWholeMultivolumeRequired
             // 
-            gbMVWholeMultivolumeRequired.Controls.Add(label53);
-            gbMVWholeMultivolumeRequired.Controls.Add(textBox52);
-            gbMVWholeMultivolumeRequired.Controls.Add(label41);
-            gbMVWholeMultivolumeRequired.Controls.Add(textBox25);
-            gbMVWholeMultivolumeRequired.Controls.Add(button4);
-            gbMVWholeMultivolumeRequired.Controls.Add(listBox2);
-            gbMVWholeMultivolumeRequired.Controls.Add(label42);
-            gbMVWholeMultivolumeRequired.Controls.Add(textBox41);
-            gbMVWholeMultivolumeRequired.Controls.Add(label43);
-            gbMVWholeMultivolumeRequired.Controls.Add(textBox42);
-            gbMVWholeMultivolumeRequired.Controls.Add(label44);
-            gbMVWholeMultivolumeRequired.Controls.Add(textBox43);
-            gbMVWholeMultivolumeRequired.Controls.Add(label45);
-            gbMVWholeMultivolumeRequired.Controls.Add(textBox44);
-            gbMVWholeMultivolumeRequired.Controls.Add(label46);
-            gbMVWholeMultivolumeRequired.Controls.Add(textBox45);
+            gbMVWholeMultivolumeRequired.Controls.Add(panelMVWholeMultivolumeRequired);
             gbMVWholeMultivolumeRequired.Location = new Point(10, 10);
             gbMVWholeMultivolumeRequired.Name = "gbMVWholeMultivolumeRequired";
-            gbMVWholeMultivolumeRequired.Size = new Size(488, 441);
+            gbMVWholeMultivolumeRequired.Size = new Size(488, 330);
             gbMVWholeMultivolumeRequired.TabIndex = 0;
             gbMVWholeMultivolumeRequired.TabStop = false;
             gbMVWholeMultivolumeRequired.Text = "Обязательные поля";
             // 
-            // label53
+            // panelMVWholeMultivolumeRequired
             // 
-            label53.AutoSize = true;
-            label53.Location = new Point(10, 386);
-            label53.Name = "label53";
-            label53.Size = new Size(120, 15);
-            label53.TabIndex = 14;
-            label53.Text = "Количество страниц";
+            panelMVWholeMultivolumeRequired.AutoScroll = true;
+            panelMVWholeMultivolumeRequired.Controls.Add(labelMVWMPagesCount);
+            panelMVWholeMultivolumeRequired.Controls.Add(labelMVWMAuthors);
+            panelMVWholeMultivolumeRequired.Controls.Add(tbMVWMPagesCount);
+            panelMVWholeMultivolumeRequired.Controls.Add(tbMVWMPublishYear);
+            panelMVWholeMultivolumeRequired.Controls.Add(labelMVWMPublishYear);
+            panelMVWholeMultivolumeRequired.Controls.Add(tbMVWMAuthors);
+            panelMVWholeMultivolumeRequired.Controls.Add(tbMVWMPublisher);
+            panelMVWholeMultivolumeRequired.Controls.Add(buttonMVWMAuthorsAdd);
+            panelMVWholeMultivolumeRequired.Controls.Add(labelMVWMPublisher);
+            panelMVWholeMultivolumeRequired.Controls.Add(lbMVWMAuthors);
+            panelMVWholeMultivolumeRequired.Controls.Add(tbMVWMPublishingLocation);
+            panelMVWholeMultivolumeRequired.Controls.Add(labelMVWMTitle);
+            panelMVWholeMultivolumeRequired.Controls.Add(labelMVWMPublishingLocation);
+            panelMVWholeMultivolumeRequired.Controls.Add(tbMVWMTitle);
+            panelMVWholeMultivolumeRequired.Controls.Add(tbMVWMVolumesNumber);
+            panelMVWholeMultivolumeRequired.Controls.Add(labelMVWMVolumesNumber);
+            panelMVWholeMultivolumeRequired.Location = new Point(10, 22);
+            panelMVWholeMultivolumeRequired.Name = "panelMVWholeMultivolumeRequired";
+            panelMVWholeMultivolumeRequired.Size = new Size(473, 302);
+            panelMVWholeMultivolumeRequired.TabIndex = 0;
             // 
-            // textBox52
+            // labelMVWMPagesCount
             // 
-            textBox52.Location = new Point(10, 406);
-            textBox52.Name = "textBox52";
-            textBox52.Size = new Size(450, 23);
-            textBox52.TabIndex = 15;
-            textBox52.TextChanged += textBox52_TextChanged;
+            labelMVWMPagesCount.AutoSize = true;
+            labelMVWMPagesCount.Location = new Point(0, 366);
+            labelMVWMPagesCount.Name = "labelMVWMPagesCount";
+            labelMVWMPagesCount.Size = new Size(120, 15);
+            labelMVWMPagesCount.TabIndex = 14;
+            labelMVWMPagesCount.Text = "Количество страниц";
             // 
-            // label41
+            // labelMVWMAuthors
             // 
-            label41.AutoSize = true;
-            label41.Location = new Point(10, 20);
-            label41.Name = "label41";
-            label41.Size = new Size(57, 15);
-            label41.TabIndex = 0;
-            label41.Text = "Автор(ы)";
+            labelMVWMAuthors.AutoSize = true;
+            labelMVWMAuthors.Location = new Point(0, 0);
+            labelMVWMAuthors.Name = "labelMVWMAuthors";
+            labelMVWMAuthors.Size = new Size(57, 15);
+            labelMVWMAuthors.TabIndex = 0;
+            labelMVWMAuthors.Text = "Автор(ы)";
             // 
-            // textBox25
+            // tbMVWMPagesCount
             // 
-            textBox25.Location = new Point(10, 40);
-            textBox25.Name = "textBox25";
-            textBox25.Size = new Size(350, 23);
-            textBox25.TabIndex = 1;
+            tbMVWMPagesCount.Location = new Point(0, 386);
+            tbMVWMPagesCount.Name = "tbMVWMPagesCount";
+            tbMVWMPagesCount.Size = new Size(450, 23);
+            tbMVWMPagesCount.TabIndex = 15;
             // 
-            // button4
+            // tbMVWMPublishYear
             // 
-            button4.Location = new Point(370, 40);
-            button4.Name = "button4";
-            button4.Size = new Size(90, 23);
-            button4.TabIndex = 2;
-            button4.Text = "Добавить";
-            button4.UseVisualStyleBackColor = true;
+            tbMVWMPublishYear.Location = new Point(0, 340);
+            tbMVWMPublishYear.Name = "tbMVWMPublishYear";
+            tbMVWMPublishYear.Size = new Size(450, 23);
+            tbMVWMPublishYear.TabIndex = 13;
             // 
-            // listBox2
+            // labelMVWMPublishYear
             // 
-            listBox2.ItemHeight = 15;
-            listBox2.Location = new Point(10, 70);
-            listBox2.Name = "listBox2";
-            listBox2.Size = new Size(450, 64);
-            listBox2.TabIndex = 3;
+            labelMVWMPublishYear.AutoSize = true;
+            labelMVWMPublishYear.Location = new Point(0, 320);
+            labelMVWMPublishYear.Name = "labelMVWMPublishYear";
+            labelMVWMPublishYear.Size = new Size(73, 15);
+            labelMVWMPublishYear.TabIndex = 12;
+            labelMVWMPublishYear.Text = "Год издания";
             // 
-            // label42
+            // tbMVWMAuthors
             // 
-            label42.AutoSize = true;
-            label42.Location = new Point(10, 140);
-            label42.Name = "label42";
-            label42.Size = new Size(57, 15);
-            label42.TabIndex = 4;
-            label42.Text = "Заглавие";
+            tbMVWMAuthors.Location = new Point(0, 20);
+            tbMVWMAuthors.Name = "tbMVWMAuthors";
+            tbMVWMAuthors.Size = new Size(350, 23);
+            tbMVWMAuthors.TabIndex = 1;
             // 
-            // textBox41
+            // tbMVWMPublisher
             // 
-            textBox41.Location = new Point(10, 160);
-            textBox41.Name = "textBox41";
-            textBox41.Size = new Size(450, 23);
-            textBox41.TabIndex = 5;
+            tbMVWMPublisher.Location = new Point(0, 290);
+            tbMVWMPublisher.Name = "tbMVWMPublisher";
+            tbMVWMPublisher.Size = new Size(450, 23);
+            tbMVWMPublisher.TabIndex = 11;
             // 
-            // label43
+            // buttonMVWMAuthorsAdd
             // 
-            label43.AutoSize = true;
-            label43.Location = new Point(10, 190);
-            label43.Name = "label43";
-            label43.Size = new Size(109, 15);
-            label43.TabIndex = 6;
-            label43.Text = "Количество томов";
+            buttonMVWMAuthorsAdd.Location = new Point(360, 20);
+            buttonMVWMAuthorsAdd.Name = "buttonMVWMAuthorsAdd";
+            buttonMVWMAuthorsAdd.Size = new Size(90, 23);
+            buttonMVWMAuthorsAdd.TabIndex = 2;
+            buttonMVWMAuthorsAdd.Text = "Добавить";
+            buttonMVWMAuthorsAdd.UseVisualStyleBackColor = true;
             // 
-            // textBox42
+            // labelMVWMPublisher
             // 
-            textBox42.Location = new Point(10, 210);
-            textBox42.Name = "textBox42";
-            textBox42.Size = new Size(450, 23);
-            textBox42.TabIndex = 7;
+            labelMVWMPublisher.AutoSize = true;
+            labelMVWMPublisher.Location = new Point(0, 270);
+            labelMVWMPublisher.Name = "labelMVWMPublisher";
+            labelMVWMPublisher.Size = new Size(81, 15);
+            labelMVWMPublisher.TabIndex = 10;
+            labelMVWMPublisher.Text = "Издательство";
             // 
-            // label44
+            // lbMVWMAuthors
             // 
-            label44.AutoSize = true;
-            label44.Location = new Point(10, 240);
-            label44.Name = "label44";
-            label44.Size = new Size(89, 15);
-            label44.TabIndex = 8;
-            label44.Text = "Место издания";
+            lbMVWMAuthors.ItemHeight = 15;
+            lbMVWMAuthors.Location = new Point(0, 50);
+            lbMVWMAuthors.Name = "lbMVWMAuthors";
+            lbMVWMAuthors.Size = new Size(450, 64);
+            lbMVWMAuthors.TabIndex = 3;
             // 
-            // textBox43
+            // tbMVWMPublishingLocation
             // 
-            textBox43.Location = new Point(10, 260);
-            textBox43.Name = "textBox43";
-            textBox43.Size = new Size(450, 23);
-            textBox43.TabIndex = 9;
+            tbMVWMPublishingLocation.Location = new Point(0, 240);
+            tbMVWMPublishingLocation.Name = "tbMVWMPublishingLocation";
+            tbMVWMPublishingLocation.Size = new Size(450, 23);
+            tbMVWMPublishingLocation.TabIndex = 9;
             // 
-            // label45
+            // labelMVWMTitle
             // 
-            label45.AutoSize = true;
-            label45.Location = new Point(10, 290);
-            label45.Name = "label45";
-            label45.Size = new Size(81, 15);
-            label45.TabIndex = 10;
-            label45.Text = "Издательство";
+            labelMVWMTitle.AutoSize = true;
+            labelMVWMTitle.Location = new Point(0, 120);
+            labelMVWMTitle.Name = "labelMVWMTitle";
+            labelMVWMTitle.Size = new Size(57, 15);
+            labelMVWMTitle.TabIndex = 4;
+            labelMVWMTitle.Text = "Заглавие";
             // 
-            // textBox44
+            // labelMVWMPublishingLocation
             // 
-            textBox44.Location = new Point(10, 310);
-            textBox44.Name = "textBox44";
-            textBox44.Size = new Size(450, 23);
-            textBox44.TabIndex = 11;
+            labelMVWMPublishingLocation.AutoSize = true;
+            labelMVWMPublishingLocation.Location = new Point(0, 220);
+            labelMVWMPublishingLocation.Name = "labelMVWMPublishingLocation";
+            labelMVWMPublishingLocation.Size = new Size(89, 15);
+            labelMVWMPublishingLocation.TabIndex = 8;
+            labelMVWMPublishingLocation.Text = "Место издания";
             // 
-            // label46
+            // tbMVWMTitle
             // 
-            label46.AutoSize = true;
-            label46.Location = new Point(10, 340);
-            label46.Name = "label46";
-            label46.Size = new Size(73, 15);
-            label46.TabIndex = 12;
-            label46.Text = "Год издания";
+            tbMVWMTitle.Location = new Point(0, 140);
+            tbMVWMTitle.Name = "tbMVWMTitle";
+            tbMVWMTitle.Size = new Size(450, 23);
+            tbMVWMTitle.TabIndex = 5;
             // 
-            // textBox45
+            // tbMVWMVolumesNumber
             // 
-            textBox45.Location = new Point(10, 360);
-            textBox45.Name = "textBox45";
-            textBox45.Size = new Size(450, 23);
-            textBox45.TabIndex = 13;
+            tbMVWMVolumesNumber.Location = new Point(0, 190);
+            tbMVWMVolumesNumber.Name = "tbMVWMVolumesNumber";
+            tbMVWMVolumesNumber.Size = new Size(450, 23);
+            tbMVWMVolumesNumber.TabIndex = 7;
+            // 
+            // labelMVWMVolumesNumber
+            // 
+            labelMVWMVolumesNumber.AutoSize = true;
+            labelMVWMVolumesNumber.Location = new Point(0, 170);
+            labelMVWMVolumesNumber.Name = "labelMVWMVolumesNumber";
+            labelMVWMVolumesNumber.Size = new Size(109, 15);
+            labelMVWMVolumesNumber.TabIndex = 6;
+            labelMVWMVolumesNumber.Text = "Количество томов";
             // 
             // gbMVWholeMultivolumeOptional
             // 
-            gbMVWholeMultivolumeOptional.Controls.Add(panelMVWholeMultivolumeOptional);
-            gbMVWholeMultivolumeOptional.Location = new Point(10, 457);
+            gbMVWholeMultivolumeOptional.Controls.Add(labelMVWMDocumentType);
+            gbMVWholeMultivolumeOptional.Controls.Add(labelMVWMSeries);
+            gbMVWholeMultivolumeOptional.Controls.Add(tbMVWMSeries);
+            gbMVWholeMultivolumeOptional.Controls.Add(labelMVWMResponsibilityArea);
+            gbMVWholeMultivolumeOptional.Controls.Add(tbMVWMResponsibilityArea);
+            gbMVWholeMultivolumeOptional.Controls.Add(labelMVWMEditionNumber);
+            gbMVWholeMultivolumeOptional.Controls.Add(labelMVWMEditor);
+            gbMVWholeMultivolumeOptional.Controls.Add(tbMVWMDocumentType);
+            gbMVWholeMultivolumeOptional.Controls.Add(labelMVWMISBN);
+            gbMVWholeMultivolumeOptional.Controls.Add(tbMVWMEditionNumber);
+            gbMVWholeMultivolumeOptional.Controls.Add(tbMVWMEditor);
+            gbMVWholeMultivolumeOptional.Controls.Add(tbMVWMISBN);
+            gbMVWholeMultivolumeOptional.Location = new Point(10, 346);
             gbMVWholeMultivolumeOptional.Name = "gbMVWholeMultivolumeOptional";
-            gbMVWholeMultivolumeOptional.Size = new Size(488, 261);
+            gbMVWholeMultivolumeOptional.Size = new Size(488, 330);
             gbMVWholeMultivolumeOptional.TabIndex = 1;
             gbMVWholeMultivolumeOptional.TabStop = false;
             gbMVWholeMultivolumeOptional.Text = "Необязательные поля";
             // 
-            // panelMVWholeMultivolumeOptional
+            // labelMVWMDocumentType
             // 
-            panelMVWholeMultivolumeOptional.AutoScroll = true;
-            panelMVWholeMultivolumeOptional.Controls.Add(label47);
-            panelMVWholeMultivolumeOptional.Controls.Add(label48);
-            panelMVWholeMultivolumeOptional.Controls.Add(textBox46);
-            panelMVWholeMultivolumeOptional.Controls.Add(textBox51);
-            panelMVWholeMultivolumeOptional.Controls.Add(label52);
-            panelMVWholeMultivolumeOptional.Controls.Add(textBox47);
-            panelMVWholeMultivolumeOptional.Controls.Add(textBox50);
-            panelMVWholeMultivolumeOptional.Controls.Add(label49);
-            panelMVWholeMultivolumeOptional.Controls.Add(label51);
-            panelMVWholeMultivolumeOptional.Controls.Add(textBox48);
-            panelMVWholeMultivolumeOptional.Controls.Add(textBox49);
-            panelMVWholeMultivolumeOptional.Controls.Add(label50);
-            panelMVWholeMultivolumeOptional.Location = new Point(10, 22);
-            panelMVWholeMultivolumeOptional.Name = "panelMVWholeMultivolumeOptional";
-            panelMVWholeMultivolumeOptional.Size = new Size(473, 233);
-            panelMVWholeMultivolumeOptional.TabIndex = 16;
+            labelMVWMDocumentType.AutoSize = true;
+            labelMVWMDocumentType.Location = new Point(10, 21);
+            labelMVWMDocumentType.Name = "labelMVWMDocumentType";
+            labelMVWMDocumentType.Size = new Size(88, 15);
+            labelMVWMDocumentType.TabIndex = 0;
+            labelMVWMDocumentType.Text = "Вид документа";
             // 
-            // label47
+            // labelMVWMSeries
             // 
-            label47.AutoSize = true;
-            label47.Location = new Point(0, 2);
-            label47.Name = "label47";
-            label47.Size = new Size(88, 15);
-            label47.TabIndex = 0;
-            label47.Text = "Вид документа";
+            labelMVWMSeries.AutoSize = true;
+            labelMVWMSeries.Location = new Point(10, 221);
+            labelMVWMSeries.Name = "labelMVWMSeries";
+            labelMVWMSeries.Size = new Size(41, 15);
+            labelMVWMSeries.TabIndex = 8;
+            labelMVWMSeries.Text = "Серия";
             // 
-            // label48
+            // tbMVWMSeries
             // 
-            label48.AutoSize = true;
-            label48.Location = new Point(0, 52);
-            label48.Name = "label48";
-            label48.Size = new Size(147, 15);
-            label48.TabIndex = 2;
-            label48.Text = "Область ответственности";
+            tbMVWMSeries.Location = new Point(10, 241);
+            tbMVWMSeries.Name = "tbMVWMSeries";
+            tbMVWMSeries.Size = new Size(450, 23);
+            tbMVWMSeries.TabIndex = 9;
             // 
-            // textBox46
+            // labelMVWMResponsibilityArea
             // 
-            textBox46.Location = new Point(0, 22);
-            textBox46.Name = "textBox46";
-            textBox46.Size = new Size(450, 23);
-            textBox46.TabIndex = 1;
+            labelMVWMResponsibilityArea.AutoSize = true;
+            labelMVWMResponsibilityArea.Location = new Point(10, 71);
+            labelMVWMResponsibilityArea.Name = "labelMVWMResponsibilityArea";
+            labelMVWMResponsibilityArea.Size = new Size(147, 15);
+            labelMVWMResponsibilityArea.TabIndex = 2;
+            labelMVWMResponsibilityArea.Text = "Область ответственности";
             // 
-            // textBox51
+            // tbMVWMResponsibilityArea
             // 
-            textBox51.Location = new Point(0, 272);
-            textBox51.Name = "textBox51";
-            textBox51.Size = new Size(450, 23);
-            textBox51.TabIndex = 11;
+            tbMVWMResponsibilityArea.Location = new Point(10, 91);
+            tbMVWMResponsibilityArea.Name = "tbMVWMResponsibilityArea";
+            tbMVWMResponsibilityArea.Size = new Size(450, 23);
+            tbMVWMResponsibilityArea.TabIndex = 3;
             // 
-            // label52
+            // labelMVWMEditionNumber
             // 
-            label52.AutoSize = true;
-            label52.Location = new Point(0, 252);
-            label52.Name = "label52";
-            label52.Size = new Size(32, 15);
-            label52.TabIndex = 10;
-            label52.Text = "ISBN";
+            labelMVWMEditionNumber.AutoSize = true;
+            labelMVWMEditionNumber.Location = new Point(10, 171);
+            labelMVWMEditionNumber.Name = "labelMVWMEditionNumber";
+            labelMVWMEditionNumber.Size = new Size(92, 15);
+            labelMVWMEditionNumber.TabIndex = 6;
+            labelMVWMEditionNumber.Text = "Номер издания";
             // 
-            // textBox47
+            // labelMVWMEditor
             // 
-            textBox47.Location = new Point(0, 72);
-            textBox47.Name = "textBox47";
-            textBox47.Size = new Size(450, 23);
-            textBox47.TabIndex = 3;
+            labelMVWMEditor.AutoSize = true;
+            labelMVWMEditor.Location = new Point(10, 121);
+            labelMVWMEditor.Name = "labelMVWMEditor";
+            labelMVWMEditor.Size = new Size(57, 15);
+            labelMVWMEditor.TabIndex = 4;
+            labelMVWMEditor.Text = "Редактор";
             // 
-            // textBox50
+            // tbMVWMDocumentType
             // 
-            textBox50.Location = new Point(0, 222);
-            textBox50.Name = "textBox50";
-            textBox50.Size = new Size(450, 23);
-            textBox50.TabIndex = 9;
+            tbMVWMDocumentType.Location = new Point(10, 41);
+            tbMVWMDocumentType.Name = "tbMVWMDocumentType";
+            tbMVWMDocumentType.Size = new Size(450, 23);
+            tbMVWMDocumentType.TabIndex = 1;
             // 
-            // label49
+            // labelMVWMISBN
             // 
-            label49.AutoSize = true;
-            label49.Location = new Point(0, 102);
-            label49.Name = "label49";
-            label49.Size = new Size(57, 15);
-            label49.TabIndex = 4;
-            label49.Text = "Редактор";
+            labelMVWMISBN.AutoSize = true;
+            labelMVWMISBN.Location = new Point(10, 271);
+            labelMVWMISBN.Name = "labelMVWMISBN";
+            labelMVWMISBN.Size = new Size(32, 15);
+            labelMVWMISBN.TabIndex = 10;
+            labelMVWMISBN.Text = "ISBN";
             // 
-            // label51
+            // tbMVWMEditionNumber
             // 
-            label51.AutoSize = true;
-            label51.Location = new Point(0, 202);
-            label51.Name = "label51";
-            label51.Size = new Size(41, 15);
-            label51.TabIndex = 8;
-            label51.Text = "Серия";
+            tbMVWMEditionNumber.Location = new Point(10, 191);
+            tbMVWMEditionNumber.Name = "tbMVWMEditionNumber";
+            tbMVWMEditionNumber.Size = new Size(450, 23);
+            tbMVWMEditionNumber.TabIndex = 7;
             // 
-            // textBox48
+            // tbMVWMEditor
             // 
-            textBox48.Location = new Point(0, 122);
-            textBox48.Name = "textBox48";
-            textBox48.Size = new Size(450, 23);
-            textBox48.TabIndex = 5;
+            tbMVWMEditor.Location = new Point(10, 141);
+            tbMVWMEditor.Name = "tbMVWMEditor";
+            tbMVWMEditor.Size = new Size(450, 23);
+            tbMVWMEditor.TabIndex = 5;
             // 
-            // textBox49
+            // tbMVWMISBN
             // 
-            textBox49.Location = new Point(0, 172);
-            textBox49.Name = "textBox49";
-            textBox49.Size = new Size(450, 23);
-            textBox49.TabIndex = 7;
-            // 
-            // label50
-            // 
-            label50.AutoSize = true;
-            label50.Location = new Point(0, 152);
-            label50.Name = "label50";
-            label50.Size = new Size(92, 15);
-            label50.TabIndex = 6;
-            label50.Text = "Номер издания";
+            tbMVWMISBN.Location = new Point(10, 291);
+            tbMVWMISBN.Name = "tbMVWMISBN";
+            tbMVWMISBN.Size = new Size(450, 23);
+            tbMVWMISBN.TabIndex = 11;
             // 
             // tpMVSeparateVolume
             // 
@@ -2072,325 +2550,325 @@
             tpMVSeparateVolume.Location = new Point(4, 24);
             tpMVSeparateVolume.Name = "tpMVSeparateVolume";
             tpMVSeparateVolume.Padding = new Padding(3);
-            tpMVSeparateVolume.Size = new Size(505, 724);
+            tpMVSeparateVolume.Size = new Size(505, 681);
             tpMVSeparateVolume.TabIndex = 1;
             tpMVSeparateVolume.Text = "Отдельный том";
             // 
             // gbMVSeparateVolumeRequired
             // 
-            gbMVSeparateVolumeRequired.Controls.Add(label68);
-            gbMVSeparateVolumeRequired.Controls.Add(textBox67);
-            gbMVSeparateVolumeRequired.Controls.Add(label67);
-            gbMVSeparateVolumeRequired.Controls.Add(textBox66);
-            gbMVSeparateVolumeRequired.Controls.Add(label54);
-            gbMVSeparateVolumeRequired.Controls.Add(textBox53);
-            gbMVSeparateVolumeRequired.Controls.Add(label55);
-            gbMVSeparateVolumeRequired.Controls.Add(textBox54);
-            gbMVSeparateVolumeRequired.Controls.Add(button5);
-            gbMVSeparateVolumeRequired.Controls.Add(listBox3);
-            gbMVSeparateVolumeRequired.Controls.Add(label56);
-            gbMVSeparateVolumeRequired.Controls.Add(textBox55);
-            gbMVSeparateVolumeRequired.Controls.Add(label57);
-            gbMVSeparateVolumeRequired.Controls.Add(textBox56);
-            gbMVSeparateVolumeRequired.Controls.Add(label58);
-            gbMVSeparateVolumeRequired.Controls.Add(textBox57);
-            gbMVSeparateVolumeRequired.Controls.Add(label59);
-            gbMVSeparateVolumeRequired.Controls.Add(textBox58);
-            gbMVSeparateVolumeRequired.Controls.Add(label60);
-            gbMVSeparateVolumeRequired.Controls.Add(textBox59);
+            gbMVSeparateVolumeRequired.Controls.Add(panelMVSeparateVolumeRequired);
             gbMVSeparateVolumeRequired.Location = new Point(10, 10);
             gbMVSeparateVolumeRequired.Name = "gbMVSeparateVolumeRequired";
-            gbMVSeparateVolumeRequired.Size = new Size(488, 531);
+            gbMVSeparateVolumeRequired.Size = new Size(488, 330);
             gbMVSeparateVolumeRequired.TabIndex = 2;
             gbMVSeparateVolumeRequired.TabStop = false;
             gbMVSeparateVolumeRequired.Text = "Обязательные поля";
             // 
-            // label68
+            // panelMVSeparateVolumeRequired
             // 
-            label68.AutoSize = true;
-            label68.Location = new Point(10, 478);
-            label68.Name = "label68";
-            label68.Size = new Size(120, 15);
-            label68.TabIndex = 18;
-            label68.Text = "Количество страниц";
+            panelMVSeparateVolumeRequired.AutoScroll = true;
+            panelMVSeparateVolumeRequired.Controls.Add(labelMVSVPagesCount);
+            panelMVSeparateVolumeRequired.Controls.Add(labelMVSVAuthors);
+            panelMVSeparateVolumeRequired.Controls.Add(tbMVSVPagesCount);
+            panelMVSeparateVolumeRequired.Controls.Add(tbMVSVPublishingLocation);
+            panelMVSeparateVolumeRequired.Controls.Add(labelMVSVPublishYear);
+            panelMVSeparateVolumeRequired.Controls.Add(labelMVSVPublishingLocation);
+            panelMVSeparateVolumeRequired.Controls.Add(tbMVSVPublishYear);
+            panelMVSeparateVolumeRequired.Controls.Add(tbMVSVVolumeTitle);
+            panelMVSeparateVolumeRequired.Controls.Add(labelMVSVPublisher);
+            panelMVSeparateVolumeRequired.Controls.Add(labelMVSVVolumeTitle);
+            panelMVSeparateVolumeRequired.Controls.Add(tbMVSVPublisher);
+            panelMVSeparateVolumeRequired.Controls.Add(tbMVSVVolumeNumber);
+            panelMVSeparateVolumeRequired.Controls.Add(labelMVSVVolumeNumber);
+            panelMVSeparateVolumeRequired.Controls.Add(tbMVSVAuthors);
+            panelMVSeparateVolumeRequired.Controls.Add(tbMVSVVolumesCount);
+            panelMVSeparateVolumeRequired.Controls.Add(buttonMVSVAuthorsAdd);
+            panelMVSeparateVolumeRequired.Controls.Add(labelMVSVVolumesCount);
+            panelMVSeparateVolumeRequired.Controls.Add(lbMVSVAuthors);
+            panelMVSeparateVolumeRequired.Controls.Add(tbMVSVTitle);
+            panelMVSeparateVolumeRequired.Controls.Add(labelMVSVTitle);
+            panelMVSeparateVolumeRequired.Location = new Point(10, 22);
+            panelMVSeparateVolumeRequired.Name = "panelMVSeparateVolumeRequired";
+            panelMVSeparateVolumeRequired.Size = new Size(473, 302);
+            panelMVSeparateVolumeRequired.TabIndex = 0;
             // 
-            // textBox67
+            // labelMVSVPagesCount
             // 
-            textBox67.Location = new Point(10, 498);
-            textBox67.Name = "textBox67";
-            textBox67.Size = new Size(450, 23);
-            textBox67.TabIndex = 19;
+            labelMVSVPagesCount.AutoSize = true;
+            labelMVSVPagesCount.Location = new Point(0, 458);
+            labelMVSVPagesCount.Name = "labelMVSVPagesCount";
+            labelMVSVPagesCount.Size = new Size(120, 15);
+            labelMVSVPagesCount.TabIndex = 18;
+            labelMVSVPagesCount.Text = "Количество страниц";
             // 
-            // label67
+            // labelMVSVAuthors
             // 
-            label67.AutoSize = true;
-            label67.Location = new Point(10, 432);
-            label67.Name = "label67";
-            label67.Size = new Size(73, 15);
-            label67.TabIndex = 16;
-            label67.Text = "Год издания";
+            labelMVSVAuthors.AutoSize = true;
+            labelMVSVAuthors.Location = new Point(0, 0);
+            labelMVSVAuthors.Name = "labelMVSVAuthors";
+            labelMVSVAuthors.Size = new Size(57, 15);
+            labelMVSVAuthors.TabIndex = 0;
+            labelMVSVAuthors.Text = "Автор(ы)";
             // 
-            // textBox66
+            // tbMVSVPagesCount
             // 
-            textBox66.Location = new Point(10, 452);
-            textBox66.Name = "textBox66";
-            textBox66.Size = new Size(450, 23);
-            textBox66.TabIndex = 17;
+            tbMVSVPagesCount.Location = new Point(0, 478);
+            tbMVSVPagesCount.Name = "tbMVSVPagesCount";
+            tbMVSVPagesCount.Size = new Size(450, 23);
+            tbMVSVPagesCount.TabIndex = 19;
             // 
-            // label54
+            // tbMVSVPublishingLocation
             // 
-            label54.AutoSize = true;
-            label54.Location = new Point(10, 386);
-            label54.Name = "label54";
-            label54.Size = new Size(81, 15);
-            label54.TabIndex = 14;
-            label54.Text = "Издательство";
+            tbMVSVPublishingLocation.Location = new Point(0, 340);
+            tbMVSVPublishingLocation.Name = "tbMVSVPublishingLocation";
+            tbMVSVPublishingLocation.Size = new Size(450, 23);
+            tbMVSVPublishingLocation.TabIndex = 13;
             // 
-            // textBox53
+            // labelMVSVPublishYear
             // 
-            textBox53.Location = new Point(10, 406);
-            textBox53.Name = "textBox53";
-            textBox53.Size = new Size(450, 23);
-            textBox53.TabIndex = 15;
+            labelMVSVPublishYear.AutoSize = true;
+            labelMVSVPublishYear.Location = new Point(0, 412);
+            labelMVSVPublishYear.Name = "labelMVSVPublishYear";
+            labelMVSVPublishYear.Size = new Size(73, 15);
+            labelMVSVPublishYear.TabIndex = 16;
+            labelMVSVPublishYear.Text = "Год издания";
             // 
-            // label55
+            // labelMVSVPublishingLocation
             // 
-            label55.AutoSize = true;
-            label55.Location = new Point(10, 20);
-            label55.Name = "label55";
-            label55.Size = new Size(57, 15);
-            label55.TabIndex = 0;
-            label55.Text = "Автор(ы)";
+            labelMVSVPublishingLocation.AutoSize = true;
+            labelMVSVPublishingLocation.Location = new Point(0, 320);
+            labelMVSVPublishingLocation.Name = "labelMVSVPublishingLocation";
+            labelMVSVPublishingLocation.Size = new Size(89, 15);
+            labelMVSVPublishingLocation.TabIndex = 12;
+            labelMVSVPublishingLocation.Text = "Место издания";
             // 
-            // textBox54
+            // tbMVSVPublishYear
             // 
-            textBox54.Location = new Point(10, 40);
-            textBox54.Name = "textBox54";
-            textBox54.Size = new Size(350, 23);
-            textBox54.TabIndex = 1;
+            tbMVSVPublishYear.Location = new Point(0, 432);
+            tbMVSVPublishYear.Name = "tbMVSVPublishYear";
+            tbMVSVPublishYear.Size = new Size(450, 23);
+            tbMVSVPublishYear.TabIndex = 17;
             // 
-            // button5
+            // tbMVSVVolumeTitle
             // 
-            button5.Location = new Point(370, 40);
-            button5.Name = "button5";
-            button5.Size = new Size(90, 23);
-            button5.TabIndex = 2;
-            button5.Text = "Добавить";
-            button5.UseVisualStyleBackColor = true;
+            tbMVSVVolumeTitle.Location = new Point(0, 290);
+            tbMVSVVolumeTitle.Name = "tbMVSVVolumeTitle";
+            tbMVSVVolumeTitle.Size = new Size(450, 23);
+            tbMVSVVolumeTitle.TabIndex = 11;
             // 
-            // listBox3
+            // labelMVSVPublisher
             // 
-            listBox3.ItemHeight = 15;
-            listBox3.Location = new Point(10, 70);
-            listBox3.Name = "listBox3";
-            listBox3.Size = new Size(450, 64);
-            listBox3.TabIndex = 3;
+            labelMVSVPublisher.AutoSize = true;
+            labelMVSVPublisher.Location = new Point(0, 366);
+            labelMVSVPublisher.Name = "labelMVSVPublisher";
+            labelMVSVPublisher.Size = new Size(81, 15);
+            labelMVSVPublisher.TabIndex = 14;
+            labelMVSVPublisher.Text = "Издательство";
             // 
-            // label56
+            // labelMVSVVolumeTitle
             // 
-            label56.AutoSize = true;
-            label56.Location = new Point(10, 140);
-            label56.Name = "label56";
-            label56.Size = new Size(57, 15);
-            label56.TabIndex = 4;
-            label56.Text = "Заглавие";
+            labelMVSVVolumeTitle.AutoSize = true;
+            labelMVSVVolumeTitle.Location = new Point(0, 270);
+            labelMVSVVolumeTitle.Name = "labelMVSVVolumeTitle";
+            labelMVSVVolumeTitle.Size = new Size(87, 15);
+            labelMVSVVolumeTitle.TabIndex = 10;
+            labelMVSVVolumeTitle.Text = "Заглавие тома";
             // 
-            // textBox55
+            // tbMVSVPublisher
             // 
-            textBox55.Location = new Point(10, 160);
-            textBox55.Name = "textBox55";
-            textBox55.Size = new Size(450, 23);
-            textBox55.TabIndex = 5;
+            tbMVSVPublisher.Location = new Point(0, 386);
+            tbMVSVPublisher.Name = "tbMVSVPublisher";
+            tbMVSVPublisher.Size = new Size(450, 23);
+            tbMVSVPublisher.TabIndex = 15;
             // 
-            // label57
+            // tbMVSVVolumeNumber
             // 
-            label57.AutoSize = true;
-            label57.Location = new Point(10, 190);
-            label57.Name = "label57";
-            label57.Size = new Size(109, 15);
-            label57.TabIndex = 6;
-            label57.Text = "Количество томов";
+            tbMVSVVolumeNumber.Location = new Point(0, 240);
+            tbMVSVVolumeNumber.Name = "tbMVSVVolumeNumber";
+            tbMVSVVolumeNumber.Size = new Size(450, 23);
+            tbMVSVVolumeNumber.TabIndex = 9;
             // 
-            // textBox56
+            // labelMVSVVolumeNumber
             // 
-            textBox56.Location = new Point(10, 210);
-            textBox56.Name = "textBox56";
-            textBox56.Size = new Size(450, 23);
-            textBox56.TabIndex = 7;
+            labelMVSVVolumeNumber.AutoSize = true;
+            labelMVSVVolumeNumber.Location = new Point(0, 220);
+            labelMVSVVolumeNumber.Name = "labelMVSVVolumeNumber";
+            labelMVSVVolumeNumber.Size = new Size(75, 15);
+            labelMVSVVolumeNumber.TabIndex = 8;
+            labelMVSVVolumeNumber.Text = "Номер тома";
             // 
-            // label58
+            // tbMVSVAuthors
             // 
-            label58.AutoSize = true;
-            label58.Location = new Point(10, 240);
-            label58.Name = "label58";
-            label58.Size = new Size(75, 15);
-            label58.TabIndex = 8;
-            label58.Text = "Номер тома";
+            tbMVSVAuthors.Location = new Point(0, 20);
+            tbMVSVAuthors.Name = "tbMVSVAuthors";
+            tbMVSVAuthors.Size = new Size(350, 23);
+            tbMVSVAuthors.TabIndex = 1;
             // 
-            // textBox57
+            // tbMVSVVolumesCount
             // 
-            textBox57.Location = new Point(10, 260);
-            textBox57.Name = "textBox57";
-            textBox57.Size = new Size(450, 23);
-            textBox57.TabIndex = 9;
+            tbMVSVVolumesCount.Location = new Point(0, 190);
+            tbMVSVVolumesCount.Name = "tbMVSVVolumesCount";
+            tbMVSVVolumesCount.Size = new Size(450, 23);
+            tbMVSVVolumesCount.TabIndex = 7;
             // 
-            // label59
+            // buttonMVSVAuthorsAdd
             // 
-            label59.AutoSize = true;
-            label59.Location = new Point(10, 290);
-            label59.Name = "label59";
-            label59.Size = new Size(87, 15);
-            label59.TabIndex = 10;
-            label59.Text = "Заглавие тома";
+            buttonMVSVAuthorsAdd.Location = new Point(360, 20);
+            buttonMVSVAuthorsAdd.Name = "buttonMVSVAuthorsAdd";
+            buttonMVSVAuthorsAdd.Size = new Size(90, 23);
+            buttonMVSVAuthorsAdd.TabIndex = 2;
+            buttonMVSVAuthorsAdd.Text = "Добавить";
+            buttonMVSVAuthorsAdd.UseVisualStyleBackColor = true;
             // 
-            // textBox58
+            // labelMVSVVolumesCount
             // 
-            textBox58.Location = new Point(10, 310);
-            textBox58.Name = "textBox58";
-            textBox58.Size = new Size(450, 23);
-            textBox58.TabIndex = 11;
+            labelMVSVVolumesCount.AutoSize = true;
+            labelMVSVVolumesCount.Location = new Point(0, 170);
+            labelMVSVVolumesCount.Name = "labelMVSVVolumesCount";
+            labelMVSVVolumesCount.Size = new Size(109, 15);
+            labelMVSVVolumesCount.TabIndex = 6;
+            labelMVSVVolumesCount.Text = "Количество томов";
             // 
-            // label60
+            // lbMVSVAuthors
             // 
-            label60.AutoSize = true;
-            label60.Location = new Point(10, 340);
-            label60.Name = "label60";
-            label60.Size = new Size(89, 15);
-            label60.TabIndex = 12;
-            label60.Text = "Место издания";
+            lbMVSVAuthors.ItemHeight = 15;
+            lbMVSVAuthors.Location = new Point(0, 50);
+            lbMVSVAuthors.Name = "lbMVSVAuthors";
+            lbMVSVAuthors.Size = new Size(450, 64);
+            lbMVSVAuthors.TabIndex = 3;
             // 
-            // textBox59
+            // tbMVSVTitle
             // 
-            textBox59.Location = new Point(10, 360);
-            textBox59.Name = "textBox59";
-            textBox59.Size = new Size(450, 23);
-            textBox59.TabIndex = 13;
+            tbMVSVTitle.Location = new Point(0, 140);
+            tbMVSVTitle.Name = "tbMVSVTitle";
+            tbMVSVTitle.Size = new Size(450, 23);
+            tbMVSVTitle.TabIndex = 5;
+            // 
+            // labelMVSVTitle
+            // 
+            labelMVSVTitle.AutoSize = true;
+            labelMVSVTitle.Location = new Point(0, 120);
+            labelMVSVTitle.Name = "labelMVSVTitle";
+            labelMVSVTitle.Size = new Size(57, 15);
+            labelMVSVTitle.TabIndex = 4;
+            labelMVSVTitle.Text = "Заглавие";
             // 
             // gbMVSeparateVolumeOptional
             // 
-            gbMVSeparateVolumeOptional.Controls.Add(panelMVSeparateVolumeOptional);
-            gbMVSeparateVolumeOptional.Location = new Point(10, 547);
+            gbMVSeparateVolumeOptional.Controls.Add(labelMVSVDocumentType);
+            gbMVSeparateVolumeOptional.Controls.Add(tbMVSVDocumentType);
+            gbMVSeparateVolumeOptional.Controls.Add(tbMVSVSeries);
+            gbMVSeparateVolumeOptional.Controls.Add(labelMVSVEditionNumber);
+            gbMVSeparateVolumeOptional.Controls.Add(labelMVSVEditor);
+            gbMVSeparateVolumeOptional.Controls.Add(tbMVSVISBN);
+            gbMVSeparateVolumeOptional.Controls.Add(tbMVSVResponsibilityArea);
+            gbMVSeparateVolumeOptional.Controls.Add(tbMVSVEditionNumber);
+            gbMVSeparateVolumeOptional.Controls.Add(labelMVSVSeries);
+            gbMVSeparateVolumeOptional.Controls.Add(labelMVSVResponsibilityArea);
+            gbMVSeparateVolumeOptional.Controls.Add(labelMVSVISBN);
+            gbMVSeparateVolumeOptional.Controls.Add(tbMVSVEditor);
+            gbMVSeparateVolumeOptional.Location = new Point(10, 346);
             gbMVSeparateVolumeOptional.Name = "gbMVSeparateVolumeOptional";
-            gbMVSeparateVolumeOptional.Size = new Size(488, 171);
+            gbMVSeparateVolumeOptional.Size = new Size(488, 330);
             gbMVSeparateVolumeOptional.TabIndex = 3;
             gbMVSeparateVolumeOptional.TabStop = false;
             gbMVSeparateVolumeOptional.Text = "Необязательные поля";
             // 
-            // panelMVSeparateVolumeOptional
+            // labelMVSVDocumentType
             // 
-            panelMVSeparateVolumeOptional.AutoScroll = true;
-            panelMVSeparateVolumeOptional.Controls.Add(label61);
-            panelMVSeparateVolumeOptional.Controls.Add(textBox60);
-            panelMVSeparateVolumeOptional.Controls.Add(textBox65);
-            panelMVSeparateVolumeOptional.Controls.Add(label62);
-            panelMVSeparateVolumeOptional.Controls.Add(label66);
-            panelMVSeparateVolumeOptional.Controls.Add(textBox61);
-            panelMVSeparateVolumeOptional.Controls.Add(textBox64);
-            panelMVSeparateVolumeOptional.Controls.Add(label63);
-            panelMVSeparateVolumeOptional.Controls.Add(label65);
-            panelMVSeparateVolumeOptional.Controls.Add(textBox62);
-            panelMVSeparateVolumeOptional.Controls.Add(textBox63);
-            panelMVSeparateVolumeOptional.Controls.Add(label64);
-            panelMVSeparateVolumeOptional.Location = new Point(10, 22);
-            panelMVSeparateVolumeOptional.Name = "panelMVSeparateVolumeOptional";
-            panelMVSeparateVolumeOptional.Size = new Size(473, 143);
-            panelMVSeparateVolumeOptional.TabIndex = 20;
+            labelMVSVDocumentType.AutoSize = true;
+            labelMVSVDocumentType.Location = new Point(10, 21);
+            labelMVSVDocumentType.Name = "labelMVSVDocumentType";
+            labelMVSVDocumentType.Size = new Size(88, 15);
+            labelMVSVDocumentType.TabIndex = 0;
+            labelMVSVDocumentType.Text = "Вид документа";
             // 
-            // label61
+            // tbMVSVDocumentType
             // 
-            label61.AutoSize = true;
-            label61.Location = new Point(0, 0);
-            label61.Name = "label61";
-            label61.Size = new Size(88, 15);
-            label61.TabIndex = 0;
-            label61.Text = "Вид документа";
+            tbMVSVDocumentType.Location = new Point(10, 41);
+            tbMVSVDocumentType.Name = "tbMVSVDocumentType";
+            tbMVSVDocumentType.Size = new Size(450, 23);
+            tbMVSVDocumentType.TabIndex = 1;
             // 
-            // textBox60
+            // tbMVSVSeries
             // 
-            textBox60.Location = new Point(0, 20);
-            textBox60.Name = "textBox60";
-            textBox60.Size = new Size(450, 23);
-            textBox60.TabIndex = 1;
+            tbMVSVSeries.Location = new Point(10, 241);
+            tbMVSVSeries.Name = "tbMVSVSeries";
+            tbMVSVSeries.Size = new Size(450, 23);
+            tbMVSVSeries.TabIndex = 9;
             // 
-            // textBox65
+            // labelMVSVEditionNumber
             // 
-            textBox65.Location = new Point(0, 270);
-            textBox65.Name = "textBox65";
-            textBox65.Size = new Size(450, 23);
-            textBox65.TabIndex = 11;
+            labelMVSVEditionNumber.AutoSize = true;
+            labelMVSVEditionNumber.Location = new Point(10, 171);
+            labelMVSVEditionNumber.Name = "labelMVSVEditionNumber";
+            labelMVSVEditionNumber.Size = new Size(92, 15);
+            labelMVSVEditionNumber.TabIndex = 6;
+            labelMVSVEditionNumber.Text = "Номер издания";
             // 
-            // label62
+            // labelMVSVEditor
             // 
-            label62.AutoSize = true;
-            label62.Location = new Point(0, 50);
-            label62.Name = "label62";
-            label62.Size = new Size(147, 15);
-            label62.TabIndex = 2;
-            label62.Text = "Область ответственности";
+            labelMVSVEditor.AutoSize = true;
+            labelMVSVEditor.Location = new Point(10, 121);
+            labelMVSVEditor.Name = "labelMVSVEditor";
+            labelMVSVEditor.Size = new Size(57, 15);
+            labelMVSVEditor.TabIndex = 4;
+            labelMVSVEditor.Text = "Редактор";
             // 
-            // label66
+            // tbMVSVISBN
             // 
-            label66.AutoSize = true;
-            label66.Location = new Point(0, 250);
-            label66.Name = "label66";
-            label66.Size = new Size(32, 15);
-            label66.TabIndex = 10;
-            label66.Text = "ISBN";
+            tbMVSVISBN.Location = new Point(10, 291);
+            tbMVSVISBN.Name = "tbMVSVISBN";
+            tbMVSVISBN.Size = new Size(450, 23);
+            tbMVSVISBN.TabIndex = 11;
             // 
-            // textBox61
+            // tbMVSVResponsibilityArea
             // 
-            textBox61.Location = new Point(0, 70);
-            textBox61.Name = "textBox61";
-            textBox61.Size = new Size(450, 23);
-            textBox61.TabIndex = 3;
+            tbMVSVResponsibilityArea.Location = new Point(10, 91);
+            tbMVSVResponsibilityArea.Name = "tbMVSVResponsibilityArea";
+            tbMVSVResponsibilityArea.Size = new Size(450, 23);
+            tbMVSVResponsibilityArea.TabIndex = 3;
             // 
-            // textBox64
+            // tbMVSVEditionNumber
             // 
-            textBox64.Location = new Point(0, 220);
-            textBox64.Name = "textBox64";
-            textBox64.Size = new Size(450, 23);
-            textBox64.TabIndex = 9;
+            tbMVSVEditionNumber.Location = new Point(10, 191);
+            tbMVSVEditionNumber.Name = "tbMVSVEditionNumber";
+            tbMVSVEditionNumber.Size = new Size(450, 23);
+            tbMVSVEditionNumber.TabIndex = 7;
             // 
-            // label63
+            // labelMVSVSeries
             // 
-            label63.AutoSize = true;
-            label63.Location = new Point(0, 100);
-            label63.Name = "label63";
-            label63.Size = new Size(57, 15);
-            label63.TabIndex = 4;
-            label63.Text = "Редактор";
+            labelMVSVSeries.AutoSize = true;
+            labelMVSVSeries.Location = new Point(10, 221);
+            labelMVSVSeries.Name = "labelMVSVSeries";
+            labelMVSVSeries.Size = new Size(41, 15);
+            labelMVSVSeries.TabIndex = 8;
+            labelMVSVSeries.Text = "Серия";
             // 
-            // label65
+            // labelMVSVResponsibilityArea
             // 
-            label65.AutoSize = true;
-            label65.Location = new Point(0, 200);
-            label65.Name = "label65";
-            label65.Size = new Size(41, 15);
-            label65.TabIndex = 8;
-            label65.Text = "Серия";
+            labelMVSVResponsibilityArea.AutoSize = true;
+            labelMVSVResponsibilityArea.Location = new Point(10, 71);
+            labelMVSVResponsibilityArea.Name = "labelMVSVResponsibilityArea";
+            labelMVSVResponsibilityArea.Size = new Size(147, 15);
+            labelMVSVResponsibilityArea.TabIndex = 2;
+            labelMVSVResponsibilityArea.Text = "Область ответственности";
             // 
-            // textBox62
+            // labelMVSVISBN
             // 
-            textBox62.Location = new Point(0, 120);
-            textBox62.Name = "textBox62";
-            textBox62.Size = new Size(450, 23);
-            textBox62.TabIndex = 5;
+            labelMVSVISBN.AutoSize = true;
+            labelMVSVISBN.Location = new Point(10, 271);
+            labelMVSVISBN.Name = "labelMVSVISBN";
+            labelMVSVISBN.Size = new Size(32, 15);
+            labelMVSVISBN.TabIndex = 10;
+            labelMVSVISBN.Text = "ISBN";
             // 
-            // textBox63
+            // tbMVSVEditor
             // 
-            textBox63.Location = new Point(0, 170);
-            textBox63.Name = "textBox63";
-            textBox63.Size = new Size(450, 23);
-            textBox63.TabIndex = 7;
-            // 
-            // label64
-            // 
-            label64.AutoSize = true;
-            label64.Location = new Point(0, 150);
-            label64.Name = "label64";
-            label64.Size = new Size(92, 15);
-            label64.TabIndex = 6;
-            label64.Text = "Номер издания";
+            tbMVSVEditor.Location = new Point(10, 141);
+            tbMVSVEditor.Name = "tbMVSVEditor";
+            tbMVSVEditor.Size = new Size(450, 23);
+            tbMVSVEditor.TabIndex = 5;
             // 
             // tpElectronicResources
             // 
@@ -2399,7 +2877,7 @@
             tpElectronicResources.Location = new Point(4, 24);
             tpElectronicResources.Name = "tpElectronicResources";
             tpElectronicResources.Padding = new Padding(3);
-            tpElectronicResources.Size = new Size(518, 762);
+            tpElectronicResources.Size = new Size(521, 720);
             tpElectronicResources.TabIndex = 2;
             tpElectronicResources.Text = "Электронные ресурсы";
             // 
@@ -2412,7 +2890,7 @@
             tcERTypes.Location = new Point(3, 6);
             tcERTypes.Name = "tcERTypes";
             tcERTypes.SelectedIndex = 0;
-            tcERTypes.Size = new Size(513, 752);
+            tcERTypes.Size = new Size(513, 709);
             tcERTypes.TabIndex = 1;
             // 
             // tpEREbook
@@ -2423,170 +2901,179 @@
             tpEREbook.Location = new Point(4, 24);
             tpEREbook.Name = "tpEREbook";
             tpEREbook.Padding = new Padding(3);
-            tpEREbook.Size = new Size(505, 724);
+            tpEREbook.Size = new Size(505, 681);
             tpEREbook.TabIndex = 0;
             tpEREbook.Text = "Электронная книга";
             // 
             // gbEREbookRequired
             // 
-            gbEREbookRequired.Controls.Add(label173);
-            gbEREbookRequired.Controls.Add(textBox172);
-            gbEREbookRequired.Controls.Add(label69);
-            gbEREbookRequired.Controls.Add(textBox68);
-            gbEREbookRequired.Controls.Add(button6);
-            gbEREbookRequired.Controls.Add(listBox4);
-            gbEREbookRequired.Controls.Add(label70);
-            gbEREbookRequired.Controls.Add(textBox69);
-            gbEREbookRequired.Controls.Add(label71);
-            gbEREbookRequired.Controls.Add(textBox70);
-            gbEREbookRequired.Controls.Add(label72);
-            gbEREbookRequired.Controls.Add(textBox71);
-            gbEREbookRequired.Controls.Add(label73);
-            gbEREbookRequired.Controls.Add(textBox72);
-            gbEREbookRequired.Controls.Add(label74);
-            gbEREbookRequired.Controls.Add(textBox73);
+            gbEREbookRequired.Controls.Add(panelEREbookRequired);
             gbEREbookRequired.Location = new Point(10, 10);
             gbEREbookRequired.Name = "gbEREbookRequired";
-            gbEREbookRequired.Size = new Size(488, 451);
+            gbEREbookRequired.Size = new Size(488, 330);
             gbEREbookRequired.TabIndex = 0;
             gbEREbookRequired.TabStop = false;
             gbEREbookRequired.Text = "Обязательные поля";
             // 
-            // label173
+            // panelEREbookRequired
             // 
-            label173.AutoSize = true;
-            label173.Location = new Point(10, 385);
-            label173.Name = "label173";
-            label173.Size = new Size(99, 15);
-            label173.TabIndex = 14;
-            label173.Text = "Дата обращения";
+            panelEREbookRequired.AutoScroll = true;
+            panelEREbookRequired.Controls.Add(labelEREbAccessDate);
+            panelEREbookRequired.Controls.Add(labelEREbAuthors);
+            panelEREbookRequired.Controls.Add(tbEREbAccessDate);
+            panelEREbookRequired.Controls.Add(tbEREbURL);
+            panelEREbookRequired.Controls.Add(labelEREbURL);
+            panelEREbookRequired.Controls.Add(tbEREbAuthors);
+            panelEREbookRequired.Controls.Add(tbEREbPublishYear);
+            panelEREbookRequired.Controls.Add(labelEREbAuthorsAdd);
+            panelEREbookRequired.Controls.Add(labelEREbPublishYear);
+            panelEREbookRequired.Controls.Add(lbEREbAuthors);
+            panelEREbookRequired.Controls.Add(tbEREbPublisher);
+            panelEREbookRequired.Controls.Add(labelEREbTitle);
+            panelEREbookRequired.Controls.Add(labelEREbPublisher);
+            panelEREbookRequired.Controls.Add(tbEREbTitle);
+            panelEREbookRequired.Controls.Add(tbEREbPublishingLocation);
+            panelEREbookRequired.Controls.Add(labelEREbPublishingLocation);
+            panelEREbookRequired.Location = new Point(10, 22);
+            panelEREbookRequired.Name = "panelEREbookRequired";
+            panelEREbookRequired.Size = new Size(473, 302);
+            panelEREbookRequired.TabIndex = 0;
             // 
-            // textBox172
+            // labelEREbAccessDate
             // 
-            textBox172.Location = new Point(10, 405);
-            textBox172.Name = "textBox172";
-            textBox172.Size = new Size(450, 23);
-            textBox172.TabIndex = 15;
+            labelEREbAccessDate.AutoSize = true;
+            labelEREbAccessDate.Location = new Point(0, 365);
+            labelEREbAccessDate.Name = "labelEREbAccessDate";
+            labelEREbAccessDate.Size = new Size(99, 15);
+            labelEREbAccessDate.TabIndex = 14;
+            labelEREbAccessDate.Text = "Дата обращения";
             // 
-            // label69
+            // labelEREbAuthors
             // 
-            label69.AutoSize = true;
-            label69.Location = new Point(10, 20);
-            label69.Name = "label69";
-            label69.Size = new Size(57, 15);
-            label69.TabIndex = 0;
-            label69.Text = "Автор(ы)";
+            labelEREbAuthors.AutoSize = true;
+            labelEREbAuthors.Location = new Point(0, 0);
+            labelEREbAuthors.Name = "labelEREbAuthors";
+            labelEREbAuthors.Size = new Size(57, 15);
+            labelEREbAuthors.TabIndex = 0;
+            labelEREbAuthors.Text = "Автор(ы)";
             // 
-            // textBox68
+            // tbEREbAccessDate
             // 
-            textBox68.Location = new Point(10, 40);
-            textBox68.Name = "textBox68";
-            textBox68.Size = new Size(350, 23);
-            textBox68.TabIndex = 1;
+            tbEREbAccessDate.Location = new Point(0, 385);
+            tbEREbAccessDate.Name = "tbEREbAccessDate";
+            tbEREbAccessDate.Size = new Size(450, 23);
+            tbEREbAccessDate.TabIndex = 15;
             // 
-            // button6
+            // tbEREbURL
             // 
-            button6.Location = new Point(370, 40);
-            button6.Name = "button6";
-            button6.Size = new Size(90, 23);
-            button6.TabIndex = 2;
-            button6.Text = "Добавить";
-            button6.UseVisualStyleBackColor = true;
+            tbEREbURL.Location = new Point(0, 340);
+            tbEREbURL.Name = "tbEREbURL";
+            tbEREbURL.Size = new Size(450, 23);
+            tbEREbURL.TabIndex = 13;
             // 
-            // listBox4
+            // labelEREbURL
             // 
-            listBox4.ItemHeight = 15;
-            listBox4.Location = new Point(10, 70);
-            listBox4.Name = "listBox4";
-            listBox4.Size = new Size(450, 64);
-            listBox4.TabIndex = 3;
+            labelEREbURL.AutoSize = true;
+            labelEREbURL.Location = new Point(0, 320);
+            labelEREbURL.Name = "labelEREbURL";
+            labelEREbURL.Size = new Size(28, 15);
+            labelEREbURL.TabIndex = 12;
+            labelEREbURL.Text = "URL";
             // 
-            // label70
+            // tbEREbAuthors
             // 
-            label70.AutoSize = true;
-            label70.Location = new Point(10, 140);
-            label70.Name = "label70";
-            label70.Size = new Size(57, 15);
-            label70.TabIndex = 4;
-            label70.Text = "Заглавие";
+            tbEREbAuthors.Location = new Point(0, 20);
+            tbEREbAuthors.Name = "tbEREbAuthors";
+            tbEREbAuthors.Size = new Size(350, 23);
+            tbEREbAuthors.TabIndex = 1;
             // 
-            // textBox69
+            // tbEREbPublishYear
             // 
-            textBox69.Location = new Point(10, 160);
-            textBox69.Name = "textBox69";
-            textBox69.Size = new Size(450, 23);
-            textBox69.TabIndex = 5;
+            tbEREbPublishYear.Location = new Point(0, 290);
+            tbEREbPublishYear.Name = "tbEREbPublishYear";
+            tbEREbPublishYear.Size = new Size(450, 23);
+            tbEREbPublishYear.TabIndex = 11;
             // 
-            // label71
+            // labelEREbAuthorsAdd
             // 
-            label71.AutoSize = true;
-            label71.Location = new Point(10, 190);
-            label71.Name = "label71";
-            label71.Size = new Size(89, 15);
-            label71.TabIndex = 6;
-            label71.Text = "Место издания";
+            labelEREbAuthorsAdd.Location = new Point(360, 20);
+            labelEREbAuthorsAdd.Name = "labelEREbAuthorsAdd";
+            labelEREbAuthorsAdd.Size = new Size(90, 23);
+            labelEREbAuthorsAdd.TabIndex = 2;
+            labelEREbAuthorsAdd.Text = "Добавить";
+            labelEREbAuthorsAdd.UseVisualStyleBackColor = true;
             // 
-            // textBox70
+            // labelEREbPublishYear
             // 
-            textBox70.Location = new Point(10, 210);
-            textBox70.Name = "textBox70";
-            textBox70.Size = new Size(450, 23);
-            textBox70.TabIndex = 7;
+            labelEREbPublishYear.AutoSize = true;
+            labelEREbPublishYear.Location = new Point(0, 270);
+            labelEREbPublishYear.Name = "labelEREbPublishYear";
+            labelEREbPublishYear.Size = new Size(73, 15);
+            labelEREbPublishYear.TabIndex = 10;
+            labelEREbPublishYear.Text = "Год издания";
             // 
-            // label72
+            // lbEREbAuthors
             // 
-            label72.AutoSize = true;
-            label72.Location = new Point(10, 240);
-            label72.Name = "label72";
-            label72.Size = new Size(81, 15);
-            label72.TabIndex = 8;
-            label72.Text = "Издательство";
+            lbEREbAuthors.ItemHeight = 15;
+            lbEREbAuthors.Location = new Point(0, 50);
+            lbEREbAuthors.Name = "lbEREbAuthors";
+            lbEREbAuthors.Size = new Size(450, 64);
+            lbEREbAuthors.TabIndex = 3;
             // 
-            // textBox71
+            // tbEREbPublisher
             // 
-            textBox71.Location = new Point(10, 260);
-            textBox71.Name = "textBox71";
-            textBox71.Size = new Size(450, 23);
-            textBox71.TabIndex = 9;
+            tbEREbPublisher.Location = new Point(0, 240);
+            tbEREbPublisher.Name = "tbEREbPublisher";
+            tbEREbPublisher.Size = new Size(450, 23);
+            tbEREbPublisher.TabIndex = 9;
             // 
-            // label73
+            // labelEREbTitle
             // 
-            label73.AutoSize = true;
-            label73.Location = new Point(10, 290);
-            label73.Name = "label73";
-            label73.Size = new Size(73, 15);
-            label73.TabIndex = 10;
-            label73.Text = "Год издания";
+            labelEREbTitle.AutoSize = true;
+            labelEREbTitle.Location = new Point(0, 120);
+            labelEREbTitle.Name = "labelEREbTitle";
+            labelEREbTitle.Size = new Size(57, 15);
+            labelEREbTitle.TabIndex = 4;
+            labelEREbTitle.Text = "Заглавие";
             // 
-            // textBox72
+            // labelEREbPublisher
             // 
-            textBox72.Location = new Point(10, 310);
-            textBox72.Name = "textBox72";
-            textBox72.Size = new Size(450, 23);
-            textBox72.TabIndex = 11;
+            labelEREbPublisher.AutoSize = true;
+            labelEREbPublisher.Location = new Point(0, 220);
+            labelEREbPublisher.Name = "labelEREbPublisher";
+            labelEREbPublisher.Size = new Size(81, 15);
+            labelEREbPublisher.TabIndex = 8;
+            labelEREbPublisher.Text = "Издательство";
             // 
-            // label74
+            // tbEREbTitle
             // 
-            label74.AutoSize = true;
-            label74.Location = new Point(10, 340);
-            label74.Name = "label74";
-            label74.Size = new Size(28, 15);
-            label74.TabIndex = 12;
-            label74.Text = "URL";
+            tbEREbTitle.Location = new Point(0, 140);
+            tbEREbTitle.Name = "tbEREbTitle";
+            tbEREbTitle.Size = new Size(450, 23);
+            tbEREbTitle.TabIndex = 5;
             // 
-            // textBox73
+            // tbEREbPublishingLocation
             // 
-            textBox73.Location = new Point(10, 360);
-            textBox73.Name = "textBox73";
-            textBox73.Size = new Size(450, 23);
-            textBox73.TabIndex = 13;
+            tbEREbPublishingLocation.Location = new Point(0, 190);
+            tbEREbPublishingLocation.Name = "tbEREbPublishingLocation";
+            tbEREbPublishingLocation.Size = new Size(450, 23);
+            tbEREbPublishingLocation.TabIndex = 7;
+            // 
+            // labelEREbPublishingLocation
+            // 
+            labelEREbPublishingLocation.AutoSize = true;
+            labelEREbPublishingLocation.Location = new Point(0, 170);
+            labelEREbPublishingLocation.Name = "labelEREbPublishingLocation";
+            labelEREbPublishingLocation.Size = new Size(89, 15);
+            labelEREbPublishingLocation.TabIndex = 6;
+            labelEREbPublishingLocation.Text = "Место издания";
             // 
             // gbEREbookOptional
             // 
             gbEREbookOptional.Controls.Add(panelEREbookOptional);
-            gbEREbookOptional.Location = new Point(10, 467);
+            gbEREbookOptional.Location = new Point(10, 346);
             gbEREbookOptional.Name = "gbEREbookOptional";
-            gbEREbookOptional.Size = new Size(488, 251);
+            gbEREbookOptional.Size = new Size(488, 330);
             gbEREbookOptional.TabIndex = 1;
             gbEREbookOptional.TabStop = false;
             gbEREbookOptional.Text = "Необязательные поля";
@@ -2594,154 +3081,154 @@
             // panelEREbookOptional
             // 
             panelEREbookOptional.AutoScroll = true;
-            panelEREbookOptional.Controls.Add(label174);
-            panelEREbookOptional.Controls.Add(label81);
-            panelEREbookOptional.Controls.Add(textBox173);
-            panelEREbookOptional.Controls.Add(textBox80);
-            panelEREbookOptional.Controls.Add(label75);
-            panelEREbookOptional.Controls.Add(textBox79);
-            panelEREbookOptional.Controls.Add(textBox74);
-            panelEREbookOptional.Controls.Add(label80);
-            panelEREbookOptional.Controls.Add(label76);
-            panelEREbookOptional.Controls.Add(textBox78);
-            panelEREbookOptional.Controls.Add(textBox75);
-            panelEREbookOptional.Controls.Add(label79);
-            panelEREbookOptional.Controls.Add(label77);
-            panelEREbookOptional.Controls.Add(textBox77);
-            panelEREbookOptional.Controls.Add(textBox76);
-            panelEREbookOptional.Controls.Add(label78);
+            panelEREbookOptional.Controls.Add(labelEREbAccessMode);
+            panelEREbookOptional.Controls.Add(labelEREbISBN);
+            panelEREbookOptional.Controls.Add(tbEREbAccessMode);
+            panelEREbookOptional.Controls.Add(tbEREbISBN);
+            panelEREbookOptional.Controls.Add(labelEREbDocumentType);
+            panelEREbookOptional.Controls.Add(tbEREbSeries);
+            panelEREbookOptional.Controls.Add(tbEREbDocumentType);
+            panelEREbookOptional.Controls.Add(labelEREbSeries);
+            panelEREbookOptional.Controls.Add(labelEREbResponsibilityArea);
+            panelEREbookOptional.Controls.Add(tbEREbPagesCount);
+            panelEREbookOptional.Controls.Add(tbEREbResponsibilityArea);
+            panelEREbookOptional.Controls.Add(labelEREbPagesCount);
+            panelEREbookOptional.Controls.Add(labelEREbEditor);
+            panelEREbookOptional.Controls.Add(tbEREbEditionNumber);
+            panelEREbookOptional.Controls.Add(tbEREbEditor);
+            panelEREbookOptional.Controls.Add(labelEREbEditionNumber);
             panelEREbookOptional.Location = new Point(10, 22);
             panelEREbookOptional.Name = "panelEREbookOptional";
-            panelEREbookOptional.Size = new Size(473, 223);
+            panelEREbookOptional.Size = new Size(473, 302);
             panelEREbookOptional.TabIndex = 16;
             // 
-            // label174
+            // labelEREbAccessMode
             // 
-            label174.AutoSize = true;
-            label174.Location = new Point(0, 347);
-            label174.Name = "label174";
-            label174.Size = new Size(91, 15);
-            label174.TabIndex = 14;
-            label174.Text = "Режим доступа";
+            labelEREbAccessMode.AutoSize = true;
+            labelEREbAccessMode.Location = new Point(0, 347);
+            labelEREbAccessMode.Name = "labelEREbAccessMode";
+            labelEREbAccessMode.Size = new Size(91, 15);
+            labelEREbAccessMode.TabIndex = 14;
+            labelEREbAccessMode.Text = "Режим доступа";
             // 
-            // label81
+            // labelEREbISBN
             // 
-            label81.AutoSize = true;
-            label81.Location = new Point(0, 300);
-            label81.Name = "label81";
-            label81.Size = new Size(32, 15);
-            label81.TabIndex = 12;
-            label81.Text = "ISBN";
+            labelEREbISBN.AutoSize = true;
+            labelEREbISBN.Location = new Point(0, 300);
+            labelEREbISBN.Name = "labelEREbISBN";
+            labelEREbISBN.Size = new Size(32, 15);
+            labelEREbISBN.TabIndex = 12;
+            labelEREbISBN.Text = "ISBN";
             // 
-            // textBox173
+            // tbEREbAccessMode
             // 
-            textBox173.Location = new Point(0, 367);
-            textBox173.Name = "textBox173";
-            textBox173.Size = new Size(450, 23);
-            textBox173.TabIndex = 15;
+            tbEREbAccessMode.Location = new Point(0, 367);
+            tbEREbAccessMode.Name = "tbEREbAccessMode";
+            tbEREbAccessMode.Size = new Size(450, 23);
+            tbEREbAccessMode.TabIndex = 15;
             // 
-            // textBox80
+            // tbEREbISBN
             // 
-            textBox80.Location = new Point(0, 320);
-            textBox80.Name = "textBox80";
-            textBox80.Size = new Size(450, 23);
-            textBox80.TabIndex = 13;
+            tbEREbISBN.Location = new Point(0, 320);
+            tbEREbISBN.Name = "tbEREbISBN";
+            tbEREbISBN.Size = new Size(450, 23);
+            tbEREbISBN.TabIndex = 13;
             // 
-            // label75
+            // labelEREbDocumentType
             // 
-            label75.AutoSize = true;
-            label75.Location = new Point(0, 0);
-            label75.Name = "label75";
-            label75.Size = new Size(88, 15);
-            label75.TabIndex = 0;
-            label75.Text = "Вид документа";
+            labelEREbDocumentType.AutoSize = true;
+            labelEREbDocumentType.Location = new Point(0, 0);
+            labelEREbDocumentType.Name = "labelEREbDocumentType";
+            labelEREbDocumentType.Size = new Size(88, 15);
+            labelEREbDocumentType.TabIndex = 0;
+            labelEREbDocumentType.Text = "Вид документа";
             // 
-            // textBox79
+            // tbEREbSeries
             // 
-            textBox79.Location = new Point(0, 270);
-            textBox79.Name = "textBox79";
-            textBox79.Size = new Size(450, 23);
-            textBox79.TabIndex = 11;
+            tbEREbSeries.Location = new Point(0, 270);
+            tbEREbSeries.Name = "tbEREbSeries";
+            tbEREbSeries.Size = new Size(450, 23);
+            tbEREbSeries.TabIndex = 11;
             // 
-            // textBox74
+            // tbEREbDocumentType
             // 
-            textBox74.Location = new Point(0, 20);
-            textBox74.Name = "textBox74";
-            textBox74.Size = new Size(450, 23);
-            textBox74.TabIndex = 1;
+            tbEREbDocumentType.Location = new Point(0, 20);
+            tbEREbDocumentType.Name = "tbEREbDocumentType";
+            tbEREbDocumentType.Size = new Size(450, 23);
+            tbEREbDocumentType.TabIndex = 1;
             // 
-            // label80
+            // labelEREbSeries
             // 
-            label80.AutoSize = true;
-            label80.Location = new Point(0, 250);
-            label80.Name = "label80";
-            label80.Size = new Size(41, 15);
-            label80.TabIndex = 10;
-            label80.Text = "Серия";
+            labelEREbSeries.AutoSize = true;
+            labelEREbSeries.Location = new Point(0, 250);
+            labelEREbSeries.Name = "labelEREbSeries";
+            labelEREbSeries.Size = new Size(41, 15);
+            labelEREbSeries.TabIndex = 10;
+            labelEREbSeries.Text = "Серия";
             // 
-            // label76
+            // labelEREbResponsibilityArea
             // 
-            label76.AutoSize = true;
-            label76.Location = new Point(0, 50);
-            label76.Name = "label76";
-            label76.Size = new Size(147, 15);
-            label76.TabIndex = 2;
-            label76.Text = "Область ответственности";
+            labelEREbResponsibilityArea.AutoSize = true;
+            labelEREbResponsibilityArea.Location = new Point(0, 50);
+            labelEREbResponsibilityArea.Name = "labelEREbResponsibilityArea";
+            labelEREbResponsibilityArea.Size = new Size(147, 15);
+            labelEREbResponsibilityArea.TabIndex = 2;
+            labelEREbResponsibilityArea.Text = "Область ответственности";
             // 
-            // textBox78
+            // tbEREbPagesCount
             // 
-            textBox78.Location = new Point(0, 220);
-            textBox78.Name = "textBox78";
-            textBox78.Size = new Size(450, 23);
-            textBox78.TabIndex = 9;
+            tbEREbPagesCount.Location = new Point(0, 220);
+            tbEREbPagesCount.Name = "tbEREbPagesCount";
+            tbEREbPagesCount.Size = new Size(450, 23);
+            tbEREbPagesCount.TabIndex = 9;
             // 
-            // textBox75
+            // tbEREbResponsibilityArea
             // 
-            textBox75.Location = new Point(0, 70);
-            textBox75.Name = "textBox75";
-            textBox75.Size = new Size(450, 23);
-            textBox75.TabIndex = 3;
+            tbEREbResponsibilityArea.Location = new Point(0, 70);
+            tbEREbResponsibilityArea.Name = "tbEREbResponsibilityArea";
+            tbEREbResponsibilityArea.Size = new Size(450, 23);
+            tbEREbResponsibilityArea.TabIndex = 3;
             // 
-            // label79
+            // labelEREbPagesCount
             // 
-            label79.AutoSize = true;
-            label79.Location = new Point(0, 200);
-            label79.Name = "label79";
-            label79.Size = new Size(120, 15);
-            label79.TabIndex = 8;
-            label79.Text = "Количество страниц";
+            labelEREbPagesCount.AutoSize = true;
+            labelEREbPagesCount.Location = new Point(0, 200);
+            labelEREbPagesCount.Name = "labelEREbPagesCount";
+            labelEREbPagesCount.Size = new Size(120, 15);
+            labelEREbPagesCount.TabIndex = 8;
+            labelEREbPagesCount.Text = "Количество страниц";
             // 
-            // label77
+            // labelEREbEditor
             // 
-            label77.AutoSize = true;
-            label77.Location = new Point(0, 100);
-            label77.Name = "label77";
-            label77.Size = new Size(57, 15);
-            label77.TabIndex = 4;
-            label77.Text = "Редактор";
+            labelEREbEditor.AutoSize = true;
+            labelEREbEditor.Location = new Point(0, 100);
+            labelEREbEditor.Name = "labelEREbEditor";
+            labelEREbEditor.Size = new Size(57, 15);
+            labelEREbEditor.TabIndex = 4;
+            labelEREbEditor.Text = "Редактор";
             // 
-            // textBox77
+            // tbEREbEditionNumber
             // 
-            textBox77.Location = new Point(0, 170);
-            textBox77.Name = "textBox77";
-            textBox77.Size = new Size(450, 23);
-            textBox77.TabIndex = 7;
+            tbEREbEditionNumber.Location = new Point(0, 170);
+            tbEREbEditionNumber.Name = "tbEREbEditionNumber";
+            tbEREbEditionNumber.Size = new Size(450, 23);
+            tbEREbEditionNumber.TabIndex = 7;
             // 
-            // textBox76
+            // tbEREbEditor
             // 
-            textBox76.Location = new Point(0, 120);
-            textBox76.Name = "textBox76";
-            textBox76.Size = new Size(450, 23);
-            textBox76.TabIndex = 5;
+            tbEREbEditor.Location = new Point(0, 120);
+            tbEREbEditor.Name = "tbEREbEditor";
+            tbEREbEditor.Size = new Size(450, 23);
+            tbEREbEditor.TabIndex = 5;
             // 
-            // label78
+            // labelEREbEditionNumber
             // 
-            label78.AutoSize = true;
-            label78.Location = new Point(0, 150);
-            label78.Name = "label78";
-            label78.Size = new Size(92, 15);
-            label78.TabIndex = 6;
-            label78.Text = "Номер издания";
+            labelEREbEditionNumber.AutoSize = true;
+            labelEREbEditionNumber.Location = new Point(0, 150);
+            labelEREbEditionNumber.Name = "labelEREbEditionNumber";
+            labelEREbEditionNumber.Size = new Size(92, 15);
+            labelEREbEditionNumber.TabIndex = 6;
+            labelEREbEditionNumber.Text = "Номер издания";
             // 
             // tpERMultimediaEdition
             // 
@@ -2751,271 +3238,271 @@
             tpERMultimediaEdition.Location = new Point(4, 24);
             tpERMultimediaEdition.Name = "tpERMultimediaEdition";
             tpERMultimediaEdition.Padding = new Padding(3);
-            tpERMultimediaEdition.Size = new Size(505, 724);
+            tpERMultimediaEdition.Size = new Size(505, 681);
             tpERMultimediaEdition.TabIndex = 1;
             tpERMultimediaEdition.Text = "Мультимедийное издание (на диске)";
             // 
             // gbERMultimediaEditionRequired
             // 
-            gbERMultimediaEditionRequired.Controls.Add(label83);
-            gbERMultimediaEditionRequired.Controls.Add(textBox82);
-            gbERMultimediaEditionRequired.Controls.Add(button3);
-            gbERMultimediaEditionRequired.Controls.Add(listBox6);
-            gbERMultimediaEditionRequired.Controls.Add(label84);
-            gbERMultimediaEditionRequired.Controls.Add(textBox83);
-            gbERMultimediaEditionRequired.Controls.Add(label85);
-            gbERMultimediaEditionRequired.Controls.Add(textBox84);
-            gbERMultimediaEditionRequired.Controls.Add(label86);
-            gbERMultimediaEditionRequired.Controls.Add(textBox85);
-            gbERMultimediaEditionRequired.Controls.Add(label87);
-            gbERMultimediaEditionRequired.Controls.Add(textBox86);
-            gbERMultimediaEditionRequired.Controls.Add(label88);
-            gbERMultimediaEditionRequired.Controls.Add(textBox87);
+            gbERMultimediaEditionRequired.Controls.Add(panelERMultimediaEditionRequired);
             gbERMultimediaEditionRequired.Location = new Point(10, 10);
             gbERMultimediaEditionRequired.Name = "gbERMultimediaEditionRequired";
-            gbERMultimediaEditionRequired.Size = new Size(488, 395);
+            gbERMultimediaEditionRequired.Size = new Size(488, 330);
             gbERMultimediaEditionRequired.TabIndex = 2;
             gbERMultimediaEditionRequired.TabStop = false;
             gbERMultimediaEditionRequired.Text = "Обязательные поля";
             // 
-            // label83
+            // panelERMultimediaEditionRequired
             // 
-            label83.AutoSize = true;
-            label83.Location = new Point(10, 20);
-            label83.Name = "label83";
-            label83.Size = new Size(57, 15);
-            label83.TabIndex = 0;
-            label83.Text = "Автор(ы)";
+            panelERMultimediaEditionRequired.AutoScroll = true;
+            panelERMultimediaEditionRequired.Controls.Add(labelERMEAuthors);
+            panelERMultimediaEditionRequired.Controls.Add(tbERMEAuthors);
+            panelERMultimediaEditionRequired.Controls.Add(tbERMEDataCarrier);
+            panelERMultimediaEditionRequired.Controls.Add(buttonERMEAuthorsAdd);
+            panelERMultimediaEditionRequired.Controls.Add(labelERMEDataCarrier);
+            panelERMultimediaEditionRequired.Controls.Add(lbERMEAuthors);
+            panelERMultimediaEditionRequired.Controls.Add(tbERMEPublishYear);
+            panelERMultimediaEditionRequired.Controls.Add(labelERMETitle);
+            panelERMultimediaEditionRequired.Controls.Add(labelERMEPublishYear);
+            panelERMultimediaEditionRequired.Controls.Add(tbERMETitle);
+            panelERMultimediaEditionRequired.Controls.Add(tbERMEPublisher);
+            panelERMultimediaEditionRequired.Controls.Add(labelERMEPublishingLocation);
+            panelERMultimediaEditionRequired.Controls.Add(labelERMEPublisher);
+            panelERMultimediaEditionRequired.Controls.Add(tbERMEPublishingLocation);
+            panelERMultimediaEditionRequired.Location = new Point(10, 22);
+            panelERMultimediaEditionRequired.Name = "panelERMultimediaEditionRequired";
+            panelERMultimediaEditionRequired.Size = new Size(473, 302);
+            panelERMultimediaEditionRequired.TabIndex = 0;
             // 
-            // textBox82
+            // labelERMEAuthors
             // 
-            textBox82.Location = new Point(10, 40);
-            textBox82.Name = "textBox82";
-            textBox82.Size = new Size(350, 23);
-            textBox82.TabIndex = 1;
+            labelERMEAuthors.AutoSize = true;
+            labelERMEAuthors.Location = new Point(0, 0);
+            labelERMEAuthors.Name = "labelERMEAuthors";
+            labelERMEAuthors.Size = new Size(57, 15);
+            labelERMEAuthors.TabIndex = 0;
+            labelERMEAuthors.Text = "Автор(ы)";
             // 
-            // button3
+            // tbERMEAuthors
             // 
-            button3.Location = new Point(370, 40);
-            button3.Name = "button3";
-            button3.Size = new Size(90, 23);
-            button3.TabIndex = 2;
-            button3.Text = "Добавить";
-            button3.UseVisualStyleBackColor = true;
+            tbERMEAuthors.Location = new Point(0, 20);
+            tbERMEAuthors.Name = "tbERMEAuthors";
+            tbERMEAuthors.Size = new Size(350, 23);
+            tbERMEAuthors.TabIndex = 1;
             // 
-            // listBox6
+            // tbERMEDataCarrier
             // 
-            listBox6.ItemHeight = 15;
-            listBox6.Location = new Point(10, 70);
-            listBox6.Name = "listBox6";
-            listBox6.Size = new Size(450, 64);
-            listBox6.TabIndex = 3;
+            tbERMEDataCarrier.Location = new Point(0, 340);
+            tbERMEDataCarrier.Name = "tbERMEDataCarrier";
+            tbERMEDataCarrier.Size = new Size(450, 23);
+            tbERMEDataCarrier.TabIndex = 13;
             // 
-            // label84
+            // buttonERMEAuthorsAdd
             // 
-            label84.AutoSize = true;
-            label84.Location = new Point(10, 140);
-            label84.Name = "label84";
-            label84.Size = new Size(57, 15);
-            label84.TabIndex = 4;
-            label84.Text = "Заглавие";
+            buttonERMEAuthorsAdd.Location = new Point(360, 20);
+            buttonERMEAuthorsAdd.Name = "buttonERMEAuthorsAdd";
+            buttonERMEAuthorsAdd.Size = new Size(90, 23);
+            buttonERMEAuthorsAdd.TabIndex = 2;
+            buttonERMEAuthorsAdd.Text = "Добавить";
+            buttonERMEAuthorsAdd.UseVisualStyleBackColor = true;
             // 
-            // textBox83
+            // labelERMEDataCarrier
             // 
-            textBox83.Location = new Point(10, 160);
-            textBox83.Name = "textBox83";
-            textBox83.Size = new Size(450, 23);
-            textBox83.TabIndex = 5;
+            labelERMEDataCarrier.AutoSize = true;
+            labelERMEDataCarrier.Location = new Point(0, 320);
+            labelERMEDataCarrier.Name = "labelERMEDataCarrier";
+            labelERMEDataCarrier.Size = new Size(60, 15);
+            labelERMEDataCarrier.TabIndex = 12;
+            labelERMEDataCarrier.Text = "Носитель";
             // 
-            // label85
+            // lbERMEAuthors
             // 
-            label85.AutoSize = true;
-            label85.Location = new Point(10, 190);
-            label85.Name = "label85";
-            label85.Size = new Size(89, 15);
-            label85.TabIndex = 6;
-            label85.Text = "Место издания";
+            lbERMEAuthors.ItemHeight = 15;
+            lbERMEAuthors.Location = new Point(0, 50);
+            lbERMEAuthors.Name = "lbERMEAuthors";
+            lbERMEAuthors.Size = new Size(450, 64);
+            lbERMEAuthors.TabIndex = 3;
             // 
-            // textBox84
+            // tbERMEPublishYear
             // 
-            textBox84.Location = new Point(10, 210);
-            textBox84.Name = "textBox84";
-            textBox84.Size = new Size(450, 23);
-            textBox84.TabIndex = 7;
+            tbERMEPublishYear.Location = new Point(0, 290);
+            tbERMEPublishYear.Name = "tbERMEPublishYear";
+            tbERMEPublishYear.Size = new Size(450, 23);
+            tbERMEPublishYear.TabIndex = 11;
             // 
-            // label86
+            // labelERMETitle
             // 
-            label86.AutoSize = true;
-            label86.Location = new Point(10, 240);
-            label86.Name = "label86";
-            label86.Size = new Size(81, 15);
-            label86.TabIndex = 8;
-            label86.Text = "Издательство";
+            labelERMETitle.AutoSize = true;
+            labelERMETitle.Location = new Point(0, 120);
+            labelERMETitle.Name = "labelERMETitle";
+            labelERMETitle.Size = new Size(57, 15);
+            labelERMETitle.TabIndex = 4;
+            labelERMETitle.Text = "Заглавие";
             // 
-            // textBox85
+            // labelERMEPublishYear
             // 
-            textBox85.Location = new Point(10, 260);
-            textBox85.Name = "textBox85";
-            textBox85.Size = new Size(450, 23);
-            textBox85.TabIndex = 9;
+            labelERMEPublishYear.AutoSize = true;
+            labelERMEPublishYear.Location = new Point(0, 270);
+            labelERMEPublishYear.Name = "labelERMEPublishYear";
+            labelERMEPublishYear.Size = new Size(73, 15);
+            labelERMEPublishYear.TabIndex = 10;
+            labelERMEPublishYear.Text = "Год издания";
             // 
-            // label87
+            // tbERMETitle
             // 
-            label87.AutoSize = true;
-            label87.Location = new Point(10, 290);
-            label87.Name = "label87";
-            label87.Size = new Size(73, 15);
-            label87.TabIndex = 10;
-            label87.Text = "Год издания";
+            tbERMETitle.Location = new Point(0, 140);
+            tbERMETitle.Name = "tbERMETitle";
+            tbERMETitle.Size = new Size(450, 23);
+            tbERMETitle.TabIndex = 5;
             // 
-            // textBox86
+            // tbERMEPublisher
             // 
-            textBox86.Location = new Point(10, 310);
-            textBox86.Name = "textBox86";
-            textBox86.Size = new Size(450, 23);
-            textBox86.TabIndex = 11;
+            tbERMEPublisher.Location = new Point(0, 240);
+            tbERMEPublisher.Name = "tbERMEPublisher";
+            tbERMEPublisher.Size = new Size(450, 23);
+            tbERMEPublisher.TabIndex = 9;
             // 
-            // label88
+            // labelERMEPublishingLocation
             // 
-            label88.AutoSize = true;
-            label88.Location = new Point(10, 340);
-            label88.Name = "label88";
-            label88.Size = new Size(60, 15);
-            label88.TabIndex = 12;
-            label88.Text = "Носитель";
+            labelERMEPublishingLocation.AutoSize = true;
+            labelERMEPublishingLocation.Location = new Point(0, 170);
+            labelERMEPublishingLocation.Name = "labelERMEPublishingLocation";
+            labelERMEPublishingLocation.Size = new Size(89, 15);
+            labelERMEPublishingLocation.TabIndex = 6;
+            labelERMEPublishingLocation.Text = "Место издания";
             // 
-            // textBox87
+            // labelERMEPublisher
             // 
-            textBox87.Location = new Point(10, 360);
-            textBox87.Name = "textBox87";
-            textBox87.Size = new Size(450, 23);
-            textBox87.TabIndex = 13;
+            labelERMEPublisher.AutoSize = true;
+            labelERMEPublisher.Location = new Point(0, 220);
+            labelERMEPublisher.Name = "labelERMEPublisher";
+            labelERMEPublisher.Size = new Size(81, 15);
+            labelERMEPublisher.TabIndex = 8;
+            labelERMEPublisher.Text = "Издательство";
+            // 
+            // tbERMEPublishingLocation
+            // 
+            tbERMEPublishingLocation.Location = new Point(0, 190);
+            tbERMEPublishingLocation.Name = "tbERMEPublishingLocation";
+            tbERMEPublishingLocation.Size = new Size(450, 23);
+            tbERMEPublishingLocation.TabIndex = 7;
             // 
             // gbERMultimediaEditionOptional
             // 
-            gbERMultimediaEditionOptional.Controls.Add(panelERMultimediaEditionOptional);
-            gbERMultimediaEditionOptional.Location = new Point(10, 411);
+            gbERMultimediaEditionOptional.Controls.Add(labelERMEDocumentType);
+            gbERMultimediaEditionOptional.Controls.Add(labelERMEResponsibilityArea);
+            gbERMultimediaEditionOptional.Controls.Add(tbERMENotation);
+            gbERMultimediaEditionOptional.Controls.Add(tbERMEDocumentType);
+            gbERMultimediaEditionOptional.Controls.Add(labelERMEEditor);
+            gbERMultimediaEditionOptional.Controls.Add(labelERMEOrganization);
+            gbERMultimediaEditionOptional.Controls.Add(tbERMEResponsibilityArea);
+            gbERMultimediaEditionOptional.Controls.Add(tbERMEISBN);
+            gbERMultimediaEditionOptional.Controls.Add(labelERMENotation);
+            gbERMultimediaEditionOptional.Controls.Add(tbERMEOrganization);
+            gbERMultimediaEditionOptional.Controls.Add(labelERMEISBN);
+            gbERMultimediaEditionOptional.Controls.Add(tbERMEEditor);
+            gbERMultimediaEditionOptional.Location = new Point(10, 346);
             gbERMultimediaEditionOptional.Name = "gbERMultimediaEditionOptional";
-            gbERMultimediaEditionOptional.Size = new Size(488, 307);
+            gbERMultimediaEditionOptional.Size = new Size(488, 330);
             gbERMultimediaEditionOptional.TabIndex = 3;
             gbERMultimediaEditionOptional.TabStop = false;
             gbERMultimediaEditionOptional.Text = "Необязательные поля";
             // 
-            // panelERMultimediaEditionOptional
+            // labelERMEDocumentType
             // 
-            panelERMultimediaEditionOptional.AutoScroll = true;
-            panelERMultimediaEditionOptional.Controls.Add(label90);
-            panelERMultimediaEditionOptional.Controls.Add(textBox89);
-            panelERMultimediaEditionOptional.Controls.Add(textBox94);
-            panelERMultimediaEditionOptional.Controls.Add(label91);
-            panelERMultimediaEditionOptional.Controls.Add(label95);
-            panelERMultimediaEditionOptional.Controls.Add(textBox90);
-            panelERMultimediaEditionOptional.Controls.Add(textBox93);
-            panelERMultimediaEditionOptional.Controls.Add(label92);
-            panelERMultimediaEditionOptional.Controls.Add(label94);
-            panelERMultimediaEditionOptional.Controls.Add(textBox91);
-            panelERMultimediaEditionOptional.Controls.Add(textBox92);
-            panelERMultimediaEditionOptional.Controls.Add(label93);
-            panelERMultimediaEditionOptional.Location = new Point(10, 22);
-            panelERMultimediaEditionOptional.Name = "panelERMultimediaEditionOptional";
-            panelERMultimediaEditionOptional.Size = new Size(473, 279);
-            panelERMultimediaEditionOptional.TabIndex = 4;
+            labelERMEDocumentType.AutoSize = true;
+            labelERMEDocumentType.Location = new Point(10, 21);
+            labelERMEDocumentType.Name = "labelERMEDocumentType";
+            labelERMEDocumentType.Size = new Size(88, 15);
+            labelERMEDocumentType.TabIndex = 0;
+            labelERMEDocumentType.Text = "Вид документа";
             // 
-            // label90
+            // labelERMEResponsibilityArea
             // 
-            label90.AutoSize = true;
-            label90.Location = new Point(0, 1);
-            label90.Name = "label90";
-            label90.Size = new Size(88, 15);
-            label90.TabIndex = 0;
-            label90.Text = "Вид документа";
+            labelERMEResponsibilityArea.AutoSize = true;
+            labelERMEResponsibilityArea.Location = new Point(10, 71);
+            labelERMEResponsibilityArea.Name = "labelERMEResponsibilityArea";
+            labelERMEResponsibilityArea.Size = new Size(147, 15);
+            labelERMEResponsibilityArea.TabIndex = 2;
+            labelERMEResponsibilityArea.Text = "Область ответственности";
             // 
-            // textBox89
+            // tbERMENotation
             // 
-            textBox89.Location = new Point(0, 21);
-            textBox89.Name = "textBox89";
-            textBox89.Size = new Size(450, 23);
-            textBox89.TabIndex = 1;
+            tbERMENotation.Location = new Point(10, 241);
+            tbERMENotation.Name = "tbERMENotation";
+            tbERMENotation.Size = new Size(450, 23);
+            tbERMENotation.TabIndex = 9;
             // 
-            // textBox94
+            // tbERMEDocumentType
             // 
-            textBox94.Location = new Point(0, 271);
-            textBox94.Name = "textBox94";
-            textBox94.Size = new Size(450, 23);
-            textBox94.TabIndex = 11;
+            tbERMEDocumentType.Location = new Point(10, 41);
+            tbERMEDocumentType.Name = "tbERMEDocumentType";
+            tbERMEDocumentType.Size = new Size(450, 23);
+            tbERMEDocumentType.TabIndex = 1;
             // 
-            // label91
+            // labelERMEEditor
             // 
-            label91.AutoSize = true;
-            label91.Location = new Point(0, 51);
-            label91.Name = "label91";
-            label91.Size = new Size(147, 15);
-            label91.TabIndex = 2;
-            label91.Text = "Область ответственности";
+            labelERMEEditor.AutoSize = true;
+            labelERMEEditor.Location = new Point(10, 121);
+            labelERMEEditor.Name = "labelERMEEditor";
+            labelERMEEditor.Size = new Size(57, 15);
+            labelERMEEditor.TabIndex = 4;
+            labelERMEEditor.Text = "Редактор";
             // 
-            // label95
+            // labelERMEOrganization
             // 
-            label95.AutoSize = true;
-            label95.Location = new Point(0, 251);
-            label95.Name = "label95";
-            label95.Size = new Size(32, 15);
-            label95.TabIndex = 10;
-            label95.Text = "ISBN";
+            labelERMEOrganization.AutoSize = true;
+            labelERMEOrganization.Location = new Point(10, 171);
+            labelERMEOrganization.Name = "labelERMEOrganization";
+            labelERMEOrganization.Size = new Size(79, 15);
+            labelERMEOrganization.TabIndex = 6;
+            labelERMEOrganization.Text = "Организация";
             // 
-            // textBox90
+            // tbERMEResponsibilityArea
             // 
-            textBox90.Location = new Point(0, 71);
-            textBox90.Name = "textBox90";
-            textBox90.Size = new Size(450, 23);
-            textBox90.TabIndex = 3;
+            tbERMEResponsibilityArea.Location = new Point(10, 91);
+            tbERMEResponsibilityArea.Name = "tbERMEResponsibilityArea";
+            tbERMEResponsibilityArea.Size = new Size(450, 23);
+            tbERMEResponsibilityArea.TabIndex = 3;
             // 
-            // textBox93
+            // tbERMEISBN
             // 
-            textBox93.Location = new Point(0, 221);
-            textBox93.Name = "textBox93";
-            textBox93.Size = new Size(450, 23);
-            textBox93.TabIndex = 9;
+            tbERMEISBN.Location = new Point(10, 291);
+            tbERMEISBN.Name = "tbERMEISBN";
+            tbERMEISBN.Size = new Size(450, 23);
+            tbERMEISBN.TabIndex = 11;
             // 
-            // label92
+            // labelERMENotation
             // 
-            label92.AutoSize = true;
-            label92.Location = new Point(0, 101);
-            label92.Name = "label92";
-            label92.Size = new Size(57, 15);
-            label92.TabIndex = 4;
-            label92.Text = "Редактор";
+            labelERMENotation.AutoSize = true;
+            labelERMENotation.Location = new Point(10, 221);
+            labelERMENotation.Name = "labelERMENotation";
+            labelERMENotation.Size = new Size(78, 15);
+            labelERMENotation.TabIndex = 8;
+            labelERMENotation.Text = "Примечание";
             // 
-            // label94
+            // tbERMEOrganization
             // 
-            label94.AutoSize = true;
-            label94.Location = new Point(0, 201);
-            label94.Name = "label94";
-            label94.Size = new Size(78, 15);
-            label94.TabIndex = 8;
-            label94.Text = "Примечание";
+            tbERMEOrganization.Location = new Point(10, 191);
+            tbERMEOrganization.Name = "tbERMEOrganization";
+            tbERMEOrganization.Size = new Size(450, 23);
+            tbERMEOrganization.TabIndex = 7;
             // 
-            // textBox91
+            // labelERMEISBN
             // 
-            textBox91.Location = new Point(0, 121);
-            textBox91.Name = "textBox91";
-            textBox91.Size = new Size(450, 23);
-            textBox91.TabIndex = 5;
+            labelERMEISBN.AutoSize = true;
+            labelERMEISBN.Location = new Point(10, 271);
+            labelERMEISBN.Name = "labelERMEISBN";
+            labelERMEISBN.Size = new Size(32, 15);
+            labelERMEISBN.TabIndex = 10;
+            labelERMEISBN.Text = "ISBN";
             // 
-            // textBox92
+            // tbERMEEditor
             // 
-            textBox92.Location = new Point(0, 171);
-            textBox92.Name = "textBox92";
-            textBox92.Size = new Size(450, 23);
-            textBox92.TabIndex = 7;
-            // 
-            // label93
-            // 
-            label93.AutoSize = true;
-            label93.Location = new Point(0, 151);
-            label93.Name = "label93";
-            label93.Size = new Size(79, 15);
-            label93.TabIndex = 6;
-            label93.Text = "Организация";
+            tbERMEEditor.Location = new Point(10, 141);
+            tbERMEEditor.Name = "tbERMEEditor";
+            tbERMEEditor.Size = new Size(450, 23);
+            tbERMEEditor.TabIndex = 5;
             // 
             // tpEREjournalArticle
             // 
@@ -3025,208 +3512,217 @@
             tpEREjournalArticle.Location = new Point(4, 24);
             tpEREjournalArticle.Name = "tpEREjournalArticle";
             tpEREjournalArticle.Padding = new Padding(3);
-            tpEREjournalArticle.Size = new Size(505, 724);
+            tpEREjournalArticle.Size = new Size(505, 681);
             tpEREjournalArticle.TabIndex = 2;
             tpEREjournalArticle.Text = "Статья из электронного журнала";
             // 
             // gbEREjournalArticleReqired
             // 
-            gbEREjournalArticleReqired.Controls.Add(label82);
-            gbEREjournalArticleReqired.Controls.Add(textBox81);
-            gbEREjournalArticleReqired.Controls.Add(label97);
-            gbEREjournalArticleReqired.Controls.Add(textBox96);
-            gbEREjournalArticleReqired.Controls.Add(label98);
-            gbEREjournalArticleReqired.Controls.Add(textBox97);
-            gbEREjournalArticleReqired.Controls.Add(button8);
-            gbEREjournalArticleReqired.Controls.Add(listBox7);
-            gbEREjournalArticleReqired.Controls.Add(label99);
-            gbEREjournalArticleReqired.Controls.Add(textBox98);
-            gbEREjournalArticleReqired.Controls.Add(label100);
-            gbEREjournalArticleReqired.Controls.Add(textBox99);
-            gbEREjournalArticleReqired.Controls.Add(label101);
-            gbEREjournalArticleReqired.Controls.Add(textBox100);
-            gbEREjournalArticleReqired.Controls.Add(label102);
-            gbEREjournalArticleReqired.Controls.Add(textBox101);
-            gbEREjournalArticleReqired.Controls.Add(label103);
-            gbEREjournalArticleReqired.Controls.Add(textBox102);
+            gbEREjournalArticleReqired.Controls.Add(panelEREjournalArticleReqired);
             gbEREjournalArticleReqired.Location = new Point(10, 10);
             gbEREjournalArticleReqired.Name = "gbEREjournalArticleReqired";
-            gbEREjournalArticleReqired.Size = new Size(470, 486);
+            gbEREjournalArticleReqired.Size = new Size(488, 330);
             gbEREjournalArticleReqired.TabIndex = 2;
             gbEREjournalArticleReqired.TabStop = false;
             gbEREjournalArticleReqired.Text = "Обязательные поля";
             // 
-            // label82
+            // panelEREjournalArticleReqired
             // 
-            label82.AutoSize = true;
-            label82.Location = new Point(10, 432);
-            label82.Name = "label82";
-            label82.Size = new Size(99, 15);
-            label82.TabIndex = 16;
-            label82.Text = "Дата обращения";
+            panelEREjournalArticleReqired.AutoScroll = true;
+            panelEREjournalArticleReqired.Controls.Add(labelEREjAAccessDate);
+            panelEREjournalArticleReqired.Controls.Add(labelEREjAAuthors);
+            panelEREjournalArticleReqired.Controls.Add(tbEREjAAccessDate);
+            panelEREjournalArticleReqired.Controls.Add(tbEREjAPages);
+            panelEREjournalArticleReqired.Controls.Add(labelEREjAURL);
+            panelEREjournalArticleReqired.Controls.Add(labelEREjAPages);
+            panelEREjournalArticleReqired.Controls.Add(tbEREjAURL);
+            panelEREjournalArticleReqired.Controls.Add(tbEREjAJournalNumber);
+            panelEREjournalArticleReqired.Controls.Add(labelEREjAJournalNumber);
+            panelEREjournalArticleReqired.Controls.Add(tbEREjAAuthors);
+            panelEREjournalArticleReqired.Controls.Add(tbEREjAYear);
+            panelEREjournalArticleReqired.Controls.Add(tbEREjAAuthorsAdd);
+            panelEREjournalArticleReqired.Controls.Add(labelEREjAYear);
+            panelEREjournalArticleReqired.Controls.Add(lbEREjAAuthors);
+            panelEREjournalArticleReqired.Controls.Add(tbEREjAJournalName);
+            panelEREjournalArticleReqired.Controls.Add(labelEREjATitle);
+            panelEREjournalArticleReqired.Controls.Add(labelEREjAJournalName);
+            panelEREjournalArticleReqired.Controls.Add(tbEREjATitle);
+            panelEREjournalArticleReqired.Location = new Point(10, 22);
+            panelEREjournalArticleReqired.Name = "panelEREjournalArticleReqired";
+            panelEREjournalArticleReqired.Size = new Size(472, 302);
+            panelEREjournalArticleReqired.TabIndex = 0;
             // 
-            // textBox81
+            // labelEREjAAccessDate
             // 
-            textBox81.Location = new Point(10, 452);
-            textBox81.Name = "textBox81";
-            textBox81.Size = new Size(450, 23);
-            textBox81.TabIndex = 17;
+            labelEREjAAccessDate.AutoSize = true;
+            labelEREjAAccessDate.Location = new Point(0, 412);
+            labelEREjAAccessDate.Name = "labelEREjAAccessDate";
+            labelEREjAAccessDate.Size = new Size(99, 15);
+            labelEREjAAccessDate.TabIndex = 16;
+            labelEREjAAccessDate.Text = "Дата обращения";
             // 
-            // label97
+            // labelEREjAAuthors
             // 
-            label97.AutoSize = true;
-            label97.Location = new Point(10, 385);
-            label97.Name = "label97";
-            label97.Size = new Size(28, 15);
-            label97.TabIndex = 14;
-            label97.Text = "URL";
+            labelEREjAAuthors.AutoSize = true;
+            labelEREjAAuthors.Location = new Point(0, 0);
+            labelEREjAAuthors.Name = "labelEREjAAuthors";
+            labelEREjAAuthors.Size = new Size(57, 15);
+            labelEREjAAuthors.TabIndex = 0;
+            labelEREjAAuthors.Text = "Автор(ы)";
             // 
-            // textBox96
+            // tbEREjAAccessDate
             // 
-            textBox96.Location = new Point(10, 405);
-            textBox96.Name = "textBox96";
-            textBox96.Size = new Size(450, 23);
-            textBox96.TabIndex = 15;
+            tbEREjAAccessDate.Location = new Point(0, 432);
+            tbEREjAAccessDate.Name = "tbEREjAAccessDate";
+            tbEREjAAccessDate.Size = new Size(450, 23);
+            tbEREjAAccessDate.TabIndex = 17;
             // 
-            // label98
+            // tbEREjAPages
             // 
-            label98.AutoSize = true;
-            label98.Location = new Point(10, 20);
-            label98.Name = "label98";
-            label98.Size = new Size(57, 15);
-            label98.TabIndex = 0;
-            label98.Text = "Автор(ы)";
+            tbEREjAPages.Location = new Point(0, 340);
+            tbEREjAPages.Name = "tbEREjAPages";
+            tbEREjAPages.Size = new Size(450, 23);
+            tbEREjAPages.TabIndex = 13;
             // 
-            // textBox97
+            // labelEREjAURL
             // 
-            textBox97.Location = new Point(10, 40);
-            textBox97.Name = "textBox97";
-            textBox97.Size = new Size(350, 23);
-            textBox97.TabIndex = 1;
+            labelEREjAURL.AutoSize = true;
+            labelEREjAURL.Location = new Point(0, 365);
+            labelEREjAURL.Name = "labelEREjAURL";
+            labelEREjAURL.Size = new Size(28, 15);
+            labelEREjAURL.TabIndex = 14;
+            labelEREjAURL.Text = "URL";
             // 
-            // button8
+            // labelEREjAPages
             // 
-            button8.Location = new Point(370, 40);
-            button8.Name = "button8";
-            button8.Size = new Size(90, 23);
-            button8.TabIndex = 2;
-            button8.Text = "Добавить";
-            button8.UseVisualStyleBackColor = true;
+            labelEREjAPages.AutoSize = true;
+            labelEREjAPages.Location = new Point(0, 320);
+            labelEREjAPages.Name = "labelEREjAPages";
+            labelEREjAPages.Size = new Size(63, 15);
+            labelEREjAPages.TabIndex = 12;
+            labelEREjAPages.Text = "Страницы";
             // 
-            // listBox7
+            // tbEREjAURL
             // 
-            listBox7.ItemHeight = 15;
-            listBox7.Location = new Point(10, 70);
-            listBox7.Name = "listBox7";
-            listBox7.Size = new Size(450, 64);
-            listBox7.TabIndex = 3;
+            tbEREjAURL.Location = new Point(0, 385);
+            tbEREjAURL.Name = "tbEREjAURL";
+            tbEREjAURL.Size = new Size(450, 23);
+            tbEREjAURL.TabIndex = 15;
             // 
-            // label99
+            // tbEREjAJournalNumber
             // 
-            label99.AutoSize = true;
-            label99.Location = new Point(10, 140);
-            label99.Name = "label99";
-            label99.Size = new Size(57, 15);
-            label99.TabIndex = 4;
-            label99.Text = "Заглавие";
+            tbEREjAJournalNumber.Location = new Point(0, 290);
+            tbEREjAJournalNumber.Name = "tbEREjAJournalNumber";
+            tbEREjAJournalNumber.Size = new Size(450, 23);
+            tbEREjAJournalNumber.TabIndex = 11;
             // 
-            // textBox98
+            // labelEREjAJournalNumber
             // 
-            textBox98.Location = new Point(10, 160);
-            textBox98.Name = "textBox98";
-            textBox98.Size = new Size(450, 23);
-            textBox98.TabIndex = 5;
+            labelEREjAJournalNumber.AutoSize = true;
+            labelEREjAJournalNumber.Location = new Point(0, 270);
+            labelEREjAJournalNumber.Name = "labelEREjAJournalNumber";
+            labelEREjAJournalNumber.Size = new Size(96, 15);
+            labelEREjAJournalNumber.TabIndex = 10;
+            labelEREjAJournalNumber.Text = "Номер журнала";
             // 
-            // label100
+            // tbEREjAAuthors
             // 
-            label100.AutoSize = true;
-            label100.Location = new Point(10, 190);
-            label100.Name = "label100";
-            label100.Size = new Size(110, 15);
-            label100.TabIndex = 6;
-            label100.Text = "Название журнала";
+            tbEREjAAuthors.Location = new Point(0, 20);
+            tbEREjAAuthors.Name = "tbEREjAAuthors";
+            tbEREjAAuthors.Size = new Size(350, 23);
+            tbEREjAAuthors.TabIndex = 1;
             // 
-            // textBox99
+            // tbEREjAYear
             // 
-            textBox99.Location = new Point(10, 210);
-            textBox99.Name = "textBox99";
-            textBox99.Size = new Size(450, 23);
-            textBox99.TabIndex = 7;
+            tbEREjAYear.Location = new Point(0, 240);
+            tbEREjAYear.Name = "tbEREjAYear";
+            tbEREjAYear.Size = new Size(450, 23);
+            tbEREjAYear.TabIndex = 9;
             // 
-            // label101
+            // tbEREjAAuthorsAdd
             // 
-            label101.AutoSize = true;
-            label101.Location = new Point(10, 240);
-            label101.Name = "label101";
-            label101.Size = new Size(26, 15);
-            label101.TabIndex = 8;
-            label101.Text = "Год";
+            tbEREjAAuthorsAdd.Location = new Point(360, 20);
+            tbEREjAAuthorsAdd.Name = "tbEREjAAuthorsAdd";
+            tbEREjAAuthorsAdd.Size = new Size(90, 23);
+            tbEREjAAuthorsAdd.TabIndex = 2;
+            tbEREjAAuthorsAdd.Text = "Добавить";
+            tbEREjAAuthorsAdd.UseVisualStyleBackColor = true;
             // 
-            // textBox100
+            // labelEREjAYear
             // 
-            textBox100.Location = new Point(10, 260);
-            textBox100.Name = "textBox100";
-            textBox100.Size = new Size(450, 23);
-            textBox100.TabIndex = 9;
+            labelEREjAYear.AutoSize = true;
+            labelEREjAYear.Location = new Point(0, 220);
+            labelEREjAYear.Name = "labelEREjAYear";
+            labelEREjAYear.Size = new Size(26, 15);
+            labelEREjAYear.TabIndex = 8;
+            labelEREjAYear.Text = "Год";
             // 
-            // label102
+            // lbEREjAAuthors
             // 
-            label102.AutoSize = true;
-            label102.Location = new Point(10, 290);
-            label102.Name = "label102";
-            label102.Size = new Size(96, 15);
-            label102.TabIndex = 10;
-            label102.Text = "Номер журнала";
+            lbEREjAAuthors.ItemHeight = 15;
+            lbEREjAAuthors.Location = new Point(0, 50);
+            lbEREjAAuthors.Name = "lbEREjAAuthors";
+            lbEREjAAuthors.Size = new Size(450, 64);
+            lbEREjAAuthors.TabIndex = 3;
             // 
-            // textBox101
+            // tbEREjAJournalName
             // 
-            textBox101.Location = new Point(10, 310);
-            textBox101.Name = "textBox101";
-            textBox101.Size = new Size(450, 23);
-            textBox101.TabIndex = 11;
+            tbEREjAJournalName.Location = new Point(0, 190);
+            tbEREjAJournalName.Name = "tbEREjAJournalName";
+            tbEREjAJournalName.Size = new Size(450, 23);
+            tbEREjAJournalName.TabIndex = 7;
             // 
-            // label103
+            // labelEREjATitle
             // 
-            label103.AutoSize = true;
-            label103.Location = new Point(10, 340);
-            label103.Name = "label103";
-            label103.Size = new Size(63, 15);
-            label103.TabIndex = 12;
-            label103.Text = "Страницы";
+            labelEREjATitle.AutoSize = true;
+            labelEREjATitle.Location = new Point(0, 120);
+            labelEREjATitle.Name = "labelEREjATitle";
+            labelEREjATitle.Size = new Size(57, 15);
+            labelEREjATitle.TabIndex = 4;
+            labelEREjATitle.Text = "Заглавие";
             // 
-            // textBox102
+            // labelEREjAJournalName
             // 
-            textBox102.Location = new Point(10, 360);
-            textBox102.Name = "textBox102";
-            textBox102.Size = new Size(450, 23);
-            textBox102.TabIndex = 13;
+            labelEREjAJournalName.AutoSize = true;
+            labelEREjAJournalName.Location = new Point(0, 170);
+            labelEREjAJournalName.Name = "labelEREjAJournalName";
+            labelEREjAJournalName.Size = new Size(110, 15);
+            labelEREjAJournalName.TabIndex = 6;
+            labelEREjAJournalName.Text = "Название журнала";
+            // 
+            // tbEREjATitle
+            // 
+            tbEREjATitle.Location = new Point(0, 140);
+            tbEREjATitle.Name = "tbEREjATitle";
+            tbEREjATitle.Size = new Size(450, 23);
+            tbEREjATitle.TabIndex = 5;
             // 
             // gbEREjournalArticleOptional
             // 
-            gbEREjournalArticleOptional.Controls.Add(label105);
-            gbEREjournalArticleOptional.Controls.Add(textBox104);
-            gbEREjournalArticleOptional.Location = new Point(10, 502);
+            gbEREjournalArticleOptional.Controls.Add(labelEREjAAccessMode);
+            gbEREjournalArticleOptional.Controls.Add(tbEREjAAccessMode);
+            gbEREjournalArticleOptional.Location = new Point(10, 346);
             gbEREjournalArticleOptional.Name = "gbEREjournalArticleOptional";
-            gbEREjournalArticleOptional.Size = new Size(470, 216);
+            gbEREjournalArticleOptional.Size = new Size(488, 330);
             gbEREjournalArticleOptional.TabIndex = 3;
             gbEREjournalArticleOptional.TabStop = false;
             gbEREjournalArticleOptional.Text = "Необязательные поля";
             // 
-            // label105
+            // labelEREjAAccessMode
             // 
-            label105.AutoSize = true;
-            label105.Location = new Point(10, 20);
-            label105.Name = "label105";
-            label105.Size = new Size(91, 15);
-            label105.TabIndex = 0;
-            label105.Text = "Режим доступа";
+            labelEREjAAccessMode.AutoSize = true;
+            labelEREjAAccessMode.Location = new Point(10, 20);
+            labelEREjAAccessMode.Name = "labelEREjAAccessMode";
+            labelEREjAAccessMode.Size = new Size(91, 15);
+            labelEREjAAccessMode.TabIndex = 0;
+            labelEREjAAccessMode.Text = "Режим доступа";
             // 
-            // textBox104
+            // tbEREjAAccessMode
             // 
-            textBox104.Location = new Point(10, 40);
-            textBox104.Name = "textBox104";
-            textBox104.Size = new Size(450, 23);
-            textBox104.TabIndex = 1;
+            tbEREjAAccessMode.Location = new Point(10, 40);
+            tbEREjAAccessMode.Name = "tbEREjAAccessMode";
+            tbEREjAAccessMode.Size = new Size(450, 23);
+            tbEREjAAccessMode.TabIndex = 1;
             // 
             // tpERWebsite
             // 
@@ -3236,171 +3732,171 @@
             tpERWebsite.Location = new Point(4, 24);
             tpERWebsite.Name = "tpERWebsite";
             tpERWebsite.Padding = new Padding(3);
-            tpERWebsite.Size = new Size(505, 724);
+            tpERWebsite.Size = new Size(505, 681);
             tpERWebsite.TabIndex = 3;
             tpERWebsite.Text = "Сайт";
             // 
             // gbERWebsiteRequired
             // 
-            gbERWebsiteRequired.Controls.Add(label112);
-            gbERWebsiteRequired.Controls.Add(textBox111);
-            gbERWebsiteRequired.Controls.Add(label113);
-            gbERWebsiteRequired.Controls.Add(textBox112);
-            gbERWebsiteRequired.Controls.Add(label114);
-            gbERWebsiteRequired.Controls.Add(textBox113);
+            gbERWebsiteRequired.Controls.Add(labelERWWebsiteURL);
+            gbERWebsiteRequired.Controls.Add(tbERWWebsiteURL);
+            gbERWebsiteRequired.Controls.Add(labelERWWebsiteName);
+            gbERWebsiteRequired.Controls.Add(tbERWWebsiteName);
+            gbERWebsiteRequired.Controls.Add(labelERWAccessDate);
+            gbERWebsiteRequired.Controls.Add(tbERWAccessDate);
             gbERWebsiteRequired.Location = new Point(10, 10);
             gbERWebsiteRequired.Name = "gbERWebsiteRequired";
-            gbERWebsiteRequired.Size = new Size(488, 170);
+            gbERWebsiteRequired.Size = new Size(488, 330);
             gbERWebsiteRequired.TabIndex = 6;
             gbERWebsiteRequired.TabStop = false;
             gbERWebsiteRequired.Text = "Обязательные поля";
             // 
-            // label112
+            // labelERWWebsiteURL
             // 
-            label112.AutoSize = true;
-            label112.Location = new Point(10, 67);
-            label112.Name = "label112";
-            label112.Size = new Size(28, 15);
-            label112.TabIndex = 14;
-            label112.Text = "URL";
+            labelERWWebsiteURL.AutoSize = true;
+            labelERWWebsiteURL.Location = new Point(10, 67);
+            labelERWWebsiteURL.Name = "labelERWWebsiteURL";
+            labelERWWebsiteURL.Size = new Size(28, 15);
+            labelERWWebsiteURL.TabIndex = 14;
+            labelERWWebsiteURL.Text = "URL";
             // 
-            // textBox111
+            // tbERWWebsiteURL
             // 
-            textBox111.Location = new Point(10, 87);
-            textBox111.Name = "textBox111";
-            textBox111.Size = new Size(450, 23);
-            textBox111.TabIndex = 15;
+            tbERWWebsiteURL.Location = new Point(10, 87);
+            tbERWWebsiteURL.Name = "tbERWWebsiteURL";
+            tbERWWebsiteURL.Size = new Size(450, 23);
+            tbERWWebsiteURL.TabIndex = 15;
             // 
-            // label113
+            // labelERWWebsiteName
             // 
-            label113.AutoSize = true;
-            label113.Location = new Point(10, 20);
-            label113.Name = "label113";
-            label113.Size = new Size(92, 15);
-            label113.TabIndex = 4;
-            label113.Text = "Название сайта";
+            labelERWWebsiteName.AutoSize = true;
+            labelERWWebsiteName.Location = new Point(10, 20);
+            labelERWWebsiteName.Name = "labelERWWebsiteName";
+            labelERWWebsiteName.Size = new Size(92, 15);
+            labelERWWebsiteName.TabIndex = 4;
+            labelERWWebsiteName.Text = "Название сайта";
             // 
-            // textBox112
+            // tbERWWebsiteName
             // 
-            textBox112.Location = new Point(10, 40);
-            textBox112.Name = "textBox112";
-            textBox112.Size = new Size(450, 23);
-            textBox112.TabIndex = 5;
+            tbERWWebsiteName.Location = new Point(10, 40);
+            tbERWWebsiteName.Name = "tbERWWebsiteName";
+            tbERWWebsiteName.Size = new Size(450, 23);
+            tbERWWebsiteName.TabIndex = 5;
             // 
-            // label114
+            // labelERWAccessDate
             // 
-            label114.AutoSize = true;
-            label114.Location = new Point(10, 115);
-            label114.Name = "label114";
-            label114.Size = new Size(99, 15);
-            label114.TabIndex = 6;
-            label114.Text = "Дата обращения";
+            labelERWAccessDate.AutoSize = true;
+            labelERWAccessDate.Location = new Point(10, 115);
+            labelERWAccessDate.Name = "labelERWAccessDate";
+            labelERWAccessDate.Size = new Size(99, 15);
+            labelERWAccessDate.TabIndex = 6;
+            labelERWAccessDate.Text = "Дата обращения";
             // 
-            // textBox113
+            // tbERWAccessDate
             // 
-            textBox113.Location = new Point(10, 135);
-            textBox113.Name = "textBox113";
-            textBox113.Size = new Size(450, 23);
-            textBox113.TabIndex = 7;
+            tbERWAccessDate.Location = new Point(10, 135);
+            tbERWAccessDate.Name = "tbERWAccessDate";
+            tbERWAccessDate.Size = new Size(450, 23);
+            tbERWAccessDate.TabIndex = 7;
             // 
             // gbERWebsiteOptional
             // 
-            gbERWebsiteOptional.Controls.Add(label89);
-            gbERWebsiteOptional.Controls.Add(textBox88);
-            gbERWebsiteOptional.Controls.Add(label117);
-            gbERWebsiteOptional.Controls.Add(textBox116);
-            gbERWebsiteOptional.Controls.Add(label118);
-            gbERWebsiteOptional.Controls.Add(textBox117);
-            gbERWebsiteOptional.Controls.Add(label119);
-            gbERWebsiteOptional.Controls.Add(textBox118);
-            gbERWebsiteOptional.Controls.Add(label120);
-            gbERWebsiteOptional.Controls.Add(textBox119);
-            gbERWebsiteOptional.Location = new Point(10, 186);
+            gbERWebsiteOptional.Controls.Add(labelERWFounder);
+            gbERWebsiteOptional.Controls.Add(tbERWFounder);
+            gbERWebsiteOptional.Controls.Add(labelERWDocumentType);
+            gbERWebsiteOptional.Controls.Add(tbERWDocumentType);
+            gbERWebsiteOptional.Controls.Add(labelERWPublishingLocation);
+            gbERWebsiteOptional.Controls.Add(tbERWPublishingLocation);
+            gbERWebsiteOptional.Controls.Add(labelERWCreationYear);
+            gbERWebsiteOptional.Controls.Add(tbERWCreationYear);
+            gbERWebsiteOptional.Controls.Add(labelERWAccessMode);
+            gbERWebsiteOptional.Controls.Add(tbERWAccessMode);
+            gbERWebsiteOptional.Location = new Point(10, 345);
             gbERWebsiteOptional.Name = "gbERWebsiteOptional";
-            gbERWebsiteOptional.Size = new Size(488, 532);
+            gbERWebsiteOptional.Size = new Size(488, 330);
             gbERWebsiteOptional.TabIndex = 7;
             gbERWebsiteOptional.TabStop = false;
             gbERWebsiteOptional.Text = "Необязательные поля";
             // 
-            // label89
+            // labelERWFounder
             // 
-            label89.AutoSize = true;
-            label89.Location = new Point(10, 224);
-            label89.Name = "label89";
-            label89.Size = new Size(71, 15);
-            label89.TabIndex = 8;
-            label89.Text = "Учредитель";
+            labelERWFounder.AutoSize = true;
+            labelERWFounder.Location = new Point(10, 224);
+            labelERWFounder.Name = "labelERWFounder";
+            labelERWFounder.Size = new Size(71, 15);
+            labelERWFounder.TabIndex = 8;
+            labelERWFounder.Text = "Учредитель";
             // 
-            // textBox88
+            // tbERWFounder
             // 
-            textBox88.Location = new Point(10, 244);
-            textBox88.Name = "textBox88";
-            textBox88.Size = new Size(450, 23);
-            textBox88.TabIndex = 9;
+            tbERWFounder.Location = new Point(10, 244);
+            tbERWFounder.Name = "tbERWFounder";
+            tbERWFounder.Size = new Size(450, 23);
+            tbERWFounder.TabIndex = 9;
             // 
-            // label117
+            // labelERWDocumentType
             // 
-            label117.AutoSize = true;
-            label117.Location = new Point(10, 28);
-            label117.Name = "label117";
-            label117.Size = new Size(88, 15);
-            label117.TabIndex = 0;
-            label117.Text = "Вид документа";
+            labelERWDocumentType.AutoSize = true;
+            labelERWDocumentType.Location = new Point(10, 28);
+            labelERWDocumentType.Name = "labelERWDocumentType";
+            labelERWDocumentType.Size = new Size(88, 15);
+            labelERWDocumentType.TabIndex = 0;
+            labelERWDocumentType.Text = "Вид документа";
             // 
-            // textBox116
+            // tbERWDocumentType
             // 
-            textBox116.Location = new Point(10, 48);
-            textBox116.Name = "textBox116";
-            textBox116.Size = new Size(450, 23);
-            textBox116.TabIndex = 1;
+            tbERWDocumentType.Location = new Point(10, 48);
+            tbERWDocumentType.Name = "tbERWDocumentType";
+            tbERWDocumentType.Size = new Size(450, 23);
+            tbERWDocumentType.TabIndex = 1;
             // 
-            // label118
+            // labelERWPublishingLocation
             // 
-            label118.AutoSize = true;
-            label118.Location = new Point(10, 78);
-            label118.Name = "label118";
-            label118.Size = new Size(89, 15);
-            label118.TabIndex = 2;
-            label118.Text = "Место издания";
+            labelERWPublishingLocation.AutoSize = true;
+            labelERWPublishingLocation.Location = new Point(10, 78);
+            labelERWPublishingLocation.Name = "labelERWPublishingLocation";
+            labelERWPublishingLocation.Size = new Size(89, 15);
+            labelERWPublishingLocation.TabIndex = 2;
+            labelERWPublishingLocation.Text = "Место издания";
             // 
-            // textBox117
+            // tbERWPublishingLocation
             // 
-            textBox117.Location = new Point(10, 98);
-            textBox117.Name = "textBox117";
-            textBox117.Size = new Size(450, 23);
-            textBox117.TabIndex = 3;
+            tbERWPublishingLocation.Location = new Point(10, 98);
+            tbERWPublishingLocation.Name = "tbERWPublishingLocation";
+            tbERWPublishingLocation.Size = new Size(450, 23);
+            tbERWPublishingLocation.TabIndex = 3;
             // 
-            // label119
+            // labelERWCreationYear
             // 
-            label119.AutoSize = true;
-            label119.Location = new Point(10, 128);
-            label119.Name = "label119";
-            label119.Size = new Size(151, 15);
-            label119.TabIndex = 4;
-            label119.Text = "Год создания/обновления";
+            labelERWCreationYear.AutoSize = true;
+            labelERWCreationYear.Location = new Point(10, 128);
+            labelERWCreationYear.Name = "labelERWCreationYear";
+            labelERWCreationYear.Size = new Size(151, 15);
+            labelERWCreationYear.TabIndex = 4;
+            labelERWCreationYear.Text = "Год создания/обновления";
             // 
-            // textBox118
+            // tbERWCreationYear
             // 
-            textBox118.Location = new Point(10, 148);
-            textBox118.Name = "textBox118";
-            textBox118.Size = new Size(450, 23);
-            textBox118.TabIndex = 5;
+            tbERWCreationYear.Location = new Point(10, 148);
+            tbERWCreationYear.Name = "tbERWCreationYear";
+            tbERWCreationYear.Size = new Size(450, 23);
+            tbERWCreationYear.TabIndex = 5;
             // 
-            // label120
+            // labelERWAccessMode
             // 
-            label120.AutoSize = true;
-            label120.Location = new Point(10, 178);
-            label120.Name = "label120";
-            label120.Size = new Size(91, 15);
-            label120.TabIndex = 6;
-            label120.Text = "Режим доступа";
+            labelERWAccessMode.AutoSize = true;
+            labelERWAccessMode.Location = new Point(10, 178);
+            labelERWAccessMode.Name = "labelERWAccessMode";
+            labelERWAccessMode.Size = new Size(91, 15);
+            labelERWAccessMode.TabIndex = 6;
+            labelERWAccessMode.Text = "Режим доступа";
             // 
-            // textBox119
+            // tbERWAccessMode
             // 
-            textBox119.Location = new Point(10, 198);
-            textBox119.Name = "textBox119";
-            textBox119.Size = new Size(450, 23);
-            textBox119.TabIndex = 7;
+            tbERWAccessMode.Location = new Point(10, 198);
+            tbERWAccessMode.Name = "tbERWAccessMode";
+            tbERWAccessMode.Size = new Size(450, 23);
+            tbERWAccessMode.TabIndex = 7;
             // 
             // tpConstituentParts
             // 
@@ -3409,7 +3905,7 @@
             tpConstituentParts.Location = new Point(4, 24);
             tpConstituentParts.Name = "tpConstituentParts";
             tpConstituentParts.Padding = new Padding(3);
-            tpConstituentParts.Size = new Size(518, 762);
+            tpConstituentParts.Size = new Size(521, 720);
             tpConstituentParts.TabIndex = 3;
             tpConstituentParts.Text = "Составные части (статьи, главы) ресурсов";
             // 
@@ -3422,7 +3918,7 @@
             tcCPTypes.Location = new Point(3, 6);
             tcCPTypes.Name = "tcCPTypes";
             tcCPTypes.SelectedIndex = 0;
-            tcCPTypes.Size = new Size(513, 752);
+            tcCPTypes.Size = new Size(513, 709);
             tcCPTypes.TabIndex = 2;
             // 
             // tpCPBookArticle
@@ -3433,245 +3929,254 @@
             tpCPBookArticle.Location = new Point(4, 24);
             tpCPBookArticle.Name = "tpCPBookArticle";
             tpCPBookArticle.Padding = new Padding(3);
-            tpCPBookArticle.Size = new Size(505, 724);
+            tpCPBookArticle.Size = new Size(505, 681);
             tpCPBookArticle.TabIndex = 0;
             tpCPBookArticle.Text = "Статья/раздел из книги";
             // 
             // gbCPBookArticleRequired
             // 
-            gbCPBookArticleRequired.Controls.Add(label130);
-            gbCPBookArticleRequired.Controls.Add(textBox129);
-            gbCPBookArticleRequired.Controls.Add(label129);
-            gbCPBookArticleRequired.Controls.Add(textBox128);
-            gbCPBookArticleRequired.Controls.Add(label123);
-            gbCPBookArticleRequired.Controls.Add(textBox122);
-            gbCPBookArticleRequired.Controls.Add(button12);
-            gbCPBookArticleRequired.Controls.Add(listBox11);
-            gbCPBookArticleRequired.Controls.Add(label121);
-            gbCPBookArticleRequired.Controls.Add(textBox120);
-            gbCPBookArticleRequired.Controls.Add(button7);
-            gbCPBookArticleRequired.Controls.Add(listBox5);
-            gbCPBookArticleRequired.Controls.Add(label122);
-            gbCPBookArticleRequired.Controls.Add(textBox121);
-            gbCPBookArticleRequired.Controls.Add(label124);
-            gbCPBookArticleRequired.Controls.Add(textBox123);
-            gbCPBookArticleRequired.Controls.Add(label125);
-            gbCPBookArticleRequired.Controls.Add(textBox124);
-            gbCPBookArticleRequired.Controls.Add(label126);
-            gbCPBookArticleRequired.Controls.Add(textBox125);
+            gbCPBookArticleRequired.Controls.Add(panelCPBookArticleRequired);
             gbCPBookArticleRequired.Location = new Point(10, 10);
             gbCPBookArticleRequired.Name = "gbCPBookArticleRequired";
-            gbCPBookArticleRequired.Size = new Size(488, 548);
+            gbCPBookArticleRequired.Size = new Size(488, 330);
             gbCPBookArticleRequired.TabIndex = 0;
             gbCPBookArticleRequired.TabStop = false;
             gbCPBookArticleRequired.Text = "Обязательные поля";
             // 
-            // label130
+            // panelCPBookArticleRequired
             // 
-            label130.AutoSize = true;
-            label130.Location = new Point(10, 495);
-            label130.Name = "label130";
-            label130.Size = new Size(63, 15);
-            label130.TabIndex = 20;
-            label130.Text = "Страницы";
+            panelCPBookArticleRequired.AutoScroll = true;
+            panelCPBookArticleRequired.Controls.Add(labelCPBAPages);
+            panelCPBookArticleRequired.Controls.Add(labelCPBAArticleAuthors);
+            panelCPBookArticleRequired.Controls.Add(tbCPBAPages);
+            panelCPBookArticleRequired.Controls.Add(tbCPBAPublisher);
+            panelCPBookArticleRequired.Controls.Add(labelCPBAPublishYear);
+            panelCPBookArticleRequired.Controls.Add(labelCPBAPublisher);
+            panelCPBookArticleRequired.Controls.Add(tbCPBAPublishYear);
+            panelCPBookArticleRequired.Controls.Add(tbCPBAPublishingLocation);
+            panelCPBookArticleRequired.Controls.Add(labelCPBABookAuthors);
+            panelCPBookArticleRequired.Controls.Add(labelCPBAPublishingLocation);
+            panelCPBookArticleRequired.Controls.Add(tbCPBABookAuthors);
+            panelCPBookArticleRequired.Controls.Add(tbCPBABookTitle);
+            panelCPBookArticleRequired.Controls.Add(buttonCPBABookAuthorsAdd);
+            panelCPBookArticleRequired.Controls.Add(labelCPBABookTitle);
+            panelCPBookArticleRequired.Controls.Add(lbCPBABookAuthors);
+            panelCPBookArticleRequired.Controls.Add(tbCPBAArticleTitle);
+            panelCPBookArticleRequired.Controls.Add(labelCPBAArticleTitle);
+            panelCPBookArticleRequired.Controls.Add(tbCPBAArticleAuthors);
+            panelCPBookArticleRequired.Controls.Add(lbCPBAArticleAuthors);
+            panelCPBookArticleRequired.Controls.Add(buttonCPBAArticleAuthorsAdd);
+            panelCPBookArticleRequired.Location = new Point(10, 22);
+            panelCPBookArticleRequired.Name = "panelCPBookArticleRequired";
+            panelCPBookArticleRequired.Size = new Size(472, 302);
+            panelCPBookArticleRequired.TabIndex = 0;
             // 
-            // textBox129
+            // labelCPBAPages
             // 
-            textBox129.Location = new Point(10, 515);
-            textBox129.Name = "textBox129";
-            textBox129.Size = new Size(450, 23);
-            textBox129.TabIndex = 21;
+            labelCPBAPages.AutoSize = true;
+            labelCPBAPages.Location = new Point(0, 475);
+            labelCPBAPages.Name = "labelCPBAPages";
+            labelCPBAPages.Size = new Size(63, 15);
+            labelCPBAPages.TabIndex = 20;
+            labelCPBAPages.Text = "Страницы";
             // 
-            // label129
+            // labelCPBAArticleAuthors
             // 
-            label129.AutoSize = true;
-            label129.Location = new Point(10, 448);
-            label129.Name = "label129";
-            label129.Size = new Size(73, 15);
-            label129.TabIndex = 18;
-            label129.Text = "Год издания";
+            labelCPBAArticleAuthors.AutoSize = true;
+            labelCPBAArticleAuthors.Location = new Point(0, 0);
+            labelCPBAArticleAuthors.Name = "labelCPBAArticleAuthors";
+            labelCPBAArticleAuthors.Size = new Size(95, 15);
+            labelCPBAArticleAuthors.TabIndex = 0;
+            labelCPBAArticleAuthors.Text = "Автор(ы) статьи";
             // 
-            // textBox128
+            // tbCPBAPages
             // 
-            textBox128.Location = new Point(10, 468);
-            textBox128.Name = "textBox128";
-            textBox128.Size = new Size(450, 23);
-            textBox128.TabIndex = 19;
+            tbCPBAPages.Location = new Point(0, 495);
+            tbCPBAPages.Name = "tbCPBAPages";
+            tbCPBAPages.Size = new Size(450, 23);
+            tbCPBAPages.TabIndex = 21;
             // 
-            // label123
+            // tbCPBAPublisher
             // 
-            label123.AutoSize = true;
-            label123.Location = new Point(10, 186);
-            label123.Name = "label123";
-            label123.Size = new Size(92, 15);
-            label123.TabIndex = 14;
-            label123.Text = "Автор(ы) книги";
+            tbCPBAPublisher.Location = new Point(0, 403);
+            tbCPBAPublisher.Name = "tbCPBAPublisher";
+            tbCPBAPublisher.Size = new Size(450, 23);
+            tbCPBAPublisher.TabIndex = 13;
             // 
-            // textBox122
+            // labelCPBAPublishYear
             // 
-            textBox122.Location = new Point(10, 206);
-            textBox122.Name = "textBox122";
-            textBox122.Size = new Size(350, 23);
-            textBox122.TabIndex = 15;
+            labelCPBAPublishYear.AutoSize = true;
+            labelCPBAPublishYear.Location = new Point(0, 428);
+            labelCPBAPublishYear.Name = "labelCPBAPublishYear";
+            labelCPBAPublishYear.Size = new Size(73, 15);
+            labelCPBAPublishYear.TabIndex = 18;
+            labelCPBAPublishYear.Text = "Год издания";
             // 
-            // button12
+            // labelCPBAPublisher
             // 
-            button12.Location = new Point(370, 206);
-            button12.Name = "button12";
-            button12.Size = new Size(90, 23);
-            button12.TabIndex = 16;
-            button12.Text = "Добавить";
-            button12.UseVisualStyleBackColor = true;
+            labelCPBAPublisher.AutoSize = true;
+            labelCPBAPublisher.Location = new Point(0, 383);
+            labelCPBAPublisher.Name = "labelCPBAPublisher";
+            labelCPBAPublisher.Size = new Size(81, 15);
+            labelCPBAPublisher.TabIndex = 12;
+            labelCPBAPublisher.Text = "Издательство";
             // 
-            // listBox11
+            // tbCPBAPublishYear
             // 
-            listBox11.ItemHeight = 15;
-            listBox11.Location = new Point(10, 236);
-            listBox11.Name = "listBox11";
-            listBox11.Size = new Size(450, 64);
-            listBox11.TabIndex = 17;
+            tbCPBAPublishYear.Location = new Point(0, 448);
+            tbCPBAPublishYear.Name = "tbCPBAPublishYear";
+            tbCPBAPublishYear.Size = new Size(450, 23);
+            tbCPBAPublishYear.TabIndex = 19;
             // 
-            // label121
+            // tbCPBAPublishingLocation
             // 
-            label121.AutoSize = true;
-            label121.Location = new Point(10, 20);
-            label121.Name = "label121";
-            label121.Size = new Size(95, 15);
-            label121.TabIndex = 0;
-            label121.Text = "Автор(ы) статьи";
+            tbCPBAPublishingLocation.Location = new Point(0, 353);
+            tbCPBAPublishingLocation.Name = "tbCPBAPublishingLocation";
+            tbCPBAPublishingLocation.Size = new Size(450, 23);
+            tbCPBAPublishingLocation.TabIndex = 11;
             // 
-            // textBox120
+            // labelCPBABookAuthors
             // 
-            textBox120.Location = new Point(10, 40);
-            textBox120.Name = "textBox120";
-            textBox120.Size = new Size(350, 23);
-            textBox120.TabIndex = 1;
+            labelCPBABookAuthors.AutoSize = true;
+            labelCPBABookAuthors.Location = new Point(0, 166);
+            labelCPBABookAuthors.Name = "labelCPBABookAuthors";
+            labelCPBABookAuthors.Size = new Size(92, 15);
+            labelCPBABookAuthors.TabIndex = 14;
+            labelCPBABookAuthors.Text = "Автор(ы) книги";
             // 
-            // button7
+            // labelCPBAPublishingLocation
             // 
-            button7.Location = new Point(370, 40);
-            button7.Name = "button7";
-            button7.Size = new Size(90, 23);
-            button7.TabIndex = 2;
-            button7.Text = "Добавить";
-            button7.UseVisualStyleBackColor = true;
+            labelCPBAPublishingLocation.AutoSize = true;
+            labelCPBAPublishingLocation.Location = new Point(0, 333);
+            labelCPBAPublishingLocation.Name = "labelCPBAPublishingLocation";
+            labelCPBAPublishingLocation.Size = new Size(89, 15);
+            labelCPBAPublishingLocation.TabIndex = 10;
+            labelCPBAPublishingLocation.Text = "Место издания";
             // 
-            // listBox5
+            // tbCPBABookAuthors
             // 
-            listBox5.ItemHeight = 15;
-            listBox5.Location = new Point(10, 70);
-            listBox5.Name = "listBox5";
-            listBox5.Size = new Size(450, 64);
-            listBox5.TabIndex = 3;
+            tbCPBABookAuthors.Location = new Point(0, 186);
+            tbCPBABookAuthors.Name = "tbCPBABookAuthors";
+            tbCPBABookAuthors.Size = new Size(350, 23);
+            tbCPBABookAuthors.TabIndex = 15;
             // 
-            // label122
+            // tbCPBABookTitle
             // 
-            label122.AutoSize = true;
-            label122.Location = new Point(10, 140);
-            label122.Name = "label122";
-            label122.Size = new Size(95, 15);
-            label122.TabIndex = 4;
-            label122.Text = "Заглавие статьи";
+            tbCPBABookTitle.Location = new Point(0, 303);
+            tbCPBABookTitle.Name = "tbCPBABookTitle";
+            tbCPBABookTitle.Size = new Size(450, 23);
+            tbCPBABookTitle.TabIndex = 9;
             // 
-            // textBox121
+            // buttonCPBABookAuthorsAdd
             // 
-            textBox121.Location = new Point(10, 160);
-            textBox121.Name = "textBox121";
-            textBox121.Size = new Size(450, 23);
-            textBox121.TabIndex = 5;
+            buttonCPBABookAuthorsAdd.Location = new Point(360, 186);
+            buttonCPBABookAuthorsAdd.Name = "buttonCPBABookAuthorsAdd";
+            buttonCPBABookAuthorsAdd.Size = new Size(90, 23);
+            buttonCPBABookAuthorsAdd.TabIndex = 16;
+            buttonCPBABookAuthorsAdd.Text = "Добавить";
+            buttonCPBABookAuthorsAdd.UseVisualStyleBackColor = true;
             // 
-            // label124
+            // labelCPBABookTitle
             // 
-            label124.AutoSize = true;
-            label124.Location = new Point(10, 303);
-            label124.Name = "label124";
-            label124.Size = new Size(92, 15);
-            label124.TabIndex = 8;
-            label124.Text = "Заглавие книги";
+            labelCPBABookTitle.AutoSize = true;
+            labelCPBABookTitle.Location = new Point(0, 283);
+            labelCPBABookTitle.Name = "labelCPBABookTitle";
+            labelCPBABookTitle.Size = new Size(92, 15);
+            labelCPBABookTitle.TabIndex = 8;
+            labelCPBABookTitle.Text = "Заглавие книги";
             // 
-            // textBox123
+            // lbCPBABookAuthors
             // 
-            textBox123.Location = new Point(10, 323);
-            textBox123.Name = "textBox123";
-            textBox123.Size = new Size(450, 23);
-            textBox123.TabIndex = 9;
+            lbCPBABookAuthors.ItemHeight = 15;
+            lbCPBABookAuthors.Location = new Point(0, 216);
+            lbCPBABookAuthors.Name = "lbCPBABookAuthors";
+            lbCPBABookAuthors.Size = new Size(450, 64);
+            lbCPBABookAuthors.TabIndex = 17;
             // 
-            // label125
+            // tbCPBAArticleTitle
             // 
-            label125.AutoSize = true;
-            label125.Location = new Point(10, 353);
-            label125.Name = "label125";
-            label125.Size = new Size(89, 15);
-            label125.TabIndex = 10;
-            label125.Text = "Место издания";
+            tbCPBAArticleTitle.Location = new Point(0, 140);
+            tbCPBAArticleTitle.Name = "tbCPBAArticleTitle";
+            tbCPBAArticleTitle.Size = new Size(450, 23);
+            tbCPBAArticleTitle.TabIndex = 5;
             // 
-            // textBox124
+            // labelCPBAArticleTitle
             // 
-            textBox124.Location = new Point(10, 373);
-            textBox124.Name = "textBox124";
-            textBox124.Size = new Size(450, 23);
-            textBox124.TabIndex = 11;
+            labelCPBAArticleTitle.AutoSize = true;
+            labelCPBAArticleTitle.Location = new Point(0, 120);
+            labelCPBAArticleTitle.Name = "labelCPBAArticleTitle";
+            labelCPBAArticleTitle.Size = new Size(95, 15);
+            labelCPBAArticleTitle.TabIndex = 4;
+            labelCPBAArticleTitle.Text = "Заглавие статьи";
             // 
-            // label126
+            // tbCPBAArticleAuthors
             // 
-            label126.AutoSize = true;
-            label126.Location = new Point(10, 403);
-            label126.Name = "label126";
-            label126.Size = new Size(81, 15);
-            label126.TabIndex = 12;
-            label126.Text = "Издательство";
+            tbCPBAArticleAuthors.Location = new Point(0, 20);
+            tbCPBAArticleAuthors.Name = "tbCPBAArticleAuthors";
+            tbCPBAArticleAuthors.Size = new Size(350, 23);
+            tbCPBAArticleAuthors.TabIndex = 1;
             // 
-            // textBox125
+            // lbCPBAArticleAuthors
             // 
-            textBox125.Location = new Point(10, 423);
-            textBox125.Name = "textBox125";
-            textBox125.Size = new Size(450, 23);
-            textBox125.TabIndex = 13;
+            lbCPBAArticleAuthors.ItemHeight = 15;
+            lbCPBAArticleAuthors.Location = new Point(0, 50);
+            lbCPBAArticleAuthors.Name = "lbCPBAArticleAuthors";
+            lbCPBAArticleAuthors.Size = new Size(450, 64);
+            lbCPBAArticleAuthors.TabIndex = 3;
+            // 
+            // buttonCPBAArticleAuthorsAdd
+            // 
+            buttonCPBAArticleAuthorsAdd.Location = new Point(360, 20);
+            buttonCPBAArticleAuthorsAdd.Name = "buttonCPBAArticleAuthorsAdd";
+            buttonCPBAArticleAuthorsAdd.Size = new Size(90, 23);
+            buttonCPBAArticleAuthorsAdd.TabIndex = 2;
+            buttonCPBAArticleAuthorsAdd.Text = "Добавить";
+            buttonCPBAArticleAuthorsAdd.UseVisualStyleBackColor = true;
             // 
             // gbCPBookArticleOptional
             // 
-            gbCPBookArticleOptional.Controls.Add(label127);
-            gbCPBookArticleOptional.Controls.Add(textBox126);
-            gbCPBookArticleOptional.Controls.Add(label128);
-            gbCPBookArticleOptional.Controls.Add(textBox127);
-            gbCPBookArticleOptional.Location = new Point(10, 564);
+            gbCPBookArticleOptional.Controls.Add(labelCPBABookDocumentType);
+            gbCPBookArticleOptional.Controls.Add(tbCPBABookDocumentType);
+            gbCPBookArticleOptional.Controls.Add(labelCPBABookEditor);
+            gbCPBookArticleOptional.Controls.Add(tbCPBABookEditor);
+            gbCPBookArticleOptional.Location = new Point(10, 345);
             gbCPBookArticleOptional.Name = "gbCPBookArticleOptional";
-            gbCPBookArticleOptional.Size = new Size(488, 154);
+            gbCPBookArticleOptional.Size = new Size(488, 330);
             gbCPBookArticleOptional.TabIndex = 1;
             gbCPBookArticleOptional.TabStop = false;
             gbCPBookArticleOptional.Text = "Необязательные поля";
             // 
-            // label127
+            // labelCPBABookDocumentType
             // 
-            label127.AutoSize = true;
-            label127.Location = new Point(10, 20);
-            label127.Name = "label127";
-            label127.Size = new Size(123, 15);
-            label127.TabIndex = 0;
-            label127.Text = "Вид документа книги";
+            labelCPBABookDocumentType.AutoSize = true;
+            labelCPBABookDocumentType.Location = new Point(10, 20);
+            labelCPBABookDocumentType.Name = "labelCPBABookDocumentType";
+            labelCPBABookDocumentType.Size = new Size(123, 15);
+            labelCPBABookDocumentType.TabIndex = 0;
+            labelCPBABookDocumentType.Text = "Вид документа книги";
             // 
-            // textBox126
+            // tbCPBABookDocumentType
             // 
-            textBox126.Location = new Point(10, 40);
-            textBox126.Name = "textBox126";
-            textBox126.Size = new Size(450, 23);
-            textBox126.TabIndex = 1;
+            tbCPBABookDocumentType.Location = new Point(10, 40);
+            tbCPBABookDocumentType.Name = "tbCPBABookDocumentType";
+            tbCPBABookDocumentType.Size = new Size(450, 23);
+            tbCPBABookDocumentType.TabIndex = 1;
             // 
-            // label128
+            // labelCPBABookEditor
             // 
-            label128.AutoSize = true;
-            label128.Location = new Point(10, 70);
-            label128.Name = "label128";
-            label128.Size = new Size(92, 15);
-            label128.TabIndex = 2;
-            label128.Text = "Редактор книги";
+            labelCPBABookEditor.AutoSize = true;
+            labelCPBABookEditor.Location = new Point(10, 70);
+            labelCPBABookEditor.Name = "labelCPBABookEditor";
+            labelCPBABookEditor.Size = new Size(92, 15);
+            labelCPBABookEditor.TabIndex = 2;
+            labelCPBABookEditor.Text = "Редактор книги";
             // 
-            // textBox127
+            // tbCPBABookEditor
             // 
-            textBox127.Location = new Point(10, 90);
-            textBox127.Name = "textBox127";
-            textBox127.Size = new Size(450, 23);
-            textBox127.TabIndex = 3;
+            tbCPBABookEditor.Location = new Point(10, 90);
+            tbCPBABookEditor.Name = "tbCPBABookEditor";
+            tbCPBABookEditor.Size = new Size(450, 23);
+            tbCPBABookEditor.TabIndex = 3;
             // 
             // tpCPJournalArticle
             // 
@@ -3681,172 +4186,181 @@
             tpCPJournalArticle.Location = new Point(4, 24);
             tpCPJournalArticle.Name = "tpCPJournalArticle";
             tpCPJournalArticle.Padding = new Padding(3);
-            tpCPJournalArticle.Size = new Size(505, 724);
+            tpCPJournalArticle.Size = new Size(505, 681);
             tpCPJournalArticle.TabIndex = 1;
             tpCPJournalArticle.Text = "Статья из журнала";
             // 
             // gbCPJournalArticleRequired
             // 
-            gbCPJournalArticleRequired.Controls.Add(label96);
-            gbCPJournalArticleRequired.Controls.Add(textBox95);
-            gbCPJournalArticleRequired.Controls.Add(button9);
-            gbCPJournalArticleRequired.Controls.Add(listBox8);
-            gbCPJournalArticleRequired.Controls.Add(label104);
-            gbCPJournalArticleRequired.Controls.Add(textBox103);
-            gbCPJournalArticleRequired.Controls.Add(label106);
-            gbCPJournalArticleRequired.Controls.Add(textBox105);
-            gbCPJournalArticleRequired.Controls.Add(label107);
-            gbCPJournalArticleRequired.Controls.Add(textBox106);
-            gbCPJournalArticleRequired.Controls.Add(label108);
-            gbCPJournalArticleRequired.Controls.Add(textBox107);
-            gbCPJournalArticleRequired.Controls.Add(label109);
-            gbCPJournalArticleRequired.Controls.Add(textBox108);
+            gbCPJournalArticleRequired.Controls.Add(panelCPJournalArticleRequired);
             gbCPJournalArticleRequired.Location = new Point(10, 10);
             gbCPJournalArticleRequired.Name = "gbCPJournalArticleRequired";
-            gbCPJournalArticleRequired.Size = new Size(488, 396);
+            gbCPJournalArticleRequired.Size = new Size(488, 330);
             gbCPJournalArticleRequired.TabIndex = 2;
             gbCPJournalArticleRequired.TabStop = false;
             gbCPJournalArticleRequired.Text = "Обязательные поля";
             // 
-            // label96
+            // panelCPJournalArticleRequired
             // 
-            label96.AutoSize = true;
-            label96.Location = new Point(10, 20);
-            label96.Name = "label96";
-            label96.Size = new Size(57, 15);
-            label96.TabIndex = 0;
-            label96.Text = "Автор(ы)";
+            panelCPJournalArticleRequired.AutoScroll = true;
+            panelCPJournalArticleRequired.Controls.Add(labelCPJAAuthors);
+            panelCPJournalArticleRequired.Controls.Add(tbCPJAAuthors);
+            panelCPJournalArticleRequired.Controls.Add(tbCPJAPages);
+            panelCPJournalArticleRequired.Controls.Add(buttonCPJAAuthorsAdd);
+            panelCPJournalArticleRequired.Controls.Add(labelCPJAPages);
+            panelCPJournalArticleRequired.Controls.Add(lbCPJAAuthors);
+            panelCPJournalArticleRequired.Controls.Add(tbCPJAJournalNumber);
+            panelCPJournalArticleRequired.Controls.Add(labelCPJAArticleTitle);
+            panelCPJournalArticleRequired.Controls.Add(labelCPJAJournalNumber);
+            panelCPJournalArticleRequired.Controls.Add(tbCPJAArticleTitle);
+            panelCPJournalArticleRequired.Controls.Add(tbCPJAYear);
+            panelCPJournalArticleRequired.Controls.Add(labelCPJAJournalName);
+            panelCPJournalArticleRequired.Controls.Add(labelCPJAYear);
+            panelCPJournalArticleRequired.Controls.Add(tbCPJAJournalName);
+            panelCPJournalArticleRequired.Location = new Point(10, 22);
+            panelCPJournalArticleRequired.Name = "panelCPJournalArticleRequired";
+            panelCPJournalArticleRequired.Size = new Size(472, 302);
+            panelCPJournalArticleRequired.TabIndex = 0;
             // 
-            // textBox95
+            // labelCPJAAuthors
             // 
-            textBox95.Location = new Point(10, 40);
-            textBox95.Name = "textBox95";
-            textBox95.Size = new Size(350, 23);
-            textBox95.TabIndex = 1;
+            labelCPJAAuthors.AutoSize = true;
+            labelCPJAAuthors.Location = new Point(0, 0);
+            labelCPJAAuthors.Name = "labelCPJAAuthors";
+            labelCPJAAuthors.Size = new Size(57, 15);
+            labelCPJAAuthors.TabIndex = 0;
+            labelCPJAAuthors.Text = "Автор(ы)";
             // 
-            // button9
+            // tbCPJAAuthors
             // 
-            button9.Location = new Point(370, 40);
-            button9.Name = "button9";
-            button9.Size = new Size(90, 23);
-            button9.TabIndex = 2;
-            button9.Text = "Добавить";
-            button9.UseVisualStyleBackColor = true;
+            tbCPJAAuthors.Location = new Point(0, 20);
+            tbCPJAAuthors.Name = "tbCPJAAuthors";
+            tbCPJAAuthors.Size = new Size(350, 23);
+            tbCPJAAuthors.TabIndex = 1;
             // 
-            // listBox8
+            // tbCPJAPages
             // 
-            listBox8.ItemHeight = 15;
-            listBox8.Location = new Point(10, 70);
-            listBox8.Name = "listBox8";
-            listBox8.Size = new Size(450, 64);
-            listBox8.TabIndex = 3;
+            tbCPJAPages.Location = new Point(0, 340);
+            tbCPJAPages.Name = "tbCPJAPages";
+            tbCPJAPages.Size = new Size(450, 23);
+            tbCPJAPages.TabIndex = 13;
             // 
-            // label104
+            // buttonCPJAAuthorsAdd
             // 
-            label104.AutoSize = true;
-            label104.Location = new Point(10, 140);
-            label104.Name = "label104";
-            label104.Size = new Size(95, 15);
-            label104.TabIndex = 4;
-            label104.Text = "Заглавие статьи";
+            buttonCPJAAuthorsAdd.Location = new Point(360, 20);
+            buttonCPJAAuthorsAdd.Name = "buttonCPJAAuthorsAdd";
+            buttonCPJAAuthorsAdd.Size = new Size(90, 23);
+            buttonCPJAAuthorsAdd.TabIndex = 2;
+            buttonCPJAAuthorsAdd.Text = "Добавить";
+            buttonCPJAAuthorsAdd.UseVisualStyleBackColor = true;
             // 
-            // textBox103
+            // labelCPJAPages
             // 
-            textBox103.Location = new Point(10, 160);
-            textBox103.Name = "textBox103";
-            textBox103.Size = new Size(450, 23);
-            textBox103.TabIndex = 5;
+            labelCPJAPages.AutoSize = true;
+            labelCPJAPages.Location = new Point(0, 320);
+            labelCPJAPages.Name = "labelCPJAPages";
+            labelCPJAPages.Size = new Size(63, 15);
+            labelCPJAPages.TabIndex = 12;
+            labelCPJAPages.Text = "Страницы";
             // 
-            // label106
+            // lbCPJAAuthors
             // 
-            label106.AutoSize = true;
-            label106.Location = new Point(10, 190);
-            label106.Name = "label106";
-            label106.Size = new Size(110, 15);
-            label106.TabIndex = 6;
-            label106.Text = "Название журнала";
+            lbCPJAAuthors.ItemHeight = 15;
+            lbCPJAAuthors.Location = new Point(0, 50);
+            lbCPJAAuthors.Name = "lbCPJAAuthors";
+            lbCPJAAuthors.Size = new Size(450, 64);
+            lbCPJAAuthors.TabIndex = 3;
             // 
-            // textBox105
+            // tbCPJAJournalNumber
             // 
-            textBox105.Location = new Point(10, 210);
-            textBox105.Name = "textBox105";
-            textBox105.Size = new Size(450, 23);
-            textBox105.TabIndex = 7;
+            tbCPJAJournalNumber.Location = new Point(0, 290);
+            tbCPJAJournalNumber.Name = "tbCPJAJournalNumber";
+            tbCPJAJournalNumber.Size = new Size(450, 23);
+            tbCPJAJournalNumber.TabIndex = 11;
             // 
-            // label107
+            // labelCPJAArticleTitle
             // 
-            label107.AutoSize = true;
-            label107.Location = new Point(10, 240);
-            label107.Name = "label107";
-            label107.Size = new Size(26, 15);
-            label107.TabIndex = 8;
-            label107.Text = "Год";
+            labelCPJAArticleTitle.AutoSize = true;
+            labelCPJAArticleTitle.Location = new Point(0, 120);
+            labelCPJAArticleTitle.Name = "labelCPJAArticleTitle";
+            labelCPJAArticleTitle.Size = new Size(95, 15);
+            labelCPJAArticleTitle.TabIndex = 4;
+            labelCPJAArticleTitle.Text = "Заглавие статьи";
             // 
-            // textBox106
+            // labelCPJAJournalNumber
             // 
-            textBox106.Location = new Point(10, 260);
-            textBox106.Name = "textBox106";
-            textBox106.Size = new Size(450, 23);
-            textBox106.TabIndex = 9;
+            labelCPJAJournalNumber.AutoSize = true;
+            labelCPJAJournalNumber.Location = new Point(0, 270);
+            labelCPJAJournalNumber.Name = "labelCPJAJournalNumber";
+            labelCPJAJournalNumber.Size = new Size(96, 15);
+            labelCPJAJournalNumber.TabIndex = 10;
+            labelCPJAJournalNumber.Text = "Номер журнала";
             // 
-            // label108
+            // tbCPJAArticleTitle
             // 
-            label108.AutoSize = true;
-            label108.Location = new Point(10, 290);
-            label108.Name = "label108";
-            label108.Size = new Size(96, 15);
-            label108.TabIndex = 10;
-            label108.Text = "Номер журнала";
+            tbCPJAArticleTitle.Location = new Point(0, 140);
+            tbCPJAArticleTitle.Name = "tbCPJAArticleTitle";
+            tbCPJAArticleTitle.Size = new Size(450, 23);
+            tbCPJAArticleTitle.TabIndex = 5;
             // 
-            // textBox107
+            // tbCPJAYear
             // 
-            textBox107.Location = new Point(10, 310);
-            textBox107.Name = "textBox107";
-            textBox107.Size = new Size(450, 23);
-            textBox107.TabIndex = 11;
+            tbCPJAYear.Location = new Point(0, 240);
+            tbCPJAYear.Name = "tbCPJAYear";
+            tbCPJAYear.Size = new Size(450, 23);
+            tbCPJAYear.TabIndex = 9;
             // 
-            // label109
+            // labelCPJAJournalName
             // 
-            label109.AutoSize = true;
-            label109.Location = new Point(10, 340);
-            label109.Name = "label109";
-            label109.Size = new Size(63, 15);
-            label109.TabIndex = 12;
-            label109.Text = "Страницы";
+            labelCPJAJournalName.AutoSize = true;
+            labelCPJAJournalName.Location = new Point(0, 170);
+            labelCPJAJournalName.Name = "labelCPJAJournalName";
+            labelCPJAJournalName.Size = new Size(110, 15);
+            labelCPJAJournalName.TabIndex = 6;
+            labelCPJAJournalName.Text = "Название журнала";
             // 
-            // textBox108
+            // labelCPJAYear
             // 
-            textBox108.Location = new Point(10, 360);
-            textBox108.Name = "textBox108";
-            textBox108.Size = new Size(450, 23);
-            textBox108.TabIndex = 13;
+            labelCPJAYear.AutoSize = true;
+            labelCPJAYear.Location = new Point(0, 220);
+            labelCPJAYear.Name = "labelCPJAYear";
+            labelCPJAYear.Size = new Size(26, 15);
+            labelCPJAYear.TabIndex = 8;
+            labelCPJAYear.Text = "Год";
+            // 
+            // tbCPJAJournalName
+            // 
+            tbCPJAJournalName.Location = new Point(0, 190);
+            tbCPJAJournalName.Name = "tbCPJAJournalName";
+            tbCPJAJournalName.Size = new Size(450, 23);
+            tbCPJAJournalName.TabIndex = 7;
             // 
             // gbCPJournalArticleOptional
             // 
-            gbCPJournalArticleOptional.Controls.Add(label110);
-            gbCPJournalArticleOptional.Controls.Add(textBox109);
-            gbCPJournalArticleOptional.Location = new Point(10, 412);
+            gbCPJournalArticleOptional.Controls.Add(labelCPJADOI);
+            gbCPJournalArticleOptional.Controls.Add(tbCPJADOI);
+            gbCPJournalArticleOptional.Location = new Point(10, 345);
             gbCPJournalArticleOptional.Name = "gbCPJournalArticleOptional";
-            gbCPJournalArticleOptional.Size = new Size(488, 300);
+            gbCPJournalArticleOptional.Size = new Size(488, 330);
             gbCPJournalArticleOptional.TabIndex = 3;
             gbCPJournalArticleOptional.TabStop = false;
             gbCPJournalArticleOptional.Text = "Необязательные поля";
             // 
-            // label110
+            // labelCPJADOI
             // 
-            label110.AutoSize = true;
-            label110.Location = new Point(10, 20);
-            label110.Name = "label110";
-            label110.Size = new Size(27, 15);
-            label110.TabIndex = 0;
-            label110.Text = "DOI";
+            labelCPJADOI.AutoSize = true;
+            labelCPJADOI.Location = new Point(10, 20);
+            labelCPJADOI.Name = "labelCPJADOI";
+            labelCPJADOI.Size = new Size(27, 15);
+            labelCPJADOI.TabIndex = 0;
+            labelCPJADOI.Text = "DOI";
             // 
-            // textBox109
+            // tbCPJADOI
             // 
-            textBox109.Location = new Point(10, 40);
-            textBox109.Name = "textBox109";
-            textBox109.Size = new Size(450, 23);
-            textBox109.TabIndex = 1;
+            tbCPJADOI.Location = new Point(10, 40);
+            tbCPJADOI.Name = "tbCPJADOI";
+            tbCPJADOI.Size = new Size(450, 23);
+            tbCPJADOI.TabIndex = 1;
             // 
             // tpCPNewspaperArticle
             // 
@@ -3856,190 +4370,199 @@
             tpCPNewspaperArticle.Location = new Point(4, 24);
             tpCPNewspaperArticle.Name = "tpCPNewspaperArticle";
             tpCPNewspaperArticle.Padding = new Padding(3);
-            tpCPNewspaperArticle.Size = new Size(505, 724);
+            tpCPNewspaperArticle.Size = new Size(505, 681);
             tpCPNewspaperArticle.TabIndex = 2;
             tpCPNewspaperArticle.Text = "Статья из газеты";
             // 
             // gbCPNewspaperArticleReqired
             // 
-            gbCPNewspaperArticleReqired.Controls.Add(label137);
-            gbCPNewspaperArticleReqired.Controls.Add(textBox136);
-            gbCPNewspaperArticleReqired.Controls.Add(button10);
-            gbCPNewspaperArticleReqired.Controls.Add(listBox9);
-            gbCPNewspaperArticleReqired.Controls.Add(label138);
-            gbCPNewspaperArticleReqired.Controls.Add(textBox137);
-            gbCPNewspaperArticleReqired.Controls.Add(label139);
-            gbCPNewspaperArticleReqired.Controls.Add(textBox138);
-            gbCPNewspaperArticleReqired.Controls.Add(label140);
-            gbCPNewspaperArticleReqired.Controls.Add(textBox139);
-            gbCPNewspaperArticleReqired.Controls.Add(label141);
-            gbCPNewspaperArticleReqired.Controls.Add(textBox140);
-            gbCPNewspaperArticleReqired.Controls.Add(label142);
-            gbCPNewspaperArticleReqired.Controls.Add(textBox141);
+            gbCPNewspaperArticleReqired.Controls.Add(panelCPNewspaperArticleReqired);
             gbCPNewspaperArticleReqired.Location = new Point(10, 10);
             gbCPNewspaperArticleReqired.Name = "gbCPNewspaperArticleReqired";
-            gbCPNewspaperArticleReqired.Size = new Size(488, 391);
+            gbCPNewspaperArticleReqired.Size = new Size(488, 330);
             gbCPNewspaperArticleReqired.TabIndex = 2;
             gbCPNewspaperArticleReqired.TabStop = false;
             gbCPNewspaperArticleReqired.Text = "Обязательные поля";
             // 
-            // label137
+            // panelCPNewspaperArticleReqired
             // 
-            label137.AutoSize = true;
-            label137.Location = new Point(10, 20);
-            label137.Name = "label137";
-            label137.Size = new Size(57, 15);
-            label137.TabIndex = 0;
-            label137.Text = "Автор(ы)";
+            panelCPNewspaperArticleReqired.AutoScroll = true;
+            panelCPNewspaperArticleReqired.Controls.Add(labelCPNAAuthors);
+            panelCPNewspaperArticleReqired.Controls.Add(tbCPNAAuthors);
+            panelCPNewspaperArticleReqired.Controls.Add(tbCPNAPages);
+            panelCPNewspaperArticleReqired.Controls.Add(buttonCPNAAuthorsAdd);
+            panelCPNewspaperArticleReqired.Controls.Add(labelCPNAPages);
+            panelCPNewspaperArticleReqired.Controls.Add(lbCPNAAuthors);
+            panelCPNewspaperArticleReqired.Controls.Add(tbCPNAReleaseDate);
+            panelCPNewspaperArticleReqired.Controls.Add(labelCPNAArticleTitle);
+            panelCPNewspaperArticleReqired.Controls.Add(labelCPNAReleaseDate);
+            panelCPNewspaperArticleReqired.Controls.Add(tbCPNAArticleTitle);
+            panelCPNewspaperArticleReqired.Controls.Add(tbCPNAYear);
+            panelCPNewspaperArticleReqired.Controls.Add(labelCPNANewspaperName);
+            panelCPNewspaperArticleReqired.Controls.Add(labelCPNAYear);
+            panelCPNewspaperArticleReqired.Controls.Add(tbCPNANewspaperName);
+            panelCPNewspaperArticleReqired.Location = new Point(10, 22);
+            panelCPNewspaperArticleReqired.Name = "panelCPNewspaperArticleReqired";
+            panelCPNewspaperArticleReqired.Size = new Size(472, 302);
+            panelCPNewspaperArticleReqired.TabIndex = 0;
             // 
-            // textBox136
+            // labelCPNAAuthors
             // 
-            textBox136.Location = new Point(10, 40);
-            textBox136.Name = "textBox136";
-            textBox136.Size = new Size(350, 23);
-            textBox136.TabIndex = 1;
+            labelCPNAAuthors.AutoSize = true;
+            labelCPNAAuthors.Location = new Point(0, 0);
+            labelCPNAAuthors.Name = "labelCPNAAuthors";
+            labelCPNAAuthors.Size = new Size(57, 15);
+            labelCPNAAuthors.TabIndex = 0;
+            labelCPNAAuthors.Text = "Автор(ы)";
             // 
-            // button10
+            // tbCPNAAuthors
             // 
-            button10.Location = new Point(370, 40);
-            button10.Name = "button10";
-            button10.Size = new Size(90, 23);
-            button10.TabIndex = 2;
-            button10.Text = "Добавить";
-            button10.UseVisualStyleBackColor = true;
+            tbCPNAAuthors.Location = new Point(0, 20);
+            tbCPNAAuthors.Name = "tbCPNAAuthors";
+            tbCPNAAuthors.Size = new Size(350, 23);
+            tbCPNAAuthors.TabIndex = 1;
             // 
-            // listBox9
+            // tbCPNAPages
             // 
-            listBox9.ItemHeight = 15;
-            listBox9.Location = new Point(10, 70);
-            listBox9.Name = "listBox9";
-            listBox9.Size = new Size(450, 64);
-            listBox9.TabIndex = 3;
+            tbCPNAPages.Location = new Point(0, 336);
+            tbCPNAPages.Name = "tbCPNAPages";
+            tbCPNAPages.Size = new Size(450, 23);
+            tbCPNAPages.TabIndex = 13;
             // 
-            // label138
+            // buttonCPNAAuthorsAdd
             // 
-            label138.AutoSize = true;
-            label138.Location = new Point(10, 140);
-            label138.Name = "label138";
-            label138.Size = new Size(95, 15);
-            label138.TabIndex = 4;
-            label138.Text = "Заглавие статьи";
+            buttonCPNAAuthorsAdd.Location = new Point(360, 20);
+            buttonCPNAAuthorsAdd.Name = "buttonCPNAAuthorsAdd";
+            buttonCPNAAuthorsAdd.Size = new Size(90, 23);
+            buttonCPNAAuthorsAdd.TabIndex = 2;
+            buttonCPNAAuthorsAdd.Text = "Добавить";
+            buttonCPNAAuthorsAdd.UseVisualStyleBackColor = true;
             // 
-            // textBox137
+            // labelCPNAPages
             // 
-            textBox137.Location = new Point(10, 160);
-            textBox137.Name = "textBox137";
-            textBox137.Size = new Size(450, 23);
-            textBox137.TabIndex = 5;
+            labelCPNAPages.AutoSize = true;
+            labelCPNAPages.Location = new Point(0, 316);
+            labelCPNAPages.Name = "labelCPNAPages";
+            labelCPNAPages.Size = new Size(63, 15);
+            labelCPNAPages.TabIndex = 12;
+            labelCPNAPages.Text = "Страницы";
             // 
-            // label139
+            // lbCPNAAuthors
             // 
-            label139.AutoSize = true;
-            label139.Location = new Point(10, 190);
-            label139.Name = "label139";
-            label139.Size = new Size(98, 15);
-            label139.TabIndex = 6;
-            label139.Text = "Название газеты";
+            lbCPNAAuthors.ItemHeight = 15;
+            lbCPNAAuthors.Location = new Point(0, 50);
+            lbCPNAAuthors.Name = "lbCPNAAuthors";
+            lbCPNAAuthors.Size = new Size(450, 64);
+            lbCPNAAuthors.TabIndex = 3;
             // 
-            // textBox138
+            // tbCPNAReleaseDate
             // 
-            textBox138.Location = new Point(10, 210);
-            textBox138.Name = "textBox138";
-            textBox138.Size = new Size(450, 23);
-            textBox138.TabIndex = 7;
+            tbCPNAReleaseDate.Location = new Point(0, 290);
+            tbCPNAReleaseDate.Name = "tbCPNAReleaseDate";
+            tbCPNAReleaseDate.Size = new Size(450, 23);
+            tbCPNAReleaseDate.TabIndex = 11;
             // 
-            // label140
+            // labelCPNAArticleTitle
             // 
-            label140.AutoSize = true;
-            label140.Location = new Point(10, 240);
-            label140.Name = "label140";
-            label140.Size = new Size(26, 15);
-            label140.TabIndex = 8;
-            label140.Text = "Год";
+            labelCPNAArticleTitle.AutoSize = true;
+            labelCPNAArticleTitle.Location = new Point(0, 120);
+            labelCPNAArticleTitle.Name = "labelCPNAArticleTitle";
+            labelCPNAArticleTitle.Size = new Size(95, 15);
+            labelCPNAArticleTitle.TabIndex = 4;
+            labelCPNAArticleTitle.Text = "Заглавие статьи";
             // 
-            // textBox139
+            // labelCPNAReleaseDate
             // 
-            textBox139.Location = new Point(10, 260);
-            textBox139.Name = "textBox139";
-            textBox139.Size = new Size(450, 23);
-            textBox139.TabIndex = 9;
+            labelCPNAReleaseDate.AutoSize = true;
+            labelCPNAReleaseDate.Location = new Point(0, 270);
+            labelCPNAReleaseDate.Name = "labelCPNAReleaseDate";
+            labelCPNAReleaseDate.Size = new Size(81, 15);
+            labelCPNAReleaseDate.TabIndex = 10;
+            labelCPNAReleaseDate.Text = "Дата выпуска";
             // 
-            // label141
+            // tbCPNAArticleTitle
             // 
-            label141.AutoSize = true;
-            label141.Location = new Point(10, 290);
-            label141.Name = "label141";
-            label141.Size = new Size(81, 15);
-            label141.TabIndex = 10;
-            label141.Text = "Дата выпуска";
+            tbCPNAArticleTitle.Location = new Point(0, 140);
+            tbCPNAArticleTitle.Name = "tbCPNAArticleTitle";
+            tbCPNAArticleTitle.Size = new Size(450, 23);
+            tbCPNAArticleTitle.TabIndex = 5;
             // 
-            // textBox140
+            // tbCPNAYear
             // 
-            textBox140.Location = new Point(10, 310);
-            textBox140.Name = "textBox140";
-            textBox140.Size = new Size(450, 23);
-            textBox140.TabIndex = 11;
+            tbCPNAYear.Location = new Point(0, 240);
+            tbCPNAYear.Name = "tbCPNAYear";
+            tbCPNAYear.Size = new Size(450, 23);
+            tbCPNAYear.TabIndex = 9;
             // 
-            // label142
+            // labelCPNANewspaperName
             // 
-            label142.AutoSize = true;
-            label142.Location = new Point(10, 336);
-            label142.Name = "label142";
-            label142.Size = new Size(63, 15);
-            label142.TabIndex = 12;
-            label142.Text = "Страницы";
+            labelCPNANewspaperName.AutoSize = true;
+            labelCPNANewspaperName.Location = new Point(0, 170);
+            labelCPNANewspaperName.Name = "labelCPNANewspaperName";
+            labelCPNANewspaperName.Size = new Size(98, 15);
+            labelCPNANewspaperName.TabIndex = 6;
+            labelCPNANewspaperName.Text = "Название газеты";
             // 
-            // textBox141
+            // labelCPNAYear
             // 
-            textBox141.Location = new Point(10, 356);
-            textBox141.Name = "textBox141";
-            textBox141.Size = new Size(450, 23);
-            textBox141.TabIndex = 13;
+            labelCPNAYear.AutoSize = true;
+            labelCPNAYear.Location = new Point(0, 220);
+            labelCPNAYear.Name = "labelCPNAYear";
+            labelCPNAYear.Size = new Size(26, 15);
+            labelCPNAYear.TabIndex = 8;
+            labelCPNAYear.Text = "Год";
+            // 
+            // tbCPNANewspaperName
+            // 
+            tbCPNANewspaperName.Location = new Point(0, 190);
+            tbCPNANewspaperName.Name = "tbCPNANewspaperName";
+            tbCPNANewspaperName.Size = new Size(450, 23);
+            tbCPNANewspaperName.TabIndex = 7;
             // 
             // gbCPNewspaperArticleOptional
             // 
-            gbCPNewspaperArticleOptional.Controls.Add(label143);
-            gbCPNewspaperArticleOptional.Controls.Add(textBox142);
-            gbCPNewspaperArticleOptional.Controls.Add(label144);
-            gbCPNewspaperArticleOptional.Controls.Add(textBox143);
-            gbCPNewspaperArticleOptional.Location = new Point(10, 407);
+            gbCPNewspaperArticleOptional.Controls.Add(labelCPNAAdditionalInformation);
+            gbCPNewspaperArticleOptional.Controls.Add(tbCPNAAdditionalInformation);
+            gbCPNewspaperArticleOptional.Controls.Add(labelCPNAInterviewer);
+            gbCPNewspaperArticleOptional.Controls.Add(tbCPNAInterviewer);
+            gbCPNewspaperArticleOptional.Location = new Point(10, 345);
             gbCPNewspaperArticleOptional.Name = "gbCPNewspaperArticleOptional";
-            gbCPNewspaperArticleOptional.Size = new Size(488, 311);
+            gbCPNewspaperArticleOptional.Size = new Size(488, 330);
             gbCPNewspaperArticleOptional.TabIndex = 3;
             gbCPNewspaperArticleOptional.TabStop = false;
             gbCPNewspaperArticleOptional.Text = "Необязательные поля";
             // 
-            // label143
+            // labelCPNAAdditionalInformation
             // 
-            label143.AutoSize = true;
-            label143.Location = new Point(10, 20);
-            label143.Name = "label143";
-            label143.Size = new Size(175, 15);
-            label143.TabIndex = 0;
-            label143.Text = "Дополнительная информация";
+            labelCPNAAdditionalInformation.AutoSize = true;
+            labelCPNAAdditionalInformation.Location = new Point(10, 20);
+            labelCPNAAdditionalInformation.Name = "labelCPNAAdditionalInformation";
+            labelCPNAAdditionalInformation.Size = new Size(175, 15);
+            labelCPNAAdditionalInformation.TabIndex = 0;
+            labelCPNAAdditionalInformation.Text = "Дополнительная информация";
             // 
-            // textBox142
+            // tbCPNAAdditionalInformation
             // 
-            textBox142.Location = new Point(10, 40);
-            textBox142.Name = "textBox142";
-            textBox142.Size = new Size(450, 23);
-            textBox142.TabIndex = 1;
+            tbCPNAAdditionalInformation.Location = new Point(10, 40);
+            tbCPNAAdditionalInformation.Name = "tbCPNAAdditionalInformation";
+            tbCPNAAdditionalInformation.Size = new Size(450, 23);
+            tbCPNAAdditionalInformation.TabIndex = 1;
             // 
-            // label144
+            // labelCPNAInterviewer
             // 
-            label144.AutoSize = true;
-            label144.Location = new Point(10, 70);
-            label144.Name = "label144";
-            label144.Size = new Size(131, 15);
-            label144.TabIndex = 2;
-            label144.Text = "Записал (интервьюер)";
+            labelCPNAInterviewer.AutoSize = true;
+            labelCPNAInterviewer.Location = new Point(10, 70);
+            labelCPNAInterviewer.Name = "labelCPNAInterviewer";
+            labelCPNAInterviewer.Size = new Size(131, 15);
+            labelCPNAInterviewer.TabIndex = 2;
+            labelCPNAInterviewer.Text = "Записал (интервьюер)";
             // 
-            // textBox143
+            // tbCPNAInterviewer
             // 
-            textBox143.Location = new Point(10, 90);
-            textBox143.Name = "textBox143";
-            textBox143.Size = new Size(450, 23);
-            textBox143.TabIndex = 3;
+            tbCPNAInterviewer.Location = new Point(10, 90);
+            tbCPNAInterviewer.Name = "tbCPNAInterviewer";
+            tbCPNAInterviewer.Size = new Size(450, 23);
+            tbCPNAInterviewer.TabIndex = 3;
             // 
             // tpCPWebsiteArticle
             // 
@@ -4049,231 +4572,268 @@
             tpCPWebsiteArticle.Location = new Point(4, 24);
             tpCPWebsiteArticle.Name = "tpCPWebsiteArticle";
             tpCPWebsiteArticle.Padding = new Padding(3);
-            tpCPWebsiteArticle.Size = new Size(505, 724);
+            tpCPWebsiteArticle.Size = new Size(505, 681);
             tpCPWebsiteArticle.TabIndex = 3;
             tpCPWebsiteArticle.Text = "Статья с сайта";
             // 
             // gbCPWebsiteArticleRequired
             // 
-            gbCPWebsiteArticleRequired.Controls.Add(label150);
-            gbCPWebsiteArticleRequired.Controls.Add(textBox149);
-            gbCPWebsiteArticleRequired.Controls.Add(button11);
-            gbCPWebsiteArticleRequired.Controls.Add(listBox10);
-            gbCPWebsiteArticleRequired.Controls.Add(label151);
-            gbCPWebsiteArticleRequired.Controls.Add(textBox150);
-            gbCPWebsiteArticleRequired.Controls.Add(label152);
-            gbCPWebsiteArticleRequired.Controls.Add(textBox151);
-            gbCPWebsiteArticleRequired.Controls.Add(label153);
-            gbCPWebsiteArticleRequired.Controls.Add(textBox152);
-            gbCPWebsiteArticleRequired.Controls.Add(label154);
-            gbCPWebsiteArticleRequired.Controls.Add(textBox153);
+            gbCPWebsiteArticleRequired.Controls.Add(panelCPWebsiteArticleRequired);
             gbCPWebsiteArticleRequired.Location = new Point(10, 10);
             gbCPWebsiteArticleRequired.Name = "gbCPWebsiteArticleRequired";
-            gbCPWebsiteArticleRequired.Size = new Size(488, 345);
+            gbCPWebsiteArticleRequired.Size = new Size(488, 330);
             gbCPWebsiteArticleRequired.TabIndex = 2;
             gbCPWebsiteArticleRequired.TabStop = false;
             gbCPWebsiteArticleRequired.Text = "Обязательные поля";
             // 
-            // label150
+            // panelCPWebsiteArticleRequired
             // 
-            label150.AutoSize = true;
-            label150.Location = new Point(10, 20);
-            label150.Name = "label150";
-            label150.Size = new Size(57, 15);
-            label150.TabIndex = 0;
-            label150.Text = "Автор(ы)";
+            panelCPWebsiteArticleRequired.AutoScroll = true;
+            panelCPWebsiteArticleRequired.Controls.Add(labelCPWAAuthors);
+            panelCPWebsiteArticleRequired.Controls.Add(tbCPWAAuthors);
+            panelCPWebsiteArticleRequired.Controls.Add(tbCPWAAccessDate);
+            panelCPWebsiteArticleRequired.Controls.Add(buttonCPWAAuthorsAdd);
+            panelCPWebsiteArticleRequired.Controls.Add(labelCPWAAccessDate);
+            panelCPWebsiteArticleRequired.Controls.Add(lbCPWAAuthors);
+            panelCPWebsiteArticleRequired.Controls.Add(tbCPWAURL);
+            panelCPWebsiteArticleRequired.Controls.Add(labelCPWAArticleTitle);
+            panelCPWebsiteArticleRequired.Controls.Add(labelCPWAURL);
+            panelCPWebsiteArticleRequired.Controls.Add(tbCPWAArticleTitle);
+            panelCPWebsiteArticleRequired.Controls.Add(tbCPWAWebsiteName);
+            panelCPWebsiteArticleRequired.Controls.Add(labelCPWAWebsiteName);
+            panelCPWebsiteArticleRequired.Location = new Point(10, 22);
+            panelCPWebsiteArticleRequired.Name = "panelCPWebsiteArticleRequired";
+            panelCPWebsiteArticleRequired.Size = new Size(472, 302);
+            panelCPWebsiteArticleRequired.TabIndex = 0;
             // 
-            // textBox149
+            // labelCPWAAuthors
             // 
-            textBox149.Location = new Point(10, 40);
-            textBox149.Name = "textBox149";
-            textBox149.Size = new Size(350, 23);
-            textBox149.TabIndex = 1;
+            labelCPWAAuthors.AutoSize = true;
+            labelCPWAAuthors.Location = new Point(0, 0);
+            labelCPWAAuthors.Name = "labelCPWAAuthors";
+            labelCPWAAuthors.Size = new Size(57, 15);
+            labelCPWAAuthors.TabIndex = 0;
+            labelCPWAAuthors.Text = "Автор(ы)";
             // 
-            // button11
+            // tbCPWAAuthors
             // 
-            button11.Location = new Point(370, 40);
-            button11.Name = "button11";
-            button11.Size = new Size(90, 23);
-            button11.TabIndex = 2;
-            button11.Text = "Добавить";
-            button11.UseVisualStyleBackColor = true;
+            tbCPWAAuthors.Location = new Point(0, 20);
+            tbCPWAAuthors.Name = "tbCPWAAuthors";
+            tbCPWAAuthors.Size = new Size(350, 23);
+            tbCPWAAuthors.TabIndex = 1;
             // 
-            // listBox10
+            // tbCPWAAccessDate
             // 
-            listBox10.ItemHeight = 15;
-            listBox10.Location = new Point(10, 70);
-            listBox10.Name = "listBox10";
-            listBox10.Size = new Size(450, 64);
-            listBox10.TabIndex = 3;
+            tbCPWAAccessDate.Location = new Point(0, 290);
+            tbCPWAAccessDate.Name = "tbCPWAAccessDate";
+            tbCPWAAccessDate.Size = new Size(450, 23);
+            tbCPWAAccessDate.TabIndex = 11;
             // 
-            // label151
+            // buttonCPWAAuthorsAdd
             // 
-            label151.AutoSize = true;
-            label151.Location = new Point(10, 140);
-            label151.Name = "label151";
-            label151.Size = new Size(95, 15);
-            label151.TabIndex = 4;
-            label151.Text = "Заглавие статьи";
+            buttonCPWAAuthorsAdd.Location = new Point(360, 20);
+            buttonCPWAAuthorsAdd.Name = "buttonCPWAAuthorsAdd";
+            buttonCPWAAuthorsAdd.Size = new Size(90, 23);
+            buttonCPWAAuthorsAdd.TabIndex = 2;
+            buttonCPWAAuthorsAdd.Text = "Добавить";
+            buttonCPWAAuthorsAdd.UseVisualStyleBackColor = true;
             // 
-            // textBox150
+            // labelCPWAAccessDate
             // 
-            textBox150.Location = new Point(10, 160);
-            textBox150.Name = "textBox150";
-            textBox150.Size = new Size(450, 23);
-            textBox150.TabIndex = 5;
+            labelCPWAAccessDate.AutoSize = true;
+            labelCPWAAccessDate.Location = new Point(0, 270);
+            labelCPWAAccessDate.Name = "labelCPWAAccessDate";
+            labelCPWAAccessDate.Size = new Size(99, 15);
+            labelCPWAAccessDate.TabIndex = 10;
+            labelCPWAAccessDate.Text = "Дата обращения";
             // 
-            // label152
+            // lbCPWAAuthors
             // 
-            label152.AutoSize = true;
-            label152.Location = new Point(10, 190);
-            label152.Name = "label152";
-            label152.Size = new Size(92, 15);
-            label152.TabIndex = 6;
-            label152.Text = "Название сайта";
+            lbCPWAAuthors.ItemHeight = 15;
+            lbCPWAAuthors.Location = new Point(0, 50);
+            lbCPWAAuthors.Name = "lbCPWAAuthors";
+            lbCPWAAuthors.Size = new Size(450, 64);
+            lbCPWAAuthors.TabIndex = 3;
             // 
-            // textBox151
+            // tbCPWAURL
             // 
-            textBox151.Location = new Point(10, 210);
-            textBox151.Name = "textBox151";
-            textBox151.Size = new Size(450, 23);
-            textBox151.TabIndex = 7;
+            tbCPWAURL.Location = new Point(0, 240);
+            tbCPWAURL.Name = "tbCPWAURL";
+            tbCPWAURL.Size = new Size(450, 23);
+            tbCPWAURL.TabIndex = 9;
             // 
-            // label153
+            // labelCPWAArticleTitle
             // 
-            label153.AutoSize = true;
-            label153.Location = new Point(10, 240);
-            label153.Name = "label153";
-            label153.Size = new Size(28, 15);
-            label153.TabIndex = 8;
-            label153.Text = "URL";
+            labelCPWAArticleTitle.AutoSize = true;
+            labelCPWAArticleTitle.Location = new Point(0, 120);
+            labelCPWAArticleTitle.Name = "labelCPWAArticleTitle";
+            labelCPWAArticleTitle.Size = new Size(95, 15);
+            labelCPWAArticleTitle.TabIndex = 4;
+            labelCPWAArticleTitle.Text = "Заглавие статьи";
             // 
-            // textBox152
+            // labelCPWAURL
             // 
-            textBox152.Location = new Point(10, 260);
-            textBox152.Name = "textBox152";
-            textBox152.Size = new Size(450, 23);
-            textBox152.TabIndex = 9;
+            labelCPWAURL.AutoSize = true;
+            labelCPWAURL.Location = new Point(0, 220);
+            labelCPWAURL.Name = "labelCPWAURL";
+            labelCPWAURL.Size = new Size(28, 15);
+            labelCPWAURL.TabIndex = 8;
+            labelCPWAURL.Text = "URL";
             // 
-            // label154
+            // tbCPWAArticleTitle
             // 
-            label154.AutoSize = true;
-            label154.Location = new Point(10, 290);
-            label154.Name = "label154";
-            label154.Size = new Size(99, 15);
-            label154.TabIndex = 10;
-            label154.Text = "Дата обращения";
+            tbCPWAArticleTitle.Location = new Point(0, 140);
+            tbCPWAArticleTitle.Name = "tbCPWAArticleTitle";
+            tbCPWAArticleTitle.Size = new Size(450, 23);
+            tbCPWAArticleTitle.TabIndex = 5;
             // 
-            // textBox153
+            // tbCPWAWebsiteName
             // 
-            textBox153.Location = new Point(10, 310);
-            textBox153.Name = "textBox153";
-            textBox153.Size = new Size(450, 23);
-            textBox153.TabIndex = 11;
+            tbCPWAWebsiteName.Location = new Point(0, 190);
+            tbCPWAWebsiteName.Name = "tbCPWAWebsiteName";
+            tbCPWAWebsiteName.Size = new Size(450, 23);
+            tbCPWAWebsiteName.TabIndex = 7;
+            // 
+            // labelCPWAWebsiteName
+            // 
+            labelCPWAWebsiteName.AutoSize = true;
+            labelCPWAWebsiteName.Location = new Point(0, 170);
+            labelCPWAWebsiteName.Name = "labelCPWAWebsiteName";
+            labelCPWAWebsiteName.Size = new Size(92, 15);
+            labelCPWAWebsiteName.TabIndex = 6;
+            labelCPWAWebsiteName.Text = "Название сайта";
             // 
             // gbCPWebsiteArticleOptional
             // 
-            gbCPWebsiteArticleOptional.Controls.Add(label156);
-            gbCPWebsiteArticleOptional.Controls.Add(textBox155);
-            gbCPWebsiteArticleOptional.Controls.Add(label157);
-            gbCPWebsiteArticleOptional.Controls.Add(textBox156);
-            gbCPWebsiteArticleOptional.Controls.Add(label158);
-            gbCPWebsiteArticleOptional.Controls.Add(textBox157);
-            gbCPWebsiteArticleOptional.Controls.Add(label159);
-            gbCPWebsiteArticleOptional.Controls.Add(textBox158);
-            gbCPWebsiteArticleOptional.Location = new Point(10, 361);
+            gbCPWebsiteArticleOptional.Controls.Add(labelCPWAWebsiteType);
+            gbCPWebsiteArticleOptional.Controls.Add(tbCPWAWebsiteType);
+            gbCPWebsiteArticleOptional.Controls.Add(labelCPWAPublishingYear);
+            gbCPWebsiteArticleOptional.Controls.Add(tbCPWAPublishingYear);
+            gbCPWebsiteArticleOptional.Controls.Add(labelCPWAPublishingDate);
+            gbCPWebsiteArticleOptional.Controls.Add(tbCPWAPublishingDate);
+            gbCPWebsiteArticleOptional.Controls.Add(labelCPWAAdditionalInformation);
+            gbCPWebsiteArticleOptional.Controls.Add(tbCPWAAdditionalInformation);
+            gbCPWebsiteArticleOptional.Location = new Point(10, 345);
             gbCPWebsiteArticleOptional.Name = "gbCPWebsiteArticleOptional";
-            gbCPWebsiteArticleOptional.Size = new Size(488, 357);
+            gbCPWebsiteArticleOptional.Size = new Size(488, 330);
             gbCPWebsiteArticleOptional.TabIndex = 3;
             gbCPWebsiteArticleOptional.TabStop = false;
             gbCPWebsiteArticleOptional.Text = "Необязательные поля";
             // 
-            // label156
+            // labelCPWAWebsiteType
             // 
-            label156.AutoSize = true;
-            label156.Location = new Point(10, 20);
-            label156.Name = "label156";
-            label156.Size = new Size(60, 15);
-            label156.TabIndex = 0;
-            label156.Text = "Вид сайта";
+            labelCPWAWebsiteType.AutoSize = true;
+            labelCPWAWebsiteType.Location = new Point(10, 20);
+            labelCPWAWebsiteType.Name = "labelCPWAWebsiteType";
+            labelCPWAWebsiteType.Size = new Size(60, 15);
+            labelCPWAWebsiteType.TabIndex = 0;
+            labelCPWAWebsiteType.Text = "Вид сайта";
             // 
-            // textBox155
+            // tbCPWAWebsiteType
             // 
-            textBox155.Location = new Point(10, 40);
-            textBox155.Name = "textBox155";
-            textBox155.Size = new Size(450, 23);
-            textBox155.TabIndex = 1;
+            tbCPWAWebsiteType.Location = new Point(10, 40);
+            tbCPWAWebsiteType.Name = "tbCPWAWebsiteType";
+            tbCPWAWebsiteType.Size = new Size(450, 23);
+            tbCPWAWebsiteType.TabIndex = 1;
             // 
-            // label157
+            // labelCPWAPublishingYear
             // 
-            label157.AutoSize = true;
-            label157.Location = new Point(10, 70);
-            label157.Name = "label157";
-            label157.Size = new Size(96, 15);
-            label157.TabIndex = 2;
-            label157.Text = "Год публикации";
+            labelCPWAPublishingYear.AutoSize = true;
+            labelCPWAPublishingYear.Location = new Point(10, 70);
+            labelCPWAPublishingYear.Name = "labelCPWAPublishingYear";
+            labelCPWAPublishingYear.Size = new Size(96, 15);
+            labelCPWAPublishingYear.TabIndex = 2;
+            labelCPWAPublishingYear.Text = "Год публикации";
             // 
-            // textBox156
+            // tbCPWAPublishingYear
             // 
-            textBox156.Location = new Point(10, 90);
-            textBox156.Name = "textBox156";
-            textBox156.Size = new Size(450, 23);
-            textBox156.TabIndex = 3;
+            tbCPWAPublishingYear.Location = new Point(10, 90);
+            tbCPWAPublishingYear.Name = "tbCPWAPublishingYear";
+            tbCPWAPublishingYear.Size = new Size(450, 23);
+            tbCPWAPublishingYear.TabIndex = 3;
             // 
-            // label158
+            // labelCPWAPublishingDate
             // 
-            label158.AutoSize = true;
-            label158.Location = new Point(10, 120);
-            label158.Name = "label158";
-            label158.Size = new Size(102, 15);
-            label158.TabIndex = 4;
-            label158.Text = "Дата публикации";
+            labelCPWAPublishingDate.AutoSize = true;
+            labelCPWAPublishingDate.Location = new Point(10, 120);
+            labelCPWAPublishingDate.Name = "labelCPWAPublishingDate";
+            labelCPWAPublishingDate.Size = new Size(102, 15);
+            labelCPWAPublishingDate.TabIndex = 4;
+            labelCPWAPublishingDate.Text = "Дата публикации";
             // 
-            // textBox157
+            // tbCPWAPublishingDate
             // 
-            textBox157.Location = new Point(10, 140);
-            textBox157.Name = "textBox157";
-            textBox157.Size = new Size(450, 23);
-            textBox157.TabIndex = 5;
+            tbCPWAPublishingDate.Location = new Point(10, 140);
+            tbCPWAPublishingDate.Name = "tbCPWAPublishingDate";
+            tbCPWAPublishingDate.Size = new Size(450, 23);
+            tbCPWAPublishingDate.TabIndex = 5;
             // 
-            // label159
+            // labelCPWAAdditionalInformation
             // 
-            label159.AutoSize = true;
-            label159.Location = new Point(10, 170);
-            label159.Name = "label159";
-            label159.Size = new Size(175, 15);
-            label159.TabIndex = 6;
-            label159.Text = "Дополнительная информация";
+            labelCPWAAdditionalInformation.AutoSize = true;
+            labelCPWAAdditionalInformation.Location = new Point(10, 170);
+            labelCPWAAdditionalInformation.Name = "labelCPWAAdditionalInformation";
+            labelCPWAAdditionalInformation.Size = new Size(175, 15);
+            labelCPWAAdditionalInformation.TabIndex = 6;
+            labelCPWAAdditionalInformation.Text = "Дополнительная информация";
             // 
-            // textBox158
+            // tbCPWAAdditionalInformation
             // 
-            textBox158.Location = new Point(10, 190);
-            textBox158.Name = "textBox158";
-            textBox158.Size = new Size(450, 23);
-            textBox158.TabIndex = 7;
+            tbCPWAAdditionalInformation.Location = new Point(10, 190);
+            tbCPWAAdditionalInformation.Name = "tbCPWAAdditionalInformation";
+            tbCPWAAdditionalInformation.Size = new Size(450, 23);
+            tbCPWAAdditionalInformation.TabIndex = 7;
+            // 
+            // tpSVConferenceMaterials
+            // 
+            tpSVConferenceMaterials.BackColor = SystemColors.Control;
+            tpSVConferenceMaterials.Location = new Point(4, 24);
+            tpSVConferenceMaterials.Name = "tpSVConferenceMaterials";
+            tpSVConferenceMaterials.Padding = new Padding(3);
+            tpSVConferenceMaterials.Size = new Size(505, 681);
+            tpSVConferenceMaterials.TabIndex = 4;
+            tpSVConferenceMaterials.Text = "Материалы конференции";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(831, 847);
+            ClientSize = new Size(837, 808);
             Controls.Add(splitContainer1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             splitContainer1.Panel1.ResumeLayout(false);
-            splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            splitContainer2.Panel1.ResumeLayout(false);
+            splitContainer2.Panel2.ResumeLayout(false);
+            splitContainer2.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
+            splitContainer2.ResumeLayout(false);
+            splitContainer3.Panel1.ResumeLayout(false);
+            splitContainer3.Panel2.ResumeLayout(false);
+            splitContainer3.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer3).EndInit();
+            splitContainer3.ResumeLayout(false);
+            panelRtbMLA.ResumeLayout(false);
+            panelRtbGOST.ResumeLayout(false);
+            panelConvertTitle.ResumeLayout(false);
+            panelConvertTitle.PerformLayout();
+            cmsListBox.ResumeLayout(false);
+            panelAddRecord.ResumeLayout(false);
+            panelAddRecord.PerformLayout();
             tcCategories.ResumeLayout(false);
             tpSingleVolume.ResumeLayout(false);
             tcSVTypes.ResumeLayout(false);
             tpSVBook.ResumeLayout(false);
             gpSVBookRequired.ResumeLayout(false);
-            gpSVBookRequired.PerformLayout();
+            panelSVBookRequired.ResumeLayout(false);
+            panelSVBookRequired.PerformLayout();
             gpSVBookOptional.ResumeLayout(false);
             panelSVBookOptional.ResumeLayout(false);
             panelSVBookOptional.PerformLayout();
@@ -4285,45 +4845,49 @@
             panelSVRegulatoryDocumentOptional.PerformLayout();
             tpSVDissertationAbstract.ResumeLayout(false);
             gbSVDissertationAbstractRequired.ResumeLayout(false);
-            gbSVDissertationAbstractRequired.PerformLayout();
+            panelSVDissertationAbstractRequired.ResumeLayout(false);
+            panelSVDissertationAbstractRequired.PerformLayout();
             gbSVDissertationAbstractOptional.ResumeLayout(false);
             gbSVDissertationAbstractOptional.PerformLayout();
             tpSVDissertation.ResumeLayout(false);
             gbSVDissertationRequired.ResumeLayout(false);
-            gbSVDissertationRequired.PerformLayout();
+            panelSVDissertationRequired.ResumeLayout(false);
+            panelSVDissertationRequired.PerformLayout();
             gbSVDissertationOptional.ResumeLayout(false);
             gbSVDissertationOptional.PerformLayout();
             tpMultiVolume.ResumeLayout(false);
             tcMVTypes.ResumeLayout(false);
             tpMVWholeMultivolume.ResumeLayout(false);
             gbMVWholeMultivolumeRequired.ResumeLayout(false);
-            gbMVWholeMultivolumeRequired.PerformLayout();
+            panelMVWholeMultivolumeRequired.ResumeLayout(false);
+            panelMVWholeMultivolumeRequired.PerformLayout();
             gbMVWholeMultivolumeOptional.ResumeLayout(false);
-            panelMVWholeMultivolumeOptional.ResumeLayout(false);
-            panelMVWholeMultivolumeOptional.PerformLayout();
+            gbMVWholeMultivolumeOptional.PerformLayout();
             tpMVSeparateVolume.ResumeLayout(false);
             gbMVSeparateVolumeRequired.ResumeLayout(false);
-            gbMVSeparateVolumeRequired.PerformLayout();
+            panelMVSeparateVolumeRequired.ResumeLayout(false);
+            panelMVSeparateVolumeRequired.PerformLayout();
             gbMVSeparateVolumeOptional.ResumeLayout(false);
-            panelMVSeparateVolumeOptional.ResumeLayout(false);
-            panelMVSeparateVolumeOptional.PerformLayout();
+            gbMVSeparateVolumeOptional.PerformLayout();
             tpElectronicResources.ResumeLayout(false);
             tcERTypes.ResumeLayout(false);
             tpEREbook.ResumeLayout(false);
             gbEREbookRequired.ResumeLayout(false);
-            gbEREbookRequired.PerformLayout();
+            panelEREbookRequired.ResumeLayout(false);
+            panelEREbookRequired.PerformLayout();
             gbEREbookOptional.ResumeLayout(false);
             panelEREbookOptional.ResumeLayout(false);
             panelEREbookOptional.PerformLayout();
             tpERMultimediaEdition.ResumeLayout(false);
             gbERMultimediaEditionRequired.ResumeLayout(false);
-            gbERMultimediaEditionRequired.PerformLayout();
+            panelERMultimediaEditionRequired.ResumeLayout(false);
+            panelERMultimediaEditionRequired.PerformLayout();
             gbERMultimediaEditionOptional.ResumeLayout(false);
-            panelERMultimediaEditionOptional.ResumeLayout(false);
-            panelERMultimediaEditionOptional.PerformLayout();
+            gbERMultimediaEditionOptional.PerformLayout();
             tpEREjournalArticle.ResumeLayout(false);
             gbEREjournalArticleReqired.ResumeLayout(false);
-            gbEREjournalArticleReqired.PerformLayout();
+            panelEREjournalArticleReqired.ResumeLayout(false);
+            panelEREjournalArticleReqired.PerformLayout();
             gbEREjournalArticleOptional.ResumeLayout(false);
             gbEREjournalArticleOptional.PerformLayout();
             tpERWebsite.ResumeLayout(false);
@@ -4335,22 +4899,26 @@
             tcCPTypes.ResumeLayout(false);
             tpCPBookArticle.ResumeLayout(false);
             gbCPBookArticleRequired.ResumeLayout(false);
-            gbCPBookArticleRequired.PerformLayout();
+            panelCPBookArticleRequired.ResumeLayout(false);
+            panelCPBookArticleRequired.PerformLayout();
             gbCPBookArticleOptional.ResumeLayout(false);
             gbCPBookArticleOptional.PerformLayout();
             tpCPJournalArticle.ResumeLayout(false);
             gbCPJournalArticleRequired.ResumeLayout(false);
-            gbCPJournalArticleRequired.PerformLayout();
+            panelCPJournalArticleRequired.ResumeLayout(false);
+            panelCPJournalArticleRequired.PerformLayout();
             gbCPJournalArticleOptional.ResumeLayout(false);
             gbCPJournalArticleOptional.PerformLayout();
             tpCPNewspaperArticle.ResumeLayout(false);
             gbCPNewspaperArticleReqired.ResumeLayout(false);
-            gbCPNewspaperArticleReqired.PerformLayout();
+            panelCPNewspaperArticleReqired.ResumeLayout(false);
+            panelCPNewspaperArticleReqired.PerformLayout();
             gbCPNewspaperArticleOptional.ResumeLayout(false);
             gbCPNewspaperArticleOptional.PerformLayout();
             tpCPWebsiteArticle.ResumeLayout(false);
             gbCPWebsiteArticleRequired.ResumeLayout(false);
-            gbCPWebsiteArticleRequired.PerformLayout();
+            panelCPWebsiteArticleRequired.ResumeLayout(false);
+            panelCPWebsiteArticleRequired.PerformLayout();
             gbCPWebsiteArticleOptional.ResumeLayout(false);
             gbCPWebsiteArticleOptional.PerformLayout();
             ResumeLayout(false);
@@ -4358,372 +4926,412 @@
 
         private GroupBox gbSVRegulatoryDocumentRequired;
         private Label labelSVRDTitle;
-        private TextBox textBox2;
+        private TextBox tbSVRDTitle;
         private Label labelSVRDPublishingLocation;
-        private TextBox textBox3;
+        private TextBox tbSVRDPublishingLocation;
         private Label labelSVRDPublisher;
-        private TextBox textBox4;
+        private TextBox tbSVRDPublisher;
         private Label labelSVRDPublishYear;
-        private TextBox textBox5;
+        private TextBox tbSVRDPublishYear;
         private GroupBox gbSVRegulatoryDocumentOptional;
         private Label labelSVRDDocumentType;
-        private TextBox textBox7;
+        private TextBox tbSVRDDocumentType;
         private Label labelSVRDApprovalDate;
-        private TextBox textBox8;
+        private TextBox tbSVRDApprovalDate;
         private Label labelSVRDImplementDate;
-        private TextBox textBox9;
+        private TextBox tbSVRDImplementDate;
         private Label labelSVRDDeveloper;
-        private TextBox textBox10;
+        private TextBox tbSVRDDeveloper;
         private Label labelSVRDISBN;
-        private TextBox textBox11;
+        private TextBox tbSVRDISBN;
         private Label labelSVRDTitleTranslation;
-        private TextBox textBox12;
+        private TextBox tbSVRDTitleTranslation;
         private Label labelSVRDOfficialEdition;
-        private TextBox textBox13;
+        private TextBox tbSVRDOfficialEdition;
         private TabPage tpSVDissertationAbstract;
         private TabPage tpSVDissertation;
         private Label labelSVRDDocumentNumber;
-        private TextBox textBox1;
+        private TextBox tbSVRDDocumentNumber;
         private Label labelSVRDPagesCount;
-        private TextBox textBox6;
+        private TextBox tbSVRDPagesCount;
         private Label labelSVRDCountry;
-        private TextBox textBox16;
+        private TextBox tbSVRDCountry;
         private Label labelSVRDAdditions;
-        private TextBox textBox15;
+        private TextBox tbSVRDAdditions;
         private Label labelSVRDAbbreviation;
-        private TextBox textBox14;
+        private TextBox tbSVRDAbbreviation;
         private GroupBox gbSVDissertationAbstractRequired;
-        private Label label17;
-        private TextBox textBox17;
-        private Label label18;
-        private TextBox textBox18;
-        private Label label19;
-        private TextBox textBox19;
-        private Label label20;
-        private TextBox textBox20;
-        private Label label21;
-        private TextBox textBox21;
+        private Label labelSVDATitle;
+        private TextBox tbSVDATitle;
+        private Label labelSVDAAuthor;
+        private TextBox tbSVDAAuthor;
+        private Label labelSVDASpecialty;
+        private TextBox tbSVDASpecialty;
+        private Label labelSVDADegree;
+        private TextBox tbSVDADegree;
+        private Label labelSVDAPublishingLocation;
+        private TextBox tbSVDAPublishingLocation;
         private GroupBox gbSVDissertationAbstractOptional;
-        private Label label26;
-        private TextBox textBox26;
-        private Label label27;
-        private TextBox textBox27;
-        private Label label28;
-        private TextBox textBox28;
-        private Label label29;
-        private TextBox textBox29;
-        private ListBox listBox1;
-        private Label label24;
-        private TextBox textBox24;
-        private Label label23;
-        private TextBox textBox23;
-        private Label label22;
-        private TextBox textBox22;
+        private Label labelSVDADocumentType;
+        private TextBox tbSVDADocumentType;
+        private Label labelSVDAAuthorFullName;
+        private TextBox tbSVDAAuthorFullName;
+        private Label labelSVDAOrganization;
+        private TextBox tbSVDAOrganization;
+        private Label labelSVDABibliography;
+        private TextBox tbSVDABibliography;
+        private Label labelSVDADefenseLocation;
+        private TextBox tbSVDADefenseLocation;
+        private Label labelSVDAPagesCount;
+        private TextBox tbSVDAPagesCount;
+        private Label labelSVDAPublishYear;
+        private TextBox tbSVDAPublishYear;
         private GroupBox gbSVDissertationRequired;
-        private Label label30;
-        private TextBox textBox30;
-        private Label label31;
-        private TextBox textBox31;
-        private Label label32;
-        private TextBox textBox32;
-        private Label label33;
-        private TextBox textBox33;
-        private Label label34;
-        private TextBox textBox34;
-        private Label label35;
-        private TextBox textBox35;
-        private Label label36;
-        private TextBox textBox36;
+        private Label labelSVDPagesCount;
+        private TextBox tbSVDPagesCount;
+        private Label labelSVDPublishYear;
+        private TextBox tbSVDPublishYear;
+        private Label labelSVDTitle;
+        private TextBox tbSVDTitle;
+        private Label labelSVDAuthor;
+        private TextBox tbSVDAuthor;
+        private Label labelSVDSpecialty;
+        private TextBox tbSVDSpecialty;
+        private Label labelSVDDegree;
+        private TextBox tbSVDDegree;
+        private Label labelSVDPublishingLocation;
+        private TextBox tbSVDPublishingLocation;
         private GroupBox gbSVDissertationOptional;
-        private Label label37;
-        private TextBox textBox37;
-        private Label label38;
-        private TextBox textBox38;
-        private Label label39;
-        private TextBox textBox39;
-        private Label label40;
-        private TextBox textBox40;
-        private Label label25;
-        private Button button2;
-        private Button button1;
+        private Label labelSVDDocumentType;
+        private TextBox tbSVDDocumentType;
+        private Label labelSVDAuthorFullName;
+        private TextBox tbSVDAuthorFullName;
+        private Label labelSVDOrganization;
+        private TextBox tbSVDOrganization;
+        private Label labelSVDBibliography;
+        private TextBox tbSVDBibliography;
         private TabControl tcCategories;
         private TabPage tpSingleVolume;
         private TabPage tpMultiVolume;
         private TabControl tcMVTypes;
         private TabPage tpMVWholeMultivolume;
         private GroupBox gbMVWholeMultivolumeOptional;
-        private Label label47;
-        private TextBox textBox46;
-        private Label label48;
-        private TextBox textBox47;
-        private Label label49;
-        private TextBox textBox48;
-        private Label label50;
-        private TextBox textBox49;
-        private Label label51;
-        private TextBox textBox50;
-        private Label label52;
-        private TextBox textBox51;
+        private Label labelMVWMDocumentType;
+        private TextBox tbMVWMDocumentType;
+        private Label labelMVWMResponsibilityArea;
+        private TextBox tbMVWMResponsibilityArea;
+        private Label labelMVWMEditor;
+        private TextBox tbMVWMEditor;
+        private Label labelMVWMEditionNumber;
+        private TextBox tbMVWMEditionNumber;
+        private Label labelMVWMSeries;
+        private TextBox tbMVWMSeries;
+        private Label labelMVWMISBN;
+        private TextBox tbMVWMISBN;
         private TabPage tpMVSeparateVolume;
         private TabPage tpElectronicResources;
         private TabPage tpConstituentParts;
         private GroupBox gbMVWholeMultivolumeRequired;
-        private Label label53;
-        private TextBox textBox52;
-        private Label label41;
-        private TextBox textBox25;
-        private Button button4;
-        private ListBox listBox2;
-        private Label label42;
-        private TextBox textBox41;
-        private Label label43;
-        private TextBox textBox42;
-        private Label label44;
-        private TextBox textBox43;
-        private Label label45;
-        private TextBox textBox44;
-        private Label label46;
-        private TextBox textBox45;
+        private Label labelMVWMPagesCount;
+        private TextBox tbMVWMPagesCount;
+        private Label labelMVWMAuthors;
+        private TextBox tbMVWMAuthors;
+        private Button buttonMVWMAuthorsAdd;
+        private ListBox lbMVWMAuthors;
+        private Label labelMVWMTitle;
+        private TextBox tbMVWMTitle;
+        private Label labelMVWMVolumesNumber;
+        private TextBox tbMVWMVolumesNumber;
+        private Label labelMVWMPublishingLocation;
+        private TextBox tbMVWMPublishingLocation;
+        private Label labelMVWMPublisher;
+        private TextBox tbMVWMPublisher;
+        private Label labelMVWMPublishYear;
+        private TextBox tbMVWMPublishYear;
         private GroupBox gbMVSeparateVolumeRequired;
-        private Label label54;
-        private TextBox textBox53;
-        private Label label55;
-        private TextBox textBox54;
-        private Button button5;
-        private ListBox listBox3;
-        private Label label56;
-        private TextBox textBox55;
-        private Label label57;
-        private TextBox textBox56;
-        private Label label58;
-        private TextBox textBox57;
-        private Label label59;
-        private TextBox textBox58;
-        private Label label60;
-        private TextBox textBox59;
+        private Label labelMVSVPublisher;
+        private TextBox tbMVSVPublisher;
+        private Label labelMVSVAuthors;
+        private TextBox tbMVSVAuthors;
+        private Button buttonMVSVAuthorsAdd;
+        private ListBox lbMVSVAuthors;
+        private Label labelMVSVTitle;
+        private TextBox tbMVSVTitle;
+        private Label labelMVSVVolumesCount;
+        private TextBox tbMVSVVolumesCount;
+        private Label labelMVSVVolumeNumber;
+        private TextBox tbMVSVVolumeNumber;
+        private Label labelMVSVVolumeTitle;
+        private TextBox tbMVSVVolumeTitle;
+        private Label labelMVSVPublishingLocation;
+        private TextBox tbMVSVPublishingLocation;
         private GroupBox gbMVSeparateVolumeOptional;
-        private Label label61;
-        private TextBox textBox60;
-        private Label label62;
-        private TextBox textBox61;
-        private Label label63;
-        private TextBox textBox62;
-        private Label label64;
-        private TextBox textBox63;
-        private Label label65;
-        private TextBox textBox64;
-        private Label label66;
-        private TextBox textBox65;
-        private Label label68;
-        private TextBox textBox67;
-        private Label label67;
-        private TextBox textBox66;
+        private Label labelMVSVDocumentType;
+        private TextBox tbMVSVDocumentType;
+        private Label labelMVSVResponsibilityArea;
+        private TextBox tbMVSVResponsibilityArea;
+        private Label labelMVSVEditor;
+        private TextBox tbMVSVEditor;
+        private Label labelMVSVEditionNumber;
+        private TextBox tbMVSVEditionNumber;
+        private Label labelMVSVSeries;
+        private TextBox tbMVSVSeries;
+        private Label labelMVSVISBN;
+        private TextBox tbMVSVISBN;
+        private Label labelMVSVPagesCount;
+        private TextBox tbMVSVPagesCount;
+        private Label labelMVSVPublishYear;
+        private TextBox tbMVSVPublishYear;
         private TabControl tcERTypes;
         private TabPage tpEREbook;
         private GroupBox gbEREbookRequired;
-        private Label label69;
-        private TextBox textBox68;
-        private Button button6;
-        private ListBox listBox4;
-        private Label label70;
-        private TextBox textBox69;
-        private Label label71;
-        private TextBox textBox70;
-        private Label label72;
-        private TextBox textBox71;
-        private Label label73;
-        private TextBox textBox72;
-        private Label label74;
-        private TextBox textBox73;
+        private Label labelEREbAuthors;
+        private TextBox tbEREbAuthors;
+        private Button labelEREbAuthorsAdd;
+        private ListBox lbEREbAuthors;
+        private Label labelEREbTitle;
+        private TextBox tbEREbTitle;
+        private Label labelEREbPublishingLocation;
+        private TextBox tbEREbPublishingLocation;
+        private Label labelEREbPublisher;
+        private TextBox tbEREbPublisher;
+        private Label labelEREbPublishYear;
+        private TextBox tbEREbPublishYear;
+        private Label labelEREbURL;
+        private TextBox tbEREbURL;
         private GroupBox gbEREbookOptional;
-        private Label label75;
-        private TextBox textBox74;
-        private Label label76;
-        private TextBox textBox75;
-        private Label label77;
-        private TextBox textBox76;
-        private Label label78;
-        private TextBox textBox77;
-        private Label label79;
-        private TextBox textBox78;
-        private Label label80;
-        private TextBox textBox79;
-        private Label label81;
-        private TextBox textBox80;
+        private Label labelEREbDocumentType;
+        private TextBox tbEREbDocumentType;
+        private Label labelEREbResponsibilityArea;
+        private TextBox tbEREbResponsibilityArea;
+        private Label labelEREbEditor;
+        private TextBox tbEREbEditor;
+        private Label labelEREbEditionNumber;
+        private TextBox tbEREbEditionNumber;
+        private Label labelEREbPagesCount;
+        private TextBox tbEREbPagesCount;
+        private Label labelEREbSeries;
+        private TextBox tbEREbSeries;
+        private Label labelEREbISBN;
+        private TextBox tbEREbISBN;
         private TabPage tpERMultimediaEdition;
         private TabPage tpEREjournalArticle;
         private TabPage tpERWebsite;
         private GroupBox gbERWebsiteRequired;
-        private Label label112;
-        private TextBox textBox111;
-        private Label label113;
-        private TextBox textBox112;
-        private Label label114;
-        private TextBox textBox113;
+        private Label labelERWWebsiteURL;
+        private TextBox tbERWWebsiteURL;
+        private Label labelERWWebsiteName;
+        private TextBox tbERWWebsiteName;
+        private Label labelERWAccessDate;
+        private TextBox tbERWAccessDate;
         private GroupBox gbERWebsiteOptional;
-        private Label label117;
-        private TextBox textBox116;
-        private Label label118;
-        private TextBox textBox117;
-        private Label label119;
-        private TextBox textBox118;
-        private Label label120;
-        private TextBox textBox119;
+        private Label labelERWDocumentType;
+        private TextBox tbERWDocumentType;
+        private Label labelERWPublishingLocation;
+        private TextBox tbERWPublishingLocation;
+        private Label labelERWCreationYear;
+        private TextBox tbERWCreationYear;
+        private Label labelERWAccessMode;
+        private TextBox tbERWAccessMode;
         private TabControl tcCPTypes;
         private TabPage tpCPBookArticle;
         private GroupBox gbCPBookArticleRequired;
-        private Label label121;
-        private TextBox textBox120;
-        private Button button7;
-        private ListBox listBox5;
-        private Label label122;
-        private TextBox textBox121;
-        private Label label124;
-        private TextBox textBox123;
-        private Label label125;
-        private TextBox textBox124;
-        private Label label126;
-        private TextBox textBox125;
+        private Label labelCPBAArticleAuthors;
+        private TextBox tbCPBAArticleAuthors;
+        private Button buttonCPBAArticleAuthorsAdd;
+        private ListBox lbCPBAArticleAuthors;
+        private Label labelCPBAArticleTitle;
+        private TextBox tbCPBAArticleTitle;
+        private Label labelCPBABookTitle;
+        private TextBox tbCPBABookTitle;
+        private Label labelCPBAPublishingLocation;
+        private TextBox tbCPBAPublishingLocation;
+        private Label labelCPBAPublisher;
+        private TextBox tbCPBAPublisher;
         private GroupBox gbCPBookArticleOptional;
-        private Label label127;
-        private TextBox textBox126;
-        private Label label128;
-        private TextBox textBox127;
+        private Label labelCPBABookDocumentType;
+        private TextBox tbCPBABookDocumentType;
+        private Label labelCPBABookEditor;
+        private TextBox tbCPBABookEditor;
         private TabPage tpCPJournalArticle;
         private TabPage tpCPNewspaperArticle;
         private TabPage tpCPWebsiteArticle;
-        private Label label173;
-        private TextBox textBox172;
-        private Label label174;
-        private TextBox textBox173;
+        private Label labelEREbAccessDate;
+        private TextBox tbEREbAccessDate;
+        private Label labelEREbAccessMode;
+        private TextBox tbEREbAccessMode;
         private GroupBox gbERMultimediaEditionRequired;
-        private Label label83;
-        private TextBox textBox82;
-        private Button button3;
-        private ListBox listBox6;
-        private Label label84;
-        private TextBox textBox83;
-        private Label label85;
-        private TextBox textBox84;
-        private Label label86;
-        private TextBox textBox85;
-        private Label label87;
-        private TextBox textBox86;
-        private Label label88;
-        private TextBox textBox87;
+        private Label labelERMEAuthors;
+        private TextBox tbERMEAuthors;
+        private Button buttonERMEAuthorsAdd;
+        private ListBox lbERMEAuthors;
+        private Label labelERMETitle;
+        private TextBox tbERMETitle;
+        private Label labelERMEPublishingLocation;
+        private TextBox tbERMEPublishingLocation;
+        private Label labelERMEPublisher;
+        private TextBox tbERMEPublisher;
+        private Label labelERMEPublishYear;
+        private TextBox tbERMEPublishYear;
+        private Label labelERMEDataCarrier;
+        private TextBox tbERMEDataCarrier;
         private GroupBox gbERMultimediaEditionOptional;
-        private Label label90;
-        private TextBox textBox89;
-        private Label label91;
-        private TextBox textBox90;
-        private Label label92;
-        private TextBox textBox91;
-        private Label label93;
-        private TextBox textBox92;
-        private Label label94;
-        private TextBox textBox93;
-        private Label label95;
-        private TextBox textBox94;
+        private Label labelERMEDocumentType;
+        private TextBox tbERMEDocumentType;
+        private Label labelERMEResponsibilityArea;
+        private TextBox tbERMEResponsibilityArea;
+        private Label labelERMEEditor;
+        private TextBox tbERMEEditor;
+        private Label labelERMEOrganization;
+        private TextBox tbERMEOrganization;
+        private Label labelERMENotation;
+        private TextBox tbERMENotation;
+        private Label labelERMEISBN;
+        private TextBox tbERMEISBN;
         private GroupBox gbEREjournalArticleReqired;
-        private Label label97;
-        private TextBox textBox96;
-        private Label label98;
-        private TextBox textBox97;
-        private Button button8;
-        private ListBox listBox7;
-        private Label label99;
-        private TextBox textBox98;
-        private Label label100;
-        private TextBox textBox99;
-        private Label label101;
-        private TextBox textBox100;
-        private Label label102;
-        private TextBox textBox101;
-        private Label label103;
-        private TextBox textBox102;
+        private Label labelEREjAURL;
+        private TextBox tbEREjAURL;
+        private Label labelEREjAAuthors;
+        private TextBox tbEREjAAuthors;
+        private Button tbEREjAAuthorsAdd;
+        private ListBox lbEREjAAuthors;
+        private Label labelEREjATitle;
+        private TextBox tbEREjATitle;
+        private Label labelEREjAJournalName;
+        private TextBox tbEREjAJournalName;
+        private Label labelEREjAYear;
+        private TextBox tbEREjAYear;
+        private Label labelEREjAJournalNumber;
+        private TextBox tbEREjAJournalNumber;
+        private Label labelEREjAPages;
+        private TextBox tbEREjAPages;
         private GroupBox gbEREjournalArticleOptional;
-        private Label label105;
-        private TextBox textBox104;
-        private Label label82;
-        private TextBox textBox81;
-        private Label label89;
-        private TextBox textBox88;
+        private Label labelEREjAAccessMode;
+        private TextBox tbEREjAAccessMode;
+        private Label labelEREjAAccessDate;
+        private TextBox tbEREjAAccessDate;
+        private Label labelERWFounder;
+        private TextBox tbERWFounder;
         private GroupBox gbCPJournalArticleRequired;
-        private Label label96;
-        private TextBox textBox95;
-        private Button button9;
-        private ListBox listBox8;
-        private Label label104;
-        private TextBox textBox103;
-        private Label label106;
-        private TextBox textBox105;
-        private Label label107;
-        private TextBox textBox106;
-        private Label label108;
-        private TextBox textBox107;
-        private Label label109;
-        private TextBox textBox108;
+        private Label labelCPJAAuthors;
+        private TextBox tbCPJAAuthors;
+        private Button buttonCPJAAuthorsAdd;
+        private ListBox lbCPJAAuthors;
+        private Label labelCPJAArticleTitle;
+        private TextBox tbCPJAArticleTitle;
+        private Label labelCPJAJournalName;
+        private TextBox tbCPJAJournalName;
+        private Label labelCPJAYear;
+        private TextBox tbCPJAYear;
+        private Label labelCPJAJournalNumber;
+        private TextBox tbCPJAJournalNumber;
+        private Label labelCPJAPages;
+        private TextBox tbCPJAPages;
         private GroupBox gbCPJournalArticleOptional;
-        private Label label110;
-        private TextBox textBox109;
+        private Label labelCPJADOI;
+        private TextBox tbCPJADOI;
         private GroupBox gbCPNewspaperArticleReqired;
-        private Label label137;
-        private TextBox textBox136;
-        private Button button10;
-        private ListBox listBox9;
-        private Label label138;
-        private TextBox textBox137;
-        private Label label139;
-        private TextBox textBox138;
-        private Label label140;
-        private TextBox textBox139;
-        private Label label141;
-        private TextBox textBox140;
-        private Label label142;
-        private TextBox textBox141;
+        private Label labelCPNAAuthors;
+        private TextBox tbCPNAAuthors;
+        private Button buttonCPNAAuthorsAdd;
+        private ListBox lbCPNAAuthors;
+        private Label labelCPNAArticleTitle;
+        private TextBox tbCPNAArticleTitle;
+        private Label labelCPNANewspaperName;
+        private TextBox tbCPNANewspaperName;
+        private Label labelCPNAYear;
+        private TextBox tbCPNAYear;
+        private Label labelCPNAReleaseDate;
+        private TextBox tbCPNAReleaseDate;
+        private Label labelCPNAPages;
+        private TextBox tbCPNAPages;
         private GroupBox gbCPNewspaperArticleOptional;
-        private Label label143;
-        private TextBox textBox142;
-        private Label label144;
-        private TextBox textBox143;
+        private Label labelCPNAAdditionalInformation;
+        private TextBox tbCPNAAdditionalInformation;
+        private Label labelCPNAInterviewer;
+        private TextBox tbCPNAInterviewer;
         private GroupBox gbCPWebsiteArticleRequired;
-        private Label label150;
-        private TextBox textBox149;
-        private Button button11;
-        private ListBox listBox10;
-        private Label label151;
-        private TextBox textBox150;
-        private Label label152;
-        private TextBox textBox151;
-        private Label label153;
-        private TextBox textBox152;
-        private Label label154;
-        private TextBox textBox153;
+        private Label labelCPWAAuthors;
+        private TextBox tbCPWAAuthors;
+        private Button buttonCPWAAuthorsAdd;
+        private ListBox lbCPWAAuthors;
+        private Label labelCPWAArticleTitle;
+        private TextBox tbCPWAArticleTitle;
+        private Label labelCPWAWebsiteName;
+        private TextBox tbCPWAWebsiteName;
+        private Label labelCPWAURL;
+        private TextBox tbCPWAURL;
+        private Label labelCPWAAccessDate;
+        private TextBox tbCPWAAccessDate;
         private GroupBox gbCPWebsiteArticleOptional;
-        private Label label156;
-        private TextBox textBox155;
-        private Label label157;
-        private TextBox textBox156;
-        private Label label158;
-        private TextBox textBox157;
-        private Label label159;
-        private TextBox textBox158;
-        private Label label130;
-        private TextBox textBox129;
-        private Label label129;
-        private TextBox textBox128;
-        private Label label123;
-        private TextBox textBox122;
-        private Button button12;
-        private ListBox listBox11;
-        private Panel panel1;
+        private Label labelCPWAWebsiteType;
+        private TextBox tbCPWAWebsiteType;
+        private Label labelCPWAPublishingYear;
+        private TextBox tbCPWAPublishingYear;
+        private Label labelCPWAPublishingDate;
+        private TextBox tbCPWAPublishingDate;
+        private Label labelCPWAAdditionalInformation;
+        private TextBox tbCPWAAdditionalInformation;
+        private Label labelCPBAPages;
+        private TextBox tbCPBAPages;
+        private Label labelCPBAPublishYear;
+        private TextBox tbCPBAPublishYear;
+        private Label labelCPBABookAuthors;
+        private TextBox tbCPBABookAuthors;
+        private Button buttonCPBABookAuthorsAdd;
+        private ListBox lbCPBABookAuthors;
+        private Panel panelAddRecord;
         private CheckBox cbWordAbbreviation;
         private Button buttonAddRecord;
         private Panel panelSVBookOptional;
         private Panel panelSVRegulatoryDocumentOptional;
-        private Panel panelMVWholeMultivolumeOptional;
-        private Panel panelMVSeparateVolumeOptional;
         private Panel panelEREbookOptional;
-        private Panel panelERMultimediaEditionOptional;
+        private SplitContainer splitContainer2;
+        private SplitContainer splitContainer3;
+        private Panel panelSVDissertationAbstractRequired;
+        private Panel panelSVBookRequired;
+        private Panel panelSVDissertationRequired;
+        private Panel panelMVWholeMultivolumeRequired;
+        private Panel panelMVSeparateVolumeRequired;
+        private Panel panelEREbookRequired;
+        private Panel panelERMultimediaEditionRequired;
+        private Panel panelEREjournalArticleReqired;
+        private Panel panelCPBookArticleRequired;
+        private Panel panelCPJournalArticleRequired;
+        private Panel panelCPNewspaperArticleReqired;
+        private Panel panelCPWebsiteArticleRequired;
+        private ListBox lbResult;
+        private Button buttonCopyResult;
+        private Button buttonWordExportResult;
+        private Button buttonConvert;
+        private RichTextBox rtbMLA;
+        private Label labelConvert;
+        private Label labelResult;
+        private Label labelMLA;
+        private Label labelGOST;
+        private RichTextBox rtbGOST;
+        private Panel panelConvertTitle;
+        private Button button1;
+        private Panel panelRtbGOST;
+        private Panel panelRtbMLA;
+        private ToolTip ttMain;
+        private ContextMenuStrip cmsListBox;
+        private ToolStripMenuItem tsmiDeleteSelected;
+        private ToolStripMenuItem tsmiDeleteAll;
+        private ToolStripMenuItem tsmiCopy;
+        private ListBox lbSVBPublisher;
+        private Button buttonSVBPublishingLocationAdd;
+        private ListBox lbSVBPublishingLocation;
+        private Button buttonSVBPublisherAdd;
+        private Label labelSVBContentType;
+        private TextBox tbSVBContentType;
+        private CheckBox cbSVBAuthors;
+        private Label labelSVBParallelTitle;
+        private TextBox tbSVBParallelTitle;
+        private ListBox lbSVBEditor;
+        private Button buttonSVBEditorAdd;
+        private Button buttonPDFExportResult;
+        private ComboBox cbSVBEditorType;
+        private TabPage tpSVConferenceMaterials;
     }
 }
