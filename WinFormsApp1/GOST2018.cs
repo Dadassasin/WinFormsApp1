@@ -7,14 +7,14 @@ using MigraDoc.DocumentObjectModel;
 using MigraDoc.Rendering;
 using PdfSharp.Pdf;
 using System;
-using static WinFormsApp1.Form1;
+using static WinFormsApp1.GOST2018;
 
 
 namespace WinFormsApp1
 {
-    public partial class Form1 : Form
+    public partial class GOST2018 : Form
     {
-        public Form1()
+        public GOST2018()
         {
             InitializeComponent();
         }
@@ -5588,7 +5588,7 @@ namespace WinFormsApp1
                 );
                 return;
             }
-            
+
             Clipboard.SetText(strCopy);
         }
 

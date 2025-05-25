@@ -1,6 +1,6 @@
 ﻿namespace WinFormsApp1
 {
-    partial class Form1
+    partial class GOST2018
     {
         private System.ComponentModel.IContainer components = null;
 
@@ -51,7 +51,7 @@
         private void InitializeComponent()
         {
             this.components = new global::System.ComponentModel.Container();
-            global::System.ComponentModel.ComponentResourceManager resources = new global::System.ComponentModel.ComponentResourceManager(typeof(global::WinFormsApp1.Form1));
+            global::System.ComponentModel.ComponentResourceManager resources = new global::System.ComponentModel.ComponentResourceManager(typeof(global::WinFormsApp1.GOST2018));
             splitContainer1 = new SplitContainer();
             splitContainer2 = new SplitContainer();
             splitContainer3 = new SplitContainer();
@@ -74,8 +74,8 @@
             labelResult = new Label();
             lbResult = new ListBox();
             cmsListBox = new ContextMenuStrip(this.components);
-            tsmiDeleteSelected = new ToolStripMenuItem();
             tsmiDeleteAll = new ToolStripMenuItem();
+            tsmiDeleteSelected = new ToolStripMenuItem();
             tsmiEdit = new ToolStripMenuItem();
             tsmiCopy = new ToolStripMenuItem();
             tsmiRestoreEntry = new ToolStripMenuItem();
@@ -1381,19 +1381,19 @@
             cmsListBox.Size = new Size(190, 114);
             cmsListBox.Opening += this.cmsListBox_Opening;
             // 
-            // tsmiDeleteSelected
-            // 
-            tsmiDeleteSelected.Name = "tsmiDeleteSelected";
-            tsmiDeleteSelected.Size = new Size(189, 22);
-            tsmiDeleteSelected.Text = "Удалить";
-            tsmiDeleteSelected.Click += this.tsmiDeleteSelected_Click;
-            // 
             // tsmiDeleteAll
             // 
             tsmiDeleteAll.Name = "tsmiDeleteAll";
             tsmiDeleteAll.Size = new Size(189, 22);
             tsmiDeleteAll.Text = "Очистить";
             tsmiDeleteAll.Click += this.tsmiDeleteAll_Click;
+            // 
+            // tsmiDeleteSelected
+            // 
+            tsmiDeleteSelected.Name = "tsmiDeleteSelected";
+            tsmiDeleteSelected.Size = new Size(189, 22);
+            tsmiDeleteSelected.Text = "Удалить";
+            tsmiDeleteSelected.Click += this.tsmiDeleteSelected_Click;
             // 
             // tsmiEdit
             // 
@@ -10904,7 +10904,7 @@
             labelCPWAPublishDate.TabIndex = 4;
             labelCPWAPublishDate.Text = "Дата публикации";
             // 
-            // Form1
+            // GOST2018
             // 
             this.AutoScaleDimensions = new SizeF(7F, 15F);
             this.AutoScaleMode = AutoScaleMode.Font;
@@ -10914,7 +10914,7 @@
             this.Icon = (Icon)(resources.GetObject("$this.Icon"));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "GOST2018";
             this.Text = "Оформление списка литературы по ГОСТ Р 7.0.100-2018";
             this.FormClosed += this.Form1_FormClosed;
             this.Load += this.Form1_Load;
