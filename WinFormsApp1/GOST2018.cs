@@ -28,24 +28,31 @@ namespace WinFormsApp1
             SVConference,
             SVGOST,
             SVLegislative,
+            SVDissertationAbstract,
+            SVDissertation,
 
             // Многотомные
             MVWhole,
             MVVolume,
 
-            // Электронные
+            // Электронные ресурсы
             EBook,
             EWholeEdition,
             EVolumeEdition,
             EConferenceMaterials,
             ECollections,
+            EJournalArticle,
             EMultimedia,
             EWebsite,
 
             // Составные части
             CPBookArticle,
-            CPConferenceArticle
+            CPConferenceArticle,
+            CPJournalArticle,
+            CPNewspaperArticle,
+            CPWebsiteArticle
         }
+
 
         internal sealed record SmartUi(
             Dictionary<string, List<string>> Dict,
@@ -1273,45 +1280,45 @@ namespace WinFormsApp1
             if (entryIndex < 0 || entryIndex >= _entries.Count)
                 return;
 
-            // 0) Подсветим в списке результатов
+            // Подсветим в списке результатов
             lbResult.SelectedIndex = entryIndex;
 
             var entry = _entries[entryIndex];
 
-            // 1) Восстанавливаем вкладки
+            // Восстанавливаем вкладки
             tcCategories.SelectedIndex = entry.CategoryIndex;
             var catPage = tcCategories.SelectedTab;
             var inner = catPage.Controls.OfType<TabControl>().FirstOrDefault();
             if (inner != null && entry.TypeIndex >= 0)
                 inner.SelectedIndex = entry.TypeIndex;
 
-            // 2) Восстанавливаем обычные поля (текстбоксы, чекбоксы и т.д.)
+            // Восстанавливаем обычные поля (текстбоксы, чекбоксы и т.д.)
             entry.Snapshot.Restore();
 
-            // 3) Восстанавливаем smart-режим
+            // Восстанавливаем smart-режим
             if (_smartMap.TryGetValue(entry.Kind, out var ui))
             {
                 const string DefaultKey = "Default";
 
-                // 3.1 Восстанавливаем состояние чекбокса
+                // Восстанавливаем состояние чекбокса
                 ui.CbSmartMode.Checked = entry.IsSmartMode;
 
-                // 3.2 Клонируем сохранённый словарь обратно в ui.Dict
+                // Клонируем сохранённый словарь обратно в ui.Dict
                 ui.Dict.Clear();
                 foreach (var kv in entry.PublishersMap)
                     ui.Dict[kv.Key] = new List<string>(kv.Value);
 
-                // 3.3 Перерисовываем список мест издания, пропуская Default
+                // Перерисовываем список мест издания, пропуская Default
                 ui.LbPlaces.Items.Clear();
                 foreach (var place in ui.Dict.Keys.Where(k => k != DefaultKey))
                     ui.LbPlaces.Items.Add(place);
 
-                // 3.4 Перерисовываем селектор мест, тоже без Default
+                // Перерисовываем селектор мест, тоже без Default
                 ui.LbSelector.Items.Clear();
                 foreach (var place in ui.Dict.Keys.Where(k => k != DefaultKey))
                     ui.LbSelector.Items.Add(place);
 
-                // 3.5 Если есть хотя бы одно место — выбираем его и показываем издательства для него
+                // Если есть хотя бы одно место — выбираем его и показываем издательства для него
                 if (ui.LbSelector.Items.Count > 0)
                 {
                     ui.LbSelector.SelectedIndex = 0;
@@ -1327,7 +1334,7 @@ namespace WinFormsApp1
                 }
             }
 
-            // 4) Обновляем чекбоксы авторов
+            // Обновляем чекбоксы авторов
             RefreshAuthorCheckboxes();
         }
 
@@ -1363,18 +1370,23 @@ namespace WinFormsApp1
 
         private SourceKind? GetCurrentKind()
         {
+            // ── Однотомные ──
             if (tcCategories.SelectedTab == tpSingleVolume)
             {
                 if (tcSVTypes.SelectedTab == tpSVBook) return SourceKind.SVBook;
                 if (tcSVTypes.SelectedTab == tpSVConferenceMaterials) return SourceKind.SVConference;
                 if (tcSVTypes.SelectedTab == tpSVGOST) return SourceKind.SVGOST;
                 if (tcSVTypes.SelectedTab == tpSVLegislativeMaterial) return SourceKind.SVLegislative;
+                if (tcSVTypes.SelectedTab == tpSVDissertationAbstract) return SourceKind.SVDissertationAbstract;
+                if (tcSVTypes.SelectedTab == tpSVDissertation) return SourceKind.SVDissertation;
             }
+            // ── Многотомные ──
             else if (tcCategories.SelectedTab == tpMultiVolume)
             {
                 if (tcMVTypes.SelectedTab == tpMVWholeMultivolume) return SourceKind.MVWhole;
                 if (tcMVTypes.SelectedTab == tpMVSeparateVolume) return SourceKind.MVVolume;
             }
+            // ── Электронные ресурсы ──
             else if (tcCategories.SelectedTab == tpElectronicResources)
             {
                 if (tcERTypes.SelectedTab == tpEREbook) return SourceKind.EBook;
@@ -1382,32 +1394,55 @@ namespace WinFormsApp1
                 if (tcERTypes.SelectedTab == tpERElectronicEditionSeparateVolume) return SourceKind.EVolumeEdition;
                 if (tcERTypes.SelectedTab == tpERElectronicConferenceMaterials) return SourceKind.EConferenceMaterials;
                 if (tcERTypes.SelectedTab == tpERElectronicCollections) return SourceKind.ECollections;
+                if (tcERTypes.SelectedTab == tpEREjournalArticle) return SourceKind.EJournalArticle;
                 if (tcERTypes.SelectedTab == tpERMultimediaEdition) return SourceKind.EMultimedia;
                 if (tcERTypes.SelectedTab == tpERWebsite) return SourceKind.EWebsite;
             }
+            // ── Составные части ──
             else if (tcCategories.SelectedTab == tpConstituentParts)
             {
                 if (tcCPTypes.SelectedTab == tpCPBookArticle) return SourceKind.CPBookArticle;
                 if (tcCPTypes.SelectedTab == tpCPConferenceArticle) return SourceKind.CPConferenceArticle;
+                if (tcCPTypes.SelectedTab == tpCPJournalArticle) return SourceKind.CPJournalArticle;
+                if (tcCPTypes.SelectedTab == tpCPNewspaperArticle) return SourceKind.CPNewspaperArticle;
+                if (tcCPTypes.SelectedTab == tpCPWebsiteArticle) return SourceKind.CPWebsiteArticle;
             }
+
             return null;
         }
 
-        // Восстанавливает список издателей для умного режима
-        private void RestoreSmartPublishers(SmartUi ui, Dictionary<string, List<string>> saved)
+
+        //private void RestoreSmartPublishers(SmartUi ui, Dictionary<string, List<string>> saved)
+        //{
+        //    ui.Dict.Clear();
+        //    foreach (var kv in saved)
+        //        ui.Dict[kv.Key] = new List<string>(kv.Value);
+
+        //    // Обновляем места
+        //    ui.LbPlaces.Items.Clear();
+        //    foreach (var p in ui.Dict.Keys) ui.LbPlaces.Items.Add(p);
+
+        //    // Селектор + список издателей
+        //    UpdatePublishingLocationSelector(ui.LbPlaces, ui.LbSelector);
+        //    if (ui.LbSelector.Items.Count > 0)
+        //        ui.LbSelector.SelectedIndex = 0;
+        //}
+
+        // Возвращает «снимок» groupedPublishers и признак включённого smart-режима для данного типа.
+        private (Dictionary<string, List<string>> snapshot, bool smartModeEnabled) GetPublisherSnapshot(SourceKind kind)
         {
-            ui.Dict.Clear();
-            foreach (var kv in saved)
-                ui.Dict[kv.Key] = new List<string>(kv.Value);
-
-            // Обновляем места
-            ui.LbPlaces.Items.Clear();
-            foreach (var p in ui.Dict.Keys) ui.LbPlaces.Items.Add(p);
-
-            // Селектор + список издателей
-            UpdatePublishingLocationSelector(ui.LbPlaces, ui.LbSelector);
-            if (ui.LbSelector.Items.Count > 0)
-                ui.LbSelector.SelectedIndex = 0;
+            if (_smartMap.TryGetValue(kind, out var ui))
+            {
+                // Клонируем словарь, чтобы дальнейшие правки формы на него не влияли
+                var snap = ui.Dict
+                             .ToDictionary(
+                                kv => kv.Key,
+                                kv => new List<string>(kv.Value)
+                             );
+                return (snap, ui.CbSmartMode.Checked);
+            }
+            // Для типов без UI издательств/мест
+            return (new Dictionary<string, List<string>>(), false);
         }
 
         //
@@ -1613,12 +1648,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -1782,12 +1812,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -1935,12 +1960,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -2090,12 +2110,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -2212,12 +2227,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -2325,12 +2335,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -2553,12 +2558,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -2774,12 +2774,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -3031,12 +3026,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -3271,12 +3261,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -3509,12 +3494,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -3721,12 +3701,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -3916,12 +3891,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -4046,16 +4016,11 @@ namespace WinFormsApp1
 
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
-
+            
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -4231,12 +4196,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -4385,12 +4345,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -4605,12 +4560,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -4847,12 +4797,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -5005,15 +4950,22 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
+            var kindOpt = GetCurrentKind();
+            if (!kindOpt.HasValue)
+            {
+                MessageBox.Show(
+                    "Невозможно добавить: сначала выберите вкладку «Составные части → Статья из журнала».",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+            SourceKind kind = kindOpt.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -5116,12 +5068,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -5267,12 +5214,7 @@ namespace WinFormsApp1
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
-            var publishersSnapshot = _smartMap[kind].Dict
-                .ToDictionary(kv => kv.Key,
-                              kv => new List<string>(kv.Value));
-
-            var smartUi = _smartMap[kind];
-            bool smartModeEnabled = smartUi.CbSmartMode.Checked;
+            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
 
             _entries.Add(new SavedEntry(
                 result,
@@ -5451,7 +5393,7 @@ namespace WinFormsApp1
                 tbCPJAURL.Text = mG.Groups["url"].Value.Trim();
                 tbCPJAAccessDate.Text = mG.Groups["access"].Value;
 
-                if (tcCategories.SelectedTab != tpConstituentParts && tcCPTypes.SelectedTab != tpCPJournalArticle)
+                if (tcCategories.SelectedTab != tpConstituentParts || tcCPTypes.SelectedTab != tpCPJournalArticle)
                 {
                     tcCategories.SelectedTab = tpConstituentParts;
                     tcCPTypes.SelectedTab = tpCPJournalArticle;
