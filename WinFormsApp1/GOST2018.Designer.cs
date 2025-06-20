@@ -59,8 +59,20 @@
             buttonFillForm = new Button();
             panelRtbMLA = new Panel();
             rtbMLA = new RichTextBox();
-            cmsRichTextBox = new ContextMenuStrip(this.components);
+            cmsRichTextBox_TextBox = new ContextMenuStrip(this.components);
             tsmiClearRichTextBox = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
+            tsmiUndoRichTextBox = new ToolStripMenuItem();
+            toolStripSeparator2 = new ToolStripSeparator();
+            tsmiCutRichTextBox = new ToolStripMenuItem();
+            tsmiCopyRichTextBox = new ToolStripMenuItem();
+            tsmiPasteRichTextBox = new ToolStripMenuItem();
+            tsmiDeleteRichTextBox = new ToolStripMenuItem();
+            toolStripSeparator3 = new ToolStripSeparator();
+            tsmiSelectAllRichTextBox = new ToolStripMenuItem();
+            toolStripSeparator4 = new ToolStripSeparator();
+            tsmiUnableClearingRichTextBox1 = new ToolStripMenuItem();
+            tsmiUnableClearingRichTextBox2 = new ToolStripMenuItem();
             panelRtbGOST = new Panel();
             rtbGOST = new RichTextBox();
             panelConvertTitle = new Panel();
@@ -74,7 +86,10 @@
             labelResult = new Label();
             lbResult = new ListBox();
             cmsListBox = new ContextMenuStrip(this.components);
+            tsmiUndo = new ToolStripMenuItem();
+            toolStripSeparator6 = new ToolStripSeparator();
             tsmiDeleteAll = new ToolStripMenuItem();
+            toolStripSeparator5 = new ToolStripSeparator();
             tsmiDeleteSelected = new ToolStripMenuItem();
             tsmiEdit = new ToolStripMenuItem();
             tsmiCopy = new ToolStripMenuItem();
@@ -982,7 +997,7 @@
             splitContainer3.Panel2.SuspendLayout();
             splitContainer3.SuspendLayout();
             panelRtbMLA.SuspendLayout();
-            cmsRichTextBox.SuspendLayout();
+            cmsRichTextBox_TextBox.SuspendLayout();
             panelRtbGOST.SuspendLayout();
             panelConvertTitle.SuspendLayout();
             cmsListBox.SuspendLayout();
@@ -1195,7 +1210,7 @@
             buttonFillForm.Location = new Point(151, 299);
             buttonFillForm.Name = "buttonFillForm";
             buttonFillForm.Size = new Size(144, 34);
-            buttonFillForm.TabIndex = 12;
+            buttonFillForm.TabIndex = 4;
             buttonFillForm.Text = "Заполнить форму";
             buttonFillForm.UseVisualStyleBackColor = false;
             buttonFillForm.Click += this.buttonFillForm_Click;
@@ -1212,26 +1227,103 @@
             // rtbMLA
             // 
             rtbMLA.BorderStyle = BorderStyle.None;
-            rtbMLA.ContextMenuStrip = cmsRichTextBox;
+            rtbMLA.ContextMenuStrip = cmsRichTextBox_TextBox;
             rtbMLA.Location = new Point(0, 0);
             rtbMLA.Name = "rtbMLA";
             rtbMLA.ScrollBars = RichTextBoxScrollBars.Vertical;
             rtbMLA.Size = new Size(290, 90);
-            rtbMLA.TabIndex = 6;
+            rtbMLA.TabIndex = 2;
             rtbMLA.Text = "";
             // 
-            // cmsRichTextBox
+            // cmsRichTextBox_TextBox
             // 
-            cmsRichTextBox.Items.AddRange(new ToolStripItem[] { tsmiClearRichTextBox });
-            cmsRichTextBox.Name = "cmsRichTextBox";
-            cmsRichTextBox.Size = new Size(127, 26);
+            cmsRichTextBox_TextBox.Items.AddRange(new ToolStripItem[] { tsmiClearRichTextBox, toolStripSeparator1, tsmiUndoRichTextBox, toolStripSeparator2, tsmiCutRichTextBox, tsmiCopyRichTextBox, tsmiPasteRichTextBox, tsmiDeleteRichTextBox, toolStripSeparator3, tsmiSelectAllRichTextBox, toolStripSeparator4, tsmiUnableClearingRichTextBox1, tsmiUnableClearingRichTextBox2 });
+            cmsRichTextBox_TextBox.Name = "cmsRichTextBox";
+            cmsRichTextBox_TextBox.Size = new Size(246, 226);
+            cmsRichTextBox_TextBox.Opening += this.cmsRichTextBox_TextBox_Opening;
             // 
             // tsmiClearRichTextBox
             // 
             tsmiClearRichTextBox.Name = "tsmiClearRichTextBox";
-            tsmiClearRichTextBox.Size = new Size(126, 22);
+            tsmiClearRichTextBox.Size = new Size(245, 22);
             tsmiClearRichTextBox.Text = "Очистить";
-            tsmiClearRichTextBox.Click += this.tsmiClearRichTextBox_Click;
+            tsmiClearRichTextBox.Click += this.UniversalRichTextBox_TextBox_MenuItemClick;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(242, 6);
+            // 
+            // tsmiUndoRichTextBox
+            // 
+            tsmiUndoRichTextBox.Name = "tsmiUndoRichTextBox";
+            tsmiUndoRichTextBox.Size = new Size(245, 22);
+            tsmiUndoRichTextBox.Text = "Отменить";
+            tsmiUndoRichTextBox.Click += this.UniversalRichTextBox_TextBox_MenuItemClick;
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(242, 6);
+            // 
+            // tsmiCutRichTextBox
+            // 
+            tsmiCutRichTextBox.Name = "tsmiCutRichTextBox";
+            tsmiCutRichTextBox.Size = new Size(245, 22);
+            tsmiCutRichTextBox.Text = "Вырезать";
+            tsmiCutRichTextBox.Click += this.UniversalRichTextBox_TextBox_MenuItemClick;
+            // 
+            // tsmiCopyRichTextBox
+            // 
+            tsmiCopyRichTextBox.Name = "tsmiCopyRichTextBox";
+            tsmiCopyRichTextBox.Size = new Size(245, 22);
+            tsmiCopyRichTextBox.Text = "Копировать";
+            tsmiCopyRichTextBox.Click += this.UniversalRichTextBox_TextBox_MenuItemClick;
+            // 
+            // tsmiPasteRichTextBox
+            // 
+            tsmiPasteRichTextBox.Name = "tsmiPasteRichTextBox";
+            tsmiPasteRichTextBox.Size = new Size(245, 22);
+            tsmiPasteRichTextBox.Text = "Вставить";
+            tsmiPasteRichTextBox.Click += this.UniversalRichTextBox_TextBox_MenuItemClick;
+            // 
+            // tsmiDeleteRichTextBox
+            // 
+            tsmiDeleteRichTextBox.Name = "tsmiDeleteRichTextBox";
+            tsmiDeleteRichTextBox.Size = new Size(245, 22);
+            tsmiDeleteRichTextBox.Text = "Удалить";
+            tsmiDeleteRichTextBox.Click += this.UniversalRichTextBox_TextBox_MenuItemClick;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(242, 6);
+            // 
+            // tsmiSelectAllRichTextBox
+            // 
+            tsmiSelectAllRichTextBox.Name = "tsmiSelectAllRichTextBox";
+            tsmiSelectAllRichTextBox.Size = new Size(245, 22);
+            tsmiSelectAllRichTextBox.Text = "Выделить все";
+            tsmiSelectAllRichTextBox.Click += this.UniversalRichTextBox_TextBox_MenuItemClick;
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new Size(242, 6);
+            // 
+            // tsmiUnableClearingRichTextBox1
+            // 
+            tsmiUnableClearingRichTextBox1.CheckOnClick = true;
+            tsmiUnableClearingRichTextBox1.Name = "tsmiUnableClearingRichTextBox1";
+            tsmiUnableClearingRichTextBox1.Size = new Size(245, 22);
+            tsmiUnableClearingRichTextBox1.Text = "Не очищать после добавления";
+            // 
+            // tsmiUnableClearingRichTextBox2
+            // 
+            tsmiUnableClearingRichTextBox2.CheckOnClick = true;
+            tsmiUnableClearingRichTextBox2.Name = "tsmiUnableClearingRichTextBox2";
+            tsmiUnableClearingRichTextBox2.Size = new Size(245, 22);
+            tsmiUnableClearingRichTextBox2.Text = "Не очищать после добавления";
             // 
             // panelRtbGOST
             // 
@@ -1245,12 +1337,12 @@
             // rtbGOST
             // 
             rtbGOST.BorderStyle = BorderStyle.None;
-            rtbGOST.ContextMenuStrip = cmsRichTextBox;
+            rtbGOST.ContextMenuStrip = cmsRichTextBox_TextBox;
             rtbGOST.Location = new Point(0, 0);
             rtbGOST.Name = "rtbGOST";
             rtbGOST.ScrollBars = RichTextBoxScrollBars.Vertical;
             rtbGOST.Size = new Size(290, 90);
-            rtbGOST.TabIndex = 8;
+            rtbGOST.TabIndex = 1;
             rtbGOST.Text = "";
             // 
             // panelConvertTitle
@@ -1300,7 +1392,7 @@
             buttonConvert.Location = new Point(4, 299);
             buttonConvert.Name = "buttonConvert";
             buttonConvert.Size = new Size(143, 34);
-            buttonConvert.TabIndex = 4;
+            buttonConvert.TabIndex = 3;
             buttonConvert.Text = "Конвертировать";
             buttonConvert.UseVisualStyleBackColor = false;
             buttonConvert.Click += this.buttonConvert_Click;
@@ -1313,7 +1405,7 @@
             buttonPDFExportResult.Location = new Point(151, 370);
             buttonPDFExportResult.Name = "buttonPDFExportResult";
             buttonPDFExportResult.Size = new Size(144, 40);
-            buttonPDFExportResult.TabIndex = 4;
+            buttonPDFExportResult.TabIndex = 7;
             buttonPDFExportResult.Text = "Экспорт в PDF";
             buttonPDFExportResult.UseVisualStyleBackColor = false;
             buttonPDFExportResult.Click += this.buttonPDFExportResult_Click;
@@ -1326,7 +1418,7 @@
             buttonWordExportResult.Location = new Point(3, 370);
             buttonWordExportResult.Name = "buttonWordExportResult";
             buttonWordExportResult.Size = new Size(144, 40);
-            buttonWordExportResult.TabIndex = 3;
+            buttonWordExportResult.TabIndex = 6;
             buttonWordExportResult.Text = "Экспорт в Word";
             buttonWordExportResult.UseVisualStyleBackColor = false;
             buttonWordExportResult.Click += this.buttonWordExportResult_Click;
@@ -1339,7 +1431,7 @@
             buttonCopyResult.Location = new Point(3, 327);
             buttonCopyResult.Name = "buttonCopyResult";
             buttonCopyResult.Size = new Size(292, 40);
-            buttonCopyResult.TabIndex = 2;
+            buttonCopyResult.TabIndex = 5;
             buttonCopyResult.Text = "Скопировать все";
             buttonCopyResult.UseVisualStyleBackColor = false;
             buttonCopyResult.Click += this.buttonCopyResult_Click;
@@ -1368,6 +1460,7 @@
             lbResult.Name = "lbResult";
             lbResult.Size = new Size(292, 282);
             lbResult.TabIndex = 0;
+            lbResult.TabStop = false;
             lbResult.DragDrop += this.ListBox_DragDrop;
             lbResult.DragOver += this.ListBox_DragOver;
             lbResult.KeyDown += this.ListBox_KeyDown;
@@ -1376,10 +1469,22 @@
             // 
             // cmsListBox
             // 
-            cmsListBox.Items.AddRange(new ToolStripItem[] { tsmiDeleteAll, tsmiDeleteSelected, tsmiEdit, tsmiCopy, tsmiRestoreEntry });
+            cmsListBox.Items.AddRange(new ToolStripItem[] { tsmiUndo, toolStripSeparator6, tsmiDeleteAll, toolStripSeparator5, tsmiDeleteSelected, tsmiEdit, tsmiCopy, tsmiRestoreEntry });
             cmsListBox.Name = "contextMenuStrip1";
-            cmsListBox.Size = new Size(190, 114);
+            cmsListBox.Size = new Size(190, 148);
             cmsListBox.Opening += this.cmsListBox_Opening;
+            // 
+            // tsmiUndo
+            // 
+            tsmiUndo.Name = "tsmiUndo";
+            tsmiUndo.Size = new Size(189, 22);
+            tsmiUndo.Text = "Отменить";
+            tsmiUndo.Click += this.tsmiUndo_Click;
+            // 
+            // toolStripSeparator6
+            // 
+            toolStripSeparator6.Name = "toolStripSeparator6";
+            toolStripSeparator6.Size = new Size(186, 6);
             // 
             // tsmiDeleteAll
             // 
@@ -1387,6 +1492,11 @@
             tsmiDeleteAll.Size = new Size(189, 22);
             tsmiDeleteAll.Text = "Очистить";
             tsmiDeleteAll.Click += this.tsmiDeleteAll_Click;
+            // 
+            // toolStripSeparator5
+            // 
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            toolStripSeparator5.Size = new Size(186, 6);
             // 
             // tsmiDeleteSelected
             // 
@@ -1434,7 +1544,7 @@
             buttonAddRecord.Location = new Point(304, 4);
             buttonAddRecord.Name = "buttonAddRecord";
             buttonAddRecord.Size = new Size(202, 34);
-            buttonAddRecord.TabIndex = 1;
+            buttonAddRecord.TabIndex = 9;
             buttonAddRecord.Text = "Добавить";
             buttonAddRecord.UseVisualStyleBackColor = false;
             buttonAddRecord.Click += this.buttonAddRecord_Click;
@@ -1446,7 +1556,7 @@
             cbWordAbbreviation.Location = new Point(7, 9);
             cbWordAbbreviation.Name = "cbWordAbbreviation";
             cbWordAbbreviation.Size = new Size(282, 24);
-            cbWordAbbreviation.TabIndex = 0;
+            cbWordAbbreviation.TabIndex = 8;
             cbWordAbbreviation.Text = "Включить сокращение слов по ГОСТ\r\n";
             cbWordAbbreviation.UseVisualStyleBackColor = true;
             // 
@@ -1463,6 +1573,7 @@
             tcCategories.SelectedIndex = 0;
             tcCategories.Size = new Size(529, 748);
             tcCategories.TabIndex = 1;
+            tcCategories.TabStop = false;
             // 
             // cmsMainTabControl
             // 
@@ -1516,7 +1627,7 @@
             tcSVTypes.SelectedIndex = 0;
             tcSVTypes.Size = new Size(513, 709);
             tcSVTypes.TabIndex = 0;
-            ttMain.SetToolTip(tcSVTypes, "Полное имя автора автореферата диссертации.");
+            tcSVTypes.TabStop = false;
             // 
             // tpSVBook
             // 
@@ -1576,6 +1687,7 @@
             lbSVBPublishingLocationSelect.Name = "lbSVBPublishingLocationSelect";
             lbSVBPublishingLocationSelect.Size = new Size(207, 64);
             lbSVBPublishingLocationSelect.TabIndex = 49;
+            lbSVBPublishingLocationSelect.TabStop = false;
             lbSVBPublishingLocationSelect.SelectedIndexChanged += this.lbSVBPublishingLocationSelect_SelectedIndexChanged;
             // 
             // cbSVBPublisher
@@ -1584,8 +1696,9 @@
             cbSVBPublisher.Location = new Point(339, 292);
             cbSVBPublisher.Name = "cbSVBPublisher";
             cbSVBPublisher.Size = new Size(111, 19);
-            cbSVBPublisher.TabIndex = 48;
+            cbSVBPublisher.TabIndex = 18;
             cbSVBPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbSVBPublisher, "Включение «умного режима» добавления издательств\r\n");
             cbSVBPublisher.UseVisualStyleBackColor = true;
             cbSVBPublisher.CheckedChanged += this.cbSVBPublisher_CheckedChanged;
             // 
@@ -1595,7 +1708,7 @@
             cbSVBAuthors.Location = new Point(371, 20);
             cbSVBAuthors.Name = "cbSVBAuthors";
             cbSVBAuthors.Size = new Size(79, 19);
-            cbSVBAuthors.TabIndex = 18;
+            cbSVBAuthors.TabIndex = 12;
             cbSVBAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbSVBAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbSVBAuthors.UseVisualStyleBackColor = true;
@@ -1619,6 +1732,7 @@
             lbSVBPublisher.Name = "lbSVBPublisher";
             lbSVBPublisher.Size = new Size(237, 64);
             lbSVBPublisher.TabIndex = 16;
+            lbSVBPublisher.TabStop = false;
             lbSVBPublisher.DragDrop += this.ListBox_DragDrop;
             lbSVBPublisher.DragOver += this.ListBox_DragOver;
             lbSVBPublisher.KeyDown += this.ListBox_KeyDown;
@@ -1644,6 +1758,7 @@
             lbSVBPublishingLocation.Name = "lbSVBPublishingLocation";
             lbSVBPublishingLocation.Size = new Size(450, 64);
             lbSVBPublishingLocation.TabIndex = 14;
+            lbSVBPublishingLocation.TabStop = false;
             lbSVBPublishingLocation.DragDrop += this.ListBox_DragDrop;
             lbSVBPublishingLocation.DragOver += this.ListBox_DragOver;
             lbSVBPublishingLocation.KeyDown += this.ListBox_KeyDown;
@@ -1662,10 +1777,11 @@
             // 
             // tbSVBAuthors
             // 
+            tbSVBAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBAuthors.Location = new Point(0, 18);
             tbSVBAuthors.Name = "tbSVBAuthors";
             tbSVBAuthors.Size = new Size(269, 23);
-            tbSVBAuthors.TabIndex = 1;
+            tbSVBAuthors.TabIndex = 10;
             ttMain.SetToolTip(tbSVBAuthors, resources.GetString("tbSVBAuthors.ToolTip"));
             tbSVBAuthors.KeyDown += this.TextBox_KeyDown;
             // 
@@ -1674,7 +1790,7 @@
             buttonSVBAuthorsAdd.Location = new Point(275, 18);
             buttonSVBAuthorsAdd.Name = "buttonSVBAuthorsAdd";
             buttonSVBAuthorsAdd.Size = new Size(90, 23);
-            buttonSVBAuthorsAdd.TabIndex = 2;
+            buttonSVBAuthorsAdd.TabIndex = 11;
             buttonSVBAuthorsAdd.Text = "Добавить";
             buttonSVBAuthorsAdd.UseVisualStyleBackColor = true;
             buttonSVBAuthorsAdd.Click += this.buttonSVBAuthorsAdd_Click;
@@ -1688,6 +1804,7 @@
             lbSVBAuthors.Name = "lbSVBAuthors";
             lbSVBAuthors.Size = new Size(450, 64);
             lbSVBAuthors.TabIndex = 3;
+            lbSVBAuthors.TabStop = false;
             lbSVBAuthors.Tag = "";
             lbSVBAuthors.DragDrop += this.ListBox_DragDrop;
             lbSVBAuthors.DragOver += this.ListBox_DragOver;
@@ -1697,11 +1814,12 @@
             // 
             // tbSVBPublishYear
             // 
+            tbSVBPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBPublishYear.Location = new Point(0, 404);
             tbSVBPublishYear.Name = "tbSVBPublishYear";
             tbSVBPublishYear.Size = new Size(450, 23);
-            tbSVBPublishYear.TabIndex = 11;
-            ttMain.SetToolTip(tbSVBPublishYear, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".");
+            tbSVBPublishYear.TabIndex = 19;
+            ttMain.SetToolTip(tbSVBPublishYear, "Год публикации книги.\r\nПример: \"2019\"\r\n");
             tbSVBPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVBTitle
@@ -1722,23 +1840,25 @@
             labelSVBPublishYear.Size = new Size(73, 15);
             labelSVBPublishYear.TabIndex = 10;
             labelSVBPublishYear.Text = "Год издания";
-            ttMain.SetToolTip(labelSVBPublishYear, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".");
+            ttMain.SetToolTip(labelSVBPublishYear, "Год публикации книги.\r\nПример: \"2019\"");
             // 
             // tbSVBTitle
             // 
+            tbSVBTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBTitle.Location = new Point(0, 132);
             tbSVBTitle.Name = "tbSVBTitle";
             tbSVBTitle.Size = new Size(450, 23);
-            tbSVBTitle.TabIndex = 5;
+            tbSVBTitle.TabIndex = 13;
             ttMain.SetToolTip(tbSVBTitle, "Полное название книги, как указано в источнике, без сокращений.\r\nПример: \"Экономика организации. Ресурсы коммерческой организации\".");
             tbSVBTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVBPublisher
             // 
+            tbSVBPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBPublisher.Location = new Point(0, 290);
             tbSVBPublisher.Name = "tbSVBPublisher";
             tbSVBPublisher.Size = new Size(237, 23);
-            tbSVBPublisher.TabIndex = 9;
+            tbSVBPublisher.TabIndex = 16;
             ttMain.SetToolTip(tbSVBPublisher, resources.GetString("tbSVBPublisher.ToolTip"));
             tbSVBPublisher.KeyDown += this.TextBox_KeyDown;
             // 
@@ -1750,7 +1870,7 @@
             labelSVBPublishingLocation.Size = new Size(89, 15);
             labelSVBPublishingLocation.TabIndex = 6;
             labelSVBPublishingLocation.Text = "Место издания";
-            ttMain.SetToolTip(labelSVBPublishingLocation, resources.GetString("labelSVBPublishingLocation.ToolTip"));
+            ttMain.SetToolTip(labelSVBPublishingLocation, "Город, где книга была издана.\r\nПример: \"Москва\".");
             // 
             // labelSVBPublisher
             // 
@@ -1764,11 +1884,13 @@
             // 
             // tbSVBPublishingLocation
             // 
+            tbSVBPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBPublishingLocation.Location = new Point(0, 176);
             tbSVBPublishingLocation.Name = "tbSVBPublishingLocation";
             tbSVBPublishingLocation.Size = new Size(354, 23);
-            tbSVBPublishingLocation.TabIndex = 7;
-            ttMain.SetToolTip(tbSVBPublishingLocation, resources.GetString("tbSVBPublishingLocation.ToolTip"));
+            tbSVBPublishingLocation.TabIndex = 14;
+            ttMain.SetToolTip(tbSVBPublishingLocation, "Город, где книга была издана.\r\nПример: \"Москва\".\r\n");
+            tbSVBPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // gpSVBookOptional
             // 
@@ -1819,7 +1941,7 @@
             cbSVBEditorType.Location = new Point(194, 106);
             cbSVBEditorType.Name = "cbSVBEditorType";
             cbSVBEditorType.Size = new Size(160, 23);
-            cbSVBEditorType.TabIndex = 20;
+            cbSVBEditorType.TabIndex = 23;
             // 
             // labelSVBOrganization
             // 
@@ -1833,10 +1955,11 @@
             // 
             // tbSVBOrganization
             // 
+            tbSVBOrganization.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBOrganization.Location = new Point(0, 220);
             tbSVBOrganization.Name = "tbSVBOrganization";
             tbSVBOrganization.Size = new Size(450, 23);
-            tbSVBOrganization.TabIndex = 13;
+            tbSVBOrganization.TabIndex = 25;
             ttMain.SetToolTip(tbSVBOrganization, resources.GetString("tbSVBOrganization.ToolTip"));
             tbSVBOrganization.KeyDown += this.TextBox_KeyDown;
             // 
@@ -1849,6 +1972,7 @@
             lbSVBEditor.Name = "lbSVBEditor";
             lbSVBEditor.Size = new Size(450, 64);
             lbSVBEditor.TabIndex = 19;
+            lbSVBEditor.TabStop = false;
             lbSVBEditor.DragDrop += this.ListBox_DragDrop;
             lbSVBEditor.DragOver += this.ListBox_DragOver;
             lbSVBEditor.KeyDown += this.ListBox_KeyDown;
@@ -1860,7 +1984,7 @@
             buttonSVBEditorAdd.Location = new Point(360, 106);
             buttonSVBEditorAdd.Name = "buttonSVBEditorAdd";
             buttonSVBEditorAdd.Size = new Size(90, 23);
-            buttonSVBEditorAdd.TabIndex = 18;
+            buttonSVBEditorAdd.TabIndex = 24;
             buttonSVBEditorAdd.Text = "Добавить";
             buttonSVBEditorAdd.UseVisualStyleBackColor = true;
             buttonSVBEditorAdd.Click += this.buttonSVBEditorAdd_Click;
@@ -1877,19 +2001,21 @@
             // 
             // tbSVBParallelTitle
             // 
+            tbSVBParallelTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBParallelTitle.Location = new Point(0, 18);
             tbSVBParallelTitle.Name = "tbSVBParallelTitle";
             tbSVBParallelTitle.Size = new Size(450, 23);
-            tbSVBParallelTitle.TabIndex = 17;
+            tbSVBParallelTitle.TabIndex = 20;
             ttMain.SetToolTip(tbSVBParallelTitle, "Заглавие, повторённое в документе на другом языке (или в другой письменности), \r\nуказываемое в библиографической записи через знак \"=\".\r\nПример: \"Theorie und Praktikum in der deutschen Grammatik\"\r\n");
             tbSVBParallelTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVBPagesCount
             // 
+            tbSVBPagesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBPagesCount.Location = new Point(0, 352);
             tbSVBPagesCount.Name = "tbSVBPagesCount";
             tbSVBPagesCount.Size = new Size(450, 23);
-            tbSVBPagesCount.TabIndex = 13;
+            tbSVBPagesCount.TabIndex = 28;
             ttMain.SetToolTip(tbSVBPagesCount, "Общий объем книги в страницах.\r\nПример: \"134\".\r\n");
             tbSVBPagesCount.KeyDown += this.TextBox_KeyDown;
             // 
@@ -1901,7 +2027,7 @@
             labelSVBContentType.Size = new Size(97, 15);
             labelSVBContentType.TabIndex = 14;
             labelSVBContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelSVBContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelSVBContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // labelSVBPagesCount
             // 
@@ -1915,11 +2041,12 @@
             // 
             // tbSVBContentType
             // 
+            tbSVBContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBContentType.Location = new Point(0, 484);
             tbSVBContentType.Name = "tbSVBContentType";
             tbSVBContentType.Size = new Size(450, 23);
-            tbSVBContentType.TabIndex = 15;
-            ttMain.SetToolTip(tbSVBContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbSVBContentType.TabIndex = 31;
+            ttMain.SetToolTip(tbSVBContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             tbSVBContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVBDocumentType
@@ -1930,15 +2057,16 @@
             labelSVBDocumentType.Size = new Size(88, 15);
             labelSVBDocumentType.TabIndex = 0;
             labelSVBDocumentType.Text = "Вид документа";
-            ttMain.SetToolTip(labelSVBDocumentType, "Уточняет тип издания (учебник, монография и т.д.).\r\nВ квадратных скобках указывается, если вид документа не указан в самом источнике напрямую.\r\nПример: \"учебное пособие\" или \"[монография]\".");
+            ttMain.SetToolTip(labelSVBDocumentType, "Уточняет тип издания (учебник, монография и т.д.).\r\nПример: \"учебное пособие\" или \"[монография]\"");
             // 
             // tbSVBDocumentType
             // 
+            tbSVBDocumentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBDocumentType.Location = new Point(0, 62);
             tbSVBDocumentType.Name = "tbSVBDocumentType";
             tbSVBDocumentType.Size = new Size(450, 23);
-            tbSVBDocumentType.TabIndex = 1;
-            ttMain.SetToolTip(tbSVBDocumentType, "Уточняет тип издания (учебник, монография и т.д.).\r\nВ квадратных скобках указывается, если вид документа не указан в самом источнике напрямую.\r\nПример: \"учебное пособие\" или \"[монография]\".");
+            tbSVBDocumentType.TabIndex = 21;
+            ttMain.SetToolTip(tbSVBDocumentType, "Уточняет тип издания (учебник, монография и т.д.).\r\nПример: \"учебное пособие\" или \"[монография]\"\r\n");
             tbSVBDocumentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVBEditor
@@ -1953,19 +2081,21 @@
             // 
             // tbSVBTranslator
             // 
+            tbSVBTranslator.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBTranslator.Location = new Point(0, 308);
             tbSVBTranslator.Name = "tbSVBTranslator";
             tbSVBTranslator.Size = new Size(450, 23);
-            tbSVBTranslator.TabIndex = 11;
+            tbSVBTranslator.TabIndex = 27;
             ttMain.SetToolTip(tbSVBTranslator, "Имя переводчика для переводных изданий, после \"; перевод с …\".\r\nПример: \"английского А. Ю. Заякина\".\r\n");
             tbSVBTranslator.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVBEditor
             // 
+            tbSVBEditor.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBEditor.Location = new Point(0, 106);
             tbSVBEditor.Name = "tbSVBEditor";
             tbSVBEditor.Size = new Size(188, 23);
-            tbSVBEditor.TabIndex = 3;
+            tbSVBEditor.TabIndex = 22;
             ttMain.SetToolTip(tbSVBEditor, resources.GetString("tbSVBEditor.ToolTip"));
             tbSVBEditor.KeyDown += this.TextBox_KeyDown;
             // 
@@ -1991,19 +2121,21 @@
             // 
             // tbSVBISBN
             // 
+            tbSVBISBN.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBISBN.Location = new Point(0, 440);
             tbSVBISBN.Name = "tbSVBISBN";
             tbSVBISBN.Size = new Size(450, 23);
-            tbSVBISBN.TabIndex = 9;
+            tbSVBISBN.TabIndex = 30;
             ttMain.SetToolTip(tbSVBISBN, "Международный стандартный номер книги.\r\nПример: \"978-5-534-10585-8\".");
             tbSVBISBN.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVBEditionNumber
             // 
+            tbSVBEditionNumber.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBEditionNumber.Location = new Point(0, 264);
             tbSVBEditionNumber.Name = "tbSVBEditionNumber";
             tbSVBEditionNumber.Size = new Size(450, 23);
-            tbSVBEditionNumber.TabIndex = 5;
+            tbSVBEditionNumber.TabIndex = 26;
             ttMain.SetToolTip(tbSVBEditionNumber, "Номер издания и уточнения (переработанное, дополненное), если не первое, перед местом издания.\r\nПример: \"2-е издание, перераб. и доп.\".");
             tbSVBEditionNumber.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2029,10 +2161,11 @@
             // 
             // tbSVBSeries
             // 
+            tbSVBSeries.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVBSeries.Location = new Point(0, 396);
             tbSVBSeries.Name = "tbSVBSeries";
             tbSVBSeries.Size = new Size(450, 23);
-            tbSVBSeries.TabIndex = 7;
+            tbSVBSeries.TabIndex = 29;
             ttMain.SetToolTip(tbSVBSeries, "Название серии, в которой издана книга.\r\nПример: \"Профессиональное образование\".\r\n");
             tbSVBSeries.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2091,27 +2224,29 @@
             lbSVCMPublishingLocationSelect.Enabled = false;
             lbSVCMPublishingLocationSelect.FormattingEnabled = true;
             lbSVCMPublishingLocationSelect.ItemHeight = 15;
-            lbSVCMPublishingLocationSelect.Location = new Point(243, 339);
+            lbSVCMPublishingLocationSelect.Location = new Point(243, 337);
             lbSVCMPublishingLocationSelect.Name = "lbSVCMPublishingLocationSelect";
             lbSVCMPublishingLocationSelect.Size = new Size(207, 64);
             lbSVCMPublishingLocationSelect.TabIndex = 51;
+            lbSVCMPublishingLocationSelect.TabStop = false;
             // 
             // cbSVCMPublisher
             // 
             cbSVCMPublisher.AutoSize = true;
-            cbSVCMPublisher.Location = new Point(339, 312);
+            cbSVCMPublisher.Location = new Point(339, 310);
             cbSVCMPublisher.Name = "cbSVCMPublisher";
             cbSVCMPublisher.Size = new Size(111, 19);
-            cbSVCMPublisher.TabIndex = 50;
+            cbSVCMPublisher.TabIndex = 18;
             cbSVCMPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbSVCMPublisher, "Включение «умного режима» добавления издательств");
             cbSVCMPublisher.UseVisualStyleBackColor = true;
             // 
             // buttonSVCMPublisherAdd
             // 
-            buttonSVCMPublisherAdd.Location = new Point(243, 310);
+            buttonSVCMPublisherAdd.Location = new Point(243, 308);
             buttonSVCMPublisherAdd.Name = "buttonSVCMPublisherAdd";
             buttonSVCMPublisherAdd.Size = new Size(90, 23);
-            buttonSVCMPublisherAdd.TabIndex = 23;
+            buttonSVCMPublisherAdd.TabIndex = 17;
             buttonSVCMPublisherAdd.Text = "Добавить";
             buttonSVCMPublisherAdd.UseVisualStyleBackColor = true;
             buttonSVCMPublisherAdd.Click += this.buttonSVCPublisherAdd_Click;
@@ -2121,10 +2256,11 @@
             lbSVCMPublisher.AllowDrop = true;
             lbSVCMPublisher.ContextMenuStrip = cmsListBox;
             lbSVCMPublisher.ItemHeight = 15;
-            lbSVCMPublisher.Location = new Point(0, 339);
+            lbSVCMPublisher.Location = new Point(0, 337);
             lbSVCMPublisher.Name = "lbSVCMPublisher";
             lbSVCMPublisher.Size = new Size(237, 64);
             lbSVCMPublisher.TabIndex = 22;
+            lbSVCMPublisher.TabStop = false;
             lbSVCMPublisher.DragDrop += this.ListBox_DragDrop;
             lbSVCMPublisher.DragOver += this.ListBox_DragOver;
             lbSVCMPublisher.KeyDown += this.ListBox_KeyDown;
@@ -2133,10 +2269,10 @@
             // 
             // buttonSVCMPublishingLocationAdd
             // 
-            buttonSVCMPublishingLocationAdd.Location = new Point(360, 196);
+            buttonSVCMPublishingLocationAdd.Location = new Point(360, 194);
             buttonSVCMPublishingLocationAdd.Name = "buttonSVCMPublishingLocationAdd";
             buttonSVCMPublishingLocationAdd.Size = new Size(90, 23);
-            buttonSVCMPublishingLocationAdd.TabIndex = 21;
+            buttonSVCMPublishingLocationAdd.TabIndex = 15;
             buttonSVCMPublishingLocationAdd.Text = "Добавить";
             buttonSVCMPublishingLocationAdd.UseVisualStyleBackColor = true;
             buttonSVCMPublishingLocationAdd.Click += this.buttonSVCPublishingLocationAdd_Click;
@@ -2146,10 +2282,11 @@
             lbSVCMPublishingLocation.AllowDrop = true;
             lbSVCMPublishingLocation.ContextMenuStrip = cmsListBox;
             lbSVCMPublishingLocation.ItemHeight = 15;
-            lbSVCMPublishingLocation.Location = new Point(0, 225);
+            lbSVCMPublishingLocation.Location = new Point(0, 223);
             lbSVCMPublishingLocation.Name = "lbSVCMPublishingLocation";
             lbSVCMPublishingLocation.Size = new Size(450, 64);
             lbSVCMPublishingLocation.TabIndex = 20;
+            lbSVCMPublishingLocation.TabStop = false;
             lbSVCMPublishingLocation.DragDrop += this.ListBox_DragDrop;
             lbSVCMPublishingLocation.DragOver += this.ListBox_DragOver;
             lbSVCMPublishingLocation.KeyDown += this.ListBox_KeyDown;
@@ -2158,17 +2295,18 @@
             // 
             // tbSVCMPublisher
             // 
-            tbSVCMPublisher.Location = new Point(0, 310);
+            tbSVCMPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
+            tbSVCMPublisher.Location = new Point(0, 308);
             tbSVCMPublisher.Name = "tbSVCMPublisher";
             tbSVCMPublisher.Size = new Size(237, 23);
-            tbSVCMPublisher.TabIndex = 19;
+            tbSVCMPublisher.TabIndex = 16;
             ttMain.SetToolTip(tbSVCMPublisher, resources.GetString("tbSVCMPublisher.ToolTip"));
             tbSVCMPublisher.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVCMPublisher
             // 
             labelSVCMPublisher.AutoSize = true;
-            labelSVCMPublisher.Location = new Point(0, 292);
+            labelSVCMPublisher.Location = new Point(0, 290);
             labelSVCMPublisher.Name = "labelSVCMPublisher";
             labelSVCMPublisher.Size = new Size(81, 15);
             labelSVCMPublisher.TabIndex = 18;
@@ -2177,11 +2315,12 @@
             // 
             // tbSVCMPublishingLocation
             // 
-            tbSVCMPublishingLocation.Location = new Point(0, 196);
+            tbSVCMPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
+            tbSVCMPublishingLocation.Location = new Point(0, 194);
             tbSVCMPublishingLocation.Name = "tbSVCMPublishingLocation";
             tbSVCMPublishingLocation.Size = new Size(354, 23);
-            tbSVCMPublishingLocation.TabIndex = 17;
-            ttMain.SetToolTip(tbSVCMPublishingLocation, resources.GetString("tbSVCMPublishingLocation.ToolTip"));
+            tbSVCMPublishingLocation.TabIndex = 14;
+            ttMain.SetToolTip(tbSVCMPublishingLocation, "Город, в котором было издано издание.\r\nПример: «Москва»\r\n");
             tbSVCMPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVCMPublishingLocation
@@ -2192,14 +2331,15 @@
             labelSVCMPublishingLocation.Size = new Size(89, 15);
             labelSVCMPublishingLocation.TabIndex = 16;
             labelSVCMPublishingLocation.Text = "Место издания";
-            ttMain.SetToolTip(labelSVCMPublishingLocation, resources.GetString("labelSVCMPublishingLocation.ToolTip"));
+            ttMain.SetToolTip(labelSVCMPublishingLocation, "Город, в котором было издано издание.\r\nПример: «Москва»");
             // 
             // tbSVCMEventDate
             // 
+            tbSVCMEventDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVCMEventDate.Location = new Point(0, 150);
             tbSVCMEventDate.Name = "tbSVCMEventDate";
             tbSVCMEventDate.Size = new Size(450, 23);
-            tbSVCMEventDate.TabIndex = 15;
+            tbSVCMEventDate.TabIndex = 13;
             ttMain.SetToolTip(tbSVCMEventDate, "Дата, когда проходило мероприятие.\r\nПример: «15 ноября 2017 г.»\r\n");
             tbSVCMEventDate.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2225,38 +2365,41 @@
             // 
             // tbSVCMEventTitle
             // 
+            tbSVCMEventTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVCMEventTitle.Location = new Point(0, 18);
             tbSVCMEventTitle.Name = "tbSVCMEventTitle";
             tbSVCMEventTitle.Size = new Size(450, 23);
-            tbSVCMEventTitle.TabIndex = 1;
+            tbSVCMEventTitle.TabIndex = 10;
             ttMain.SetToolTip(tbSVCMEventTitle, "Полное название конференции или научного мероприятия.\r\nПример: «Институциональная экономика: развитие, преподавание, приложения»");
             tbSVCMEventTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVCMPublishYear
             // 
-            tbSVCMPublishYear.Location = new Point(0, 424);
+            tbSVCMPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
+            tbSVCMPublishYear.Location = new Point(0, 422);
             tbSVCMPublishYear.Name = "tbSVCMPublishYear";
             tbSVCMPublishYear.Size = new Size(450, 23);
-            tbSVCMPublishYear.TabIndex = 11;
-            ttMain.SetToolTip(tbSVCMPublishYear, "Год публикации материалов в формате четырёх цифр.\r\nПример: \"2019\".\r\n\r\n");
+            tbSVCMPublishYear.TabIndex = 19;
+            ttMain.SetToolTip(tbSVCMPublishYear, "Год публикации материалов.\r\nПример: \"2019\".\r\n\r\n");
             tbSVCMPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVCMPublishYear
             // 
             labelSVCMPublishYear.AutoSize = true;
-            labelSVCMPublishYear.Location = new Point(0, 406);
+            labelSVCMPublishYear.Location = new Point(0, 404);
             labelSVCMPublishYear.Name = "labelSVCMPublishYear";
             labelSVCMPublishYear.Size = new Size(73, 15);
             labelSVCMPublishYear.TabIndex = 10;
             labelSVCMPublishYear.Text = "Год издания";
-            ttMain.SetToolTip(labelSVCMPublishYear, "Год публикации материалов в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelSVCMPublishYear, "Год публикации материалов.\r\nПример: \"2019\".\r\n");
             // 
             // tbSVCMEventPlace
             // 
+            tbSVCMEventPlace.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVCMEventPlace.Location = new Point(0, 106);
             tbSVCMEventPlace.Name = "tbSVCMEventPlace";
             tbSVCMEventPlace.Size = new Size(450, 23);
-            tbSVCMEventPlace.TabIndex = 9;
+            tbSVCMEventPlace.TabIndex = 12;
             ttMain.SetToolTip(tbSVCMEventPlace, "Город, в котором проходило мероприятие.\r\nПример: «Москва»\r\n");
             tbSVCMEventPlace.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2268,7 +2411,7 @@
             labelSVCMPublicationType.Size = new Size(74, 15);
             labelSVCMPublicationType.TabIndex = 6;
             labelSVCMPublicationType.Text = "Вид издания";
-            ttMain.SetToolTip(labelSVCMPublicationType, "Как оформлено издание: сборник статей, материалы конференции и т. д.\r\nПример: «Сборник научных статей», «Материалы конференции»\r\n**Чаще всего с маленькой буквы**");
+            ttMain.SetToolTip(labelSVCMPublicationType, "Как оформлено издание: сборник статей, материалы конференции и т. д.\r\nПример: «Сборник научных статей», «Материалы конференции»");
             // 
             // labelSVCMEventPlace
             // 
@@ -2282,11 +2425,12 @@
             // 
             // tbSVCMPublicationType
             // 
+            tbSVCMPublicationType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVCMPublicationType.Location = new Point(0, 62);
             tbSVCMPublicationType.Name = "tbSVCMPublicationType";
             tbSVCMPublicationType.Size = new Size(450, 23);
-            tbSVCMPublicationType.TabIndex = 7;
-            ttMain.SetToolTip(tbSVCMPublicationType, "Как оформлено издание: сборник статей, материалы конференции и т. д.\r\nПример: «Сборник научных статей», «Материалы конференции»\r\n**Чаще всего с маленькой буквы**\r\n");
+            tbSVCMPublicationType.TabIndex = 11;
+            ttMain.SetToolTip(tbSVCMPublicationType, "Как оформлено издание: сборник статей, материалы конференции и т. д.\r\nПример: «Сборник научных статей», «Материалы конференции»\r\n");
             tbSVCMPublicationType.KeyDown += this.TextBox_KeyDown;
             // 
             // gbSVConferenceMaterialsOptional
@@ -2341,6 +2485,7 @@
             lbSVCMEditor.Name = "lbSVCMEditor";
             lbSVCMEditor.Size = new Size(450, 64);
             lbSVCMEditor.TabIndex = 22;
+            lbSVCMEditor.TabStop = false;
             lbSVCMEditor.DragDrop += this.ListBox_DragDrop;
             lbSVCMEditor.DragOver += this.ListBox_DragOver;
             lbSVCMEditor.KeyDown += this.ListBox_KeyDown;
@@ -2352,7 +2497,7 @@
             buttonSVCMEditorAdd.Location = new Point(360, 106);
             buttonSVCMEditorAdd.Name = "buttonSVCMEditorAdd";
             buttonSVCMEditorAdd.Size = new Size(90, 23);
-            buttonSVCMEditorAdd.TabIndex = 21;
+            buttonSVCMEditorAdd.TabIndex = 24;
             buttonSVCMEditorAdd.Text = "Добавить";
             buttonSVCMEditorAdd.UseVisualStyleBackColor = true;
             buttonSVCMEditorAdd.Click += this.buttonSVCEditorAdd_Click;
@@ -2369,10 +2514,11 @@
             // 
             // tbSVCMPartNumberAndTitle
             // 
+            tbSVCMPartNumberAndTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVCMPartNumberAndTitle.Location = new Point(0, 62);
             tbSVCMPartNumberAndTitle.Name = "tbSVCMPartNumberAndTitle";
             tbSVCMPartNumberAndTitle.Size = new Size(450, 23);
-            tbSVCMPartNumberAndTitle.TabIndex = 13;
+            tbSVCMPartNumberAndTitle.TabIndex = 21;
             ttMain.SetToolTip(tbSVCMPartNumberAndTitle, resources.GetString("tbSVCMPartNumberAndTitle.ToolTip"));
             tbSVCMPartNumberAndTitle.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2384,15 +2530,16 @@
             labelSVCMContentType.Size = new Size(97, 15);
             labelSVCMContentType.TabIndex = 14;
             labelSVCMContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelSVCMContentType, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelSVCMContentType, "Уточняет тип содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // tbSVCMContentType
             // 
+            tbSVCMContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVCMContentType.Location = new Point(0, 308);
             tbSVCMContentType.Name = "tbSVCMContentType";
             tbSVCMContentType.Size = new Size(450, 23);
-            tbSVCMContentType.TabIndex = 15;
-            ttMain.SetToolTip(tbSVCMContentType, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbSVCMContentType.TabIndex = 27;
+            ttMain.SetToolTip(tbSVCMContentType, "Уточняет тип содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             tbSVCMContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVCMPartCount
@@ -2407,19 +2554,21 @@
             // 
             // tbSVCMPartCount
             // 
+            tbSVCMPartCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVCMPartCount.Location = new Point(0, 18);
             tbSVCMPartCount.Name = "tbSVCMPartCount";
             tbSVCMPartCount.Size = new Size(450, 23);
-            tbSVCMPartCount.TabIndex = 1;
+            tbSVCMPartCount.TabIndex = 20;
             ttMain.SetToolTip(tbSVCMPartCount, "Количество частей, если издание состоит из нескольких частей или томов.\r\nПример: «3»\r\n");
             tbSVCMPartCount.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVCMPagesCount
             // 
+            tbSVCMPagesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVCMPagesCount.Location = new Point(0, 220);
             tbSVCMPagesCount.Name = "tbSVCMPagesCount";
             tbSVCMPagesCount.Size = new Size(450, 23);
-            tbSVCMPagesCount.TabIndex = 13;
+            tbSVCMPagesCount.TabIndex = 25;
             ttMain.SetToolTip(tbSVCMPagesCount, "Общее объем материалов в страницах.\r\nПример: «382»\r\n");
             tbSVCMPagesCount.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2445,19 +2594,21 @@
             // 
             // tbSVCMEditor
             // 
+            tbSVCMEditor.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVCMEditor.Location = new Point(0, 106);
             tbSVCMEditor.Name = "tbSVCMEditor";
             tbSVCMEditor.Size = new Size(188, 23);
-            tbSVCMEditor.TabIndex = 11;
+            tbSVCMEditor.TabIndex = 22;
             ttMain.SetToolTip(tbSVCMEditor, resources.GetString("tbSVCMEditor.ToolTip"));
             tbSVCMEditor.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVCMISBN
             // 
+            tbSVCMISBN.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVCMISBN.Location = new Point(0, 264);
             tbSVCMISBN.Name = "tbSVCMISBN";
             tbSVCMISBN.Size = new Size(450, 23);
-            tbSVCMISBN.TabIndex = 3;
+            tbSVCMISBN.TabIndex = 26;
             ttMain.SetToolTip(tbSVCMISBN, "Международный стандартный номер книги.\r\nПример: «978-5-215-03012-7»\r\n");
             tbSVCMISBN.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2526,6 +2677,7 @@
             lbSVGOSTPublishingLocationSelect.Name = "lbSVGOSTPublishingLocationSelect";
             lbSVGOSTPublishingLocationSelect.Size = new Size(207, 64);
             lbSVGOSTPublishingLocationSelect.TabIndex = 53;
+            lbSVGOSTPublishingLocationSelect.TabStop = false;
             lbSVGOSTPublishingLocationSelect.SelectedIndexChanged += this.lbSVGOSTPublishingLocationSelect_SelectedIndexChanged;
             // 
             // cbSVGOSTPublisher
@@ -2534,8 +2686,9 @@
             cbSVGOSTPublisher.Location = new Point(339, 222);
             cbSVGOSTPublisher.Name = "cbSVGOSTPublisher";
             cbSVGOSTPublisher.Size = new Size(111, 19);
-            cbSVGOSTPublisher.TabIndex = 52;
+            cbSVGOSTPublisher.TabIndex = 16;
             cbSVGOSTPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbSVGOSTPublisher, "Включение «умного режима» добавления издательств\r\n\r\n");
             cbSVGOSTPublisher.UseVisualStyleBackColor = true;
             cbSVGOSTPublisher.CheckedChanged += this.cbSVGOSTPublisher_CheckedChanged;
             // 
@@ -2544,7 +2697,7 @@
             buttonSVGOSTPublisher.Location = new Point(243, 220);
             buttonSVGOSTPublisher.Name = "buttonSVGOSTPublisher";
             buttonSVGOSTPublisher.Size = new Size(90, 23);
-            buttonSVGOSTPublisher.TabIndex = 27;
+            buttonSVGOSTPublisher.TabIndex = 15;
             buttonSVGOSTPublisher.Text = "Добавить";
             buttonSVGOSTPublisher.UseVisualStyleBackColor = true;
             buttonSVGOSTPublisher.Click += this.buttonSVGOSTPublisher_Click;
@@ -2558,6 +2711,7 @@
             lbSVGOSTPublisher.Name = "lbSVGOSTPublisher";
             lbSVGOSTPublisher.Size = new Size(237, 64);
             lbSVGOSTPublisher.TabIndex = 26;
+            lbSVGOSTPublisher.TabStop = false;
             lbSVGOSTPublisher.DragDrop += this.ListBox_DragDrop;
             lbSVGOSTPublisher.DragOver += this.ListBox_DragOver;
             lbSVGOSTPublisher.KeyDown += this.ListBox_KeyDown;
@@ -2566,10 +2720,11 @@
             // 
             // tbSVGOSTPublisher
             // 
+            tbSVGOSTPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVGOSTPublisher.Location = new Point(0, 220);
             tbSVGOSTPublisher.Name = "tbSVGOSTPublisher";
             tbSVGOSTPublisher.Size = new Size(237, 23);
-            tbSVGOSTPublisher.TabIndex = 25;
+            tbSVGOSTPublisher.TabIndex = 14;
             ttMain.SetToolTip(tbSVGOSTPublisher, resources.GetString("tbSVGOSTPublisher.ToolTip"));
             tbSVGOSTPublisher.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2578,7 +2733,7 @@
             buttonSVGOSTPublishingLocationAdd.Location = new Point(360, 106);
             buttonSVGOSTPublishingLocationAdd.Name = "buttonSVGOSTPublishingLocationAdd";
             buttonSVGOSTPublishingLocationAdd.Size = new Size(90, 23);
-            buttonSVGOSTPublishingLocationAdd.TabIndex = 24;
+            buttonSVGOSTPublishingLocationAdd.TabIndex = 13;
             buttonSVGOSTPublishingLocationAdd.Text = "Добавить";
             buttonSVGOSTPublishingLocationAdd.UseVisualStyleBackColor = true;
             buttonSVGOSTPublishingLocationAdd.Click += this.buttonSVGOSTPublishingLocationAdd_Click;
@@ -2592,6 +2747,7 @@
             lbSVGOSTPublishingLocation.Name = "lbSVGOSTPublishingLocation";
             lbSVGOSTPublishingLocation.Size = new Size(450, 64);
             lbSVGOSTPublishingLocation.TabIndex = 23;
+            lbSVGOSTPublishingLocation.TabStop = false;
             lbSVGOSTPublishingLocation.DragDrop += this.ListBox_DragDrop;
             lbSVGOSTPublishingLocation.DragOver += this.ListBox_DragOver;
             lbSVGOSTPublishingLocation.KeyDown += this.ListBox_KeyDown;
@@ -2600,11 +2756,12 @@
             // 
             // tbSVGOSTPublishingLocation
             // 
+            tbSVGOSTPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVGOSTPublishingLocation.Location = new Point(0, 106);
             tbSVGOSTPublishingLocation.Name = "tbSVGOSTPublishingLocation";
             tbSVGOSTPublishingLocation.Size = new Size(354, 23);
-            tbSVGOSTPublishingLocation.TabIndex = 22;
-            ttMain.SetToolTip(tbSVGOSTPublishingLocation, resources.GetString("tbSVGOSTPublishingLocation.ToolTip"));
+            tbSVGOSTPublishingLocation.TabIndex = 12;
+            ttMain.SetToolTip(tbSVGOSTPublishingLocation, "Город, в котором было издан документ.\r\nПример: «Москва»\r\n");
             tbSVGOSTPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVGOSTTitle
@@ -2629,19 +2786,21 @@
             // 
             // tbSVGOSTPublishYear
             // 
+            tbSVGOSTPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVGOSTPublishYear.Location = new Point(0, 334);
             tbSVGOSTPublishYear.Name = "tbSVGOSTPublishYear";
             tbSVGOSTPublishYear.Size = new Size(450, 23);
-            tbSVGOSTPublishYear.TabIndex = 11;
-            ttMain.SetToolTip(tbSVGOSTPublishYear, "Год публикации документа в формате четырёх цифр.\r\nПример: \"2019\".\r\n\r\n\r\n");
+            tbSVGOSTPublishYear.TabIndex = 17;
+            ttMain.SetToolTip(tbSVGOSTPublishYear, "Год публикации документа.\r\nПример: \"2019\".\r\n\r\n\r\n");
             tbSVGOSTPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVGOSTDocumentNumber
             // 
+            tbSVGOSTDocumentNumber.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVGOSTDocumentNumber.Location = new Point(0, 18);
             tbSVGOSTDocumentNumber.Name = "tbSVGOSTDocumentNumber";
             tbSVGOSTDocumentNumber.Size = new Size(450, 23);
-            tbSVGOSTDocumentNumber.TabIndex = 15;
+            tbSVGOSTDocumentNumber.TabIndex = 10;
             ttMain.SetToolTip(tbSVGOSTDocumentNumber, "Уникальный номер документа.\r\nПример: \"ГОСТ Р 57564–2017\"\r\n");
             tbSVGOSTDocumentNumber.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2653,14 +2812,15 @@
             labelSVGOSTPublishYear.Size = new Size(73, 15);
             labelSVGOSTPublishYear.TabIndex = 10;
             labelSVGOSTPublishYear.Text = "Год издания";
-            ttMain.SetToolTip(labelSVGOSTPublishYear, "Год публикации документа в формате четырёх цифр.\r\nПример: \"2019\".\r\n\r\n");
+            ttMain.SetToolTip(labelSVGOSTPublishYear, "Год публикации документа.\r\nПример: \"2019\".\r\n\r\n");
             // 
             // tbSVGOSTTitle
             // 
+            tbSVGOSTTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVGOSTTitle.Location = new Point(0, 62);
             tbSVGOSTTitle.Name = "tbSVGOSTTitle";
             tbSVGOSTTitle.Size = new Size(450, 23);
-            tbSVGOSTTitle.TabIndex = 5;
+            tbSVGOSTTitle.TabIndex = 11;
             ttMain.SetToolTip(tbSVGOSTTitle, "Полное название документа, как указано в источнике.\r\nПример: \"Организация и проведение работ по международной стандартизации в Российской Федерации\"\r\n");
             tbSVGOSTTitle.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2682,7 +2842,7 @@
             labelSVGOSTPublishingLocation.Size = new Size(89, 15);
             labelSVGOSTPublishingLocation.TabIndex = 6;
             labelSVGOSTPublishingLocation.Text = "Место издания";
-            ttMain.SetToolTip(labelSVGOSTPublishingLocation, resources.GetString("labelSVGOSTPublishingLocation.ToolTip"));
+            ttMain.SetToolTip(labelSVGOSTPublishingLocation, "Город, в котором было издан документ.\r\nПример: «Москва»");
             // 
             // gbSVGOSTOptional
             // 
@@ -2725,7 +2885,7 @@
             cbGOSTFirstTime.Location = new Point(336, 196);
             cbGOSTFirstTime.Name = "cbGOSTFirstTime";
             cbGOSTFirstTime.Size = new Size(114, 19);
-            cbGOSTFirstTime.TabIndex = 26;
+            cbGOSTFirstTime.TabIndex = 22;
             cbGOSTFirstTime.Text = "Введен впервые";
             ttMain.SetToolTip(cbGOSTFirstTime, "Включить добавление \"введен впервые\" перед датой введения.");
             cbGOSTFirstTime.UseVisualStyleBackColor = true;
@@ -2742,10 +2902,11 @@
             // 
             // tbSVGOSTAdditions
             // 
+            tbSVGOSTAdditions.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVGOSTAdditions.Location = new Point(0, 106);
             tbSVGOSTAdditions.Name = "tbSVGOSTAdditions";
             tbSVGOSTAdditions.Size = new Size(450, 23);
-            tbSVGOSTAdditions.TabIndex = 25;
+            tbSVGOSTAdditions.TabIndex = 19;
             ttMain.SetToolTip(tbSVGOSTAdditions, "Любые уточнения об издании. \r\nПример: \"издание официальное\".\r\n");
             tbSVGOSTAdditions.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2761,6 +2922,7 @@
             // 
             // tbSVGOSTParallelTitle
             // 
+            tbSVGOSTParallelTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVGOSTParallelTitle.Location = new Point(0, 18);
             tbSVGOSTParallelTitle.Name = "tbSVGOSTParallelTitle";
             tbSVGOSTParallelTitle.Size = new Size(450, 23);
@@ -2780,11 +2942,12 @@
             // 
             // tbSVGOSTContentType
             // 
+            tbSVGOSTContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVGOSTContentType.Location = new Point(0, 326);
             tbSVGOSTContentType.Name = "tbSVGOSTContentType";
             tbSVGOSTContentType.Size = new Size(450, 23);
-            tbSVGOSTContentType.TabIndex = 9;
-            ttMain.SetToolTip(tbSVGOSTContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbSVGOSTContentType.TabIndex = 25;
+            ttMain.SetToolTip(tbSVGOSTContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             tbSVGOSTContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVGOSTPagesCount
@@ -2805,23 +2968,25 @@
             labelSVGOSTContentType.Size = new Size(97, 15);
             labelSVGOSTContentType.TabIndex = 8;
             labelSVGOSTContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelSVGOSTContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelSVGOSTContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // tbSVGOSTPagesCount
             // 
+            tbSVGOSTPagesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVGOSTPagesCount.Location = new Point(0, 282);
             tbSVGOSTPagesCount.Name = "tbSVGOSTPagesCount";
             tbSVGOSTPagesCount.Size = new Size(450, 23);
-            tbSVGOSTPagesCount.TabIndex = 15;
+            tbSVGOSTPagesCount.TabIndex = 24;
             ttMain.SetToolTip(tbSVGOSTPagesCount, "Объем документа в страницах.\r\nПример: \"43\" или \"350\".\r\n");
             tbSVGOSTPagesCount.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVGOSTDeveloper
             // 
+            tbSVGOSTDeveloper.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVGOSTDeveloper.Location = new Point(0, 238);
             tbSVGOSTDeveloper.Name = "tbSVGOSTDeveloper";
             tbSVGOSTDeveloper.Size = new Size(450, 23);
-            tbSVGOSTDeveloper.TabIndex = 7;
+            tbSVGOSTDeveloper.TabIndex = 23;
             ttMain.SetToolTip(tbSVGOSTDeveloper, "Организация, разработавшая документ.\r\nПример: \"разработан Всероссийским научно-исследовательским институтом стандартизации и сертификации в машиностроении (ВНИИНМАШ)\".\r\n");
             tbSVGOSTDeveloper.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2837,19 +3002,21 @@
             // 
             // tbSVGOSTDocumentType
             // 
+            tbSVGOSTDocumentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVGOSTDocumentType.Location = new Point(0, 62);
             tbSVGOSTDocumentType.Name = "tbSVGOSTDocumentType";
             tbSVGOSTDocumentType.Size = new Size(450, 23);
-            tbSVGOSTDocumentType.TabIndex = 1;
+            tbSVGOSTDocumentType.TabIndex = 18;
             ttMain.SetToolTip(tbSVGOSTDocumentType, "Уточняет вид документа.\r\nПример: \"национальный стандарт Российской Федерации\".\r\n");
             tbSVGOSTDocumentType.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVGOSTImplementDate
             // 
+            tbSVGOSTImplementDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVGOSTImplementDate.Location = new Point(0, 194);
             tbSVGOSTImplementDate.Name = "tbSVGOSTImplementDate";
             tbSVGOSTImplementDate.Size = new Size(330, 23);
-            tbSVGOSTImplementDate.TabIndex = 5;
+            tbSVGOSTImplementDate.TabIndex = 21;
             ttMain.SetToolTip(tbSVGOSTImplementDate, "Дата начала действия или одобрения документа.\r\nПример: \"дата введения 2017-12-01\".\r\n");
             tbSVGOSTImplementDate.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2875,10 +3042,11 @@
             // 
             // tbSVGOSTApprovalDate
             // 
+            tbSVGOSTApprovalDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVGOSTApprovalDate.Location = new Point(0, 150);
             tbSVGOSTApprovalDate.Name = "tbSVGOSTApprovalDate";
             tbSVGOSTApprovalDate.Size = new Size(450, 23);
-            tbSVGOSTApprovalDate.TabIndex = 3;
+            tbSVGOSTApprovalDate.TabIndex = 20;
             ttMain.SetToolTip(tbSVGOSTApprovalDate, resources.GetString("tbSVGOSTApprovalDate.ToolTip"));
             tbSVGOSTApprovalDate.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2935,6 +3103,7 @@
             lbSVLMPublishingLocationSelect.Name = "lbSVLMPublishingLocationSelect";
             lbSVLMPublishingLocationSelect.Size = new Size(207, 64);
             lbSVLMPublishingLocationSelect.TabIndex = 55;
+            lbSVLMPublishingLocationSelect.TabStop = false;
             lbSVLMPublishingLocationSelect.SelectedIndexChanged += this.lbSVLMPublishingLocationSelect_SelectedIndexChanged;
             // 
             // cbSVLMPublisher
@@ -2943,8 +3112,9 @@
             cbSVLMPublisher.Location = new Point(339, 178);
             cbSVLMPublisher.Name = "cbSVLMPublisher";
             cbSVLMPublisher.Size = new Size(111, 19);
-            cbSVLMPublisher.TabIndex = 54;
+            cbSVLMPublisher.TabIndex = 15;
             cbSVLMPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbSVLMPublisher, "Включение «умного режима» добавления издательств\r\n");
             cbSVLMPublisher.UseVisualStyleBackColor = true;
             cbSVLMPublisher.CheckedChanged += this.cbSVLMPublisher_CheckedChanged;
             // 
@@ -2953,7 +3123,7 @@
             buttonSVLMPublisher.Location = new Point(243, 176);
             buttonSVLMPublisher.Name = "buttonSVLMPublisher";
             buttonSVLMPublisher.Size = new Size(90, 23);
-            buttonSVLMPublisher.TabIndex = 27;
+            buttonSVLMPublisher.TabIndex = 14;
             buttonSVLMPublisher.Text = "Добавить";
             buttonSVLMPublisher.UseVisualStyleBackColor = true;
             buttonSVLMPublisher.Click += this.buttonSVLMPublisher_Click;
@@ -2967,6 +3137,7 @@
             lbSVLMPublisher.Name = "lbSVLMPublisher";
             lbSVLMPublisher.Size = new Size(237, 64);
             lbSVLMPublisher.TabIndex = 26;
+            lbSVLMPublisher.TabStop = false;
             lbSVLMPublisher.DragDrop += this.ListBox_DragDrop;
             lbSVLMPublisher.DragOver += this.ListBox_DragOver;
             lbSVLMPublisher.KeyDown += this.ListBox_KeyDown;
@@ -2975,10 +3146,11 @@
             // 
             // tbSVLMPublisher
             // 
+            tbSVLMPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVLMPublisher.Location = new Point(0, 176);
             tbSVLMPublisher.Name = "tbSVLMPublisher";
             tbSVLMPublisher.Size = new Size(237, 23);
-            tbSVLMPublisher.TabIndex = 25;
+            tbSVLMPublisher.TabIndex = 13;
             ttMain.SetToolTip(tbSVLMPublisher, resources.GetString("tbSVLMPublisher.ToolTip"));
             tbSVLMPublisher.KeyDown += this.TextBox_KeyDown;
             // 
@@ -2987,7 +3159,7 @@
             buttonSVLMPublishingLocationAdd.Location = new Point(360, 62);
             buttonSVLMPublishingLocationAdd.Name = "buttonSVLMPublishingLocationAdd";
             buttonSVLMPublishingLocationAdd.Size = new Size(90, 23);
-            buttonSVLMPublishingLocationAdd.TabIndex = 24;
+            buttonSVLMPublishingLocationAdd.TabIndex = 12;
             buttonSVLMPublishingLocationAdd.Text = "Добавить";
             buttonSVLMPublishingLocationAdd.UseVisualStyleBackColor = true;
             buttonSVLMPublishingLocationAdd.Click += this.buttonSVLMPublishingLocationAdd_Click;
@@ -3001,6 +3173,7 @@
             lbSVLMPublishingLocation.Name = "lbSVLMPublishingLocation";
             lbSVLMPublishingLocation.Size = new Size(450, 64);
             lbSVLMPublishingLocation.TabIndex = 23;
+            lbSVLMPublishingLocation.TabStop = false;
             lbSVLMPublishingLocation.DragDrop += this.ListBox_DragDrop;
             lbSVLMPublishingLocation.DragOver += this.ListBox_DragOver;
             lbSVLMPublishingLocation.KeyDown += this.ListBox_KeyDown;
@@ -3009,11 +3182,12 @@
             // 
             // tbSVLMPublishingLocation
             // 
+            tbSVLMPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVLMPublishingLocation.Location = new Point(0, 62);
             tbSVLMPublishingLocation.Name = "tbSVLMPublishingLocation";
             tbSVLMPublishingLocation.Size = new Size(354, 23);
-            tbSVLMPublishingLocation.TabIndex = 22;
-            ttMain.SetToolTip(tbSVLMPublishingLocation, resources.GetString("tbSVLMPublishingLocation.ToolTip"));
+            tbSVLMPublishingLocation.TabIndex = 11;
+            ttMain.SetToolTip(tbSVLMPublishingLocation, "Населённый пункт, где опубликован документ.\r\nПример: «Москва»");
             tbSVLMPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVLMTitle
@@ -3028,11 +3202,12 @@
             // 
             // tbSVLMPublishYear
             // 
+            tbSVLMPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVLMPublishYear.Location = new Point(0, 292);
             tbSVLMPublishYear.Name = "tbSVLMPublishYear";
             tbSVLMPublishYear.Size = new Size(450, 23);
-            tbSVLMPublishYear.TabIndex = 11;
-            ttMain.SetToolTip(tbSVLMPublishYear, "Год публикации документа в формате четырёх цифр.\r\nПример: \"2019\".\r\n\r\n\r\n");
+            tbSVLMPublishYear.TabIndex = 16;
+            ttMain.SetToolTip(tbSVLMPublishYear, "Год публикации законодательного материала.\r\nПример: «2023»");
             tbSVLMPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVLMPublishYear
@@ -3043,14 +3218,15 @@
             labelSVLMPublishYear.Size = new Size(73, 15);
             labelSVLMPublishYear.TabIndex = 10;
             labelSVLMPublishYear.Text = "Год издания";
-            ttMain.SetToolTip(labelSVLMPublishYear, "Год публикации документа в формате четырёх цифр.\r\nПример: \"2019\".\r\n\r\n\r\n");
+            ttMain.SetToolTip(labelSVLMPublishYear, "Год публикации законодательного материала.\r\nПример: «2023»");
             // 
             // tbSVLMTitle
             // 
+            tbSVLMTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVLMTitle.Location = new Point(0, 18);
             tbSVLMTitle.Name = "tbSVLMTitle";
             tbSVLMTitle.Size = new Size(450, 23);
-            tbSVLMTitle.TabIndex = 5;
+            tbSVLMTitle.TabIndex = 10;
             ttMain.SetToolTip(tbSVLMTitle, "Полное название документа, как указано в источнике.\r\nПример: \"Уголовный кодекс Российской Федерации\".\r\n");
             tbSVLMTitle.KeyDown += this.TextBox_KeyDown;
             // 
@@ -3072,7 +3248,7 @@
             labelSVLMPublishingLocation.Size = new Size(89, 15);
             labelSVLMPublishingLocation.TabIndex = 6;
             labelSVLMPublishingLocation.Text = "Место издания";
-            ttMain.SetToolTip(labelSVLMPublishingLocation, resources.GetString("labelSVLMPublishingLocation.ToolTip"));
+            ttMain.SetToolTip(labelSVLMPublishingLocation, "Населённый пункт, где опубликован документ.\r\nПример: «Москва»");
             // 
             // gbSVLegislativeMaterialOptional
             // 
@@ -3112,10 +3288,11 @@
             // 
             // tbSVLMImplementDate
             // 
+            tbSVLMImplementDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVLMImplementDate.Location = new Point(0, 194);
             tbSVLMImplementDate.Name = "tbSVLMImplementDate";
             tbSVLMImplementDate.Size = new Size(450, 23);
-            tbSVLMImplementDate.TabIndex = 31;
+            tbSVLMImplementDate.TabIndex = 21;
             ttMain.SetToolTip(tbSVLMImplementDate, "Когда и кем одобрен закон. \r\nПример: \"Советом Федерации 5 июня 1996 года\".\r\n");
             tbSVLMImplementDate.KeyDown += this.TextBox_KeyDown;
             // 
@@ -3141,19 +3318,21 @@
             // 
             // tbSVLMDocumentType
             // 
+            tbSVLMDocumentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVLMDocumentType.Location = new Point(0, 18);
             tbSVLMDocumentType.Name = "tbSVLMDocumentType";
             tbSVLMDocumentType.Size = new Size(450, 23);
-            tbSVLMDocumentType.TabIndex = 29;
+            tbSVLMDocumentType.TabIndex = 17;
             ttMain.SetToolTip(tbSVLMDocumentType, "Уточняет вид документа.\r\nПример: \"федеральный закон\".\r\n");
             tbSVLMDocumentType.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVLMApprovalDate
             // 
+            tbSVLMApprovalDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVLMApprovalDate.Location = new Point(0, 150);
             tbSVLMApprovalDate.Name = "tbSVLMApprovalDate";
             tbSVLMApprovalDate.Size = new Size(450, 23);
-            tbSVLMApprovalDate.TabIndex = 27;
+            tbSVLMApprovalDate.TabIndex = 20;
             ttMain.SetToolTip(tbSVLMApprovalDate, "Когда и кем был принят закон.\r\nПример: \"Государственной думой 24 мая 1996 года\".\r\n\r\n");
             tbSVLMApprovalDate.KeyDown += this.TextBox_KeyDown;
             // 
@@ -3169,10 +3348,11 @@
             // 
             // tbSVLMISBN
             // 
+            tbSVLMISBN.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVLMISBN.Location = new Point(0, 326);
             tbSVLMISBN.Name = "tbSVLMISBN";
             tbSVLMISBN.Size = new Size(450, 23);
-            tbSVLMISBN.TabIndex = 25;
+            tbSVLMISBN.TabIndex = 24;
             ttMain.SetToolTip(tbSVLMISBN, "Международный стандартный номер книги.\r\nПример: \"978-5-534-10585-8\".\r\n");
             tbSVLMISBN.KeyDown += this.TextBox_KeyDown;
             // 
@@ -3198,10 +3378,11 @@
             // 
             // tbSVLMAbbreviation
             // 
+            tbSVLMAbbreviation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVLMAbbreviation.Location = new Point(0, 62);
             tbSVLMAbbreviation.Name = "tbSVLMAbbreviation";
             tbSVLMAbbreviation.Size = new Size(450, 23);
-            tbSVLMAbbreviation.TabIndex = 23;
+            tbSVLMAbbreviation.TabIndex = 18;
             ttMain.SetToolTip(tbSVLMAbbreviation, "Аббревиатура документа.\r\nПример: \"УК\".\r\n");
             tbSVLMAbbreviation.KeyDown += this.TextBox_KeyDown;
             // 
@@ -3217,11 +3398,12 @@
             // 
             // tbSVLMContentType
             // 
+            tbSVLMContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVLMContentType.Location = new Point(0, 370);
             tbSVLMContentType.Name = "tbSVLMContentType";
             tbSVLMContentType.Size = new Size(450, 23);
-            tbSVLMContentType.TabIndex = 9;
-            ttMain.SetToolTip(tbSVLMContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
+            tbSVLMContentType.TabIndex = 25;
+            ttMain.SetToolTip(tbSVLMContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n\r\n");
             tbSVLMContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVLMPagesCount
@@ -3242,23 +3424,25 @@
             labelSVLMContentType.Size = new Size(97, 15);
             labelSVLMContentType.TabIndex = 8;
             labelSVLMContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelSVLMContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
+            ttMain.SetToolTip(labelSVLMContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             // 
             // tbSVLMPagesCount
             // 
+            tbSVLMPagesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVLMPagesCount.Location = new Point(0, 238);
             tbSVLMPagesCount.Name = "tbSVLMPagesCount";
             tbSVLMPagesCount.Size = new Size(450, 23);
-            tbSVLMPagesCount.TabIndex = 15;
+            tbSVLMPagesCount.TabIndex = 22;
             ttMain.SetToolTip(tbSVLMPagesCount, "Объем документа в страницах.\r\nПример: \"43\" или \"350\".\r\n");
             tbSVLMPagesCount.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVLMSeries
             // 
+            tbSVLMSeries.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVLMSeries.Location = new Point(0, 282);
             tbSVLMSeries.Name = "tbSVLMSeries";
             tbSVLMSeries.Size = new Size(450, 23);
-            tbSVLMSeries.TabIndex = 7;
+            tbSVLMSeries.TabIndex = 23;
             ttMain.SetToolTip(tbSVLMSeries, "Название серии, в которой издан документ.\r\nПример: \"Профессиональное образование\".\r\n\r\n");
             tbSVLMSeries.KeyDown += this.TextBox_KeyDown;
             // 
@@ -3274,10 +3458,11 @@
             // 
             // tbSVLMAdditions
             // 
+            tbSVLMAdditions.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVLMAdditions.Location = new Point(0, 106);
             tbSVLMAdditions.Name = "tbSVLMAdditions";
             tbSVLMAdditions.Size = new Size(450, 23);
-            tbSVLMAdditions.TabIndex = 1;
+            tbSVLMAdditions.TabIndex = 19;
             ttMain.SetToolTip(tbSVLMAdditions, "Любые дополнительные сведения о законе. \r\nПример: \"с изменениями на 2023 год\".\r\n");
             tbSVLMAdditions.KeyDown += this.TextBox_KeyDown;
             // 
@@ -3343,24 +3528,26 @@
             labelSVDAAuthor.Size = new Size(117, 15);
             labelSVDAAuthor.TabIndex = 4;
             labelSVDAAuthor.Text = "Автор (полное имя)";
-            ttMain.SetToolTip(labelSVDAAuthor, "Полное имя автора автореферата диссертации.\r\nПример: \"Величковский Борис Борисович\".");
+            ttMain.SetToolTip(labelSVDAAuthor, "Фамилия, имя и отчество автора.\r\nПример: «Иванов Петр Сергеевич»\r\n");
             // 
             // tbSVDADefenseLocation
             // 
+            tbSVDADefenseLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDADefenseLocation.Location = new Point(0, 282);
             tbSVDADefenseLocation.Name = "tbSVDADefenseLocation";
             tbSVDADefenseLocation.Size = new Size(450, 23);
-            tbSVDADefenseLocation.TabIndex = 21;
+            tbSVDADefenseLocation.TabIndex = 16;
             ttMain.SetToolTip(tbSVDADefenseLocation, "Название организации или института, где проходила защита диссертационного исследования.\r\nПример: \"Место защиты: Ин-т психологии РАН\".\r\n\r\n");
             tbSVDADefenseLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVDAPublishingLocation
             // 
+            tbSVDAPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDAPublishingLocation.Location = new Point(0, 194);
             tbSVDAPublishingLocation.Name = "tbSVDAPublishingLocation";
             tbSVDAPublishingLocation.Size = new Size(450, 23);
-            tbSVDAPublishingLocation.TabIndex = 11;
-            ttMain.SetToolTip(tbSVDAPublishingLocation, "Город, где напечатан автореферат.\r\nПример: \"Москва\".\r\n");
+            tbSVDAPublishingLocation.TabIndex = 14;
+            ttMain.SetToolTip(tbSVDAPublishingLocation, "Город, где был издан автореферат.\r\nПример: «Москва»");
             tbSVDAPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVDAPublishingLocation
@@ -3371,14 +3558,15 @@
             labelSVDAPublishingLocation.Size = new Size(89, 15);
             labelSVDAPublishingLocation.TabIndex = 10;
             labelSVDAPublishingLocation.Text = "Место издания";
-            ttMain.SetToolTip(labelSVDAPublishingLocation, "Город, где напечатан автореферат.\r\nПример: \"Москва\".");
+            ttMain.SetToolTip(labelSVDAPublishingLocation, "Город, где был издан автореферат.\r\nПример: «Москва»");
             // 
             // tbSVDADegree
             // 
+            tbSVDADegree.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDADegree.Location = new Point(0, 150);
             tbSVDADegree.Name = "tbSVDADegree";
             tbSVDADegree.Size = new Size(450, 23);
-            tbSVDADegree.TabIndex = 9;
+            tbSVDADegree.TabIndex = 13;
             ttMain.SetToolTip(tbSVDADegree, "Степень, на которую претендует соискатель (доктора или кандидата определенных наук).\r\nПример: \"доктора психологических наук\".\r\n\r\n");
             tbSVDADegree.KeyDown += this.TextBox_KeyDown;
             // 
@@ -3390,7 +3578,7 @@
             labelSVDAPublishYear.Size = new Size(73, 15);
             labelSVDAPublishYear.TabIndex = 16;
             labelSVDAPublishYear.Text = "Год издания";
-            ttMain.SetToolTip(labelSVDAPublishYear, "Год выпуска автореферата в формате четырёх цифр.\r\nПример: \"2017\".\r\n");
+            ttMain.SetToolTip(labelSVDAPublishYear, "Год выпуска печатного автореферата.\r\nПример: «2022»");
             // 
             // labelSVDADegree
             // 
@@ -3404,19 +3592,21 @@
             // 
             // tbSVDAPublishYear
             // 
+            tbSVDAPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDAPublishYear.Location = new Point(0, 238);
             tbSVDAPublishYear.Name = "tbSVDAPublishYear";
             tbSVDAPublishYear.Size = new Size(450, 23);
-            tbSVDAPublishYear.TabIndex = 17;
-            ttMain.SetToolTip(tbSVDAPublishYear, "Год выпуска автореферата в формате четырёх цифр.\r\nПример: \"2017\".\r\n\r\n");
+            tbSVDAPublishYear.TabIndex = 15;
+            ttMain.SetToolTip(tbSVDAPublishYear, "Год выпуска печатного автореферата.\r\nПример: «2022»");
             tbSVDAPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVDASpecialty
             // 
+            tbSVDASpecialty.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDASpecialty.Location = new Point(0, 106);
             tbSVDASpecialty.Name = "tbSVDASpecialty";
             tbSVDASpecialty.Size = new Size(450, 23);
-            tbSVDASpecialty.TabIndex = 7;
+            tbSVDASpecialty.TabIndex = 12;
             ttMain.SetToolTip(tbSVDASpecialty, "Код и полное название специальности, по которой выполнена диссертация.\r\nПример: \"специальность 19.00.01 «Общая психология, психология личности, история психологии»\".");
             tbSVDASpecialty.KeyDown += this.TextBox_KeyDown;
             // 
@@ -3442,20 +3632,22 @@
             // 
             // tbSVDATitle
             // 
+            tbSVDATitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDATitle.Location = new Point(0, 62);
             tbSVDATitle.Name = "tbSVDATitle";
             tbSVDATitle.Size = new Size(450, 23);
-            tbSVDATitle.TabIndex = 15;
+            tbSVDATitle.TabIndex = 11;
             ttMain.SetToolTip(tbSVDATitle, "Название автореферата (часто совпадает с названием диссертации). \r\nПример: \"Функциональная организация рабочей памяти\".\r\n");
             tbSVDATitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVDAAuthor
             // 
+            tbSVDAAuthor.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDAAuthor.Location = new Point(0, 18);
             tbSVDAAuthor.Name = "tbSVDAAuthor";
             tbSVDAAuthor.Size = new Size(450, 23);
-            tbSVDAAuthor.TabIndex = 5;
-            ttMain.SetToolTip(tbSVDAAuthor, "Полное имя автора автореферата диссертации.\r\nПример: \"Величковский Борис Борисович\".");
+            tbSVDAAuthor.TabIndex = 10;
+            ttMain.SetToolTip(tbSVDAAuthor, "Фамилия, имя и отчество автора.\r\nПример: «Иванов Петр Сергеевич»\r\n");
             tbSVDAAuthor.KeyDown += this.TextBox_KeyDown;
             // 
             // gbSVDissertationAbstractOptional
@@ -3491,24 +3683,26 @@
             labelSVDAContentType.Size = new Size(97, 15);
             labelSVDAContentType.TabIndex = 16;
             labelSVDAContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelSVDAContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelSVDAContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // tbSVDABibliography
             // 
+            tbSVDABibliography.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDABibliography.Location = new Point(0, 106);
             tbSVDABibliography.Name = "tbSVDABibliography";
             tbSVDABibliography.Size = new Size(450, 23);
-            tbSVDABibliography.TabIndex = 7;
+            tbSVDABibliography.TabIndex = 19;
             ttMain.SetToolTip(tbSVDABibliography, "Информация о наличии списка литературы в конце автореферата в формате диапазона страниц.\r\nПример: \"37-44\".\r\n\r\n");
             tbSVDABibliography.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVDAContentType
             // 
+            tbSVDAContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDAContentType.Location = new Point(0, 150);
             tbSVDAContentType.Name = "tbSVDAContentType";
             tbSVDAContentType.Size = new Size(450, 23);
-            tbSVDAContentType.TabIndex = 17;
-            ttMain.SetToolTip(tbSVDAContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbSVDAContentType.TabIndex = 20;
+            ttMain.SetToolTip(tbSVDAContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             tbSVDAContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVDABibliography
@@ -3533,19 +3727,21 @@
             // 
             // tbSVDAOrganization
             // 
+            tbSVDAOrganization.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDAOrganization.Location = new Point(0, 18);
             tbSVDAOrganization.Name = "tbSVDAOrganization";
             tbSVDAOrganization.Size = new Size(450, 23);
-            tbSVDAOrganization.TabIndex = 5;
-            ttMain.SetToolTip(tbSVDAOrganization, "Организация (вуз/институт/НИИ и т.д.), в которой выполнена работа. \r\nПример: \"Московский государственный университет им. М. В. Ломоносова\".\r\n\r\n");
+            tbSVDAOrganization.TabIndex = 17;
+            ttMain.SetToolTip(tbSVDAOrganization, "Научная или образовательная организация, где защищалась работа.\r\nПример: «НИУ ИТМО»");
             tbSVDAOrganization.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVDAPagesCount
             // 
+            tbSVDAPagesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDAPagesCount.Location = new Point(0, 62);
             tbSVDAPagesCount.Name = "tbSVDAPagesCount";
             tbSVDAPagesCount.Size = new Size(450, 23);
-            tbSVDAPagesCount.TabIndex = 19;
+            tbSVDAPagesCount.TabIndex = 18;
             ttMain.SetToolTip(tbSVDAPagesCount, "Объем автореферата в страницах.\r\nПример: \"43\" или \"350\".\r\n\r\n\r\n");
             tbSVDAPagesCount.KeyDown += this.TextBox_KeyDown;
             // 
@@ -3557,7 +3753,7 @@
             labelSVDAOrganization.Size = new Size(79, 15);
             labelSVDAOrganization.TabIndex = 4;
             labelSVDAOrganization.Text = "Организация";
-            ttMain.SetToolTip(labelSVDAOrganization, "Организация (вуз/институт/НИИ и т.д.), в которой выполнена работа. \r\nПример: \"Московский государственный университет им. М. В. Ломоносова\".\r\n");
+            ttMain.SetToolTip(labelSVDAOrganization, "Научная или образовательная организация, где защищалась работа.\r\nПример: «НИУ ИТМО»");
             // 
             // tpSVDissertation
             // 
@@ -3609,15 +3805,16 @@
             labelSVDAuthor.Size = new Size(117, 15);
             labelSVDAuthor.TabIndex = 4;
             labelSVDAuthor.Text = "Автор (полное имя)";
-            ttMain.SetToolTip(labelSVDAuthor, "Полное имя автора диссертации.\r\nПример: \"Величковский Борис Борисович\".\r\n");
+            ttMain.SetToolTip(labelSVDAuthor, "Фамилия, имя и отчество автора.\r\nПример: «Иванов Петр Сергеевич»");
             // 
             // tbSVDPublishingLocation
             // 
+            tbSVDPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDPublishingLocation.Location = new Point(0, 194);
             tbSVDPublishingLocation.Name = "tbSVDPublishingLocation";
             tbSVDPublishingLocation.Size = new Size(450, 23);
-            tbSVDPublishingLocation.TabIndex = 11;
-            ttMain.SetToolTip(tbSVDPublishingLocation, "Город, где напечатана диссертация.\r\nПример: \"Москва\".\r\n\r\n");
+            tbSVDPublishingLocation.TabIndex = 14;
+            ttMain.SetToolTip(tbSVDPublishingLocation, "Город, в котором была защищена или опубликована диссертация.\r\nПример: «Санкт-Петербург»");
             tbSVDPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVDPublishingLocation
@@ -3628,14 +3825,15 @@
             labelSVDPublishingLocation.Size = new Size(89, 15);
             labelSVDPublishingLocation.TabIndex = 10;
             labelSVDPublishingLocation.Text = "Место издания";
-            ttMain.SetToolTip(labelSVDPublishingLocation, "Город, где напечатана диссертация.\r\nПример: \"Москва\".\r\n");
+            ttMain.SetToolTip(labelSVDPublishingLocation, "Город, в котором была защищена или опубликована диссертация.\r\nПример: «Санкт-Петербург»");
             // 
             // tbSVDDegree
             // 
+            tbSVDDegree.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDDegree.Location = new Point(0, 150);
             tbSVDDegree.Name = "tbSVDDegree";
             tbSVDDegree.Size = new Size(450, 23);
-            tbSVDDegree.TabIndex = 9;
+            tbSVDDegree.TabIndex = 13;
             ttMain.SetToolTip(tbSVDDegree, "Степень, на которую претендует соискатель (доктора или кандидата определенных наук).\r\nПример: \"доктора психологических наук\".\r\n\r\n");
             tbSVDDegree.KeyDown += this.TextBox_KeyDown;
             // 
@@ -3647,7 +3845,7 @@
             labelSVDPublishYear.Size = new Size(73, 15);
             labelSVDPublishYear.TabIndex = 16;
             labelSVDPublishYear.Text = "Год издания";
-            ttMain.SetToolTip(labelSVDPublishYear, "Год выпуска диссертации в формате четырех цифр.\r\nПример: \"2017\".");
+            ttMain.SetToolTip(labelSVDPublishYear, "Год защиты или выхода печатной версии.\r\nПример: «2023»");
             // 
             // labelSVDDegree
             // 
@@ -3661,19 +3859,21 @@
             // 
             // tbSVDPublishYear
             // 
+            tbSVDPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDPublishYear.Location = new Point(0, 238);
             tbSVDPublishYear.Name = "tbSVDPublishYear";
             tbSVDPublishYear.Size = new Size(450, 23);
-            tbSVDPublishYear.TabIndex = 17;
-            ttMain.SetToolTip(tbSVDPublishYear, "Год выпуска диссертации в формате четырех цифр.\r\nПример: \"2017\".\r\n");
+            tbSVDPublishYear.TabIndex = 15;
+            ttMain.SetToolTip(tbSVDPublishYear, "Год защиты или выхода печатной версии.\r\nПример: «2023»");
             tbSVDPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVDSpecialty
             // 
+            tbSVDSpecialty.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDSpecialty.Location = new Point(0, 106);
             tbSVDSpecialty.Name = "tbSVDSpecialty";
             tbSVDSpecialty.Size = new Size(450, 23);
-            tbSVDSpecialty.TabIndex = 7;
+            tbSVDSpecialty.TabIndex = 12;
             ttMain.SetToolTip(tbSVDSpecialty, "Код и полное название специальности, по которой выполнена диссертация.\r\nПример: \"специальность 19.00.01 «Общая психология, психология личности, история психологии»\".\r\n\r\n");
             tbSVDSpecialty.KeyDown += this.TextBox_KeyDown;
             // 
@@ -3685,7 +3885,7 @@
             labelSVDTitle.Size = new Size(57, 15);
             labelSVDTitle.TabIndex = 14;
             labelSVDTitle.Text = "Заглавие";
-            ttMain.SetToolTip(labelSVDTitle, "Название диссертации.\r\nПример: \"Функциональная организация рабочей памяти\".\r\n");
+            ttMain.SetToolTip(labelSVDTitle, "Полное название диссертационной работы.\r\nПример: «Методы анализа эмоциональной окраски текста в социальных сетях»");
             // 
             // labelSVDSpecialty
             // 
@@ -3699,20 +3899,22 @@
             // 
             // tbSVDTitle
             // 
+            tbSVDTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDTitle.Location = new Point(0, 62);
             tbSVDTitle.Name = "tbSVDTitle";
             tbSVDTitle.Size = new Size(450, 23);
-            tbSVDTitle.TabIndex = 15;
-            ttMain.SetToolTip(tbSVDTitle, "Название диссертации.\r\nПример: \"Функциональная организация рабочей памяти\".\r\n\r\n");
+            tbSVDTitle.TabIndex = 11;
+            ttMain.SetToolTip(tbSVDTitle, "Полное название диссертационной работы.\r\nПример: «Методы анализа эмоциональной окраски текста в социальных сетях»\r\n");
             tbSVDTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVDAuthor
             // 
+            tbSVDAuthor.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDAuthor.Location = new Point(0, 18);
             tbSVDAuthor.Name = "tbSVDAuthor";
             tbSVDAuthor.Size = new Size(450, 23);
-            tbSVDAuthor.TabIndex = 5;
-            ttMain.SetToolTip(tbSVDAuthor, "Полное имя автора диссертации.\r\nПример: \"Величковский Борис Борисович\".\r\n\r\n");
+            tbSVDAuthor.TabIndex = 10;
+            ttMain.SetToolTip(tbSVDAuthor, "Фамилия, имя и отчество автора.\r\nПример: «Иванов Петр Сергеевич»");
             tbSVDAuthor.KeyDown += this.TextBox_KeyDown;
             // 
             // gbSVDissertationOptional
@@ -3748,24 +3950,26 @@
             labelSVDContentType.Size = new Size(97, 15);
             labelSVDContentType.TabIndex = 16;
             labelSVDContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelSVDContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelSVDContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // tbSVDBibliography
             // 
+            tbSVDBibliography.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDBibliography.Location = new Point(0, 106);
             tbSVDBibliography.Name = "tbSVDBibliography";
             tbSVDBibliography.Size = new Size(450, 23);
-            tbSVDBibliography.TabIndex = 7;
+            tbSVDBibliography.TabIndex = 18;
             ttMain.SetToolTip(tbSVDBibliography, "Информация о наличии списка литературы в конце диссертации в формате диапазона страниц.\r\nПример: \"37-44\".\r\n\r\n\r\n");
             tbSVDBibliography.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVDContentType
             // 
+            tbSVDContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDContentType.Location = new Point(0, 150);
             tbSVDContentType.Name = "tbSVDContentType";
             tbSVDContentType.Size = new Size(450, 23);
-            tbSVDContentType.TabIndex = 17;
-            ttMain.SetToolTip(tbSVDContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbSVDContentType.TabIndex = 19;
+            ttMain.SetToolTip(tbSVDContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             tbSVDContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelSVDBibliography
@@ -3790,19 +3994,21 @@
             // 
             // tbSVDOrganization
             // 
+            tbSVDOrganization.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDOrganization.Location = new Point(0, 18);
             tbSVDOrganization.Name = "tbSVDOrganization";
             tbSVDOrganization.Size = new Size(450, 23);
-            tbSVDOrganization.TabIndex = 5;
-            ttMain.SetToolTip(tbSVDOrganization, "Организация (вуз/институт/НИИ и т.д.), в которой выполнена работа. \r\nПример: \"Московский государственный университет им. М. В. Ломоносова\".\r\n\r\n");
+            tbSVDOrganization.TabIndex = 16;
+            ttMain.SetToolTip(tbSVDOrganization, "Учреждение, в котором защищалась работа.\r\nПример: «Санкт-Петербургский политехнический университет Петра Великого»");
             tbSVDOrganization.KeyDown += this.TextBox_KeyDown;
             // 
             // tbSVDPagesCount
             // 
+            tbSVDPagesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbSVDPagesCount.Location = new Point(0, 62);
             tbSVDPagesCount.Name = "tbSVDPagesCount";
             tbSVDPagesCount.Size = new Size(450, 23);
-            tbSVDPagesCount.TabIndex = 19;
+            tbSVDPagesCount.TabIndex = 17;
             ttMain.SetToolTip(tbSVDPagesCount, "Объем диссертации в страницах.\r\nПример: \"43\" или \"350\".\r\n\r\n\r\n\r\n");
             tbSVDPagesCount.KeyDown += this.TextBox_KeyDown;
             // 
@@ -3814,7 +4020,7 @@
             labelSVDOrganization.Size = new Size(79, 15);
             labelSVDOrganization.TabIndex = 4;
             labelSVDOrganization.Text = "Организация";
-            ttMain.SetToolTip(labelSVDOrganization, "Организация (вуз/институт/НИИ и т.д.), в которой выполнена работа. \r\nПример: \"Московский государственный университет им. М. В. Ломоносова\".\r\n\r\n");
+            ttMain.SetToolTip(labelSVDOrganization, "Учреждение, в котором защищалась работа.\r\nПример: «Санкт-Петербургский политехнический университет Петра Великого»");
             // 
             // tpMultiVolume
             // 
@@ -3837,6 +4043,7 @@
             tcMVTypes.SelectedIndex = 0;
             tcMVTypes.Size = new Size(513, 709);
             tcMVTypes.TabIndex = 1;
+            tcMVTypes.TabStop = false;
             // 
             // tpMVWholeMultivolume
             // 
@@ -3898,6 +4105,7 @@
             lbMVWMPublishingLocationSelect.Name = "lbMVWMPublishingLocationSelect";
             lbMVWMPublishingLocationSelect.Size = new Size(207, 64);
             lbMVWMPublishingLocationSelect.TabIndex = 45;
+            lbMVWMPublishingLocationSelect.TabStop = false;
             lbMVWMPublishingLocationSelect.SelectedIndexChanged += this.lbMVWMPublishingLocationSelect_SelectedIndexChanged;
             // 
             // cbMVWMPublisher
@@ -3906,8 +4114,9 @@
             cbMVWMPublisher.Location = new Point(339, 336);
             cbMVWMPublisher.Name = "cbMVWMPublisher";
             cbMVWMPublisher.Size = new Size(111, 19);
-            cbMVWMPublisher.TabIndex = 44;
+            cbMVWMPublisher.TabIndex = 19;
             cbMVWMPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbMVWMPublisher, "Включение «умного режима» добавления издательств");
             cbMVWMPublisher.UseVisualStyleBackColor = true;
             cbMVWMPublisher.CheckedChanged += this.cbMVWMPublisher_CheckedChanged;
             // 
@@ -3917,7 +4126,7 @@
             cbMVWMAuthors.Location = new Point(371, 20);
             cbMVWMAuthors.Name = "cbMVWMAuthors";
             cbMVWMAuthors.Size = new Size(79, 19);
-            cbMVWMAuthors.TabIndex = 20;
+            cbMVWMAuthors.TabIndex = 12;
             cbMVWMAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbMVWMAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbMVWMAuthors.UseVisualStyleBackColor = true;
@@ -3941,6 +4150,7 @@
             lbMVWMPublisher.Name = "lbMVWMPublisher";
             lbMVWMPublisher.Size = new Size(237, 64);
             lbMVWMPublisher.TabIndex = 19;
+            lbMVWMPublisher.TabStop = false;
             lbMVWMPublisher.DragDrop += this.ListBox_DragDrop;
             lbMVWMPublisher.DragOver += this.ListBox_DragOver;
             lbMVWMPublisher.KeyDown += this.ListBox_KeyDown;
@@ -3966,6 +4176,7 @@
             lbMVWMPublishingLocation.Name = "lbMVWMPublishingLocation";
             lbMVWMPublishingLocation.Size = new Size(450, 64);
             lbMVWMPublishingLocation.TabIndex = 17;
+            lbMVWMPublishingLocation.TabStop = false;
             lbMVWMPublishingLocation.DragDrop += this.ListBox_DragDrop;
             lbMVWMPublishingLocation.DragOver += this.ListBox_DragOver;
             lbMVWMPublishingLocation.KeyDown += this.ListBox_KeyDown;
@@ -3984,11 +4195,12 @@
             // 
             // tbMVWMPublishYear
             // 
+            tbMVWMPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMPublishYear.Location = new Point(0, 448);
             tbMVWMPublishYear.Name = "tbMVWMPublishYear";
             tbMVWMPublishYear.Size = new Size(450, 23);
-            tbMVWMPublishYear.TabIndex = 13;
-            ttMain.SetToolTip(tbMVWMPublishYear, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            tbMVWMPublishYear.TabIndex = 20;
+            ttMain.SetToolTip(tbMVWMPublishYear, "Год выхода многотомного издания.\r\nПример: «1998»");
             tbMVWMPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // labelMVWMPublishYear
@@ -3999,23 +4211,25 @@
             labelMVWMPublishYear.Size = new Size(73, 15);
             labelMVWMPublishYear.TabIndex = 12;
             labelMVWMPublishYear.Text = "Год издания";
-            ttMain.SetToolTip(labelMVWMPublishYear, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelMVWMPublishYear, "Год выхода многотомного издания.\r\nПример: «1998»");
             // 
             // tbMVWMAuthors
             // 
+            tbMVWMAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMAuthors.Location = new Point(0, 18);
             tbMVWMAuthors.Name = "tbMVWMAuthors";
             tbMVWMAuthors.Size = new Size(269, 23);
-            tbMVWMAuthors.TabIndex = 1;
+            tbMVWMAuthors.TabIndex = 10;
             ttMain.SetToolTip(tbMVWMAuthors, resources.GetString("tbMVWMAuthors.ToolTip"));
             tbMVWMAuthors.KeyDown += this.TextBox_KeyDown;
             // 
             // tbMVWMPublisher
             // 
+            tbMVWMPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMPublisher.Location = new Point(0, 334);
             tbMVWMPublisher.Name = "tbMVWMPublisher";
             tbMVWMPublisher.Size = new Size(237, 23);
-            tbMVWMPublisher.TabIndex = 11;
+            tbMVWMPublisher.TabIndex = 17;
             ttMain.SetToolTip(tbMVWMPublisher, resources.GetString("tbMVWMPublisher.ToolTip"));
             tbMVWMPublisher.KeyDown += this.TextBox_KeyDown;
             // 
@@ -4024,7 +4238,7 @@
             buttonMVWMAuthorsAdd.Location = new Point(275, 18);
             buttonMVWMAuthorsAdd.Name = "buttonMVWMAuthorsAdd";
             buttonMVWMAuthorsAdd.Size = new Size(90, 23);
-            buttonMVWMAuthorsAdd.TabIndex = 2;
+            buttonMVWMAuthorsAdd.TabIndex = 11;
             buttonMVWMAuthorsAdd.Text = "Добавить";
             buttonMVWMAuthorsAdd.UseVisualStyleBackColor = true;
             buttonMVWMAuthorsAdd.Click += this.buttonMVWMAuthorsAdd_Click;
@@ -4048,6 +4262,7 @@
             lbMVWMAuthors.Name = "lbMVWMAuthors";
             lbMVWMAuthors.Size = new Size(450, 64);
             lbMVWMAuthors.TabIndex = 3;
+            lbMVWMAuthors.TabStop = false;
             lbMVWMAuthors.Tag = "";
             lbMVWMAuthors.DragDrop += this.ListBox_DragDrop;
             lbMVWMAuthors.DragOver += this.ListBox_DragOver;
@@ -4057,11 +4272,12 @@
             // 
             // tbMVWMPublishingLocation
             // 
+            tbMVWMPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMPublishingLocation.Location = new Point(0, 220);
             tbMVWMPublishingLocation.Name = "tbMVWMPublishingLocation";
             tbMVWMPublishingLocation.Size = new Size(354, 23);
-            tbMVWMPublishingLocation.TabIndex = 9;
-            ttMain.SetToolTip(tbMVWMPublishingLocation, resources.GetString("tbMVWMPublishingLocation.ToolTip"));
+            tbMVWMPublishingLocation.TabIndex = 15;
+            ttMain.SetToolTip(tbMVWMPublishingLocation, "Город (или города), в котором было выпущено издание.\r\nПример: «Москва»");
             tbMVWMPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelMVWMTitle
@@ -4072,7 +4288,7 @@
             labelMVWMTitle.Size = new Size(57, 15);
             labelMVWMTitle.TabIndex = 4;
             labelMVWMTitle.Text = "Заглавие";
-            ttMain.SetToolTip(labelMVWMTitle, "Полное название книги, как указано в источнике, без сокращений.\r\nПример: \"Экономика организации. Ресурсы коммерческой организации\".\r\n");
+            ttMain.SetToolTip(labelMVWMTitle, "Общее название многотомного издания.\r\nПример: «История государства Российского»");
             // 
             // labelMVWMPublishingLocation
             // 
@@ -4082,24 +4298,26 @@
             labelMVWMPublishingLocation.Size = new Size(89, 15);
             labelMVWMPublishingLocation.TabIndex = 8;
             labelMVWMPublishingLocation.Text = "Место издания";
-            ttMain.SetToolTip(labelMVWMPublishingLocation, resources.GetString("labelMVWMPublishingLocation.ToolTip"));
+            ttMain.SetToolTip(labelMVWMPublishingLocation, "Город (или города), в котором было выпущено издание.\r\nПример: «Москва»");
             // 
             // tbMVWMTitle
             // 
+            tbMVWMTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMTitle.Location = new Point(0, 132);
             tbMVWMTitle.Name = "tbMVWMTitle";
             tbMVWMTitle.Size = new Size(450, 23);
-            tbMVWMTitle.TabIndex = 5;
-            ttMain.SetToolTip(tbMVWMTitle, "Полное название книги, как указано в источнике, без сокращений.\r\nПример: \"Экономика организации. Ресурсы коммерческой организации\".\r\n");
+            tbMVWMTitle.TabIndex = 13;
+            ttMain.SetToolTip(tbMVWMTitle, "Общее название многотомного издания.\r\nПример: «История государства Российского»");
             tbMVWMTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbMVWMVolumesCount
             // 
+            tbMVWMVolumesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMVolumesCount.Location = new Point(0, 176);
             tbMVWMVolumesCount.Name = "tbMVWMVolumesCount";
             tbMVWMVolumesCount.Size = new Size(450, 23);
-            tbMVWMVolumesCount.TabIndex = 7;
-            ttMain.SetToolTip(tbMVWMVolumesCount, "Количество всех томов в издании.\r\nПример: \"2\".\r\n");
+            tbMVWMVolumesCount.TabIndex = 14;
+            ttMain.SetToolTip(tbMVWMVolumesCount, "Общее число томов, входящих в издание.\r\nПример: «12»");
             tbMVWMVolumesCount.KeyDown += this.TextBox_KeyDown;
             // 
             // labelMVWMVolumesCount
@@ -4110,7 +4328,7 @@
             labelMVWMVolumesCount.Size = new Size(109, 15);
             labelMVWMVolumesCount.TabIndex = 6;
             labelMVWMVolumesCount.Text = "Количество томов";
-            ttMain.SetToolTip(labelMVWMVolumesCount, "Количество всех томов в издании.\r\nПример: \"2\".");
+            ttMain.SetToolTip(labelMVWMVolumesCount, "Общее число томов, входящих в издание.\r\nПример: «12»");
             // 
             // gbMVWholeMultivolumeOptional
             // 
@@ -4165,10 +4383,11 @@
             // 
             // tbMVWMTranslator
             // 
+            tbMVWMTranslator.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMTranslator.Location = new Point(0, 308);
             tbMVWMTranslator.Name = "tbMVWMTranslator";
             tbMVWMTranslator.Size = new Size(450, 23);
-            tbMVWMTranslator.TabIndex = 36;
+            tbMVWMTranslator.TabIndex = 28;
             ttMain.SetToolTip(tbMVWMTranslator, "Имя переводчика для переводных изданий, после \"; перевод с …\".\r\nПример: \"английского А. Ю. Заякина\".\r\n");
             tbMVWMTranslator.KeyDown += this.TextBox_KeyDown;
             // 
@@ -4180,15 +4399,16 @@
             labelMVWMOrganization.Size = new Size(79, 15);
             labelMVWMOrganization.TabIndex = 33;
             labelMVWMOrganization.Text = "Организация";
-            ttMain.SetToolTip(labelMVWMOrganization, resources.GetString("labelMVWMOrganization.ToolTip"));
+            ttMain.SetToolTip(labelMVWMOrganization, "Организация, ответственная за публикацию.\r\nПример: «Российская академия наук»");
             // 
             // tbMVWMOrganization
             // 
+            tbMVWMOrganization.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMOrganization.Location = new Point(0, 220);
             tbMVWMOrganization.Name = "tbMVWMOrganization";
             tbMVWMOrganization.Size = new Size(450, 23);
-            tbMVWMOrganization.TabIndex = 34;
-            ttMain.SetToolTip(tbMVWMOrganization, resources.GetString("tbMVWMOrganization.ToolTip"));
+            tbMVWMOrganization.TabIndex = 26;
+            ttMain.SetToolTip(tbMVWMOrganization, "Организация, ответственная за публикацию.\r\nПример: «Российская академия наук»");
             tbMVWMOrganization.KeyDown += this.TextBox_KeyDown;
             // 
             // labelMVWMParallelTitle
@@ -4203,10 +4423,11 @@
             // 
             // tbMVWMParallelTitle
             // 
+            tbMVWMParallelTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMParallelTitle.Location = new Point(0, 18);
             tbMVWMParallelTitle.Name = "tbMVWMParallelTitle";
             tbMVWMParallelTitle.Size = new Size(450, 23);
-            tbMVWMParallelTitle.TabIndex = 32;
+            tbMVWMParallelTitle.TabIndex = 21;
             ttMain.SetToolTip(tbMVWMParallelTitle, "Заглавие, повторённое в документе на другом языке (или в другой письменности), \r\nуказываемое в библиографической записи через знак \"=\".\r\nПример: \"Theorie und Praktikum in der deutschen Grammatik\"\r\n");
             tbMVWMParallelTitle.KeyDown += this.TextBox_KeyDown;
             // 
@@ -4218,15 +4439,16 @@
             labelMVWMContentType.Size = new Size(97, 15);
             labelMVWMContentType.TabIndex = 24;
             labelMVWMContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelMVWMContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelMVWMContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             // 
             // tbMVWMContentType
             // 
+            tbMVWMContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMContentType.Location = new Point(0, 484);
             tbMVWMContentType.Name = "tbMVWMContentType";
             tbMVWMContentType.Size = new Size(450, 23);
-            tbMVWMContentType.TabIndex = 25;
-            ttMain.SetToolTip(tbMVWMContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbMVWMContentType.TabIndex = 32;
+            ttMain.SetToolTip(tbMVWMContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             tbMVWMContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // cbMVWMEditorType
@@ -4238,7 +4460,7 @@
             cbMVWMEditorType.Location = new Point(194, 106);
             cbMVWMEditorType.Name = "cbMVWMEditorType";
             cbMVWMEditorType.Size = new Size(160, 23);
-            cbMVWMEditorType.TabIndex = 23;
+            cbMVWMEditorType.TabIndex = 24;
             // 
             // lbMVWMEditor
             // 
@@ -4249,6 +4471,7 @@
             lbMVWMEditor.Name = "lbMVWMEditor";
             lbMVWMEditor.Size = new Size(450, 64);
             lbMVWMEditor.TabIndex = 22;
+            lbMVWMEditor.TabStop = false;
             lbMVWMEditor.DragDrop += this.ListBox_DragDrop;
             lbMVWMEditor.DragOver += this.ListBox_DragOver;
             lbMVWMEditor.KeyDown += this.ListBox_KeyDown;
@@ -4260,7 +4483,7 @@
             buttonMVWMEditorAdd.Location = new Point(360, 106);
             buttonMVWMEditorAdd.Name = "buttonMVWMEditorAdd";
             buttonMVWMEditorAdd.Size = new Size(90, 23);
-            buttonMVWMEditorAdd.TabIndex = 21;
+            buttonMVWMEditorAdd.TabIndex = 25;
             buttonMVWMEditorAdd.Text = "Добавить";
             buttonMVWMEditorAdd.UseVisualStyleBackColor = true;
             buttonMVWMEditorAdd.Click += this.buttonMVWMEditorAdd_Click;
@@ -4273,15 +4496,16 @@
             labelMVWMDocumentType.Size = new Size(88, 15);
             labelMVWMDocumentType.TabIndex = 0;
             labelMVWMDocumentType.Text = "Вид документа";
-            ttMain.SetToolTip(labelMVWMDocumentType, "Уточняет тип издания (учебник, монография и т.д.).\r\nВ квадратных скобках указывается, если вид документа не указан в самом источнике напрямую.\r\nПример: \"учебное пособие\" или \"[монография]\".\r\n");
+            ttMain.SetToolTip(labelMVWMDocumentType, "Уточнение типа издания: монография, сборник и т. д.\r\nПример: «монография»");
             // 
             // tbMVWMISBN
             // 
+            tbMVWMISBN.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMISBN.Location = new Point(0, 440);
             tbMVWMISBN.Name = "tbMVWMISBN";
             tbMVWMISBN.Size = new Size(450, 23);
-            tbMVWMISBN.TabIndex = 11;
-            ttMain.SetToolTip(tbMVWMISBN, "Международный стандартный номер книги.\r\nПример: \"978-5-534-10585-8\".\r\n");
+            tbMVWMISBN.TabIndex = 31;
+            ttMain.SetToolTip(tbMVWMISBN, "Международный стандартный номер книги.\r\nПример: «978-5-17-123456-0»");
             tbMVWMISBN.KeyDown += this.TextBox_KeyDown;
             // 
             // labelMVWMSeries
@@ -4292,14 +4516,15 @@
             labelMVWMSeries.Size = new Size(41, 15);
             labelMVWMSeries.TabIndex = 8;
             labelMVWMSeries.Text = "Серия";
-            ttMain.SetToolTip(labelMVWMSeries, "Название серии, в которой издана книга.\r\nПример: \"Профессиональное образование\".\r\n");
+            ttMain.SetToolTip(labelMVWMSeries, "Название серии, в которой выпущено издание.\r\nПример: «Университетская библиотека»");
             // 
             // tbMVWMEditor
             // 
+            tbMVWMEditor.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMEditor.Location = new Point(0, 106);
             tbMVWMEditor.Name = "tbMVWMEditor";
             tbMVWMEditor.Size = new Size(188, 23);
-            tbMVWMEditor.TabIndex = 5;
+            tbMVWMEditor.TabIndex = 23;
             ttMain.SetToolTip(tbMVWMEditor, resources.GetString("tbMVWMEditor.ToolTip"));
             tbMVWMEditor.KeyDown += this.TextBox_KeyDown;
             // 
@@ -4311,32 +4536,35 @@
             labelMVWMPagesCount.Size = new Size(120, 15);
             labelMVWMPagesCount.TabIndex = 14;
             labelMVWMPagesCount.Text = "Количество страниц";
-            ttMain.SetToolTip(labelMVWMPagesCount, "Общий объем книги в страницах.\r\nПример: \"134\".\r\n");
+            ttMain.SetToolTip(labelMVWMPagesCount, "Общее количество страниц в издании.\r\nПример: «1234»");
             // 
             // tbMVWMSeries
             // 
+            tbMVWMSeries.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMSeries.Location = new Point(0, 396);
             tbMVWMSeries.Name = "tbMVWMSeries";
             tbMVWMSeries.Size = new Size(450, 23);
-            tbMVWMSeries.TabIndex = 9;
-            ttMain.SetToolTip(tbMVWMSeries, "Название серии, в которой издана книга.\r\nПример: \"Профессиональное образование\".\r\n");
+            tbMVWMSeries.TabIndex = 30;
+            ttMain.SetToolTip(tbMVWMSeries, "Название серии, в которой выпущено издание.\r\nПример: «Университетская библиотека»");
             tbMVWMSeries.KeyDown += this.TextBox_KeyDown;
             // 
             // tbMVWMPagesCount
             // 
+            tbMVWMPagesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMPagesCount.Location = new Point(0, 352);
             tbMVWMPagesCount.Name = "tbMVWMPagesCount";
             tbMVWMPagesCount.Size = new Size(450, 23);
-            tbMVWMPagesCount.TabIndex = 15;
-            ttMain.SetToolTip(tbMVWMPagesCount, "Общий объем книги в страницах.\r\nПример: \"134\".\r\n");
+            tbMVWMPagesCount.TabIndex = 29;
+            ttMain.SetToolTip(tbMVWMPagesCount, "Общее количество страниц в издании.\r\nПример: «1234»\r\n");
             tbMVWMPagesCount.KeyDown += this.TextBox_KeyDown;
             // 
             // tbMVWMEditionNumber
             // 
+            tbMVWMEditionNumber.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMEditionNumber.Location = new Point(0, 264);
             tbMVWMEditionNumber.Name = "tbMVWMEditionNumber";
             tbMVWMEditionNumber.Size = new Size(450, 23);
-            tbMVWMEditionNumber.TabIndex = 7;
+            tbMVWMEditionNumber.TabIndex = 27;
             ttMain.SetToolTip(tbMVWMEditionNumber, "Номер издания и уточнения (переработанное, дополненное), если не первое, перед местом издания.\r\nПример: \"2-е издание, переработанное и дополненное\".\r\n");
             tbMVWMEditionNumber.KeyDown += this.TextBox_KeyDown;
             // 
@@ -4348,15 +4576,16 @@
             labelMVWMISBN.Size = new Size(32, 15);
             labelMVWMISBN.TabIndex = 10;
             labelMVWMISBN.Text = "ISBN";
-            ttMain.SetToolTip(labelMVWMISBN, "Международный стандартный номер книги.\r\nПример: \"978-5-534-10585-8\".\r\n");
+            ttMain.SetToolTip(labelMVWMISBN, "Международный стандартный номер книги.\r\nПример: «978-5-17-123456-0»");
             // 
             // tbMVWMDocumentType
             // 
+            tbMVWMDocumentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVWMDocumentType.Location = new Point(0, 62);
             tbMVWMDocumentType.Name = "tbMVWMDocumentType";
             tbMVWMDocumentType.Size = new Size(450, 23);
-            tbMVWMDocumentType.TabIndex = 1;
-            ttMain.SetToolTip(tbMVWMDocumentType, "Уточняет тип издания (учебник, монография и т.д.).\r\nВ квадратных скобках указывается, если вид документа не указан в самом источнике напрямую.\r\nПример: \"учебное пособие\" или \"[монография]\".\r\n");
+            tbMVWMDocumentType.TabIndex = 22;
+            ttMain.SetToolTip(tbMVWMDocumentType, "Уточнение типа издания: монография, сборник и т. д.\r\nПример: «монография»");
             tbMVWMDocumentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelMVWMEditionNumber
@@ -4441,6 +4670,7 @@
             lbMVSVPublishingLocationSelect.Name = "lbMVSVPublishingLocationSelect";
             lbMVSVPublishingLocationSelect.Size = new Size(207, 64);
             lbMVSVPublishingLocationSelect.TabIndex = 47;
+            lbMVSVPublishingLocationSelect.TabStop = false;
             lbMVSVPublishingLocationSelect.SelectedIndexChanged += this.lbMVSVPublishingLocationSelect_SelectedIndexChanged;
             // 
             // cbMVSVPublisher
@@ -4449,8 +4679,9 @@
             cbMVSVPublisher.Location = new Point(339, 380);
             cbMVSVPublisher.Name = "cbMVSVPublisher";
             cbMVSVPublisher.Size = new Size(111, 19);
-            cbMVSVPublisher.TabIndex = 46;
+            cbMVSVPublisher.TabIndex = 20;
             cbMVSVPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbMVSVPublisher, "Включение «умного режима» добавления издательств\r\n\r\n");
             cbMVSVPublisher.UseVisualStyleBackColor = true;
             cbMVSVPublisher.CheckedChanged += this.cbMVSVPublisher_CheckedChanged;
             // 
@@ -4460,7 +4691,7 @@
             cbMVSVAuthors.Location = new Point(371, 20);
             cbMVSVAuthors.Name = "cbMVSVAuthors";
             cbMVSVAuthors.Size = new Size(79, 19);
-            cbMVSVAuthors.TabIndex = 24;
+            cbMVSVAuthors.TabIndex = 12;
             cbMVSVAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbMVSVAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbMVSVAuthors.UseVisualStyleBackColor = true;
@@ -4470,7 +4701,7 @@
             buttonMVSVPublisherAdd.Location = new Point(243, 378);
             buttonMVSVPublisherAdd.Name = "buttonMVSVPublisherAdd";
             buttonMVSVPublisherAdd.Size = new Size(90, 23);
-            buttonMVSVPublisherAdd.TabIndex = 22;
+            buttonMVSVPublisherAdd.TabIndex = 19;
             buttonMVSVPublisherAdd.Text = "Добавить";
             buttonMVSVPublisherAdd.UseVisualStyleBackColor = true;
             buttonMVSVPublisherAdd.Click += this.buttonMVSVPublisherAdd_Click;
@@ -4484,6 +4715,7 @@
             lbMVSVPublisher.Name = "lbMVSVPublisher";
             lbMVSVPublisher.Size = new Size(237, 64);
             lbMVSVPublisher.TabIndex = 23;
+            lbMVSVPublisher.TabStop = false;
             lbMVSVPublisher.DragDrop += this.ListBox_DragDrop;
             lbMVSVPublisher.DragOver += this.ListBox_DragOver;
             lbMVSVPublisher.KeyDown += this.ListBox_KeyDown;
@@ -4495,7 +4727,7 @@
             buttonMVSVPublishingLocationAdd.Location = new Point(360, 264);
             buttonMVSVPublishingLocationAdd.Name = "buttonMVSVPublishingLocationAdd";
             buttonMVSVPublishingLocationAdd.Size = new Size(90, 23);
-            buttonMVSVPublishingLocationAdd.TabIndex = 20;
+            buttonMVSVPublishingLocationAdd.TabIndex = 17;
             buttonMVSVPublishingLocationAdd.Text = "Добавить";
             buttonMVSVPublishingLocationAdd.UseVisualStyleBackColor = true;
             buttonMVSVPublishingLocationAdd.Click += this.buttonMVSVPublishingLocationAdd_Click;
@@ -4509,6 +4741,7 @@
             lbMVSVPublishingLocation.Name = "lbMVSVPublishingLocation";
             lbMVSVPublishingLocation.Size = new Size(450, 64);
             lbMVSVPublishingLocation.TabIndex = 21;
+            lbMVSVPublishingLocation.TabStop = false;
             lbMVSVPublishingLocation.DragDrop += this.ListBox_DragDrop;
             lbMVSVPublishingLocation.DragOver += this.ListBox_DragOver;
             lbMVSVPublishingLocation.KeyDown += this.ListBox_KeyDown;
@@ -4527,11 +4760,12 @@
             // 
             // tbMVSVPublishingLocation
             // 
+            tbMVSVPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVPublishingLocation.Location = new Point(0, 264);
             tbMVSVPublishingLocation.Name = "tbMVSVPublishingLocation";
             tbMVSVPublishingLocation.Size = new Size(354, 23);
-            tbMVSVPublishingLocation.TabIndex = 13;
-            ttMain.SetToolTip(tbMVSVPublishingLocation, resources.GetString("tbMVSVPublishingLocation.ToolTip"));
+            tbMVSVPublishingLocation.TabIndex = 16;
+            ttMain.SetToolTip(tbMVSVPublishingLocation, "Город или города, где был издан том.\r\nПример: «Санкт-Петербург»");
             tbMVSVPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelMVSVPublishYear
@@ -4542,7 +4776,7 @@
             labelMVSVPublishYear.Size = new Size(73, 15);
             labelMVSVPublishYear.TabIndex = 16;
             labelMVSVPublishYear.Text = "Год издания";
-            ttMain.SetToolTip(labelMVSVPublishYear, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n\r\n");
+            ttMain.SetToolTip(labelMVSVPublishYear, "Год публикации тома.\r\nПример: «2020»");
             // 
             // labelMVSVPublishingLocation
             // 
@@ -4552,15 +4786,16 @@
             labelMVSVPublishingLocation.Size = new Size(89, 15);
             labelMVSVPublishingLocation.TabIndex = 12;
             labelMVSVPublishingLocation.Text = "Место издания";
-            ttMain.SetToolTip(labelMVSVPublishingLocation, resources.GetString("labelMVSVPublishingLocation.ToolTip"));
+            ttMain.SetToolTip(labelMVSVPublishingLocation, "Город или города, где был издан том.\r\nПример: «Санкт-Петербург»");
             // 
             // tbMVSVPublishYear
             // 
+            tbMVSVPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVPublishYear.Location = new Point(0, 492);
             tbMVSVPublishYear.Name = "tbMVSVPublishYear";
             tbMVSVPublishYear.Size = new Size(450, 23);
-            tbMVSVPublishYear.TabIndex = 17;
-            ttMain.SetToolTip(tbMVSVPublishYear, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n\r\n");
+            tbMVSVPublishYear.TabIndex = 21;
+            ttMain.SetToolTip(tbMVSVPublishYear, "Год публикации тома.\r\nПример: «2020»");
             tbMVSVPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // labelMVSVPublisher
@@ -4575,20 +4810,22 @@
             // 
             // tbMVSVPublisher
             // 
+            tbMVSVPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVPublisher.Location = new Point(0, 378);
             tbMVSVPublisher.Name = "tbMVSVPublisher";
             tbMVSVPublisher.Size = new Size(237, 23);
-            tbMVSVPublisher.TabIndex = 15;
+            tbMVSVPublisher.TabIndex = 18;
             ttMain.SetToolTip(tbMVSVPublisher, resources.GetString("tbMVSVPublisher.ToolTip"));
             tbMVSVPublisher.KeyDown += this.TextBox_KeyDown;
             // 
             // tbMVSVVolumeNumber
             // 
+            tbMVSVVolumeNumber.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVVolumeNumber.Location = new Point(0, 220);
             tbMVSVVolumeNumber.Name = "tbMVSVVolumeNumber";
             tbMVSVVolumeNumber.Size = new Size(450, 23);
-            tbMVSVVolumeNumber.TabIndex = 9;
-            ttMain.SetToolTip(tbMVSVVolumeNumber, "Номер текущего тома.\r\nПример: \"2\".\r\n");
+            tbMVSVVolumeNumber.TabIndex = 15;
+            ttMain.SetToolTip(tbMVSVVolumeNumber, "Порядковый номер данного тома.\r\nПример: «3»");
             tbMVSVVolumeNumber.KeyDown += this.TextBox_KeyDown;
             // 
             // labelMVSVVolumeNumber
@@ -4599,24 +4836,26 @@
             labelMVSVVolumeNumber.Size = new Size(75, 15);
             labelMVSVVolumeNumber.TabIndex = 8;
             labelMVSVVolumeNumber.Text = "Номер тома";
-            ttMain.SetToolTip(labelMVSVVolumeNumber, "Номер текущего тома.\r\nПример: \"2\".");
+            ttMain.SetToolTip(labelMVSVVolumeNumber, "Порядковый номер данного тома.\r\nПример: «3»");
             // 
             // tbMVSVAuthors
             // 
+            tbMVSVAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVAuthors.Location = new Point(0, 18);
             tbMVSVAuthors.Name = "tbMVSVAuthors";
             tbMVSVAuthors.Size = new Size(269, 23);
-            tbMVSVAuthors.TabIndex = 1;
+            tbMVSVAuthors.TabIndex = 10;
             ttMain.SetToolTip(tbMVSVAuthors, resources.GetString("tbMVSVAuthors.ToolTip"));
             tbMVSVAuthors.KeyDown += this.TextBox_KeyDown;
             // 
             // tbMVSVVolumesCount
             // 
+            tbMVSVVolumesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVVolumesCount.Location = new Point(0, 176);
             tbMVSVVolumesCount.Name = "tbMVSVVolumesCount";
             tbMVSVVolumesCount.Size = new Size(450, 23);
-            tbMVSVVolumesCount.TabIndex = 7;
-            ttMain.SetToolTip(tbMVSVVolumesCount, "Количество всех томов в издании.\r\nПример: \"2\".\r\n");
+            tbMVSVVolumesCount.TabIndex = 14;
+            ttMain.SetToolTip(tbMVSVVolumesCount, "Общее количество томов в издании.\r\nПример: «5»\r\n");
             tbMVSVVolumesCount.KeyDown += this.TextBox_KeyDown;
             // 
             // buttonMVSVAuthorsAdd
@@ -4624,7 +4863,7 @@
             buttonMVSVAuthorsAdd.Location = new Point(275, 18);
             buttonMVSVAuthorsAdd.Name = "buttonMVSVAuthorsAdd";
             buttonMVSVAuthorsAdd.Size = new Size(90, 23);
-            buttonMVSVAuthorsAdd.TabIndex = 2;
+            buttonMVSVAuthorsAdd.TabIndex = 11;
             buttonMVSVAuthorsAdd.Text = "Добавить";
             buttonMVSVAuthorsAdd.UseVisualStyleBackColor = true;
             buttonMVSVAuthorsAdd.Click += this.buttonMVSVAuthorsAdd_Click;
@@ -4637,7 +4876,7 @@
             labelMVSVVolumesCount.Size = new Size(109, 15);
             labelMVSVVolumesCount.TabIndex = 6;
             labelMVSVVolumesCount.Text = "Количество томов";
-            ttMain.SetToolTip(labelMVSVVolumesCount, "Количество всех томов в издании.\r\nПример: \"2\".\r\n");
+            ttMain.SetToolTip(labelMVSVVolumesCount, "Общее количество томов в издании.\r\nПример: «5»");
             // 
             // lbMVSVAuthors
             // 
@@ -4648,6 +4887,7 @@
             lbMVSVAuthors.Name = "lbMVSVAuthors";
             lbMVSVAuthors.Size = new Size(450, 64);
             lbMVSVAuthors.TabIndex = 3;
+            lbMVSVAuthors.TabStop = false;
             lbMVSVAuthors.Tag = "";
             lbMVSVAuthors.DragDrop += this.ListBox_DragDrop;
             lbMVSVAuthors.DragOver += this.ListBox_DragOver;
@@ -4657,11 +4897,12 @@
             // 
             // tbMVSVTitle
             // 
+            tbMVSVTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVTitle.Location = new Point(0, 132);
             tbMVSVTitle.Name = "tbMVSVTitle";
             tbMVSVTitle.Size = new Size(450, 23);
-            tbMVSVTitle.TabIndex = 5;
-            ttMain.SetToolTip(tbMVSVTitle, "Полное название книги, как указано в источнике, без сокращений.\r\nПример: \"Экономика организации. Ресурсы коммерческой организации\".\r\n\r\n");
+            tbMVSVTitle.TabIndex = 13;
+            ttMain.SetToolTip(tbMVSVTitle, "Общее название многотомного издания.\r\nПример: «История России»");
             tbMVSVTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // labelMVSVTitle
@@ -4672,7 +4913,7 @@
             labelMVSVTitle.Size = new Size(57, 15);
             labelMVSVTitle.TabIndex = 4;
             labelMVSVTitle.Text = "Заглавие";
-            ttMain.SetToolTip(labelMVSVTitle, "Полное название книги, как указано в источнике, без сокращений.\r\nПример: \"Экономика организации. Ресурсы коммерческой организации\".\r\n\r\n");
+            ttMain.SetToolTip(labelMVSVTitle, "Общее название многотомного издания.\r\nПример: «История России»");
             // 
             // gbMVSeparateVolumeOptional
             // 
@@ -4729,10 +4970,11 @@
             // 
             // tbMVSVTranslator
             // 
+            tbMVSVTranslator.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVTranslator.Location = new Point(0, 352);
             tbMVSVTranslator.Name = "tbMVSVTranslator";
             tbMVSVTranslator.Size = new Size(450, 23);
-            tbMVSVTranslator.TabIndex = 38;
+            tbMVSVTranslator.TabIndex = 30;
             ttMain.SetToolTip(tbMVSVTranslator, "Имя переводчика для переводных изданий, после \"; перевод с …\".\r\nПример: \"английского А. Ю. Заякина\".\r\n");
             tbMVSVTranslator.KeyDown += this.TextBox_KeyDown;
             // 
@@ -4744,15 +4986,16 @@
             labelMVSVOrganization.Size = new Size(79, 15);
             labelMVSVOrganization.TabIndex = 35;
             labelMVSVOrganization.Text = "Организация";
-            ttMain.SetToolTip(labelMVSVOrganization, resources.GetString("labelMVSVOrganization.ToolTip"));
+            ttMain.SetToolTip(labelMVSVOrganization, "Учреждение, ответственное за издание.\r\nПример: «Российская академия наук»");
             // 
             // tbMVSVOrganization
             // 
+            tbMVSVOrganization.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVOrganization.Location = new Point(0, 264);
             tbMVSVOrganization.Name = "tbMVSVOrganization";
             tbMVSVOrganization.Size = new Size(450, 23);
-            tbMVSVOrganization.TabIndex = 36;
-            ttMain.SetToolTip(tbMVSVOrganization, resources.GetString("tbMVSVOrganization.ToolTip"));
+            tbMVSVOrganization.TabIndex = 28;
+            ttMain.SetToolTip(tbMVSVOrganization, "Учреждение, ответственное за издание.\r\nПример: «Российская академия наук»");
             tbMVSVOrganization.KeyDown += this.TextBox_KeyDown;
             // 
             // labelMVSVParallelTitle
@@ -4767,10 +5010,11 @@
             // 
             // tbMVSVParallelTitle
             // 
+            tbMVSVParallelTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVParallelTitle.Location = new Point(0, 18);
             tbMVSVParallelTitle.Name = "tbMVSVParallelTitle";
             tbMVSVParallelTitle.Size = new Size(450, 23);
-            tbMVSVParallelTitle.TabIndex = 34;
+            tbMVSVParallelTitle.TabIndex = 22;
             ttMain.SetToolTip(tbMVSVParallelTitle, "Заглавие, повторённое в документе на другом языке (или в другой письменности), \r\nуказываемое в библиографической записи через знак \"=\".\r\nПример: \"Theorie und Praktikum in der deutschen Grammatik\"\r\n");
             tbMVSVParallelTitle.KeyDown += this.TextBox_KeyDown;
             // 
@@ -4782,7 +5026,7 @@
             cbMVSVEditorType.Location = new Point(194, 150);
             cbMVSVEditorType.Name = "cbMVSVEditorType";
             cbMVSVEditorType.Size = new Size(160, 23);
-            cbMVSVEditorType.TabIndex = 30;
+            cbMVSVEditorType.TabIndex = 26;
             // 
             // lbMVSVEditor
             // 
@@ -4793,6 +5037,7 @@
             lbMVSVEditor.Name = "lbMVSVEditor";
             lbMVSVEditor.Size = new Size(450, 64);
             lbMVSVEditor.TabIndex = 29;
+            lbMVSVEditor.TabStop = false;
             lbMVSVEditor.DragDrop += this.ListBox_DragDrop;
             lbMVSVEditor.DragOver += this.ListBox_DragOver;
             lbMVSVEditor.KeyDown += this.ListBox_KeyDown;
@@ -4804,7 +5049,7 @@
             buttonMVSVEditorAdd.Location = new Point(360, 150);
             buttonMVSVEditorAdd.Name = "buttonMVSVEditorAdd";
             buttonMVSVEditorAdd.Size = new Size(90, 23);
-            buttonMVSVEditorAdd.TabIndex = 28;
+            buttonMVSVEditorAdd.TabIndex = 27;
             buttonMVSVEditorAdd.Text = "Добавить";
             buttonMVSVEditorAdd.UseVisualStyleBackColor = true;
             buttonMVSVEditorAdd.Click += this.buttonMVSVEditorAdd_Click;
@@ -4817,24 +5062,26 @@
             labelMVSVContentType.Size = new Size(97, 15);
             labelMVSVContentType.TabIndex = 26;
             labelMVSVContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelMVSVContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelMVSVContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // tbMVSVVolumeTitle
             // 
+            tbMVSVVolumeTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVVolumeTitle.Location = new Point(0, 62);
             tbMVSVVolumeTitle.Name = "tbMVSVVolumeTitle";
             tbMVSVVolumeTitle.Size = new Size(450, 23);
-            tbMVSVVolumeTitle.TabIndex = 11;
-            ttMain.SetToolTip(tbMVSVVolumeTitle, "Название именно этого тома.\r\nПример: \"Эпоха Петра I\".\r\n");
+            tbMVSVVolumeTitle.TabIndex = 23;
+            ttMain.SetToolTip(tbMVSVVolumeTitle, "Собственное название тома.\r\nПример: «Период реформ»");
             tbMVSVVolumeTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbMVSVContentType
             // 
+            tbMVSVContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVContentType.Location = new Point(0, 528);
             tbMVSVContentType.Name = "tbMVSVContentType";
             tbMVSVContentType.Size = new Size(450, 23);
-            tbMVSVContentType.TabIndex = 27;
-            ttMain.SetToolTip(tbMVSVContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbMVSVContentType.TabIndex = 34;
+            ttMain.SetToolTip(tbMVSVContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             tbMVSVContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelMVSVDocumentType
@@ -4845,7 +5092,7 @@
             labelMVSVDocumentType.Size = new Size(88, 15);
             labelMVSVDocumentType.TabIndex = 0;
             labelMVSVDocumentType.Text = "Вид документа";
-            ttMain.SetToolTip(labelMVSVDocumentType, "Уточняет тип издания (учебник, монография и т.д.).\r\nВ квадратных скобках указывается, если вид документа не указан в самом источнике напрямую.\r\nПример: \"учебное пособие\" или \"[монография]\".\r\n\r\n");
+            ttMain.SetToolTip(labelMVSVDocumentType, "Тип документа: монография, учебник и т. д.\r\nПример: «монография»");
             // 
             // labelMVSVVolumeTitle
             // 
@@ -4855,24 +5102,26 @@
             labelMVSVVolumeTitle.Size = new Size(87, 15);
             labelMVSVVolumeTitle.TabIndex = 10;
             labelMVSVVolumeTitle.Text = "Заглавие тома";
-            ttMain.SetToolTip(labelMVSVVolumeTitle, "Название именно этого тома.\r\nПример: \"Эпоха Петра I\".");
+            ttMain.SetToolTip(labelMVSVVolumeTitle, "Собственное название тома.\r\nПример: «Период реформ»");
             // 
             // tbMVSVEditor
             // 
+            tbMVSVEditor.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVEditor.Location = new Point(0, 150);
             tbMVSVEditor.Name = "tbMVSVEditor";
             tbMVSVEditor.Size = new Size(188, 23);
-            tbMVSVEditor.TabIndex = 5;
+            tbMVSVEditor.TabIndex = 25;
             ttMain.SetToolTip(tbMVSVEditor, resources.GetString("tbMVSVEditor.ToolTip"));
             tbMVSVEditor.KeyDown += this.TextBox_KeyDown;
             // 
             // tbMVSVDocumentType
             // 
+            tbMVSVDocumentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVDocumentType.Location = new Point(0, 106);
             tbMVSVDocumentType.Name = "tbMVSVDocumentType";
             tbMVSVDocumentType.Size = new Size(450, 23);
-            tbMVSVDocumentType.TabIndex = 1;
-            ttMain.SetToolTip(tbMVSVDocumentType, "Уточняет тип издания (учебник, монография и т.д.).\r\nВ квадратных скобках указывается, если вид документа не указан в самом источнике напрямую.\r\nПример: \"учебное пособие\" или \"[монография]\".\r\n\r\n");
+            tbMVSVDocumentType.TabIndex = 24;
+            ttMain.SetToolTip(tbMVSVDocumentType, "Тип документа: монография, учебник и т. д.\r\nПример: «монография»");
             tbMVSVDocumentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelMVSVISBN
@@ -4883,7 +5132,7 @@
             labelMVSVISBN.Size = new Size(32, 15);
             labelMVSVISBN.TabIndex = 10;
             labelMVSVISBN.Text = "ISBN";
-            ttMain.SetToolTip(labelMVSVISBN, "Международный стандартный номер книги.\r\nПример: \"978-5-534-10585-8\".\r\n\r\n");
+            ttMain.SetToolTip(labelMVSVISBN, "Международный стандартный номер тома.\r\nПример: «978-5-02-038376-5»");
             // 
             // labelMVSVPagesCount
             // 
@@ -4893,24 +5142,26 @@
             labelMVSVPagesCount.Size = new Size(120, 15);
             labelMVSVPagesCount.TabIndex = 18;
             labelMVSVPagesCount.Text = "Количество страниц";
-            ttMain.SetToolTip(labelMVSVPagesCount, "Общий объем книги в страницах.\r\nПример: \"134\".\r\n\r\n");
+            ttMain.SetToolTip(labelMVSVPagesCount, "Общее количество страниц в томе.\r\nПример: «450»");
             // 
             // tbMVSVSeries
             // 
+            tbMVSVSeries.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVSeries.Location = new Point(0, 440);
             tbMVSVSeries.Name = "tbMVSVSeries";
             tbMVSVSeries.Size = new Size(450, 23);
-            tbMVSVSeries.TabIndex = 9;
-            ttMain.SetToolTip(tbMVSVSeries, "Название серии, в которой издана книга.\r\nПример: \"Профессиональное образование\".\r\n\r\n");
+            tbMVSVSeries.TabIndex = 32;
+            ttMain.SetToolTip(tbMVSVSeries, "Название серии, если есть.\r\nПример: «Библиотека отечественной истории»");
             tbMVSVSeries.KeyDown += this.TextBox_KeyDown;
             // 
             // tbMVSVPagesCount
             // 
+            tbMVSVPagesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVPagesCount.Location = new Point(0, 396);
             tbMVSVPagesCount.Name = "tbMVSVPagesCount";
             tbMVSVPagesCount.Size = new Size(450, 23);
-            tbMVSVPagesCount.TabIndex = 19;
-            ttMain.SetToolTip(tbMVSVPagesCount, "Общий объем книги в страницах.\r\nПример: \"134\".\r\n\r\n");
+            tbMVSVPagesCount.TabIndex = 31;
+            ttMain.SetToolTip(tbMVSVPagesCount, "Общее количество страниц в томе.\r\nПример: «450»\r\n");
             tbMVSVPagesCount.KeyDown += this.TextBox_KeyDown;
             // 
             // labelMVSVEditionNumber
@@ -4931,7 +5182,7 @@
             labelMVSVSeries.Size = new Size(41, 15);
             labelMVSVSeries.TabIndex = 8;
             labelMVSVSeries.Text = "Серия";
-            ttMain.SetToolTip(labelMVSVSeries, "Название серии, в которой издана книга.\r\nПример: \"Профессиональное образование\".\r\n\r\n");
+            ttMain.SetToolTip(labelMVSVSeries, "Название серии, если есть.\r\nПример: «Библиотека отечественной истории»");
             // 
             // labelMVSVEditor
             // 
@@ -4945,20 +5196,22 @@
             // 
             // tbMVSVEditionNumber
             // 
+            tbMVSVEditionNumber.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVEditionNumber.Location = new Point(0, 308);
             tbMVSVEditionNumber.Name = "tbMVSVEditionNumber";
             tbMVSVEditionNumber.Size = new Size(450, 23);
-            tbMVSVEditionNumber.TabIndex = 7;
+            tbMVSVEditionNumber.TabIndex = 29;
             ttMain.SetToolTip(tbMVSVEditionNumber, "Номер издания и уточнения (переработанное, дополненное), если не первое, перед местом издания.\r\nПример: \"2-е издание, переработанное и дополненное\".\r\n\r\n");
             tbMVSVEditionNumber.KeyDown += this.TextBox_KeyDown;
             // 
             // tbMVSVISBN
             // 
+            tbMVSVISBN.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbMVSVISBN.Location = new Point(0, 484);
             tbMVSVISBN.Name = "tbMVSVISBN";
             tbMVSVISBN.Size = new Size(450, 23);
-            tbMVSVISBN.TabIndex = 11;
-            ttMain.SetToolTip(tbMVSVISBN, "Международный стандартный номер книги.\r\nПример: \"978-5-534-10585-8\".\r\n\r\n");
+            tbMVSVISBN.TabIndex = 33;
+            ttMain.SetToolTip(tbMVSVISBN, "Международный стандартный номер тома.\r\nПример: «978-5-02-038376-5»");
             tbMVSVISBN.KeyDown += this.TextBox_KeyDown;
             // 
             // tpElectronicResources
@@ -4987,6 +5240,7 @@
             tcERTypes.SelectedIndex = 0;
             tcERTypes.Size = new Size(513, 709);
             tcERTypes.TabIndex = 1;
+            tcERTypes.TabStop = false;
             // 
             // tpEREbook
             // 
@@ -5052,6 +5306,7 @@
             lbEREbPublishingLocationSelect.Name = "lbEREbPublishingLocationSelect";
             lbEREbPublishingLocationSelect.Size = new Size(207, 64);
             lbEREbPublishingLocationSelect.TabIndex = 43;
+            lbEREbPublishingLocationSelect.TabStop = false;
             lbEREbPublishingLocationSelect.SelectedIndexChanged += this.lbEREbPublishingLocationSelect_SelectedIndexChanged;
             // 
             // cbEREbPublisher
@@ -5060,8 +5315,9 @@
             cbEREbPublisher.Location = new Point(339, 292);
             cbEREbPublisher.Name = "cbEREbPublisher";
             cbEREbPublisher.Size = new Size(111, 19);
-            cbEREbPublisher.TabIndex = 42;
+            cbEREbPublisher.TabIndex = 18;
             cbEREbPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbEREbPublisher, "Включение «умного режима» добавления издательств\r\n");
             cbEREbPublisher.UseVisualStyleBackColor = true;
             cbEREbPublisher.CheckedChanged += this.cbEREbPublisher_CheckedChanged;
             // 
@@ -5071,7 +5327,7 @@
             cbEREbAuthors.Location = new Point(371, 20);
             cbEREbAuthors.Name = "cbEREbAuthors";
             cbEREbAuthors.Size = new Size(79, 19);
-            cbEREbAuthors.TabIndex = 22;
+            cbEREbAuthors.TabIndex = 12;
             cbEREbAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbEREbAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbEREbAuthors.UseVisualStyleBackColor = true;
@@ -5081,7 +5337,7 @@
             buttonEREbPublisherAdd.Location = new Point(243, 290);
             buttonEREbPublisherAdd.Name = "buttonEREbPublisherAdd";
             buttonEREbPublisherAdd.Size = new Size(90, 23);
-            buttonEREbPublisherAdd.TabIndex = 20;
+            buttonEREbPublisherAdd.TabIndex = 17;
             buttonEREbPublisherAdd.Text = "Добавить";
             buttonEREbPublisherAdd.UseVisualStyleBackColor = true;
             buttonEREbPublisherAdd.Click += this.buttonEREbPublisherAdd_Click;
@@ -5095,6 +5351,7 @@
             lbEREbPublisher.Name = "lbEREbPublisher";
             lbEREbPublisher.Size = new Size(237, 64);
             lbEREbPublisher.TabIndex = 21;
+            lbEREbPublisher.TabStop = false;
             lbEREbPublisher.DragDrop += this.ListBox_DragDrop;
             lbEREbPublisher.DragOver += this.ListBox_DragOver;
             lbEREbPublisher.KeyDown += this.ListBox_KeyDown;
@@ -5106,7 +5363,7 @@
             buttonEREbPublishingLocationAdd.Location = new Point(360, 176);
             buttonEREbPublishingLocationAdd.Name = "buttonEREbPublishingLocationAdd";
             buttonEREbPublishingLocationAdd.Size = new Size(90, 23);
-            buttonEREbPublishingLocationAdd.TabIndex = 18;
+            buttonEREbPublishingLocationAdd.TabIndex = 15;
             buttonEREbPublishingLocationAdd.Text = "Добавить";
             buttonEREbPublishingLocationAdd.UseVisualStyleBackColor = true;
             buttonEREbPublishingLocationAdd.Click += this.buttonEREbPublishingLocationAdd_Click;
@@ -5120,6 +5377,7 @@
             lbEREbPublishingLocation.Name = "lbEREbPublishingLocation";
             lbEREbPublishingLocation.Size = new Size(450, 64);
             lbEREbPublishingLocation.TabIndex = 19;
+            lbEREbPublishingLocation.TabStop = false;
             lbEREbPublishingLocation.DragDrop += this.ListBox_DragDrop;
             lbEREbPublishingLocation.DragOver += this.ListBox_DragOver;
             lbEREbPublishingLocation.KeyDown += this.ListBox_KeyDown;
@@ -5134,13 +5392,16 @@
             labelEREbAccessMode.Size = new Size(91, 15);
             labelEREbAccessMode.TabIndex = 16;
             labelEREbAccessMode.Text = "Режим доступа";
+            ttMain.SetToolTip(labelEREbAccessMode, "Информация об условиях доступа (например, свободный, платный).\r\nПример: «свободный»");
             // 
             // tbEREbAccessMode
             // 
+            tbEREbAccessMode.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbAccessMode.Location = new Point(0, 536);
             tbEREbAccessMode.Name = "tbEREbAccessMode";
             tbEREbAccessMode.Size = new Size(450, 23);
-            tbEREbAccessMode.TabIndex = 17;
+            tbEREbAccessMode.TabIndex = 22;
+            ttMain.SetToolTip(tbEREbAccessMode, "Информация об условиях доступа (например, свободный, платный).\r\nПример: «свободный»");
             tbEREbAccessMode.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREbAccessDate
@@ -5151,6 +5412,7 @@
             labelEREbAccessDate.Size = new Size(99, 15);
             labelEREbAccessDate.TabIndex = 14;
             labelEREbAccessDate.Text = "Дата обращения";
+            ttMain.SetToolTip(labelEREbAccessDate, "Дата, когда был осуществлён доступ по ссылке.\r\nПример: «20.06.2025»");
             // 
             // labelEREbAuthors
             // 
@@ -5160,21 +5422,26 @@
             labelEREbAuthors.Size = new Size(57, 15);
             labelEREbAuthors.TabIndex = 0;
             labelEREbAuthors.Text = "Автор(ы)";
+            ttMain.SetToolTip(labelEREbAuthors, resources.GetString("labelEREbAuthors.ToolTip"));
             // 
             // tbEREbAccessDate
             // 
+            tbEREbAccessDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbAccessDate.Location = new Point(0, 492);
             tbEREbAccessDate.Name = "tbEREbAccessDate";
             tbEREbAccessDate.Size = new Size(450, 23);
-            tbEREbAccessDate.TabIndex = 15;
+            tbEREbAccessDate.TabIndex = 21;
+            ttMain.SetToolTip(tbEREbAccessDate, "Дата, когда был осуществлён доступ по ссылке.\r\nПример: «20.06.2025»");
             tbEREbAccessDate.KeyDown += this.TextBox_KeyDown;
             // 
             // tbEREbURL
             // 
+            tbEREbURL.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbURL.Location = new Point(0, 448);
             tbEREbURL.Name = "tbEREbURL";
             tbEREbURL.Size = new Size(450, 23);
-            tbEREbURL.TabIndex = 13;
+            tbEREbURL.TabIndex = 20;
+            ttMain.SetToolTip(tbEREbURL, "Ссылка на электронную версию книги.\r\nПример: «https://elib.rsl.ru/book/12345»");
             tbEREbURL.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREbURL
@@ -5185,21 +5452,26 @@
             labelEREbURL.Size = new Size(28, 15);
             labelEREbURL.TabIndex = 12;
             labelEREbURL.Text = "URL";
+            ttMain.SetToolTip(labelEREbURL, "Ссылка на электронную версию книги.\r\nПример: «https://elib.rsl.ru/book/12345»");
             // 
             // tbEREbAuthors
             // 
+            tbEREbAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbAuthors.Location = new Point(0, 18);
             tbEREbAuthors.Name = "tbEREbAuthors";
             tbEREbAuthors.Size = new Size(269, 23);
-            tbEREbAuthors.TabIndex = 1;
+            tbEREbAuthors.TabIndex = 10;
+            ttMain.SetToolTip(tbEREbAuthors, resources.GetString("tbEREbAuthors.ToolTip"));
             tbEREbAuthors.KeyDown += this.TextBox_KeyDown;
             // 
             // tbEREbPublishYear
             // 
+            tbEREbPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbPublishYear.Location = new Point(0, 404);
             tbEREbPublishYear.Name = "tbEREbPublishYear";
             tbEREbPublishYear.Size = new Size(450, 23);
-            tbEREbPublishYear.TabIndex = 11;
+            tbEREbPublishYear.TabIndex = 19;
+            ttMain.SetToolTip(tbEREbPublishYear, "Год публикации книги.\r\nПример: «2021»");
             tbEREbPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREbAuthorsAdd
@@ -5207,7 +5479,7 @@
             labelEREbAuthorsAdd.Location = new Point(275, 18);
             labelEREbAuthorsAdd.Name = "labelEREbAuthorsAdd";
             labelEREbAuthorsAdd.Size = new Size(90, 23);
-            labelEREbAuthorsAdd.TabIndex = 2;
+            labelEREbAuthorsAdd.TabIndex = 11;
             labelEREbAuthorsAdd.Text = "Добавить";
             labelEREbAuthorsAdd.UseVisualStyleBackColor = true;
             labelEREbAuthorsAdd.Click += this.labelEREbAuthorsAdd_Click;
@@ -5220,6 +5492,7 @@
             labelEREbPublishYear.Size = new Size(73, 15);
             labelEREbPublishYear.TabIndex = 10;
             labelEREbPublishYear.Text = "Год издания";
+            ttMain.SetToolTip(labelEREbPublishYear, "Год публикации книги.\r\nПример: «2021»");
             // 
             // lbEREbAuthors
             // 
@@ -5230,6 +5503,7 @@
             lbEREbAuthors.Name = "lbEREbAuthors";
             lbEREbAuthors.Size = new Size(450, 64);
             lbEREbAuthors.TabIndex = 3;
+            lbEREbAuthors.TabStop = false;
             lbEREbAuthors.Tag = "";
             lbEREbAuthors.DragDrop += this.ListBox_DragDrop;
             lbEREbAuthors.DragOver += this.ListBox_DragOver;
@@ -5239,10 +5513,12 @@
             // 
             // tbEREbPublisher
             // 
+            tbEREbPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbPublisher.Location = new Point(0, 290);
             tbEREbPublisher.Name = "tbEREbPublisher";
             tbEREbPublisher.Size = new Size(237, 23);
-            tbEREbPublisher.TabIndex = 9;
+            tbEREbPublisher.TabIndex = 16;
+            ttMain.SetToolTip(tbEREbPublisher, resources.GetString("tbEREbPublisher.ToolTip"));
             tbEREbPublisher.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREbTitle
@@ -5253,6 +5529,7 @@
             labelEREbTitle.Size = new Size(57, 15);
             labelEREbTitle.TabIndex = 4;
             labelEREbTitle.Text = "Заглавие";
+            ttMain.SetToolTip(labelEREbTitle, "Основное название книги.\r\nПример: «Русская литература XX века»");
             // 
             // labelEREbPublisher
             // 
@@ -5262,21 +5539,26 @@
             labelEREbPublisher.Size = new Size(81, 15);
             labelEREbPublisher.TabIndex = 8;
             labelEREbPublisher.Text = "Издательство";
+            ttMain.SetToolTip(labelEREbPublisher, resources.GetString("labelEREbPublisher.ToolTip"));
             // 
             // tbEREbTitle
             // 
+            tbEREbTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbTitle.Location = new Point(0, 132);
             tbEREbTitle.Name = "tbEREbTitle";
             tbEREbTitle.Size = new Size(450, 23);
-            tbEREbTitle.TabIndex = 5;
+            tbEREbTitle.TabIndex = 13;
+            ttMain.SetToolTip(tbEREbTitle, "Основное название книги.\r\nПример: «Русская литература XX века»");
             tbEREbTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbEREbPublishingLocation
             // 
+            tbEREbPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbPublishingLocation.Location = new Point(0, 176);
             tbEREbPublishingLocation.Name = "tbEREbPublishingLocation";
             tbEREbPublishingLocation.Size = new Size(354, 23);
-            tbEREbPublishingLocation.TabIndex = 7;
+            tbEREbPublishingLocation.TabIndex = 14;
+            ttMain.SetToolTip(tbEREbPublishingLocation, "Город или города, в которых была опубликована книга.\r\nПример: «Москва»");
             tbEREbPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREbPublishingLocation
@@ -5287,6 +5569,7 @@
             labelEREbPublishingLocation.Size = new Size(89, 15);
             labelEREbPublishingLocation.TabIndex = 6;
             labelEREbPublishingLocation.Text = "Место издания";
+            ttMain.SetToolTip(labelEREbPublishingLocation, "Город или города, в которых была опубликована книга.\r\nПример: «Москва»");
             // 
             // gbEREbookOptional
             // 
@@ -5341,10 +5624,11 @@
             // 
             // tbEREbTranslator
             // 
+            tbEREbTranslator.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbTranslator.Location = new Point(0, 308);
             tbEREbTranslator.Name = "tbEREbTranslator";
             tbEREbTranslator.Size = new Size(450, 23);
-            tbEREbTranslator.TabIndex = 38;
+            tbEREbTranslator.TabIndex = 30;
             ttMain.SetToolTip(tbEREbTranslator, "Имя переводчика для переводных изданий, после \"; перевод с …\".\r\nПример: \"английского А. Ю. Заякина\".\r\n");
             // 
             // labelEREbOrganization
@@ -5355,15 +5639,16 @@
             labelEREbOrganization.Size = new Size(79, 15);
             labelEREbOrganization.TabIndex = 35;
             labelEREbOrganization.Text = "Организация";
-            ttMain.SetToolTip(labelEREbOrganization, resources.GetString("labelEREbOrganization.ToolTip"));
+            ttMain.SetToolTip(labelEREbOrganization, "Организация, ответственная за публикацию или издание.\r\nПример: «МГУ имени М. В. Ломоносова»");
             // 
             // tbEREbOrganization
             // 
+            tbEREbOrganization.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbOrganization.Location = new Point(0, 220);
             tbEREbOrganization.Name = "tbEREbOrganization";
             tbEREbOrganization.Size = new Size(450, 23);
-            tbEREbOrganization.TabIndex = 36;
-            ttMain.SetToolTip(tbEREbOrganization, resources.GetString("tbEREbOrganization.ToolTip"));
+            tbEREbOrganization.TabIndex = 28;
+            ttMain.SetToolTip(tbEREbOrganization, "Организация, ответственная за публикацию или издание.\r\nПример: «МГУ имени М. В. Ломоносова»");
             // 
             // labelEREbParallelTitle
             // 
@@ -5377,10 +5662,11 @@
             // 
             // tbEREbParallelTitle
             // 
+            tbEREbParallelTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbParallelTitle.Location = new Point(0, 18);
             tbEREbParallelTitle.Name = "tbEREbParallelTitle";
             tbEREbParallelTitle.Size = new Size(450, 23);
-            tbEREbParallelTitle.TabIndex = 30;
+            tbEREbParallelTitle.TabIndex = 23;
             ttMain.SetToolTip(tbEREbParallelTitle, "Заглавие, повторённое в документе на другом языке (или в другой письменности), \r\nуказываемое в библиографической записи через знак \"=\".\r\nПример: \"Theorie und Praktikum in der deutschen Grammatik\"\r\n");
             tbEREbParallelTitle.KeyDown += this.TextBox_KeyDown;
             // 
@@ -5392,15 +5678,16 @@
             labelEREbContentType.Size = new Size(97, 15);
             labelEREbContentType.TabIndex = 27;
             labelEREbContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelEREbContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelEREbContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // tbEREbContentType
             // 
+            tbEREbContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbContentType.Location = new Point(0, 484);
             tbEREbContentType.Name = "tbEREbContentType";
             tbEREbContentType.Size = new Size(450, 23);
-            tbEREbContentType.TabIndex = 28;
-            ttMain.SetToolTip(tbEREbContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbEREbContentType.TabIndex = 34;
+            ttMain.SetToolTip(tbEREbContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             tbEREbContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // cbEREbEditorType
@@ -5423,6 +5710,7 @@
             lbEREbEditor.Name = "lbEREbEditor";
             lbEREbEditor.Size = new Size(450, 64);
             lbEREbEditor.TabIndex = 25;
+            lbEREbEditor.TabStop = false;
             lbEREbEditor.DragDrop += this.ListBox_DragDrop;
             lbEREbEditor.DragOver += this.ListBox_DragOver;
             lbEREbEditor.KeyDown += this.ListBox_KeyDown;
@@ -5434,7 +5722,7 @@
             buttonEREbEditorAdd.Location = new Point(360, 106);
             buttonEREbEditorAdd.Name = "buttonEREbEditorAdd";
             buttonEREbEditorAdd.Size = new Size(90, 23);
-            buttonEREbEditorAdd.TabIndex = 24;
+            buttonEREbEditorAdd.TabIndex = 27;
             buttonEREbEditorAdd.Text = "Добавить";
             buttonEREbEditorAdd.UseVisualStyleBackColor = true;
             buttonEREbEditorAdd.Click += this.buttonEREbEditorAdd_Click;
@@ -5447,13 +5735,16 @@
             labelEREbISBN.Size = new Size(32, 15);
             labelEREbISBN.TabIndex = 12;
             labelEREbISBN.Text = "ISBN";
+            ttMain.SetToolTip(labelEREbISBN, "Международный стандартный номер книги.\r\nПример: «978-5-09-045236-2»");
             // 
             // tbEREbISBN
             // 
+            tbEREbISBN.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbISBN.Location = new Point(0, 440);
             tbEREbISBN.Name = "tbEREbISBN";
             tbEREbISBN.Size = new Size(450, 23);
-            tbEREbISBN.TabIndex = 13;
+            tbEREbISBN.TabIndex = 33;
+            ttMain.SetToolTip(tbEREbISBN, "Международный стандартный номер книги.\r\nПример: «978-5-09-045236-2»");
             tbEREbISBN.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREbDocumentType
@@ -5464,21 +5755,26 @@
             labelEREbDocumentType.Size = new Size(88, 15);
             labelEREbDocumentType.TabIndex = 0;
             labelEREbDocumentType.Text = "Вид документа";
+            ttMain.SetToolTip(labelEREbDocumentType, "Тип документа: монография, сборник, учебник и др.\r\nПример: «учебное пособие»");
             // 
             // tbEREbSeries
             // 
+            tbEREbSeries.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbSeries.Location = new Point(0, 396);
             tbEREbSeries.Name = "tbEREbSeries";
             tbEREbSeries.Size = new Size(450, 23);
-            tbEREbSeries.TabIndex = 11;
+            tbEREbSeries.TabIndex = 32;
+            ttMain.SetToolTip(tbEREbSeries, "Название серии, в которой вышла книга.\r\nПример: «Библиотека школьника»");
             tbEREbSeries.KeyDown += this.TextBox_KeyDown;
             // 
             // tbEREbDocumentType
             // 
+            tbEREbDocumentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbDocumentType.Location = new Point(0, 62);
             tbEREbDocumentType.Name = "tbEREbDocumentType";
             tbEREbDocumentType.Size = new Size(450, 23);
-            tbEREbDocumentType.TabIndex = 1;
+            tbEREbDocumentType.TabIndex = 24;
+            ttMain.SetToolTip(tbEREbDocumentType, "Тип документа: монография, сборник, учебник и др.\r\nПример: «учебное пособие»");
             tbEREbDocumentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREbSeries
@@ -5489,13 +5785,16 @@
             labelEREbSeries.Size = new Size(41, 15);
             labelEREbSeries.TabIndex = 10;
             labelEREbSeries.Text = "Серия";
+            ttMain.SetToolTip(labelEREbSeries, "Название серии, в которой вышла книга.\r\nПример: «Библиотека школьника»");
             // 
             // tbEREbPagesCount
             // 
+            tbEREbPagesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbPagesCount.Location = new Point(0, 352);
             tbEREbPagesCount.Name = "tbEREbPagesCount";
             tbEREbPagesCount.Size = new Size(450, 23);
-            tbEREbPagesCount.TabIndex = 9;
+            tbEREbPagesCount.TabIndex = 31;
+            ttMain.SetToolTip(tbEREbPagesCount, "Общее количество страниц.\r\nПример: «350»\r\n");
             tbEREbPagesCount.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREbPagesCount
@@ -5506,6 +5805,7 @@
             labelEREbPagesCount.Size = new Size(120, 15);
             labelEREbPagesCount.TabIndex = 8;
             labelEREbPagesCount.Text = "Количество страниц";
+            ttMain.SetToolTip(labelEREbPagesCount, "Общее количество страниц.\r\nПример: «350»");
             // 
             // labelEREbEditor
             // 
@@ -5515,21 +5815,26 @@
             labelEREbEditor.Size = new Size(74, 15);
             labelEREbEditor.TabIndex = 4;
             labelEREbEditor.Text = "Редактор(ы)";
+            ttMain.SetToolTip(labelEREbEditor, resources.GetString("labelEREbEditor.ToolTip"));
             // 
             // tbEREbEditionNumber
             // 
+            tbEREbEditionNumber.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbEditionNumber.Location = new Point(0, 264);
             tbEREbEditionNumber.Name = "tbEREbEditionNumber";
             tbEREbEditionNumber.Size = new Size(450, 23);
-            tbEREbEditionNumber.TabIndex = 7;
+            tbEREbEditionNumber.TabIndex = 29;
+            ttMain.SetToolTip(tbEREbEditionNumber, "Номер издания и уточнения (переработанное, дополненное), если не первое, перед местом издания.\r\nПример: \"2-е издание, переработанное и дополненное\".\r\n\r\n");
             tbEREbEditionNumber.KeyDown += this.TextBox_KeyDown;
             // 
             // tbEREbEditor
             // 
+            tbEREbEditor.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREbEditor.Location = new Point(0, 106);
             tbEREbEditor.Name = "tbEREbEditor";
             tbEREbEditor.Size = new Size(188, 23);
-            tbEREbEditor.TabIndex = 5;
+            tbEREbEditor.TabIndex = 25;
+            ttMain.SetToolTip(tbEREbEditor, resources.GetString("tbEREbEditor.ToolTip"));
             tbEREbEditor.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREbEditionNumber
@@ -5540,6 +5845,7 @@
             labelEREbEditionNumber.Size = new Size(92, 15);
             labelEREbEditionNumber.TabIndex = 6;
             labelEREbEditionNumber.Text = "Номер издания";
+            ttMain.SetToolTip(labelEREbEditionNumber, "Номер издания и уточнения (переработанное, дополненное), если не первое, перед местом издания.\r\nПример: \"2-е издание, переработанное и дополненное\".\r\n\r\n");
             // 
             // tpERWholeElectronicEdition
             // 
@@ -5606,6 +5912,7 @@
             lbERWEEPublishingLocationSelect.Name = "lbERWEEPublishingLocationSelect";
             lbERWEEPublishingLocationSelect.Size = new Size(207, 64);
             lbERWEEPublishingLocationSelect.TabIndex = 41;
+            lbERWEEPublishingLocationSelect.TabStop = false;
             lbERWEEPublishingLocationSelect.SelectedIndexChanged += this.lbERWEEPublishingLocationSelect_SelectedIndexChanged;
             // 
             // cbERWEEPublisher
@@ -5614,18 +5921,20 @@
             cbERWEEPublisher.Location = new Point(339, 336);
             cbERWEEPublisher.Name = "cbERWEEPublisher";
             cbERWEEPublisher.Size = new Size(111, 19);
-            cbERWEEPublisher.TabIndex = 40;
+            cbERWEEPublisher.TabIndex = 19;
             cbERWEEPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbERWEEPublisher, "Включение «умного режима» добавления издательств");
             cbERWEEPublisher.UseVisualStyleBackColor = true;
             cbERWEEPublisher.CheckedChanged += this.cbERWEEPublisher_CheckedChanged;
             // 
             // tbERWEEAccessMode
             // 
+            tbERWEEAccessMode.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEAccessMode.Location = new Point(0, 580);
             tbERWEEAccessMode.Name = "tbERWEEAccessMode";
             tbERWEEAccessMode.Size = new Size(450, 23);
-            tbERWEEAccessMode.TabIndex = 26;
-            ttMain.SetToolTip(tbERWEEAccessMode, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            tbERWEEAccessMode.TabIndex = 23;
+            ttMain.SetToolTip(tbERWEEAccessMode, "Информация об условиях доступа (например, свободный, по подписке).\r\nПример: «свободный»");
             tbERWEEAccessMode.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWEEAccessMode
@@ -5636,15 +5945,16 @@
             labelERWEEAccessMode.Size = new Size(91, 15);
             labelERWEEAccessMode.TabIndex = 25;
             labelERWEEAccessMode.Text = "Режим доступа";
-            ttMain.SetToolTip(labelERWEEAccessMode, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelERWEEAccessMode, "Информация об условиях доступа (например, свободный, по подписке).\r\nПример: «свободный»");
             // 
             // tbERWEEAccessDate
             // 
+            tbERWEEAccessDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEAccessDate.Location = new Point(0, 536);
             tbERWEEAccessDate.Name = "tbERWEEAccessDate";
             tbERWEEAccessDate.Size = new Size(450, 23);
-            tbERWEEAccessDate.TabIndex = 24;
-            ttMain.SetToolTip(tbERWEEAccessDate, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            tbERWEEAccessDate.TabIndex = 22;
+            ttMain.SetToolTip(tbERWEEAccessDate, "Дата, когда был осуществлён доступ к документу по указанной ссылке.\r\nПример: «20.06.2025»");
             tbERWEEAccessDate.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWEEAccessDate
@@ -5655,15 +5965,16 @@
             labelERWEEAccessDate.Size = new Size(99, 15);
             labelERWEEAccessDate.TabIndex = 23;
             labelERWEEAccessDate.Text = "Дата обращения";
-            ttMain.SetToolTip(labelERWEEAccessDate, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelERWEEAccessDate, "Дата, когда был осуществлён доступ к документу по указанной ссылке.\r\nПример: «20.06.2025»");
             // 
             // tbERWEEURL
             // 
+            tbERWEEURL.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEURL.Location = new Point(0, 492);
             tbERWEEURL.Name = "tbERWEEURL";
             tbERWEEURL.Size = new Size(450, 23);
-            tbERWEEURL.TabIndex = 22;
-            ttMain.SetToolTip(tbERWEEURL, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            tbERWEEURL.TabIndex = 21;
+            ttMain.SetToolTip(tbERWEEURL, "Ссылка на доступ к электронной версии.\r\nПример: «https://ebooks.spbu.ru/philosophy_collection»");
             tbERWEEURL.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWEEURL
@@ -5674,7 +5985,7 @@
             labelERWEEURL.Size = new Size(28, 15);
             labelERWEEURL.TabIndex = 21;
             labelERWEEURL.Text = "URL";
-            ttMain.SetToolTip(labelERWEEURL, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelERWEEURL, "Ссылка на доступ к электронной версии.\r\nПример: «https://ebooks.spbu.ru/philosophy_collection»");
             // 
             // cbERWEEAuthors
             // 
@@ -5682,7 +5993,7 @@
             cbERWEEAuthors.Location = new Point(371, 20);
             cbERWEEAuthors.Name = "cbERWEEAuthors";
             cbERWEEAuthors.Size = new Size(79, 19);
-            cbERWEEAuthors.TabIndex = 20;
+            cbERWEEAuthors.TabIndex = 12;
             cbERWEEAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbERWEEAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbERWEEAuthors.UseVisualStyleBackColor = true;
@@ -5706,6 +6017,7 @@
             lbERWEEPublisher.Name = "lbERWEEPublisher";
             lbERWEEPublisher.Size = new Size(237, 64);
             lbERWEEPublisher.TabIndex = 19;
+            lbERWEEPublisher.TabStop = false;
             lbERWEEPublisher.DragDrop += this.ListBox_DragDrop;
             lbERWEEPublisher.DragOver += this.ListBox_DragOver;
             lbERWEEPublisher.KeyDown += this.ListBox_KeyDown;
@@ -5749,11 +6061,12 @@
             // 
             // tbERWEEPublishYear
             // 
+            tbERWEEPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEPublishYear.Location = new Point(0, 448);
             tbERWEEPublishYear.Name = "tbERWEEPublishYear";
             tbERWEEPublishYear.Size = new Size(450, 23);
-            tbERWEEPublishYear.TabIndex = 13;
-            ttMain.SetToolTip(tbERWEEPublishYear, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            tbERWEEPublishYear.TabIndex = 20;
+            ttMain.SetToolTip(tbERWEEPublishYear, "Год, в который было выпущено издание (в целом).\r\nПример: «2020»");
             tbERWEEPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWEEPublishYear
@@ -5764,23 +6077,25 @@
             labelERWEEPublishYear.Size = new Size(73, 15);
             labelERWEEPublishYear.TabIndex = 12;
             labelERWEEPublishYear.Text = "Год издания";
-            ttMain.SetToolTip(labelERWEEPublishYear, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelERWEEPublishYear, "Год, в который было выпущено издание (в целом).\r\nПример: «2020»");
             // 
             // tbERWEEAuthors
             // 
+            tbERWEEAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEAuthors.Location = new Point(0, 18);
             tbERWEEAuthors.Name = "tbERWEEAuthors";
             tbERWEEAuthors.Size = new Size(269, 23);
-            tbERWEEAuthors.TabIndex = 1;
+            tbERWEEAuthors.TabIndex = 10;
             ttMain.SetToolTip(tbERWEEAuthors, resources.GetString("tbERWEEAuthors.ToolTip"));
             tbERWEEAuthors.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERWEEPublisher
             // 
+            tbERWEEPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEPublisher.Location = new Point(0, 334);
             tbERWEEPublisher.Name = "tbERWEEPublisher";
             tbERWEEPublisher.Size = new Size(237, 23);
-            tbERWEEPublisher.TabIndex = 11;
+            tbERWEEPublisher.TabIndex = 17;
             ttMain.SetToolTip(tbERWEEPublisher, resources.GetString("tbERWEEPublisher.ToolTip"));
             tbERWEEPublisher.KeyDown += this.TextBox_KeyDown;
             // 
@@ -5789,7 +6104,7 @@
             buttonERWEEAuthorsAdd.Location = new Point(275, 18);
             buttonERWEEAuthorsAdd.Name = "buttonERWEEAuthorsAdd";
             buttonERWEEAuthorsAdd.Size = new Size(90, 23);
-            buttonERWEEAuthorsAdd.TabIndex = 2;
+            buttonERWEEAuthorsAdd.TabIndex = 11;
             buttonERWEEAuthorsAdd.Text = "Добавить";
             buttonERWEEAuthorsAdd.UseVisualStyleBackColor = true;
             buttonERWEEAuthorsAdd.Click += this.buttonERWEEAuthorsAdd_Click;
@@ -5813,6 +6128,7 @@
             lbERWEEAuthors.Name = "lbERWEEAuthors";
             lbERWEEAuthors.Size = new Size(450, 64);
             lbERWEEAuthors.TabIndex = 3;
+            lbERWEEAuthors.TabStop = false;
             lbERWEEAuthors.Tag = "";
             lbERWEEAuthors.DragDrop += this.ListBox_DragDrop;
             lbERWEEAuthors.DragOver += this.ListBox_DragOver;
@@ -5822,11 +6138,12 @@
             // 
             // tbERWEEPublishingLocation
             // 
+            tbERWEEPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEPublishingLocation.Location = new Point(0, 220);
             tbERWEEPublishingLocation.Name = "tbERWEEPublishingLocation";
             tbERWEEPublishingLocation.Size = new Size(354, 23);
-            tbERWEEPublishingLocation.TabIndex = 9;
-            ttMain.SetToolTip(tbERWEEPublishingLocation, resources.GetString("tbERWEEPublishingLocation.ToolTip"));
+            tbERWEEPublishingLocation.TabIndex = 15;
+            ttMain.SetToolTip(tbERWEEPublishingLocation, "Город или города, где выпущено электронное издание.\r\nПример: «Санкт-Петербург»");
             tbERWEEPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWEETitle
@@ -5837,7 +6154,7 @@
             labelERWEETitle.Size = new Size(57, 15);
             labelERWEETitle.TabIndex = 4;
             labelERWEETitle.Text = "Заглавие";
-            ttMain.SetToolTip(labelERWEETitle, "Полное название книги, как указано в источнике, без сокращений.\r\nПример: \"Экономика организации. Ресурсы коммерческой организации\".\r\n");
+            ttMain.SetToolTip(labelERWEETitle, "Основное название всего издания, которое охватывает несколько томов.\r\nПример: «История философии»");
             // 
             // labelERWEEPublishingLocation
             // 
@@ -5847,24 +6164,26 @@
             labelERWEEPublishingLocation.Size = new Size(89, 15);
             labelERWEEPublishingLocation.TabIndex = 8;
             labelERWEEPublishingLocation.Text = "Место издания";
-            ttMain.SetToolTip(labelERWEEPublishingLocation, resources.GetString("labelERWEEPublishingLocation.ToolTip"));
+            ttMain.SetToolTip(labelERWEEPublishingLocation, "Город или города, где выпущено электронное издание.\r\nПример: «Санкт-Петербург»");
             // 
             // tbERWEETitle
             // 
+            tbERWEETitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEETitle.Location = new Point(0, 132);
             tbERWEETitle.Name = "tbERWEETitle";
             tbERWEETitle.Size = new Size(450, 23);
-            tbERWEETitle.TabIndex = 5;
-            ttMain.SetToolTip(tbERWEETitle, "Полное название книги, как указано в источнике, без сокращений.\r\nПример: \"Экономика организации. Ресурсы коммерческой организации\".\r\n");
+            tbERWEETitle.TabIndex = 13;
+            ttMain.SetToolTip(tbERWEETitle, "Основное название всего издания, которое охватывает несколько томов.\r\nПример: «История философии»");
             tbERWEETitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERWEEVolumesCount
             // 
+            tbERWEEVolumesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEVolumesCount.Location = new Point(0, 176);
             tbERWEEVolumesCount.Name = "tbERWEEVolumesCount";
             tbERWEEVolumesCount.Size = new Size(450, 23);
-            tbERWEEVolumesCount.TabIndex = 7;
-            ttMain.SetToolTip(tbERWEEVolumesCount, "Количество всех томов в издании.\r\nПример: \"2\".\r\n");
+            tbERWEEVolumesCount.TabIndex = 14;
+            ttMain.SetToolTip(tbERWEEVolumesCount, "Общее количество томов в издании.\r\nПример: «5»");
             tbERWEEVolumesCount.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWEEVolumesCount
@@ -5875,7 +6194,7 @@
             labelERWEEVolumesCount.Size = new Size(109, 15);
             labelERWEEVolumesCount.TabIndex = 6;
             labelERWEEVolumesCount.Text = "Количество томов";
-            ttMain.SetToolTip(labelERWEEVolumesCount, "Количество всех томов в издании.\r\nПример: \"2\".");
+            ttMain.SetToolTip(labelERWEEVolumesCount, "Общее количество томов в издании.\r\nПример: «5»");
             // 
             // gbERWholeElectronicEditionOptional
             // 
@@ -5930,10 +6249,11 @@
             // 
             // tbERWEETranslator
             // 
+            tbERWEETranslator.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEETranslator.Location = new Point(0, 308);
             tbERWEETranslator.Name = "tbERWEETranslator";
             tbERWEETranslator.Size = new Size(450, 23);
-            tbERWEETranslator.TabIndex = 36;
+            tbERWEETranslator.TabIndex = 31;
             ttMain.SetToolTip(tbERWEETranslator, "Имя переводчика для переводных изданий, после \"; перевод с …\".\r\nПример: \"английского А. Ю. Заякина\".\r\n");
             tbERWEETranslator.KeyDown += this.TextBox_KeyDown;
             // 
@@ -5945,15 +6265,16 @@
             labelERWEEOrganization.Size = new Size(79, 15);
             labelERWEEOrganization.TabIndex = 33;
             labelERWEEOrganization.Text = "Организация";
-            ttMain.SetToolTip(labelERWEEOrganization, resources.GetString("labelERWEEOrganization.ToolTip"));
+            ttMain.SetToolTip(labelERWEEOrganization, "Организация, ответственная за публикацию.\r\nПример: «Российская академия наук»");
             // 
             // tbERWEEOrganization
             // 
+            tbERWEEOrganization.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEOrganization.Location = new Point(0, 220);
             tbERWEEOrganization.Name = "tbERWEEOrganization";
             tbERWEEOrganization.Size = new Size(450, 23);
-            tbERWEEOrganization.TabIndex = 34;
-            ttMain.SetToolTip(tbERWEEOrganization, resources.GetString("tbERWEEOrganization.ToolTip"));
+            tbERWEEOrganization.TabIndex = 29;
+            ttMain.SetToolTip(tbERWEEOrganization, "Организация, ответственная за публикацию.\r\nПример: «Российская академия наук»");
             tbERWEEOrganization.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWEEParallelTitle
@@ -5968,10 +6289,11 @@
             // 
             // tbERWEEParallelTitle
             // 
+            tbERWEEParallelTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEParallelTitle.Location = new Point(0, 18);
             tbERWEEParallelTitle.Name = "tbERWEEParallelTitle";
             tbERWEEParallelTitle.Size = new Size(450, 23);
-            tbERWEEParallelTitle.TabIndex = 32;
+            tbERWEEParallelTitle.TabIndex = 24;
             ttMain.SetToolTip(tbERWEEParallelTitle, "Заглавие, повторённое в документе на другом языке (или в другой письменности), \r\nуказываемое в библиографической записи через знак \"=\".\r\nПример: \"Theorie und Praktikum in der deutschen Grammatik\"\r\n");
             tbERWEEParallelTitle.KeyDown += this.TextBox_KeyDown;
             // 
@@ -5983,15 +6305,16 @@
             labelERWEEContentType.Size = new Size(97, 15);
             labelERWEEContentType.TabIndex = 24;
             labelERWEEContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelERWEEContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelERWEEContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // tbERWEEContentType
             // 
+            tbERWEEContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEContentType.Location = new Point(0, 484);
             tbERWEEContentType.Name = "tbERWEEContentType";
             tbERWEEContentType.Size = new Size(450, 23);
-            tbERWEEContentType.TabIndex = 25;
-            ttMain.SetToolTip(tbERWEEContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbERWEEContentType.TabIndex = 35;
+            ttMain.SetToolTip(tbERWEEContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             tbERWEEContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // cbERWEEEditorType
@@ -6003,7 +6326,7 @@
             cbERWEEEditorType.Location = new Point(194, 106);
             cbERWEEEditorType.Name = "cbERWEEEditorType";
             cbERWEEEditorType.Size = new Size(160, 23);
-            cbERWEEEditorType.TabIndex = 23;
+            cbERWEEEditorType.TabIndex = 27;
             // 
             // lbERWEEEditor
             // 
@@ -6014,6 +6337,7 @@
             lbERWEEEditor.Name = "lbERWEEEditor";
             lbERWEEEditor.Size = new Size(450, 64);
             lbERWEEEditor.TabIndex = 22;
+            lbERWEEEditor.TabStop = false;
             lbERWEEEditor.DragDrop += this.ListBox_DragDrop;
             lbERWEEEditor.DragOver += this.ListBox_DragOver;
             lbERWEEEditor.KeyDown += this.ListBox_KeyDown;
@@ -6025,7 +6349,7 @@
             buttonERWEEEditorAdd.Location = new Point(360, 106);
             buttonERWEEEditorAdd.Name = "buttonERWEEEditorAdd";
             buttonERWEEEditorAdd.Size = new Size(90, 23);
-            buttonERWEEEditorAdd.TabIndex = 21;
+            buttonERWEEEditorAdd.TabIndex = 28;
             buttonERWEEEditorAdd.Text = "Добавить";
             buttonERWEEEditorAdd.UseVisualStyleBackColor = true;
             buttonERWEEEditorAdd.Click += this.buttonERWEEEditorAdd_Click;
@@ -6038,15 +6362,16 @@
             labelERWEEDocumentType.Size = new Size(88, 15);
             labelERWEEDocumentType.TabIndex = 0;
             labelERWEEDocumentType.Text = "Вид документа";
-            ttMain.SetToolTip(labelERWEEDocumentType, "Уточняет тип издания (учебник, монография и т.д.).\r\nВ квадратных скобках указывается, если вид документа не указан в самом источнике напрямую.\r\nПример: \"учебное пособие\" или \"[монография]\".\r\n");
+            ttMain.SetToolTip(labelERWEEDocumentType, "Тип документа (монография, сборник, энциклопедия и т. д.).\r\nПример: «монография»");
             // 
             // tbERWEEISBN
             // 
+            tbERWEEISBN.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEISBN.Location = new Point(0, 440);
             tbERWEEISBN.Name = "tbERWEEISBN";
             tbERWEEISBN.Size = new Size(450, 23);
-            tbERWEEISBN.TabIndex = 11;
-            ttMain.SetToolTip(tbERWEEISBN, "Международный стандартный номер книги.\r\nПример: \"978-5-534-10585-8\".\r\n");
+            tbERWEEISBN.TabIndex = 34;
+            ttMain.SetToolTip(tbERWEEISBN, "Международный стандартный номер книги.\r\nПример: «978-5-288-06543-1»");
             tbERWEEISBN.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWEESeries
@@ -6057,14 +6382,15 @@
             labelERWEESeries.Size = new Size(41, 15);
             labelERWEESeries.TabIndex = 8;
             labelERWEESeries.Text = "Серия";
-            ttMain.SetToolTip(labelERWEESeries, "Название серии, в которой издана книга.\r\nПример: \"Профессиональное образование\".\r\n");
+            ttMain.SetToolTip(labelERWEESeries, "Серия, в рамках которой выпущено издание.\r\nПример: «Классика философской мысли»");
             // 
             // tbERWEEEditor
             // 
+            tbERWEEEditor.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEEditor.Location = new Point(0, 106);
             tbERWEEEditor.Name = "tbERWEEEditor";
             tbERWEEEditor.Size = new Size(188, 23);
-            tbERWEEEditor.TabIndex = 5;
+            tbERWEEEditor.TabIndex = 26;
             ttMain.SetToolTip(tbERWEEEditor, resources.GetString("tbERWEEEditor.ToolTip"));
             tbERWEEEditor.KeyDown += this.TextBox_KeyDown;
             // 
@@ -6076,32 +6402,35 @@
             labelERWEEPagesCount.Size = new Size(120, 15);
             labelERWEEPagesCount.TabIndex = 14;
             labelERWEEPagesCount.Text = "Количество страниц";
-            ttMain.SetToolTip(labelERWEEPagesCount, "Общий объем книги в страницах.\r\nПример: \"134\".\r\n");
+            ttMain.SetToolTip(labelERWEEPagesCount, "Общее количество страниц во всех томах.\r\nПример: «1200»");
             // 
             // tbERWEESeries
             // 
+            tbERWEESeries.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEESeries.Location = new Point(0, 396);
             tbERWEESeries.Name = "tbERWEESeries";
             tbERWEESeries.Size = new Size(450, 23);
-            tbERWEESeries.TabIndex = 9;
-            ttMain.SetToolTip(tbERWEESeries, "Название серии, в которой издана книга.\r\nПример: \"Профессиональное образование\".\r\n");
+            tbERWEESeries.TabIndex = 33;
+            ttMain.SetToolTip(tbERWEESeries, "Серия, в рамках которой выпущено издание.\r\nПример: «Классика философской мысли»");
             tbERWEESeries.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERWEEPagesCount
             // 
+            tbERWEEPagesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEPagesCount.Location = new Point(0, 352);
             tbERWEEPagesCount.Name = "tbERWEEPagesCount";
             tbERWEEPagesCount.Size = new Size(450, 23);
-            tbERWEEPagesCount.TabIndex = 15;
-            ttMain.SetToolTip(tbERWEEPagesCount, "Общий объем книги в страницах.\r\nПример: \"134\".\r\n");
+            tbERWEEPagesCount.TabIndex = 32;
+            ttMain.SetToolTip(tbERWEEPagesCount, "Общее количество страниц во всех томах.\r\nПример: «1200»\r\n");
             tbERWEEPagesCount.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERWEEEditionNumber
             // 
+            tbERWEEEditionNumber.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEEditionNumber.Location = new Point(0, 264);
             tbERWEEEditionNumber.Name = "tbERWEEEditionNumber";
             tbERWEEEditionNumber.Size = new Size(450, 23);
-            tbERWEEEditionNumber.TabIndex = 7;
+            tbERWEEEditionNumber.TabIndex = 30;
             ttMain.SetToolTip(tbERWEEEditionNumber, "Номер издания и уточнения (переработанное, дополненное), если не первое, перед местом издания.\r\nПример: \"2-е издание, переработанное и дополненное\".\r\n");
             tbERWEEEditionNumber.KeyDown += this.TextBox_KeyDown;
             // 
@@ -6113,15 +6442,16 @@
             labelERWEEISBN.Size = new Size(32, 15);
             labelERWEEISBN.TabIndex = 10;
             labelERWEEISBN.Text = "ISBN";
-            ttMain.SetToolTip(labelERWEEISBN, "Международный стандартный номер книги.\r\nПример: \"978-5-534-10585-8\".\r\n");
+            ttMain.SetToolTip(labelERWEEISBN, "Международный стандартный номер книги.\r\nПример: «978-5-288-06543-1»");
             // 
             // tbERWEEDocumentType
             // 
+            tbERWEEDocumentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWEEDocumentType.Location = new Point(0, 62);
             tbERWEEDocumentType.Name = "tbERWEEDocumentType";
             tbERWEEDocumentType.Size = new Size(450, 23);
-            tbERWEEDocumentType.TabIndex = 1;
-            ttMain.SetToolTip(tbERWEEDocumentType, "Уточняет тип издания (учебник, монография и т.д.).\r\nВ квадратных скобках указывается, если вид документа не указан в самом источнике напрямую.\r\nПример: \"учебное пособие\" или \"[монография]\".\r\n");
+            tbERWEEDocumentType.TabIndex = 25;
+            ttMain.SetToolTip(tbERWEEDocumentType, "Тип документа (монография, сборник, энциклопедия и т. д.).\r\nПример: «монография»");
             tbERWEEDocumentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWEEEditionNumber
@@ -6211,6 +6541,7 @@
             lbEREESVPublishingLocationSelect.Name = "lbEREESVPublishingLocationSelect";
             lbEREESVPublishingLocationSelect.Size = new Size(207, 64);
             lbEREESVPublishingLocationSelect.TabIndex = 39;
+            lbEREESVPublishingLocationSelect.TabStop = false;
             lbEREESVPublishingLocationSelect.SelectedIndexChanged += this.lbEREESVPublishingLocationSelect_SelectedIndexChanged;
             // 
             // cbEREESVPublisher
@@ -6219,18 +6550,20 @@
             cbEREESVPublisher.Location = new Point(339, 380);
             cbEREESVPublisher.Name = "cbEREESVPublisher";
             cbEREESVPublisher.Size = new Size(111, 19);
-            cbEREESVPublisher.TabIndex = 38;
+            cbEREESVPublisher.TabIndex = 20;
             cbEREESVPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbEREESVPublisher, "Включение «умного режима» добавления издательств\r\n\r\n");
             cbEREESVPublisher.UseVisualStyleBackColor = true;
             cbEREESVPublisher.CheckedChanged += this.cbEREESVPublisher_CheckedChanged;
             // 
             // tbEREESVVolumeNumber
             // 
+            tbEREESVVolumeNumber.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVVolumeNumber.Location = new Point(0, 220);
             tbEREESVVolumeNumber.Name = "tbEREESVVolumeNumber";
             tbEREESVVolumeNumber.Size = new Size(450, 23);
-            tbEREESVVolumeNumber.TabIndex = 28;
-            ttMain.SetToolTip(tbEREESVVolumeNumber, "Номер текущего тома.\r\nПример: \"2\".\r\n");
+            tbEREESVVolumeNumber.TabIndex = 15;
+            ttMain.SetToolTip(tbEREESVVolumeNumber, "Номер конкретного тома, к которому относится описание.\r\nПример: «3»");
             tbEREESVVolumeNumber.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREESVVolumeNumber
@@ -6241,15 +6574,16 @@
             labelEREESVVolumeNumber.Size = new Size(75, 15);
             labelEREESVVolumeNumber.TabIndex = 27;
             labelEREESVVolumeNumber.Text = "Номер тома";
-            ttMain.SetToolTip(labelEREESVVolumeNumber, "Номер текущего тома.\r\nПример: \"2\".");
+            ttMain.SetToolTip(labelEREESVVolumeNumber, "Номер конкретного тома, к которому относится описание.\r\nПример: «3»");
             // 
             // tbEREESVAccessMode
             // 
+            tbEREESVAccessMode.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVAccessMode.Location = new Point(0, 624);
             tbEREESVAccessMode.Name = "tbEREESVAccessMode";
             tbEREESVAccessMode.Size = new Size(450, 23);
-            tbEREESVAccessMode.TabIndex = 26;
-            ttMain.SetToolTip(tbEREESVAccessMode, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            tbEREESVAccessMode.TabIndex = 24;
+            ttMain.SetToolTip(tbEREESVAccessMode, "Условия доступа к файлу (например, «свободный», «ограниченный»).\r\nПример: «свободный»");
             // 
             // labelEREESVAccessMode
             // 
@@ -6259,15 +6593,16 @@
             labelEREESVAccessMode.Size = new Size(91, 15);
             labelEREESVAccessMode.TabIndex = 25;
             labelEREESVAccessMode.Text = "Режим доступа";
-            ttMain.SetToolTip(labelEREESVAccessMode, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelEREESVAccessMode, "Условия доступа к файлу (например, «свободный», «ограниченный»).\r\nПример: «свободный»");
             // 
             // tbEREESVAccessDate
             // 
+            tbEREESVAccessDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVAccessDate.Location = new Point(0, 580);
             tbEREESVAccessDate.Name = "tbEREESVAccessDate";
             tbEREESVAccessDate.Size = new Size(450, 23);
-            tbEREESVAccessDate.TabIndex = 24;
-            ttMain.SetToolTip(tbEREESVAccessDate, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            tbEREESVAccessDate.TabIndex = 23;
+            ttMain.SetToolTip(tbEREESVAccessDate, "Дата, когда был произведён просмотр по ссылке.\r\nПример: «20.06.2025»");
             tbEREESVAccessDate.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREESVAccessDate
@@ -6278,15 +6613,16 @@
             labelEREESVAccessDate.Size = new Size(99, 15);
             labelEREESVAccessDate.TabIndex = 23;
             labelEREESVAccessDate.Text = "Дата обращения";
-            ttMain.SetToolTip(labelEREESVAccessDate, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelEREESVAccessDate, "Дата, когда был произведён просмотр по ссылке.\r\nПример: «20.06.2025»");
             // 
             // tbEREESVURL
             // 
+            tbEREESVURL.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVURL.Location = new Point(0, 536);
             tbEREESVURL.Name = "tbEREESVURL";
             tbEREESVURL.Size = new Size(450, 23);
             tbEREESVURL.TabIndex = 22;
-            ttMain.SetToolTip(tbEREESVURL, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(tbEREESVURL, "Ссылка на электронную версию тома.\r\nПример: «https://lib.example.org/history_vol3.pdf»");
             tbEREESVURL.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREESVURL
@@ -6297,7 +6633,7 @@
             labelEREESVURL.Size = new Size(28, 15);
             labelEREESVURL.TabIndex = 21;
             labelEREESVURL.Text = "URL";
-            ttMain.SetToolTip(labelEREESVURL, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelEREESVURL, "Ссылка на электронную версию тома.\r\nПример: «https://lib.example.org/history_vol3.pdf»");
             // 
             // cbEREESVAuthors
             // 
@@ -6305,7 +6641,7 @@
             cbEREESVAuthors.Location = new Point(371, 20);
             cbEREESVAuthors.Name = "cbEREESVAuthors";
             cbEREESVAuthors.Size = new Size(79, 19);
-            cbEREESVAuthors.TabIndex = 20;
+            cbEREESVAuthors.TabIndex = 12;
             cbEREESVAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbEREESVAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbEREESVAuthors.UseVisualStyleBackColor = true;
@@ -6315,7 +6651,7 @@
             buttonEREESVPublisherAdd.Location = new Point(243, 378);
             buttonEREESVPublisherAdd.Name = "buttonEREESVPublisherAdd";
             buttonEREESVPublisherAdd.Size = new Size(90, 23);
-            buttonEREESVPublisherAdd.TabIndex = 18;
+            buttonEREESVPublisherAdd.TabIndex = 19;
             buttonEREESVPublisherAdd.Text = "Добавить";
             buttonEREESVPublisherAdd.UseVisualStyleBackColor = true;
             buttonEREESVPublisherAdd.Click += this.buttonEREESVPublisherAdd_Click;
@@ -6329,6 +6665,7 @@
             lbEREESVPublisher.Name = "lbEREESVPublisher";
             lbEREESVPublisher.Size = new Size(237, 64);
             lbEREESVPublisher.TabIndex = 19;
+            lbEREESVPublisher.TabStop = false;
             lbEREESVPublisher.DragDrop += this.ListBox_DragDrop;
             lbEREESVPublisher.DragOver += this.ListBox_DragOver;
             lbEREESVPublisher.KeyDown += this.ListBox_KeyDown;
@@ -6340,7 +6677,7 @@
             buttonEREESVPublishingLocationAdd.Location = new Point(360, 264);
             buttonEREESVPublishingLocationAdd.Name = "buttonEREESVPublishingLocationAdd";
             buttonEREESVPublishingLocationAdd.Size = new Size(90, 23);
-            buttonEREESVPublishingLocationAdd.TabIndex = 16;
+            buttonEREESVPublishingLocationAdd.TabIndex = 17;
             buttonEREESVPublishingLocationAdd.Text = "Добавить";
             buttonEREESVPublishingLocationAdd.UseVisualStyleBackColor = true;
             buttonEREESVPublishingLocationAdd.Click += this.buttonEREESVPublishingLocationAdd_Click;
@@ -6354,6 +6691,7 @@
             lbEREESVPublishingLocation.Name = "lbEREESVPublishingLocation";
             lbEREESVPublishingLocation.Size = new Size(450, 64);
             lbEREESVPublishingLocation.TabIndex = 17;
+            lbEREESVPublishingLocation.TabStop = false;
             lbEREESVPublishingLocation.DragDrop += this.ListBox_DragDrop;
             lbEREESVPublishingLocation.DragOver += this.ListBox_DragOver;
             lbEREESVPublishingLocation.KeyDown += this.ListBox_KeyDown;
@@ -6372,11 +6710,12 @@
             // 
             // tbEREESVPublishYear
             // 
+            tbEREESVPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVPublishYear.Location = new Point(0, 492);
             tbEREESVPublishYear.Name = "tbEREESVPublishYear";
             tbEREESVPublishYear.Size = new Size(450, 23);
-            tbEREESVPublishYear.TabIndex = 13;
-            ttMain.SetToolTip(tbEREESVPublishYear, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            tbEREESVPublishYear.TabIndex = 21;
+            ttMain.SetToolTip(tbEREESVPublishYear, "Год выхода тома.\r\nПример: «2021»");
             tbEREESVPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREESVPublishYear
@@ -6387,23 +6726,25 @@
             labelEREESVPublishYear.Size = new Size(73, 15);
             labelEREESVPublishYear.TabIndex = 12;
             labelEREESVPublishYear.Text = "Год издания";
-            ttMain.SetToolTip(labelEREESVPublishYear, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelEREESVPublishYear, "Год выхода тома.\r\nПример: «2021»");
             // 
             // tbEREESVAuthors
             // 
+            tbEREESVAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVAuthors.Location = new Point(0, 18);
             tbEREESVAuthors.Name = "tbEREESVAuthors";
             tbEREESVAuthors.Size = new Size(269, 23);
-            tbEREESVAuthors.TabIndex = 1;
+            tbEREESVAuthors.TabIndex = 10;
             ttMain.SetToolTip(tbEREESVAuthors, resources.GetString("tbEREESVAuthors.ToolTip"));
             tbEREESVAuthors.KeyDown += this.TextBox_KeyDown;
             // 
             // tbEREESVPublisher
             // 
+            tbEREESVPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVPublisher.Location = new Point(0, 378);
             tbEREESVPublisher.Name = "tbEREESVPublisher";
             tbEREESVPublisher.Size = new Size(237, 23);
-            tbEREESVPublisher.TabIndex = 11;
+            tbEREESVPublisher.TabIndex = 18;
             ttMain.SetToolTip(tbEREESVPublisher, resources.GetString("tbEREESVPublisher.ToolTip"));
             tbEREESVPublisher.KeyDown += this.TextBox_KeyDown;
             // 
@@ -6412,7 +6753,7 @@
             buttonEREESVAuthorsAdd.Location = new Point(275, 18);
             buttonEREESVAuthorsAdd.Name = "buttonEREESVAuthorsAdd";
             buttonEREESVAuthorsAdd.Size = new Size(90, 23);
-            buttonEREESVAuthorsAdd.TabIndex = 2;
+            buttonEREESVAuthorsAdd.TabIndex = 11;
             buttonEREESVAuthorsAdd.Text = "Добавить";
             buttonEREESVAuthorsAdd.UseVisualStyleBackColor = true;
             buttonEREESVAuthorsAdd.Click += this.buttonEREESVAuthorsAdd_Click;
@@ -6436,6 +6777,7 @@
             lbEREESVAuthors.Name = "lbEREESVAuthors";
             lbEREESVAuthors.Size = new Size(450, 64);
             lbEREESVAuthors.TabIndex = 3;
+            lbEREESVAuthors.TabStop = false;
             lbEREESVAuthors.Tag = "";
             lbEREESVAuthors.DragDrop += this.ListBox_DragDrop;
             lbEREESVAuthors.DragOver += this.ListBox_DragOver;
@@ -6445,11 +6787,12 @@
             // 
             // tbEREESVPublishingLocation
             // 
+            tbEREESVPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVPublishingLocation.Location = new Point(0, 264);
             tbEREESVPublishingLocation.Name = "tbEREESVPublishingLocation";
             tbEREESVPublishingLocation.Size = new Size(354, 23);
-            tbEREESVPublishingLocation.TabIndex = 9;
-            ttMain.SetToolTip(tbEREESVPublishingLocation, resources.GetString("tbEREESVPublishingLocation.ToolTip"));
+            tbEREESVPublishingLocation.TabIndex = 16;
+            ttMain.SetToolTip(tbEREESVPublishingLocation, "Город или города, где издание опубликовано.\r\nПример: «Москва»");
             tbEREESVPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREESVTitle
@@ -6460,7 +6803,7 @@
             labelEREESVTitle.Size = new Size(57, 15);
             labelEREESVTitle.TabIndex = 4;
             labelEREESVTitle.Text = "Заглавие";
-            ttMain.SetToolTip(labelEREESVTitle, "Полное название книги, как указано в источнике, без сокращений.\r\nПример: \"Экономика организации. Ресурсы коммерческой организации\".\r\n");
+            ttMain.SetToolTip(labelEREESVTitle, "Название всего издания (всех томов).\r\nПример: «История Европы»");
             // 
             // labelEREESVPublishingLocation
             // 
@@ -6470,24 +6813,26 @@
             labelEREESVPublishingLocation.Size = new Size(89, 15);
             labelEREESVPublishingLocation.TabIndex = 8;
             labelEREESVPublishingLocation.Text = "Место издания";
-            ttMain.SetToolTip(labelEREESVPublishingLocation, resources.GetString("labelEREESVPublishingLocation.ToolTip"));
+            ttMain.SetToolTip(labelEREESVPublishingLocation, "Город или города, где издание опубликовано.\r\nПример: «Москва»");
             // 
             // tbEREESVTitle
             // 
+            tbEREESVTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVTitle.Location = new Point(0, 132);
             tbEREESVTitle.Name = "tbEREESVTitle";
             tbEREESVTitle.Size = new Size(450, 23);
-            tbEREESVTitle.TabIndex = 5;
-            ttMain.SetToolTip(tbEREESVTitle, "Полное название книги, как указано в источнике, без сокращений.\r\nПример: \"Экономика организации. Ресурсы коммерческой организации\".\r\n");
+            tbEREESVTitle.TabIndex = 13;
+            ttMain.SetToolTip(tbEREESVTitle, "Название всего издания (всех томов).\r\nПример: «История Европы»");
             tbEREESVTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbEREESVVolumesCount
             // 
+            tbEREESVVolumesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVVolumesCount.Location = new Point(0, 176);
             tbEREESVVolumesCount.Name = "tbEREESVVolumesCount";
             tbEREESVVolumesCount.Size = new Size(450, 23);
-            tbEREESVVolumesCount.TabIndex = 7;
-            ttMain.SetToolTip(tbEREESVVolumesCount, "Количество всех томов в издании.\r\nПример: \"2\".\r\n");
+            tbEREESVVolumesCount.TabIndex = 14;
+            ttMain.SetToolTip(tbEREESVVolumesCount, "Общее число томов в издании.\r\nПример: «6»");
             tbEREESVVolumesCount.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREESVVolumesCount
@@ -6498,7 +6843,7 @@
             labelEREESVVolumesCount.Size = new Size(109, 15);
             labelEREESVVolumesCount.TabIndex = 6;
             labelEREESVVolumesCount.Text = "Количество томов";
-            ttMain.SetToolTip(labelEREESVVolumesCount, "Количество всех томов в издании.\r\nПример: \"2\".");
+            ttMain.SetToolTip(labelEREESVVolumesCount, "Общее число томов в издании.\r\nПример: «6»");
             // 
             // gbERElectronicEditionSeparateVolumeOptional
             // 
@@ -6545,11 +6890,12 @@
             // 
             // tbEREESVVolumeTitle
             // 
+            tbEREESVVolumeTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVVolumeTitle.Location = new Point(0, 62);
             tbEREESVVolumeTitle.Name = "tbEREESVVolumeTitle";
             tbEREESVVolumeTitle.Size = new Size(450, 23);
-            tbEREESVVolumeTitle.TabIndex = 38;
-            ttMain.SetToolTip(tbEREESVVolumeTitle, "Название именно этого тома.\r\nПример: \"Эпоха Петра I\".\r\n");
+            tbEREESVVolumeTitle.TabIndex = 26;
+            ttMain.SetToolTip(tbEREESVVolumeTitle, "Уточнение, чему посвящён конкретный том.\r\nПример: «Средневековье»");
             tbEREESVVolumeTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREESVVolumeTitle
@@ -6560,7 +6906,7 @@
             labelEREESVVolumeTitle.Size = new Size(87, 15);
             labelEREESVVolumeTitle.TabIndex = 37;
             labelEREESVVolumeTitle.Text = "Заглавие тома";
-            ttMain.SetToolTip(labelEREESVVolumeTitle, "Название именно этого тома.\r\nПример: \"Эпоха Петра I\".");
+            ttMain.SetToolTip(labelEREESVVolumeTitle, "Уточнение, чему посвящён конкретный том.\r\nПример: «Средневековье»");
             // 
             // labelEREESVTranslator
             // 
@@ -6574,10 +6920,11 @@
             // 
             // tbEREESVTranslator
             // 
+            tbEREESVTranslator.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVTranslator.Location = new Point(0, 352);
             tbEREESVTranslator.Name = "tbEREESVTranslator";
             tbEREESVTranslator.Size = new Size(450, 23);
-            tbEREESVTranslator.TabIndex = 36;
+            tbEREESVTranslator.TabIndex = 33;
             ttMain.SetToolTip(tbEREESVTranslator, "Имя переводчика для переводных изданий, после \"; перевод с …\".\r\nПример: \"английского А. Ю. Заякина\".\r\n");
             tbEREESVTranslator.KeyDown += this.TextBox_KeyDown;
             // 
@@ -6589,15 +6936,16 @@
             labelEREESVOrganization.Size = new Size(79, 15);
             labelEREESVOrganization.TabIndex = 33;
             labelEREESVOrganization.Text = "Организация";
-            ttMain.SetToolTip(labelEREESVOrganization, resources.GetString("labelEREESVOrganization.ToolTip"));
+            ttMain.SetToolTip(labelEREESVOrganization, "Организация, ответственная за публикацию.\r\nПример: «Институт всеобщей истории РАН»");
             // 
             // tbEREESVOrganization
             // 
+            tbEREESVOrganization.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVOrganization.Location = new Point(0, 264);
             tbEREESVOrganization.Name = "tbEREESVOrganization";
             tbEREESVOrganization.Size = new Size(450, 23);
-            tbEREESVOrganization.TabIndex = 34;
-            ttMain.SetToolTip(tbEREESVOrganization, resources.GetString("tbEREESVOrganization.ToolTip"));
+            tbEREESVOrganization.TabIndex = 31;
+            ttMain.SetToolTip(tbEREESVOrganization, "Организация, ответственная за публикацию.\r\nПример: «Институт всеобщей истории РАН»");
             tbEREESVOrganization.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREESVParallelTitle
@@ -6612,10 +6960,11 @@
             // 
             // tbEREESVParallelTitle
             // 
+            tbEREESVParallelTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVParallelTitle.Location = new Point(0, 18);
             tbEREESVParallelTitle.Name = "tbEREESVParallelTitle";
             tbEREESVParallelTitle.Size = new Size(450, 23);
-            tbEREESVParallelTitle.TabIndex = 32;
+            tbEREESVParallelTitle.TabIndex = 25;
             ttMain.SetToolTip(tbEREESVParallelTitle, "Заглавие, повторённое в документе на другом языке (или в другой письменности), \r\nуказываемое в библиографической записи через знак \"=\".\r\nПример: \"Theorie und Praktikum in der deutschen Grammatik\"\r\n");
             tbEREESVParallelTitle.KeyDown += this.TextBox_KeyDown;
             // 
@@ -6627,15 +6976,16 @@
             labelEREESVContentType.Size = new Size(97, 15);
             labelEREESVContentType.TabIndex = 24;
             labelEREESVContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelEREESVContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelEREESVContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             // 
             // tbEREESVContentType
             // 
+            tbEREESVContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVContentType.Location = new Point(0, 528);
             tbEREESVContentType.Name = "tbEREESVContentType";
             tbEREESVContentType.Size = new Size(450, 23);
-            tbEREESVContentType.TabIndex = 25;
-            ttMain.SetToolTip(tbEREESVContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbEREESVContentType.TabIndex = 37;
+            ttMain.SetToolTip(tbEREESVContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             tbEREESVContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // cbEREESVEditorType
@@ -6647,7 +6997,7 @@
             cbEREESVEditorType.Location = new Point(194, 150);
             cbEREESVEditorType.Name = "cbEREESVEditorType";
             cbEREESVEditorType.Size = new Size(160, 23);
-            cbEREESVEditorType.TabIndex = 23;
+            cbEREESVEditorType.TabIndex = 29;
             // 
             // lbEREESVEditor
             // 
@@ -6658,6 +7008,7 @@
             lbEREESVEditor.Name = "lbEREESVEditor";
             lbEREESVEditor.Size = new Size(450, 64);
             lbEREESVEditor.TabIndex = 22;
+            lbEREESVEditor.TabStop = false;
             lbEREESVEditor.DragDrop += this.ListBox_DragDrop;
             lbEREESVEditor.DragOver += this.ListBox_DragOver;
             lbEREESVEditor.KeyDown += this.ListBox_KeyDown;
@@ -6669,7 +7020,7 @@
             buttonEREESVEditorAdd.Location = new Point(360, 150);
             buttonEREESVEditorAdd.Name = "buttonEREESVEditorAdd";
             buttonEREESVEditorAdd.Size = new Size(90, 23);
-            buttonEREESVEditorAdd.TabIndex = 21;
+            buttonEREESVEditorAdd.TabIndex = 30;
             buttonEREESVEditorAdd.Text = "Добавить";
             buttonEREESVEditorAdd.UseVisualStyleBackColor = true;
             buttonEREESVEditorAdd.Click += this.buttonEREESVEditorAdd_Click;
@@ -6682,15 +7033,16 @@
             labelEREESVDocumentType.Size = new Size(88, 15);
             labelEREESVDocumentType.TabIndex = 0;
             labelEREESVDocumentType.Text = "Вид документа";
-            ttMain.SetToolTip(labelEREESVDocumentType, "Уточняет тип издания (учебник, монография и т.д.).\r\nВ квадратных скобках указывается, если вид документа не указан в самом источнике напрямую.\r\nПример: \"учебное пособие\" или \"[монография]\".\r\n");
+            ttMain.SetToolTip(labelEREESVDocumentType, "Тип материала: монография, сборник и т. д.\r\nПример: «монография»");
             // 
             // tbEREESVISBN
             // 
+            tbEREESVISBN.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVISBN.Location = new Point(0, 484);
             tbEREESVISBN.Name = "tbEREESVISBN";
             tbEREESVISBN.Size = new Size(450, 23);
-            tbEREESVISBN.TabIndex = 11;
-            ttMain.SetToolTip(tbEREESVISBN, "Международный стандартный номер книги.\r\nПример: \"978-5-534-10585-8\".\r\n");
+            tbEREESVISBN.TabIndex = 36;
+            ttMain.SetToolTip(tbEREESVISBN, "Международный номер книги.\r\nПример: «978-5-4461-1234-6»");
             tbEREESVISBN.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREESVSeries
@@ -6701,14 +7053,15 @@
             labelEREESVSeries.Size = new Size(41, 15);
             labelEREESVSeries.TabIndex = 8;
             labelEREESVSeries.Text = "Серия";
-            ttMain.SetToolTip(labelEREESVSeries, "Название серии, в которой издана книга.\r\nПример: \"Профессиональное образование\".\r\n");
+            ttMain.SetToolTip(labelEREESVSeries, "Наименование серии, если книга входит в неё.\r\nПример: «Историческая библиотека»");
             // 
             // tbEREESVEditor
             // 
+            tbEREESVEditor.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVEditor.Location = new Point(0, 150);
             tbEREESVEditor.Name = "tbEREESVEditor";
             tbEREESVEditor.Size = new Size(188, 23);
-            tbEREESVEditor.TabIndex = 5;
+            tbEREESVEditor.TabIndex = 28;
             ttMain.SetToolTip(tbEREESVEditor, resources.GetString("tbEREESVEditor.ToolTip"));
             tbEREESVEditor.KeyDown += this.TextBox_KeyDown;
             // 
@@ -6720,32 +7073,35 @@
             labelEREESVPagesCount.Size = new Size(120, 15);
             labelEREESVPagesCount.TabIndex = 14;
             labelEREESVPagesCount.Text = "Количество страниц";
-            ttMain.SetToolTip(labelEREESVPagesCount, "Общий объем книги в страницах.\r\nПример: \"134\".\r\n");
+            ttMain.SetToolTip(labelEREESVPagesCount, "Общее количество страниц в томе.\r\nПример: «320»");
             // 
             // tbEREESVSeries
             // 
+            tbEREESVSeries.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVSeries.Location = new Point(0, 440);
             tbEREESVSeries.Name = "tbEREESVSeries";
             tbEREESVSeries.Size = new Size(450, 23);
-            tbEREESVSeries.TabIndex = 9;
-            ttMain.SetToolTip(tbEREESVSeries, "Название серии, в которой издана книга.\r\nПример: \"Профессиональное образование\".\r\n");
+            tbEREESVSeries.TabIndex = 35;
+            ttMain.SetToolTip(tbEREESVSeries, "Наименование серии, если книга входит в неё.\r\nПример: «Историческая библиотека»");
             tbEREESVSeries.KeyDown += this.TextBox_KeyDown;
             // 
             // tbEREESVPagesCount
             // 
+            tbEREESVPagesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVPagesCount.Location = new Point(0, 396);
             tbEREESVPagesCount.Name = "tbEREESVPagesCount";
             tbEREESVPagesCount.Size = new Size(450, 23);
-            tbEREESVPagesCount.TabIndex = 15;
-            ttMain.SetToolTip(tbEREESVPagesCount, "Общий объем книги в страницах.\r\nПример: \"134\".\r\n");
+            tbEREESVPagesCount.TabIndex = 34;
+            ttMain.SetToolTip(tbEREESVPagesCount, "Общее количество страниц в томе.\r\nПример: «320»\r\n");
             tbEREESVPagesCount.KeyDown += this.TextBox_KeyDown;
             // 
             // tbEREESVEditionNumber
             // 
+            tbEREESVEditionNumber.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVEditionNumber.Location = new Point(0, 308);
             tbEREESVEditionNumber.Name = "tbEREESVEditionNumber";
             tbEREESVEditionNumber.Size = new Size(450, 23);
-            tbEREESVEditionNumber.TabIndex = 7;
+            tbEREESVEditionNumber.TabIndex = 32;
             ttMain.SetToolTip(tbEREESVEditionNumber, "Номер издания и уточнения (переработанное, дополненное), если не первое, перед местом издания.\r\nПример: \"2-е издание, переработанное и дополненное\".\r\n");
             tbEREESVEditionNumber.KeyDown += this.TextBox_KeyDown;
             // 
@@ -6757,15 +7113,16 @@
             labelEREESVISBN.Size = new Size(32, 15);
             labelEREESVISBN.TabIndex = 10;
             labelEREESVISBN.Text = "ISBN";
-            ttMain.SetToolTip(labelEREESVISBN, "Международный стандартный номер книги.\r\nПример: \"978-5-534-10585-8\".\r\n");
+            ttMain.SetToolTip(labelEREESVISBN, "Международный номер книги.\r\nПример: «978-5-4461-1234-6»");
             // 
             // tbEREESVDocumentType
             // 
+            tbEREESVDocumentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREESVDocumentType.Location = new Point(0, 106);
             tbEREESVDocumentType.Name = "tbEREESVDocumentType";
             tbEREESVDocumentType.Size = new Size(450, 23);
-            tbEREESVDocumentType.TabIndex = 1;
-            ttMain.SetToolTip(tbEREESVDocumentType, "Уточняет тип издания (учебник, монография и т.д.).\r\nВ квадратных скобках указывается, если вид документа не указан в самом источнике напрямую.\r\nПример: \"учебное пособие\" или \"[монография]\".\r\n");
+            tbEREESVDocumentType.TabIndex = 27;
+            ttMain.SetToolTip(tbEREESVDocumentType, "Тип материала: монография, сборник и т. д.\r\nПример: «монография»");
             tbEREESVDocumentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREESVEditionNumber
@@ -6852,6 +7209,7 @@
             lbERECMPublishingLocationSelect.Name = "lbERECMPublishingLocationSelect";
             lbERECMPublishingLocationSelect.Size = new Size(207, 64);
             lbERECMPublishingLocationSelect.TabIndex = 37;
+            lbERECMPublishingLocationSelect.TabStop = false;
             lbERECMPublishingLocationSelect.SelectedIndexChanged += this.lbERECMPublishingLocationSelect_SelectedIndexChanged;
             // 
             // cbERECMPublisher
@@ -6860,18 +7218,20 @@
             cbERECMPublisher.Location = new Point(339, 312);
             cbERECMPublisher.Name = "cbERECMPublisher";
             cbERECMPublisher.Size = new Size(111, 19);
-            cbERECMPublisher.TabIndex = 36;
+            cbERECMPublisher.TabIndex = 18;
             cbERECMPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbERECMPublisher, "Включение «умного режима» добавления издательств\r\n");
             cbERECMPublisher.UseVisualStyleBackColor = true;
             cbERECMPublisher.CheckedChanged += this.cbERECMPublisher_CheckedChanged;
             // 
             // tbERECMAccessMode
             // 
+            tbERECMAccessMode.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMAccessMode.Location = new Point(0, 556);
             tbERECMAccessMode.Name = "tbERECMAccessMode";
             tbERECMAccessMode.Size = new Size(450, 23);
-            tbERECMAccessMode.TabIndex = 32;
-            ttMain.SetToolTip(tbERECMAccessMode, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            tbERECMAccessMode.TabIndex = 22;
+            ttMain.SetToolTip(tbERECMAccessMode, "Информация об условиях доступа.\r\nПример: «свободный»");
             tbERECMAccessMode.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECMAccessMode
@@ -6882,15 +7242,16 @@
             labelERECMAccessMode.Size = new Size(91, 15);
             labelERECMAccessMode.TabIndex = 31;
             labelERECMAccessMode.Text = "Режим доступа";
-            ttMain.SetToolTip(labelERECMAccessMode, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelERECMAccessMode, "Информация об условиях доступа.\r\nПример: «свободный»");
             // 
             // tbERECMAccessDate
             // 
+            tbERECMAccessDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMAccessDate.Location = new Point(0, 512);
             tbERECMAccessDate.Name = "tbERECMAccessDate";
             tbERECMAccessDate.Size = new Size(450, 23);
-            tbERECMAccessDate.TabIndex = 30;
-            ttMain.SetToolTip(tbERECMAccessDate, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            tbERECMAccessDate.TabIndex = 21;
+            ttMain.SetToolTip(tbERECMAccessDate, "Дата последнего просмотра ссылки.\r\nПример: «20.06.2025»");
             tbERECMAccessDate.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECMAccessDate
@@ -6901,15 +7262,16 @@
             labelERECMAccessDate.Size = new Size(99, 15);
             labelERECMAccessDate.TabIndex = 29;
             labelERECMAccessDate.Text = "Дата обращения";
-            ttMain.SetToolTip(labelERECMAccessDate, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelERECMAccessDate, "Дата последнего просмотра ссылки.\r\nПример: «20.06.2025»");
             // 
             // tbERECMURL
             // 
+            tbERECMURL.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMURL.Location = new Point(0, 468);
             tbERECMURL.Name = "tbERECMURL";
             tbERECMURL.Size = new Size(450, 23);
-            tbERECMURL.TabIndex = 28;
-            ttMain.SetToolTip(tbERECMURL, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            tbERECMURL.TabIndex = 20;
+            ttMain.SetToolTip(tbERECMURL, "Ссылка на страницу издания или файл материалов.\r\nПример: «https://conference.spbu.ru/2024/materials.pdf»");
             tbERECMURL.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECMURL
@@ -6920,14 +7282,14 @@
             labelERECMURL.Size = new Size(28, 15);
             labelERECMURL.TabIndex = 27;
             labelERECMURL.Text = "URL";
-            ttMain.SetToolTip(labelERECMURL, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelERECMURL, "Ссылка на страницу издания или файл материалов.\r\nПример: «https://conference.spbu.ru/2024/materials.pdf»");
             // 
             // buttonERECMPublisherAdd
             // 
             buttonERECMPublisherAdd.Location = new Point(243, 310);
             buttonERECMPublisherAdd.Name = "buttonERECMPublisherAdd";
             buttonERECMPublisherAdd.Size = new Size(90, 23);
-            buttonERECMPublisherAdd.TabIndex = 23;
+            buttonERECMPublisherAdd.TabIndex = 17;
             buttonERECMPublisherAdd.Text = "Добавить";
             buttonERECMPublisherAdd.UseVisualStyleBackColor = true;
             buttonERECMPublisherAdd.Click += this.buttonERECMPublisherAdd_Click;
@@ -6941,6 +7303,7 @@
             lbERECMPublisher.Name = "lbERECMPublisher";
             lbERECMPublisher.Size = new Size(237, 64);
             lbERECMPublisher.TabIndex = 22;
+            lbERECMPublisher.TabStop = false;
             lbERECMPublisher.DragDrop += this.ListBox_DragDrop;
             lbERECMPublisher.DragOver += this.ListBox_DragOver;
             lbERECMPublisher.KeyDown += this.ListBox_KeyDown;
@@ -6952,7 +7315,7 @@
             buttonERECMPublishingLocationAdd.Location = new Point(360, 196);
             buttonERECMPublishingLocationAdd.Name = "buttonERECMPublishingLocationAdd";
             buttonERECMPublishingLocationAdd.Size = new Size(90, 23);
-            buttonERECMPublishingLocationAdd.TabIndex = 21;
+            buttonERECMPublishingLocationAdd.TabIndex = 15;
             buttonERECMPublishingLocationAdd.Text = "Добавить";
             buttonERECMPublishingLocationAdd.UseVisualStyleBackColor = true;
             buttonERECMPublishingLocationAdd.Click += this.buttonERECMPublishingLocationAdd_Click;
@@ -6966,6 +7329,7 @@
             lbERECMPublishingLocation.Name = "lbERECMPublishingLocation";
             lbERECMPublishingLocation.Size = new Size(450, 64);
             lbERECMPublishingLocation.TabIndex = 20;
+            lbERECMPublishingLocation.TabStop = false;
             lbERECMPublishingLocation.DragDrop += this.ListBox_DragDrop;
             lbERECMPublishingLocation.DragOver += this.ListBox_DragOver;
             lbERECMPublishingLocation.KeyDown += this.ListBox_KeyDown;
@@ -6974,10 +7338,11 @@
             // 
             // tbERECMPublisher
             // 
+            tbERECMPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMPublisher.Location = new Point(0, 310);
             tbERECMPublisher.Name = "tbERECMPublisher";
             tbERECMPublisher.Size = new Size(237, 23);
-            tbERECMPublisher.TabIndex = 19;
+            tbERECMPublisher.TabIndex = 16;
             ttMain.SetToolTip(tbERECMPublisher, resources.GetString("tbERECMPublisher.ToolTip"));
             tbERECMPublisher.KeyDown += this.TextBox_KeyDown;
             // 
@@ -6993,11 +7358,12 @@
             // 
             // tbERECMPublishingLocation
             // 
+            tbERECMPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMPublishingLocation.Location = new Point(0, 196);
             tbERECMPublishingLocation.Name = "tbERECMPublishingLocation";
             tbERECMPublishingLocation.Size = new Size(354, 23);
-            tbERECMPublishingLocation.TabIndex = 17;
-            ttMain.SetToolTip(tbERECMPublishingLocation, resources.GetString("tbERECMPublishingLocation.ToolTip"));
+            tbERECMPublishingLocation.TabIndex = 14;
+            ttMain.SetToolTip(tbERECMPublishingLocation, "Город, где опубликованы материалы.\r\nПример: «Москва»");
             tbERECMPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECMPublishingLocation
@@ -7008,15 +7374,16 @@
             labelERECMPublishingLocation.Size = new Size(89, 15);
             labelERECMPublishingLocation.TabIndex = 16;
             labelERECMPublishingLocation.Text = "Место издания";
-            ttMain.SetToolTip(labelERECMPublishingLocation, resources.GetString("labelERECMPublishingLocation.ToolTip"));
+            ttMain.SetToolTip(labelERECMPublishingLocation, "Город, где опубликованы материалы.\r\nПример: «Москва»");
             // 
             // tbERECMEventDate
             // 
+            tbERECMEventDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMEventDate.Location = new Point(0, 150);
             tbERECMEventDate.Name = "tbERECMEventDate";
             tbERECMEventDate.Size = new Size(450, 23);
-            tbERECMEventDate.TabIndex = 15;
-            ttMain.SetToolTip(tbERECMEventDate, "Дата, когда проходило мероприятие.\r\nПример: «15 ноября 2017 г.»\r\n");
+            tbERECMEventDate.TabIndex = 13;
+            ttMain.SetToolTip(tbERECMEventDate, "Точные даты начала и окончания события.\r\nПример: «21-23 мая 2024 г.»\r\n");
             tbERECMEventDate.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECMEventDate
@@ -7027,7 +7394,7 @@
             labelERECMEventDate.Size = new Size(100, 15);
             labelERECMEventDate.TabIndex = 14;
             labelERECMEventDate.Text = "Дата проведения";
-            ttMain.SetToolTip(labelERECMEventDate, "Дата, когда проходило мероприятие.\r\nПример: «15 ноября 2017 г.»");
+            ttMain.SetToolTip(labelERECMEventDate, "Точные даты начала и окончания события.\r\nПример: «21-23 мая 2024 г.»");
             // 
             // labelERECMEventTitle
             // 
@@ -7037,24 +7404,26 @@
             labelERECMEventTitle.Size = new Size(136, 15);
             labelERECMEventTitle.TabIndex = 0;
             labelERECMEventTitle.Text = "Название мероприятия";
-            ttMain.SetToolTip(labelERECMEventTitle, "Полное название конференции или научного мероприятия.\r\nПример: «Институциональная экономика: развитие, преподавание, приложения»");
+            ttMain.SetToolTip(labelERECMEventTitle, "Полное наименование конференции, семинара и т. п.\r\nПример: «XI Международная конференция по прикладной информатике»");
             // 
             // tbERECMEventTitle
             // 
+            tbERECMEventTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMEventTitle.Location = new Point(0, 18);
             tbERECMEventTitle.Name = "tbERECMEventTitle";
             tbERECMEventTitle.Size = new Size(450, 23);
-            tbERECMEventTitle.TabIndex = 1;
-            ttMain.SetToolTip(tbERECMEventTitle, "Полное название конференции или научного мероприятия.\r\nПример: «Институциональная экономика: развитие, преподавание, приложения»");
+            tbERECMEventTitle.TabIndex = 10;
+            ttMain.SetToolTip(tbERECMEventTitle, "Полное наименование конференции, семинара и т. п.\r\nПример: «XI Международная конференция по прикладной информатике»");
             tbERECMEventTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERECMPublishYear
             // 
+            tbERECMPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMPublishYear.Location = new Point(0, 424);
             tbERECMPublishYear.Name = "tbERECMPublishYear";
             tbERECMPublishYear.Size = new Size(450, 23);
-            tbERECMPublishYear.TabIndex = 11;
-            ttMain.SetToolTip(tbERECMPublishYear, "Год публикации материалов в формате четырёх цифр.\r\nПример: \"2019\".\r\n\r\n");
+            tbERECMPublishYear.TabIndex = 19;
+            ttMain.SetToolTip(tbERECMPublishYear, "Год публикации сборника.\r\nПример: «2024»");
             tbERECMPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECMPublishYear
@@ -7065,15 +7434,16 @@
             labelERECMPublishYear.Size = new Size(73, 15);
             labelERECMPublishYear.TabIndex = 10;
             labelERECMPublishYear.Text = "Год издания";
-            ttMain.SetToolTip(labelERECMPublishYear, "Год публикации материалов в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelERECMPublishYear, "Год публикации сборника.\r\nПример: «2024»");
             // 
             // tbERECMEventPlace
             // 
+            tbERECMEventPlace.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMEventPlace.Location = new Point(0, 106);
             tbERECMEventPlace.Name = "tbERECMEventPlace";
             tbERECMEventPlace.Size = new Size(450, 23);
-            tbERECMEventPlace.TabIndex = 9;
-            ttMain.SetToolTip(tbERECMEventPlace, "Город, в котором проходило мероприятие.\r\nПример: «Москва»\r\n");
+            tbERECMEventPlace.TabIndex = 12;
+            ttMain.SetToolTip(tbERECMEventPlace, "Населённый пункт, где проводилось мероприятие.\r\nПример: «Санкт-Петербург»");
             tbERECMEventPlace.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECMPublicationType
@@ -7094,14 +7464,15 @@
             labelERECMEventPlace.Size = new Size(108, 15);
             labelERECMEventPlace.TabIndex = 8;
             labelERECMEventPlace.Text = "Город проведения";
-            ttMain.SetToolTip(labelERECMEventPlace, "Город, в котором проходило мероприятие.\r\nПример: «Москва»");
+            ttMain.SetToolTip(labelERECMEventPlace, "Населённый пункт, где проводилось мероприятие.\r\nПример: «Санкт-Петербург»");
             // 
             // tbERECMPublicationType
             // 
+            tbERECMPublicationType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMPublicationType.Location = new Point(0, 62);
             tbERECMPublicationType.Name = "tbERECMPublicationType";
             tbERECMPublicationType.Size = new Size(450, 23);
-            tbERECMPublicationType.TabIndex = 7;
+            tbERECMPublicationType.TabIndex = 11;
             ttMain.SetToolTip(tbERECMPublicationType, "Как оформлено издание: сборник статей, материалы конференции и т. д.\r\nПример: «Сборник научных статей», «Материалы конференции»\r\n**Чаще всего с маленькой буквы**\r\n");
             tbERECMPublicationType.KeyDown += this.TextBox_KeyDown;
             // 
@@ -7152,15 +7523,16 @@
             labelERECMAccessNote.Size = new Size(159, 15);
             labelERECMAccessNote.TabIndex = 29;
             labelERECMAccessNote.Text = "Уточнение режима доступа";
-            ttMain.SetToolTip(labelERECMAccessNote, "Уточнение режима доступа.\r\nПример: «для зарегистрир. пользователей СГЭУ».");
+            ttMain.SetToolTip(labelERECMAccessNote, "Дополнительная информация о лицензии, регистрации и т. п.\r\nПример: «требуется регистрация на сайте»");
             // 
             // tbERECMAccessNote
             // 
+            tbERECMAccessNote.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMAccessNote.Location = new Point(0, 422);
             tbERECMAccessNote.Name = "tbERECMAccessNote";
             tbERECMAccessNote.Size = new Size(450, 23);
-            tbERECMAccessNote.TabIndex = 30;
-            ttMain.SetToolTip(tbERECMAccessNote, "Уточнение режима доступа.\r\nПример: «для зарегистрир. пользователей СГЭУ».\r\n");
+            tbERECMAccessNote.TabIndex = 32;
+            ttMain.SetToolTip(tbERECMAccessNote, "Дополнительная информация о лицензии, регистрации и т. п.\r\nПример: «требуется регистрация на сайте»");
             tbERECMAccessNote.KeyDown += this.TextBox_KeyDown;
             // 
             // cbERECMEditorType
@@ -7182,6 +7554,7 @@
             lbERECMEditor.Name = "lbERECMEditor";
             lbERECMEditor.Size = new Size(450, 64);
             lbERECMEditor.TabIndex = 27;
+            lbERECMEditor.TabStop = false;
             lbERECMEditor.DragDrop += this.ListBox_DragDrop;
             lbERECMEditor.DragOver += this.ListBox_DragOver;
             lbERECMEditor.KeyDown += this.ListBox_KeyDown;
@@ -7193,17 +7566,18 @@
             buttonERECMEditorAdd.Location = new Point(360, 220);
             buttonERECMEditorAdd.Name = "buttonERECMEditorAdd";
             buttonERECMEditorAdd.Size = new Size(90, 23);
-            buttonERECMEditorAdd.TabIndex = 26;
+            buttonERECMEditorAdd.TabIndex = 29;
             buttonERECMEditorAdd.Text = "Добавить";
             buttonERECMEditorAdd.UseVisualStyleBackColor = true;
             buttonERECMEditorAdd.Click += this.buttonERECMEditorAdd_Click;
             // 
             // tbERECMEditor
             // 
+            tbERECMEditor.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMEditor.Location = new Point(0, 220);
             tbERECMEditor.Name = "tbERECMEditor";
             tbERECMEditor.Size = new Size(188, 23);
-            tbERECMEditor.TabIndex = 25;
+            tbERECMEditor.TabIndex = 27;
             ttMain.SetToolTip(tbERECMEditor, resources.GetString("tbERECMEditor.ToolTip"));
             tbERECMEditor.KeyDown += this.TextBox_KeyDown;
             // 
@@ -7226,6 +7600,7 @@
             lbERECMEditorialBoard.Name = "lbERECMEditorialBoard";
             lbERECMEditorialBoard.Size = new Size(450, 64);
             lbERECMEditorialBoard.TabIndex = 22;
+            lbERECMEditorialBoard.TabStop = false;
             lbERECMEditorialBoard.DragDrop += this.ListBox_DragDrop;
             lbERECMEditorialBoard.DragOver += this.ListBox_DragOver;
             lbERECMEditorialBoard.KeyDown += this.ListBox_KeyDown;
@@ -7237,7 +7612,7 @@
             buttonERECMEditorialBoardAdd.Location = new Point(360, 106);
             buttonERECMEditorialBoardAdd.Name = "buttonERECMEditorialBoardAdd";
             buttonERECMEditorialBoardAdd.Size = new Size(90, 23);
-            buttonERECMEditorialBoardAdd.TabIndex = 21;
+            buttonERECMEditorialBoardAdd.TabIndex = 26;
             buttonERECMEditorialBoardAdd.Text = "Добавить";
             buttonERECMEditorialBoardAdd.UseVisualStyleBackColor = true;
             buttonERECMEditorialBoardAdd.Click += this.buttonERECMEditorialBoardAdd_Click;
@@ -7254,10 +7629,11 @@
             // 
             // tbERECMPartNumberAndTitle
             // 
+            tbERECMPartNumberAndTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMPartNumberAndTitle.Location = new Point(0, 62);
             tbERECMPartNumberAndTitle.Name = "tbERECMPartNumberAndTitle";
             tbERECMPartNumberAndTitle.Size = new Size(450, 23);
-            tbERECMPartNumberAndTitle.TabIndex = 13;
+            tbERECMPartNumberAndTitle.TabIndex = 24;
             ttMain.SetToolTip(tbERECMPartNumberAndTitle, resources.GetString("tbERECMPartNumberAndTitle.ToolTip"));
             tbERECMPartNumberAndTitle.KeyDown += this.TextBox_KeyDown;
             // 
@@ -7269,15 +7645,16 @@
             labelERECMContentType.Size = new Size(97, 15);
             labelERECMContentType.TabIndex = 14;
             labelERECMContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelERECMContentType, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelERECMContentType, "Уточняет тип содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // tbERECMContentType
             // 
+            tbERECMContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMContentType.Location = new Point(0, 466);
             tbERECMContentType.Name = "tbERECMContentType";
             tbERECMContentType.Size = new Size(450, 23);
-            tbERECMContentType.TabIndex = 15;
-            ttMain.SetToolTip(tbERECMContentType, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbERECMContentType.TabIndex = 33;
+            ttMain.SetToolTip(tbERECMContentType, "Уточняет тип содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             tbERECMContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECMPartCount
@@ -7292,19 +7669,21 @@
             // 
             // tbERECMPartCount
             // 
+            tbERECMPartCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMPartCount.Location = new Point(0, 18);
             tbERECMPartCount.Name = "tbERECMPartCount";
             tbERECMPartCount.Size = new Size(450, 23);
-            tbERECMPartCount.TabIndex = 1;
+            tbERECMPartCount.TabIndex = 23;
             ttMain.SetToolTip(tbERECMPartCount, "Количество частей, если издание состоит из нескольких частей или томов.\r\nПример: «3»\r\n");
             tbERECMPartCount.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERECMPagesCount
             // 
+            tbERECMPagesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMPagesCount.Location = new Point(0, 334);
             tbERECMPagesCount.Name = "tbERECMPagesCount";
             tbERECMPagesCount.Size = new Size(450, 23);
-            tbERECMPagesCount.TabIndex = 13;
+            tbERECMPagesCount.TabIndex = 30;
             ttMain.SetToolTip(tbERECMPagesCount, "Общее объем материалов в страницах.\r\nПример: «382»\r\n");
             tbERECMPagesCount.KeyDown += this.TextBox_KeyDown;
             // 
@@ -7316,7 +7695,7 @@
             labelERECMISBN.Size = new Size(32, 15);
             labelERECMISBN.TabIndex = 2;
             labelERECMISBN.Text = "ISBN";
-            ttMain.SetToolTip(labelERECMISBN, "Международный стандартный номер книги.\r\nПример: «978-5-215-03012-7»");
+            ttMain.SetToolTip(labelERECMISBN, "Международный книжный номер.\r\nПример: «978-5-9904980-2-4»");
             // 
             // labelERECMPagesCount
             // 
@@ -7330,20 +7709,22 @@
             // 
             // tbERECMEditorialBoard
             // 
+            tbERECMEditorialBoard.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMEditorialBoard.Location = new Point(0, 106);
             tbERECMEditorialBoard.Name = "tbERECMEditorialBoard";
             tbERECMEditorialBoard.Size = new Size(354, 23);
-            tbERECMEditorialBoard.TabIndex = 11;
+            tbERECMEditorialBoard.TabIndex = 25;
             ttMain.SetToolTip(tbERECMEditorialBoard, "Список членов редколлегии, участвовавших в подготовке издания.\r\nПример: «О. И. Маляренко».\r\n");
             tbERECMEditorialBoard.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERECMISBN
             // 
+            tbERECMISBN.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECMISBN.Location = new Point(0, 378);
             tbERECMISBN.Name = "tbERECMISBN";
             tbERECMISBN.Size = new Size(450, 23);
-            tbERECMISBN.TabIndex = 3;
-            ttMain.SetToolTip(tbERECMISBN, "Международный стандартный номер книги.\r\nПример: «978-5-215-03012-7»\r\n");
+            tbERECMISBN.TabIndex = 31;
+            ttMain.SetToolTip(tbERECMISBN, "Международный книжный номер.\r\nПример: «978-5-9904980-2-4»");
             tbERECMISBN.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECMEditorialBoard
@@ -7416,6 +7797,7 @@
             lbERECPublishingLocationSelect.Name = "lbERECPublishingLocationSelect";
             lbERECPublishingLocationSelect.Size = new Size(207, 64);
             lbERECPublishingLocationSelect.TabIndex = 35;
+            lbERECPublishingLocationSelect.TabStop = false;
             lbERECPublishingLocationSelect.SelectedIndexChanged += this.lbERECPublishingLocationSelect_SelectedIndexChanged;
             // 
             // cbERECPublisher
@@ -7424,18 +7806,20 @@
             cbERECPublisher.Location = new Point(339, 224);
             cbERECPublisher.Name = "cbERECPublisher";
             cbERECPublisher.Size = new Size(111, 19);
-            cbERECPublisher.TabIndex = 34;
+            cbERECPublisher.TabIndex = 16;
             cbERECPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbERECPublisher, "Включение «умного режима» добавления издательств");
             cbERECPublisher.UseVisualStyleBackColor = true;
             cbERECPublisher.CheckedChanged += this.cbERECPublisher_CheckedChanged;
             // 
             // tbERECAccessMode
             // 
+            tbERECAccessMode.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECAccessMode.Location = new Point(0, 468);
             tbERECAccessMode.Name = "tbERECAccessMode";
             tbERECAccessMode.Size = new Size(450, 23);
-            tbERECAccessMode.TabIndex = 32;
-            ttMain.SetToolTip(tbERECAccessMode, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            tbERECAccessMode.TabIndex = 20;
+            ttMain.SetToolTip(tbERECAccessMode, "Условия доступа к изданию.\r\nПример: «свободный»");
             tbERECAccessMode.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECAccessMode
@@ -7446,15 +7830,16 @@
             labelERECAccessMode.Size = new Size(91, 15);
             labelERECAccessMode.TabIndex = 31;
             labelERECAccessMode.Text = "Режим доступа";
-            ttMain.SetToolTip(labelERECAccessMode, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelERECAccessMode, "Условия доступа к изданию.\r\nПример: «свободный»");
             // 
             // tbERECAccessDate
             // 
+            tbERECAccessDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECAccessDate.Location = new Point(0, 424);
             tbERECAccessDate.Name = "tbERECAccessDate";
             tbERECAccessDate.Size = new Size(450, 23);
-            tbERECAccessDate.TabIndex = 30;
-            ttMain.SetToolTip(tbERECAccessDate, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            tbERECAccessDate.TabIndex = 19;
+            ttMain.SetToolTip(tbERECAccessDate, "Дата, когда сборник был просмотрен онлайн.\r\nПример: «15.06.2025»");
             tbERECAccessDate.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECAccessDate
@@ -7465,15 +7850,16 @@
             labelERECAccessDate.Size = new Size(99, 15);
             labelERECAccessDate.TabIndex = 29;
             labelERECAccessDate.Text = "Дата обращения";
-            ttMain.SetToolTip(labelERECAccessDate, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelERECAccessDate, "Дата, когда сборник был просмотрен онлайн.\r\nПример: «15.06.2025»");
             // 
             // tbERECURL
             // 
+            tbERECURL.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECURL.Location = new Point(0, 380);
             tbERECURL.Name = "tbERECURL";
             tbERECURL.Size = new Size(450, 23);
-            tbERECURL.TabIndex = 28;
-            ttMain.SetToolTip(tbERECURL, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            tbERECURL.TabIndex = 18;
+            ttMain.SetToolTip(tbERECURL, "Прямая ссылка на сборник или его страницу.\r\nПример: «https://elib.msu.ru/issue/2023/volume1»");
             tbERECURL.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECURL
@@ -7484,14 +7870,14 @@
             labelERECURL.Size = new Size(28, 15);
             labelERECURL.TabIndex = 27;
             labelERECURL.Text = "URL";
-            ttMain.SetToolTip(labelERECURL, "Год публикации книги в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelERECURL, "Прямая ссылка на сборник или его страницу.\r\nПример: «https://elib.msu.ru/issue/2023/volume1»");
             // 
             // buttonERECPublisherAdd
             // 
             buttonERECPublisherAdd.Location = new Point(243, 222);
             buttonERECPublisherAdd.Name = "buttonERECPublisherAdd";
             buttonERECPublisherAdd.Size = new Size(90, 23);
-            buttonERECPublisherAdd.TabIndex = 23;
+            buttonERECPublisherAdd.TabIndex = 15;
             buttonERECPublisherAdd.Text = "Добавить";
             buttonERECPublisherAdd.UseVisualStyleBackColor = true;
             buttonERECPublisherAdd.Click += this.buttonERECPublisherAdd_Click;
@@ -7505,6 +7891,7 @@
             lbERECPublisher.Name = "lbERECPublisher";
             lbERECPublisher.Size = new Size(237, 64);
             lbERECPublisher.TabIndex = 22;
+            lbERECPublisher.TabStop = false;
             lbERECPublisher.DragDrop += this.ListBox_DragDrop;
             lbERECPublisher.DragOver += this.ListBox_DragOver;
             lbERECPublisher.KeyDown += this.ListBox_KeyDown;
@@ -7516,7 +7903,7 @@
             buttonERECPublishingLocationAdd.Location = new Point(360, 108);
             buttonERECPublishingLocationAdd.Name = "buttonERECPublishingLocationAdd";
             buttonERECPublishingLocationAdd.Size = new Size(90, 23);
-            buttonERECPublishingLocationAdd.TabIndex = 21;
+            buttonERECPublishingLocationAdd.TabIndex = 13;
             buttonERECPublishingLocationAdd.Text = "Добавить";
             buttonERECPublishingLocationAdd.UseVisualStyleBackColor = true;
             buttonERECPublishingLocationAdd.Click += this.buttonERECPublishingLocationAdd_Click;
@@ -7530,6 +7917,7 @@
             lbERECPublishingLocation.Name = "lbERECPublishingLocation";
             lbERECPublishingLocation.Size = new Size(450, 64);
             lbERECPublishingLocation.TabIndex = 20;
+            lbERECPublishingLocation.TabStop = false;
             lbERECPublishingLocation.DragDrop += this.ListBox_DragDrop;
             lbERECPublishingLocation.DragOver += this.ListBox_DragOver;
             lbERECPublishingLocation.KeyDown += this.ListBox_KeyDown;
@@ -7538,10 +7926,11 @@
             // 
             // tbERECPublisher
             // 
+            tbERECPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECPublisher.Location = new Point(0, 222);
             tbERECPublisher.Name = "tbERECPublisher";
             tbERECPublisher.Size = new Size(237, 23);
-            tbERECPublisher.TabIndex = 19;
+            tbERECPublisher.TabIndex = 14;
             ttMain.SetToolTip(tbERECPublisher, resources.GetString("tbERECPublisher.ToolTip"));
             tbERECPublisher.KeyDown += this.TextBox_KeyDown;
             // 
@@ -7557,11 +7946,12 @@
             // 
             // tbERECPublishingLocation
             // 
+            tbERECPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECPublishingLocation.Location = new Point(0, 108);
             tbERECPublishingLocation.Name = "tbERECPublishingLocation";
             tbERECPublishingLocation.Size = new Size(354, 23);
-            tbERECPublishingLocation.TabIndex = 17;
-            ttMain.SetToolTip(tbERECPublishingLocation, resources.GetString("tbERECPublishingLocation.ToolTip"));
+            tbERECPublishingLocation.TabIndex = 12;
+            ttMain.SetToolTip(tbERECPublishingLocation, "Город или населённый пункт, где издан сборник.\r\nПример: «Москва»");
             tbERECPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECPublishingLocation
@@ -7572,7 +7962,7 @@
             labelERECPublishingLocation.Size = new Size(89, 15);
             labelERECPublishingLocation.TabIndex = 16;
             labelERECPublishingLocation.Text = "Место издания";
-            ttMain.SetToolTip(labelERECPublishingLocation, resources.GetString("labelERECPublishingLocation.ToolTip"));
+            ttMain.SetToolTip(labelERECPublishingLocation, "Город или населённый пункт, где издан сборник.\r\nПример: «Москва»");
             // 
             // labelERECCollectionTitle
             // 
@@ -7582,24 +7972,26 @@
             labelERECCollectionTitle.Size = new Size(115, 15);
             labelERECCollectionTitle.TabIndex = 0;
             labelERECCollectionTitle.Text = "Название сборника";
-            ttMain.SetToolTip(labelERECCollectionTitle, "Полное название конференции или научного мероприятия.\r\nПример: «Институциональная экономика: развитие, преподавание, приложения»");
+            ttMain.SetToolTip(labelERECCollectionTitle, "Полное заглавие издания, включая при необходимости подзаголовки.\r\nПример: «Информационное общество»");
             // 
             // tbERECCollectionTitle
             // 
+            tbERECCollectionTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECCollectionTitle.Location = new Point(0, 18);
             tbERECCollectionTitle.Name = "tbERECCollectionTitle";
             tbERECCollectionTitle.Size = new Size(450, 23);
-            tbERECCollectionTitle.TabIndex = 1;
-            ttMain.SetToolTip(tbERECCollectionTitle, "Полное название конференции или научного мероприятия.\r\nПример: «Институциональная экономика: развитие, преподавание, приложения»");
+            tbERECCollectionTitle.TabIndex = 10;
+            ttMain.SetToolTip(tbERECCollectionTitle, "Полное заглавие издания, включая при необходимости подзаголовки.\r\nПример: «Информационное общество»");
             tbERECCollectionTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERECPublishYear
             // 
+            tbERECPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECPublishYear.Location = new Point(0, 336);
             tbERECPublishYear.Name = "tbERECPublishYear";
             tbERECPublishYear.Size = new Size(450, 23);
-            tbERECPublishYear.TabIndex = 11;
-            ttMain.SetToolTip(tbERECPublishYear, "Год публикации материалов в формате четырёх цифр.\r\nПример: \"2019\".\r\n\r\n");
+            tbERECPublishYear.TabIndex = 17;
+            ttMain.SetToolTip(tbERECPublishYear, "Год, в который сборник был опубликован.\r\nПример: «2023»");
             tbERECPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECPublishYear
@@ -7610,7 +8002,7 @@
             labelERECPublishYear.Size = new Size(73, 15);
             labelERECPublishYear.TabIndex = 10;
             labelERECPublishYear.Text = "Год издания";
-            ttMain.SetToolTip(labelERECPublishYear, "Год публикации материалов в формате четырёх цифр.\r\nПример: \"2019\".\r\n");
+            ttMain.SetToolTip(labelERECPublishYear, "Год, в который сборник был опубликован.\r\nПример: «2023»");
             // 
             // labelERECPublicationType
             // 
@@ -7620,15 +8012,16 @@
             labelERECPublicationType.Size = new Size(74, 15);
             labelERECPublicationType.TabIndex = 6;
             labelERECPublicationType.Text = "Вид издания";
-            ttMain.SetToolTip(labelERECPublicationType, "Как оформлено издание: сборник статей, материалы конференции и т. д.\r\nПример: «Сборник научных статей», «Материалы конференции»\r\n**Чаще всего с маленькой буквы**");
+            ttMain.SetToolTip(labelERECPublicationType, "Формулировка типа публикации – сборник, материалы конференции и т. п.\r\nПример: «сборник научных трудов»");
             // 
             // tbERECPublicationType
             // 
+            tbERECPublicationType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECPublicationType.Location = new Point(0, 62);
             tbERECPublicationType.Name = "tbERECPublicationType";
             tbERECPublicationType.Size = new Size(450, 23);
-            tbERECPublicationType.TabIndex = 7;
-            ttMain.SetToolTip(tbERECPublicationType, "Как оформлено издание: сборник статей, материалы конференции и т. д.\r\nПример: «Сборник научных статей», «Материалы конференции»\r\n**Чаще всего с маленькой буквы**\r\n");
+            tbERECPublicationType.TabIndex = 11;
+            ttMain.SetToolTip(tbERECPublicationType, "Формулировка типа публикации – сборник, материалы конференции и т. п.\r\nПример: «сборник научных трудов»\r\n");
             tbERECPublicationType.KeyDown += this.TextBox_KeyDown;
             // 
             // gbERElectronicCollectionsOptional
@@ -7674,7 +8067,7 @@
             cbERECEditorType.Location = new Point(194, 132);
             cbERECEditorType.Name = "cbERECEditorType";
             cbERECEditorType.Size = new Size(160, 23);
-            cbERECEditorType.TabIndex = 33;
+            cbERECEditorType.TabIndex = 24;
             // 
             // lbERECEditor
             // 
@@ -7685,6 +8078,7 @@
             lbERECEditor.Name = "lbERECEditor";
             lbERECEditor.Size = new Size(450, 64);
             lbERECEditor.TabIndex = 32;
+            lbERECEditor.TabStop = false;
             lbERECEditor.DragDrop += this.ListBox_DragDrop;
             lbERECEditor.DragOver += this.ListBox_DragOver;
             lbERECEditor.KeyDown += this.ListBox_KeyDown;
@@ -7696,17 +8090,18 @@
             buttonERECEditor.Location = new Point(360, 132);
             buttonERECEditor.Name = "buttonERECEditor";
             buttonERECEditor.Size = new Size(90, 23);
-            buttonERECEditor.TabIndex = 31;
+            buttonERECEditor.TabIndex = 25;
             buttonERECEditor.Text = "Добавить";
             buttonERECEditor.UseVisualStyleBackColor = true;
             buttonERECEditor.Click += this.buttonERECEditor_Click;
             // 
             // tbERECEditor
             // 
+            tbERECEditor.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECEditor.Location = new Point(0, 132);
             tbERECEditor.Name = "tbERECEditor";
             tbERECEditor.Size = new Size(188, 23);
-            tbERECEditor.TabIndex = 30;
+            tbERECEditor.TabIndex = 23;
             ttMain.SetToolTip(tbERECEditor, resources.GetString("tbERECEditor.ToolTip"));
             tbERECEditor.KeyDown += this.TextBox_KeyDown;
             // 
@@ -7728,15 +8123,16 @@
             labelERECAccessNote.Size = new Size(159, 15);
             labelERECAccessNote.TabIndex = 23;
             labelERECAccessNote.Text = "Уточнение режима доступа";
-            ttMain.SetToolTip(labelERECAccessNote, "Уточнение режима доступа.\r\nПример: «для зарегистрир. пользователей СГЭУ».");
+            ttMain.SetToolTip(labelERECAccessNote, "Дополнительная информация о доступе, лицензии и т. п.\r\nПример: «доступен после регистрации»");
             // 
             // tbERECAccessNote
             // 
+            tbERECAccessNote.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECAccessNote.Location = new Point(0, 334);
             tbERECAccessNote.Name = "tbERECAccessNote";
             tbERECAccessNote.Size = new Size(450, 23);
-            tbERECAccessNote.TabIndex = 24;
-            ttMain.SetToolTip(tbERECAccessNote, "Уточнение режима доступа.\r\nПример: «для зарегистрир. пользователей СГЭУ».\r\n");
+            tbERECAccessNote.TabIndex = 28;
+            ttMain.SetToolTip(tbERECAccessNote, "Дополнительная информация о доступе, лицензии и т. п.\r\nПример: «доступен после регистрации»");
             tbERECAccessNote.KeyDown += this.TextBox_KeyDown;
             // 
             // lbERECEditorialBoard
@@ -7748,6 +8144,7 @@
             lbERECEditorialBoard.Name = "lbERECEditorialBoard";
             lbERECEditorialBoard.Size = new Size(450, 64);
             lbERECEditorialBoard.TabIndex = 22;
+            lbERECEditorialBoard.TabStop = false;
             lbERECEditorialBoard.DragDrop += this.ListBox_DragDrop;
             lbERECEditorialBoard.DragOver += this.ListBox_DragOver;
             lbERECEditorialBoard.KeyDown += this.ListBox_KeyDown;
@@ -7759,7 +8156,7 @@
             buttonERECEditorialBoardAdd.Location = new Point(360, 18);
             buttonERECEditorialBoardAdd.Name = "buttonERECEditorialBoardAdd";
             buttonERECEditorialBoardAdd.Size = new Size(90, 23);
-            buttonERECEditorialBoardAdd.TabIndex = 21;
+            buttonERECEditorialBoardAdd.TabIndex = 22;
             buttonERECEditorialBoardAdd.Text = "Добавить";
             buttonERECEditorialBoardAdd.UseVisualStyleBackColor = true;
             buttonERECEditorialBoardAdd.Click += this.buttonERECEditorialBoardAdd_Click;
@@ -7772,24 +8169,26 @@
             labelERECContentType.Size = new Size(97, 15);
             labelERECContentType.TabIndex = 14;
             labelERECContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelERECContentType, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelERECContentType, "Уточняет тип содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // tbERECContentType
             // 
+            tbERECContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECContentType.Location = new Point(0, 378);
             tbERECContentType.Name = "tbERECContentType";
             tbERECContentType.Size = new Size(450, 23);
-            tbERECContentType.TabIndex = 15;
-            ttMain.SetToolTip(tbERECContentType, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbERECContentType.TabIndex = 29;
+            ttMain.SetToolTip(tbERECContentType, "Уточняет тип содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             tbERECContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERECPagesCount
             // 
+            tbERECPagesCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECPagesCount.Location = new Point(0, 246);
             tbERECPagesCount.Name = "tbERECPagesCount";
             tbERECPagesCount.Size = new Size(450, 23);
-            tbERECPagesCount.TabIndex = 13;
-            ttMain.SetToolTip(tbERECPagesCount, "Общее объем материалов в страницах.\r\nПример: «382»\r\n");
+            tbERECPagesCount.TabIndex = 26;
+            ttMain.SetToolTip(tbERECPagesCount, "Общее количество страниц сборника.\r\nПример: «256»");
             tbERECPagesCount.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECISBN
@@ -7800,7 +8199,7 @@
             labelERECISBN.Size = new Size(32, 15);
             labelERECISBN.TabIndex = 2;
             labelERECISBN.Text = "ISBN";
-            ttMain.SetToolTip(labelERECISBN, "Международный стандартный номер книги.\r\nПример: «978-5-215-03012-7»");
+            ttMain.SetToolTip(labelERECISBN, "Международный книжный номер.\r\nПример: «978-5-6045064-1-5»");
             // 
             // labelERECPagesCount
             // 
@@ -7810,24 +8209,26 @@
             labelERECPagesCount.Size = new Size(120, 15);
             labelERECPagesCount.TabIndex = 12;
             labelERECPagesCount.Text = "Количество страниц";
-            ttMain.SetToolTip(labelERECPagesCount, "Общее объем материалов в страницах.\r\nПример: «382»");
+            ttMain.SetToolTip(labelERECPagesCount, "Общее количество страниц сборника.\r\nПример: «256»");
             // 
             // tbERECEditorialBoard
             // 
+            tbERECEditorialBoard.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECEditorialBoard.Location = new Point(0, 18);
             tbERECEditorialBoard.Name = "tbERECEditorialBoard";
             tbERECEditorialBoard.Size = new Size(354, 23);
-            tbERECEditorialBoard.TabIndex = 11;
+            tbERECEditorialBoard.TabIndex = 21;
             ttMain.SetToolTip(tbERECEditorialBoard, "Список членов редколлегии, участвовавших в подготовке издания.\r\nПример: «О. И. Маляренко».");
             tbERECEditorialBoard.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERECISBN
             // 
+            tbERECISBN.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERECISBN.Location = new Point(0, 290);
             tbERECISBN.Name = "tbERECISBN";
             tbERECISBN.Size = new Size(450, 23);
-            tbERECISBN.TabIndex = 3;
-            ttMain.SetToolTip(tbERECISBN, "Международный стандартный номер книги.\r\nПример: «978-5-215-03012-7»\r\n");
+            tbERECISBN.TabIndex = 27;
+            ttMain.SetToolTip(tbERECISBN, "Международный книжный номер.\r\nПример: «978-5-6045064-1-5»");
             tbERECISBN.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERECEditorialBoard
@@ -7895,7 +8296,7 @@
             cbEREjAAuthors.Location = new Point(371, 20);
             cbEREjAAuthors.Name = "cbEREjAAuthors";
             cbEREjAAuthors.Size = new Size(79, 19);
-            cbEREjAAuthors.TabIndex = 19;
+            cbEREjAAuthors.TabIndex = 12;
             cbEREjAAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbEREjAAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbEREjAAuthors.UseVisualStyleBackColor = true;
@@ -7908,6 +8309,7 @@
             labelEREjAAccessDate.Size = new Size(99, 15);
             labelEREjAAccessDate.TabIndex = 16;
             labelEREjAAccessDate.Text = "Дата обращения";
+            ttMain.SetToolTip(labelEREjAAccessDate, "Дата последнего доступа к странице.\r\nПример: «10.06.2025»");
             // 
             // labelEREjAAuthors
             // 
@@ -7917,21 +8319,26 @@
             labelEREjAAuthors.Size = new Size(57, 15);
             labelEREjAAuthors.TabIndex = 0;
             labelEREjAAuthors.Text = "Автор(ы)";
+            ttMain.SetToolTip(labelEREjAAuthors, resources.GetString("labelEREjAAuthors.ToolTip"));
             // 
             // tbEREjAAccessDate
             // 
+            tbEREjAAccessDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREjAAccessDate.Location = new Point(0, 396);
             tbEREjAAccessDate.Name = "tbEREjAAccessDate";
             tbEREjAAccessDate.Size = new Size(450, 23);
-            tbEREjAAccessDate.TabIndex = 17;
+            tbEREjAAccessDate.TabIndex = 19;
+            ttMain.SetToolTip(tbEREjAAccessDate, "Дата последнего доступа к странице.\r\nПример: «10.06.2025»");
             tbEREjAAccessDate.KeyDown += this.TextBox_KeyDown;
             // 
             // tbEREjAPages
             // 
+            tbEREjAPages.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREjAPages.Location = new Point(0, 308);
             tbEREjAPages.Name = "tbEREjAPages";
             tbEREjAPages.Size = new Size(450, 23);
-            tbEREjAPages.TabIndex = 13;
+            tbEREjAPages.TabIndex = 17;
+            ttMain.SetToolTip(tbEREjAPages, "Диапазон страниц, на которых расположена статья.\r\nПример: «45-52»\r\n");
             tbEREjAPages.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREjAURL
@@ -7942,6 +8349,7 @@
             labelEREjAURL.Size = new Size(28, 15);
             labelEREjAURL.TabIndex = 14;
             labelEREjAURL.Text = "URL";
+            ttMain.SetToolTip(labelEREjAURL, "Полный адрес страницы статьи в интернете.\r\nПример: «https://ejournal.edu.ru/article/2024-3-45»");
             // 
             // labelEREjAPages
             // 
@@ -7951,21 +8359,26 @@
             labelEREjAPages.Size = new Size(63, 15);
             labelEREjAPages.TabIndex = 12;
             labelEREjAPages.Text = "Страницы";
+            ttMain.SetToolTip(labelEREjAPages, "Диапазон страниц, на которых расположена статья.\r\nПример: «45-52»");
             // 
             // tbEREjAURL
             // 
+            tbEREjAURL.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREjAURL.Location = new Point(0, 352);
             tbEREjAURL.Name = "tbEREjAURL";
             tbEREjAURL.Size = new Size(450, 23);
-            tbEREjAURL.TabIndex = 15;
+            tbEREjAURL.TabIndex = 18;
+            ttMain.SetToolTip(tbEREjAURL, "Полный адрес страницы статьи в интернете.\r\nПример: «https://ejournal.edu.ru/article/2024-3-45»");
             tbEREjAURL.KeyDown += this.TextBox_KeyDown;
             // 
             // tbEREjAJournalNumber
             // 
+            tbEREjAJournalNumber.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREjAJournalNumber.Location = new Point(0, 264);
             tbEREjAJournalNumber.Name = "tbEREjAJournalNumber";
             tbEREjAJournalNumber.Size = new Size(450, 23);
-            tbEREjAJournalNumber.TabIndex = 11;
+            tbEREjAJournalNumber.TabIndex = 16;
+            ttMain.SetToolTip(tbEREjAJournalNumber, "Номер выпуска (в журнале).\r\nПример: «3 (58)»");
             tbEREjAJournalNumber.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREjAJournalNumber
@@ -7976,21 +8389,26 @@
             labelEREjAJournalNumber.Size = new Size(96, 15);
             labelEREjAJournalNumber.TabIndex = 10;
             labelEREjAJournalNumber.Text = "Номер журнала";
+            ttMain.SetToolTip(labelEREjAJournalNumber, "Номер выпуска (в журнале).\r\nПример: «3 (58)»");
             // 
             // tbEREjAAuthors
             // 
+            tbEREjAAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREjAAuthors.Location = new Point(0, 18);
             tbEREjAAuthors.Name = "tbEREjAAuthors";
             tbEREjAAuthors.Size = new Size(269, 23);
-            tbEREjAAuthors.TabIndex = 1;
+            tbEREjAAuthors.TabIndex = 10;
+            ttMain.SetToolTip(tbEREjAAuthors, resources.GetString("tbEREjAAuthors.ToolTip"));
             tbEREjAAuthors.KeyDown += this.TextBox_KeyDown;
             // 
             // tbEREjAYear
             // 
+            tbEREjAYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREjAYear.Location = new Point(0, 220);
             tbEREjAYear.Name = "tbEREjAYear";
             tbEREjAYear.Size = new Size(450, 23);
-            tbEREjAYear.TabIndex = 9;
+            tbEREjAYear.TabIndex = 15;
+            ttMain.SetToolTip(tbEREjAYear, "Год выхода выпуска, в котором размещена статья.\r\nПример: «2024»");
             tbEREjAYear.KeyDown += this.TextBox_KeyDown;
             // 
             // tbEREjAAuthorsAdd
@@ -7998,7 +8416,7 @@
             tbEREjAAuthorsAdd.Location = new Point(275, 18);
             tbEREjAAuthorsAdd.Name = "tbEREjAAuthorsAdd";
             tbEREjAAuthorsAdd.Size = new Size(90, 23);
-            tbEREjAAuthorsAdd.TabIndex = 2;
+            tbEREjAAuthorsAdd.TabIndex = 11;
             tbEREjAAuthorsAdd.Text = "Добавить";
             tbEREjAAuthorsAdd.UseVisualStyleBackColor = true;
             tbEREjAAuthorsAdd.Click += this.tbEREjAAuthorsAdd_Click;
@@ -8011,6 +8429,7 @@
             labelEREjAYear.Size = new Size(26, 15);
             labelEREjAYear.TabIndex = 8;
             labelEREjAYear.Text = "Год";
+            ttMain.SetToolTip(labelEREjAYear, "Год выхода выпуска, в котором размещена статья.\r\nПример: «2024»");
             // 
             // lbEREjAAuthors
             // 
@@ -8021,6 +8440,7 @@
             lbEREjAAuthors.Name = "lbEREjAAuthors";
             lbEREjAAuthors.Size = new Size(450, 64);
             lbEREjAAuthors.TabIndex = 3;
+            lbEREjAAuthors.TabStop = false;
             lbEREjAAuthors.Tag = "";
             lbEREjAAuthors.DragDrop += this.ListBox_DragDrop;
             lbEREjAAuthors.DragOver += this.ListBox_DragOver;
@@ -8030,10 +8450,12 @@
             // 
             // tbEREjAJournalName
             // 
+            tbEREjAJournalName.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREjAJournalName.Location = new Point(0, 176);
             tbEREjAJournalName.Name = "tbEREjAJournalName";
             tbEREjAJournalName.Size = new Size(450, 23);
-            tbEREjAJournalName.TabIndex = 7;
+            tbEREjAJournalName.TabIndex = 14;
+            ttMain.SetToolTip(tbEREjAJournalName, "Официальное наименование электронного журнала.\r\nПример: «Современные информационные технологии»");
             tbEREjAJournalName.KeyDown += this.TextBox_KeyDown;
             // 
             // labelEREjATitle
@@ -8044,6 +8466,7 @@
             labelEREjATitle.Size = new Size(95, 15);
             labelEREjATitle.TabIndex = 4;
             labelEREjATitle.Text = "Заглавие статьи";
+            ttMain.SetToolTip(labelEREjATitle, "Полное название статьи, как указано в источнике.\r\nПример: «Цифровая трансформация образования»");
             // 
             // labelEREjAJournalName
             // 
@@ -8053,13 +8476,16 @@
             labelEREjAJournalName.Size = new Size(110, 15);
             labelEREjAJournalName.TabIndex = 6;
             labelEREjAJournalName.Text = "Название журнала";
+            ttMain.SetToolTip(labelEREjAJournalName, "Официальное наименование электронного журнала.\r\nПример: «Современные информационные технологии»");
             // 
             // tbEREjATitle
             // 
+            tbEREjATitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREjATitle.Location = new Point(0, 132);
             tbEREjATitle.Name = "tbEREjATitle";
             tbEREjATitle.Size = new Size(450, 23);
-            tbEREjATitle.TabIndex = 5;
+            tbEREjATitle.TabIndex = 13;
+            ttMain.SetToolTip(tbEREjATitle, "Полное название статьи, как указано в источнике.\r\nПример: «Цифровая трансформация образования»");
             tbEREjATitle.KeyDown += this.TextBox_KeyDown;
             // 
             // gbEREjournalArticleOptional
@@ -8092,6 +8518,7 @@
             labelEREjAAccessMode.Size = new Size(91, 15);
             labelEREjAAccessMode.TabIndex = 0;
             labelEREjAAccessMode.Text = "Режим доступа";
+            ttMain.SetToolTip(labelEREjAAccessMode, "Фраза, описывающая условия доступа к статье.\r\nПример: «свободный», «по подписке»");
             // 
             // labelEREjAContentType
             // 
@@ -8101,23 +8528,26 @@
             labelEREjAContentType.Size = new Size(97, 15);
             labelEREjAContentType.TabIndex = 16;
             labelEREjAContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelEREjAContentType, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelEREjAContentType, "Уточняет тип содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // tbEREjAAccessMode
             // 
+            tbEREjAAccessMode.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbEREjAAccessMode.Location = new Point(0, 18);
             tbEREjAAccessMode.Name = "tbEREjAAccessMode";
             tbEREjAAccessMode.Size = new Size(450, 23);
-            tbEREjAAccessMode.TabIndex = 1;
+            tbEREjAAccessMode.TabIndex = 20;
+            ttMain.SetToolTip(tbEREjAAccessMode, "Фраза, описывающая условия доступа к статье.\r\nПример: «свободный», «по подписке»");
             tbEREjAAccessMode.KeyDown += this.TextBox_KeyDown;
             // 
             // tbEREjAContentType
             // 
+            tbEREjAContentType.ContextMenuStrip = cmsMainTabControl;
             tbEREjAContentType.Location = new Point(0, 62);
             tbEREjAContentType.Name = "tbEREjAContentType";
             tbEREjAContentType.Size = new Size(450, 23);
-            tbEREjAContentType.TabIndex = 17;
-            ttMain.SetToolTip(tbEREjAContentType, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbEREjAContentType.TabIndex = 21;
+            ttMain.SetToolTip(tbEREjAContentType, "Уточняет тип содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             tbEREjAContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // tpERMultimediaEdition
@@ -8177,7 +8607,7 @@
             cbERMEAuthors.Location = new Point(371, 20);
             cbERMEAuthors.Name = "cbERMEAuthors";
             cbERMEAuthors.Size = new Size(79, 19);
-            cbERMEAuthors.TabIndex = 46;
+            cbERMEAuthors.TabIndex = 12;
             cbERMEAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbERMEAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbERMEAuthors.UseVisualStyleBackColor = true;
@@ -8191,6 +8621,7 @@
             lbERMEPublishingLocationSelect.Name = "lbERMEPublishingLocationSelect";
             lbERMEPublishingLocationSelect.Size = new Size(207, 64);
             lbERMEPublishingLocationSelect.TabIndex = 45;
+            lbERMEPublishingLocationSelect.TabStop = false;
             lbERMEPublishingLocationSelect.SelectedIndexChanged += this.lbERMEPublishingLocationSelect_SelectedIndexChanged;
             // 
             // cbERMEPublisher
@@ -8199,8 +8630,9 @@
             cbERMEPublisher.Location = new Point(339, 292);
             cbERMEPublisher.Name = "cbERMEPublisher";
             cbERMEPublisher.Size = new Size(111, 19);
-            cbERMEPublisher.TabIndex = 44;
+            cbERMEPublisher.TabIndex = 18;
             cbERMEPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbERMEPublisher, "Включение «умного режима» добавления издательств\r\n");
             cbERMEPublisher.UseVisualStyleBackColor = true;
             cbERMEPublisher.CheckedChanged += this.cbERMEPublisher_CheckedChanged;
             // 
@@ -8209,7 +8641,7 @@
             buttonERMEPublisherAdd.Location = new Point(243, 290);
             buttonERMEPublisherAdd.Name = "buttonERMEPublisherAdd";
             buttonERMEPublisherAdd.Size = new Size(90, 23);
-            buttonERMEPublisherAdd.TabIndex = 43;
+            buttonERMEPublisherAdd.TabIndex = 17;
             buttonERMEPublisherAdd.Text = "Добавить";
             buttonERMEPublisherAdd.UseVisualStyleBackColor = true;
             buttonERMEPublisherAdd.Click += this.buttonERMEPublisherAdd_Click;
@@ -8223,6 +8655,7 @@
             lbERMEPublisher.Name = "lbERMEPublisher";
             lbERMEPublisher.Size = new Size(237, 64);
             lbERMEPublisher.TabIndex = 42;
+            lbERMEPublisher.TabStop = false;
             lbERMEPublisher.DragDrop += this.ListBox_DragDrop;
             lbERMEPublisher.DragOver += this.ListBox_DragOver;
             lbERMEPublisher.KeyDown += this.ListBox_KeyDown;
@@ -8234,7 +8667,7 @@
             buttonERMEPublishingLocationAdd.Location = new Point(360, 176);
             buttonERMEPublishingLocationAdd.Name = "buttonERMEPublishingLocationAdd";
             buttonERMEPublishingLocationAdd.Size = new Size(90, 23);
-            buttonERMEPublishingLocationAdd.TabIndex = 41;
+            buttonERMEPublishingLocationAdd.TabIndex = 15;
             buttonERMEPublishingLocationAdd.Text = "Добавить";
             buttonERMEPublishingLocationAdd.UseVisualStyleBackColor = true;
             buttonERMEPublishingLocationAdd.Click += this.buttonERMEPublishingLocationAdd_Click;
@@ -8247,7 +8680,8 @@
             lbERMEPublishingLocation.Location = new Point(0, 205);
             lbERMEPublishingLocation.Name = "lbERMEPublishingLocation";
             lbERMEPublishingLocation.Size = new Size(450, 64);
-            lbERMEPublishingLocation.TabIndex = 40;
+            lbERMEPublishingLocation.TabIndex = 16;
+            lbERMEPublishingLocation.TabStop = false;
             lbERMEPublishingLocation.DragDrop += this.ListBox_DragDrop;
             lbERMEPublishingLocation.DragOver += this.ListBox_DragOver;
             lbERMEPublishingLocation.KeyDown += this.ListBox_KeyDown;
@@ -8256,10 +8690,11 @@
             // 
             // tbERMEPublisher
             // 
+            tbERMEPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERMEPublisher.Location = new Point(0, 290);
             tbERMEPublisher.Name = "tbERMEPublisher";
             tbERMEPublisher.Size = new Size(237, 23);
-            tbERMEPublisher.TabIndex = 39;
+            tbERMEPublisher.TabIndex = 16;
             ttMain.SetToolTip(tbERMEPublisher, resources.GetString("tbERMEPublisher.ToolTip"));
             tbERMEPublisher.KeyDown += this.TextBox_KeyDown;
             // 
@@ -8275,11 +8710,12 @@
             // 
             // tbERMEPublishingLocation
             // 
+            tbERMEPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERMEPublishingLocation.Location = new Point(0, 176);
             tbERMEPublishingLocation.Name = "tbERMEPublishingLocation";
             tbERMEPublishingLocation.Size = new Size(354, 23);
-            tbERMEPublishingLocation.TabIndex = 37;
-            ttMain.SetToolTip(tbERMEPublishingLocation, resources.GetString("tbERMEPublishingLocation.ToolTip"));
+            tbERMEPublishingLocation.TabIndex = 14;
+            ttMain.SetToolTip(tbERMEPublishingLocation, "Город или города, где было выпущено издание.\r\nПример: «Москва»");
             tbERMEPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERMEPublishingLocation
@@ -8290,7 +8726,7 @@
             labelERMEPublishingLocation.Size = new Size(89, 15);
             labelERMEPublishingLocation.TabIndex = 36;
             labelERMEPublishingLocation.Text = "Место издания";
-            ttMain.SetToolTip(labelERMEPublishingLocation, resources.GetString("labelERMEPublishingLocation.ToolTip"));
+            ttMain.SetToolTip(labelERMEPublishingLocation, "Город или города, где было выпущено издание.\r\nПример: «Москва»");
             // 
             // labelERMEAuthors
             // 
@@ -8300,21 +8736,26 @@
             labelERMEAuthors.Size = new Size(57, 15);
             labelERMEAuthors.TabIndex = 0;
             labelERMEAuthors.Text = "Автор(ы)";
+            ttMain.SetToolTip(labelERMEAuthors, resources.GetString("labelERMEAuthors.ToolTip"));
             // 
             // tbERMEAuthors
             // 
+            tbERMEAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERMEAuthors.Location = new Point(0, 18);
             tbERMEAuthors.Name = "tbERMEAuthors";
             tbERMEAuthors.Size = new Size(269, 23);
-            tbERMEAuthors.TabIndex = 1;
+            tbERMEAuthors.TabIndex = 10;
+            ttMain.SetToolTip(tbERMEAuthors, resources.GetString("tbERMEAuthors.ToolTip"));
             tbERMEAuthors.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERMEDataCarrier
             // 
+            tbERMEDataCarrier.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERMEDataCarrier.Location = new Point(0, 448);
             tbERMEDataCarrier.Name = "tbERMEDataCarrier";
             tbERMEDataCarrier.Size = new Size(450, 23);
-            tbERMEDataCarrier.TabIndex = 13;
+            tbERMEDataCarrier.TabIndex = 20;
+            ttMain.SetToolTip(tbERMEDataCarrier, "Тип физического носителя.\r\nПример: «CD-ROM», «DVD», «флеш-накопитель»");
             tbERMEDataCarrier.KeyDown += this.TextBox_KeyDown;
             // 
             // buttonERMEAuthorsAdd
@@ -8322,7 +8763,7 @@
             buttonERMEAuthorsAdd.Location = new Point(275, 18);
             buttonERMEAuthorsAdd.Name = "buttonERMEAuthorsAdd";
             buttonERMEAuthorsAdd.Size = new Size(90, 23);
-            buttonERMEAuthorsAdd.TabIndex = 2;
+            buttonERMEAuthorsAdd.TabIndex = 11;
             buttonERMEAuthorsAdd.Text = "Добавить";
             buttonERMEAuthorsAdd.UseVisualStyleBackColor = true;
             buttonERMEAuthorsAdd.Click += this.buttonERMEAuthorsAdd_Click;
@@ -8335,6 +8776,7 @@
             labelERMEDataCarrier.Size = new Size(60, 15);
             labelERMEDataCarrier.TabIndex = 12;
             labelERMEDataCarrier.Text = "Носитель";
+            ttMain.SetToolTip(labelERMEDataCarrier, "Тип физического носителя.\r\nПример: «CD-ROM», «DVD», «флеш-накопитель»");
             // 
             // lbERMEAuthors
             // 
@@ -8345,6 +8787,7 @@
             lbERMEAuthors.Name = "lbERMEAuthors";
             lbERMEAuthors.Size = new Size(450, 64);
             lbERMEAuthors.TabIndex = 3;
+            lbERMEAuthors.TabStop = false;
             lbERMEAuthors.Tag = "";
             lbERMEAuthors.DragDrop += this.ListBox_DragDrop;
             lbERMEAuthors.DragOver += this.ListBox_DragOver;
@@ -8354,10 +8797,12 @@
             // 
             // tbERMEPublishYear
             // 
+            tbERMEPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERMEPublishYear.Location = new Point(0, 404);
             tbERMEPublishYear.Name = "tbERMEPublishYear";
             tbERMEPublishYear.Size = new Size(450, 23);
-            tbERMEPublishYear.TabIndex = 11;
+            tbERMEPublishYear.TabIndex = 19;
+            ttMain.SetToolTip(tbERMEPublishYear, "Год выпуска диска или иного носителя.\r\nПример: «2023»");
             tbERMEPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERMETitle
@@ -8368,6 +8813,7 @@
             labelERMETitle.Size = new Size(57, 15);
             labelERMETitle.TabIndex = 4;
             labelERMETitle.Text = "Заглавие";
+            ttMain.SetToolTip(labelERMETitle, "Основное название мультимедийного издания.\r\nПример: «Виртуальный музей истории авиации»");
             // 
             // labelERMEPublishYear
             // 
@@ -8377,13 +8823,16 @@
             labelERMEPublishYear.Size = new Size(73, 15);
             labelERMEPublishYear.TabIndex = 10;
             labelERMEPublishYear.Text = "Год издания";
+            ttMain.SetToolTip(labelERMEPublishYear, "Год выпуска диска или иного носителя.\r\nПример: «2023»");
             // 
             // tbERMETitle
             // 
+            tbERMETitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERMETitle.Location = new Point(0, 132);
             tbERMETitle.Name = "tbERMETitle";
             tbERMETitle.Size = new Size(450, 23);
-            tbERMETitle.TabIndex = 5;
+            tbERMETitle.TabIndex = 13;
+            ttMain.SetToolTip(tbERMETitle, "Основное название мультимедийного издания.\r\nПример: «Виртуальный музей истории авиации»");
             tbERMETitle.KeyDown += this.TextBox_KeyDown;
             // 
             // gbERMultimediaEditionOptional
@@ -8418,10 +8867,12 @@
             // 
             // tbERMESeries
             // 
+            tbERMESeries.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERMESeries.Location = new Point(0, 106);
             tbERMESeries.Name = "tbERMESeries";
             tbERMESeries.Size = new Size(450, 23);
-            tbERMESeries.TabIndex = 21;
+            tbERMESeries.TabIndex = 23;
+            ttMain.SetToolTip(tbERMESeries, "Название серии, если издание входит в серию.\r\nПример: «Электронная школа»");
             tbERMESeries.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERMESeries
@@ -8432,6 +8883,7 @@
             labelERMESeries.Size = new Size(41, 15);
             labelERMESeries.TabIndex = 20;
             labelERMESeries.Text = "Серия";
+            ttMain.SetToolTip(labelERMESeries, "Название серии, если издание входит в серию.\r\nПример: «Электронная школа»");
             // 
             // labelERMEContentType
             // 
@@ -8441,15 +8893,16 @@
             labelERMEContentType.Size = new Size(97, 15);
             labelERMEContentType.TabIndex = 18;
             labelERMEContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelERMEContentType, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelERMEContentType, "Уточняет тип содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // tbERMEContentType
             // 
+            tbERMEContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERMEContentType.Location = new Point(0, 238);
             tbERMEContentType.Name = "tbERMEContentType";
             tbERMEContentType.Size = new Size(450, 23);
-            tbERMEContentType.TabIndex = 19;
-            ttMain.SetToolTip(tbERMEContentType, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbERMEContentType.TabIndex = 26;
+            ttMain.SetToolTip(tbERMEContentType, "Уточняет тип содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             tbERMEContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERMEDocumentType
@@ -8460,6 +8913,7 @@
             labelERMEDocumentType.Size = new Size(88, 15);
             labelERMEDocumentType.TabIndex = 0;
             labelERMEDocumentType.Text = "Вид документа";
+            ttMain.SetToolTip(labelERMEDocumentType, "Уточнение вида издания: учебное пособие, каталог и т. д.\r\nПример: «учебное пособие»");
             // 
             // labelERMEISBN
             // 
@@ -8469,29 +8923,36 @@
             labelERMEISBN.Size = new Size(32, 15);
             labelERMEISBN.TabIndex = 10;
             labelERMEISBN.Text = "ISBN";
+            ttMain.SetToolTip(labelERMEISBN, "Международный стандартный книжный номер.\r\nПример: «978-5-1234-5678-0»");
             // 
             // tbERMENotation
             // 
+            tbERMENotation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERMENotation.Location = new Point(0, 150);
             tbERMENotation.Name = "tbERMENotation";
             tbERMENotation.Size = new Size(450, 23);
-            tbERMENotation.TabIndex = 9;
+            tbERMENotation.TabIndex = 24;
+            ttMain.SetToolTip(tbERMENotation, "УДК, ББК и другие обозначения.\r\nПример: «УДК 528.44»");
             tbERMENotation.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERMEOrganization
             // 
+            tbERMEOrganization.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERMEOrganization.Location = new Point(0, 62);
             tbERMEOrganization.Name = "tbERMEOrganization";
             tbERMEOrganization.Size = new Size(450, 23);
-            tbERMEOrganization.TabIndex = 7;
+            tbERMEOrganization.TabIndex = 22;
+            ttMain.SetToolTip(tbERMEOrganization, "Научная, образовательная или иная организация, участвующая в создании.\r\nПример: «Российская академия наук»");
             tbERMEOrganization.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERMEDocumentType
             // 
+            tbERMEDocumentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERMEDocumentType.Location = new Point(0, 18);
             tbERMEDocumentType.Name = "tbERMEDocumentType";
             tbERMEDocumentType.Size = new Size(450, 23);
-            tbERMEDocumentType.TabIndex = 1;
+            tbERMEDocumentType.TabIndex = 21;
+            ttMain.SetToolTip(tbERMEDocumentType, "Уточнение вида издания: учебное пособие, каталог и т. д.\r\nПример: «учебное пособие»");
             tbERMEDocumentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERMENotation
@@ -8502,13 +8963,16 @@
             labelERMENotation.Size = new Size(78, 15);
             labelERMENotation.TabIndex = 8;
             labelERMENotation.Text = "Примечание";
+            ttMain.SetToolTip(labelERMENotation, "УДК, ББК и другие обозначения.\r\nПример: «УДК 528.44»");
             // 
             // tbERMEISBN
             // 
+            tbERMEISBN.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERMEISBN.Location = new Point(0, 194);
             tbERMEISBN.Name = "tbERMEISBN";
             tbERMEISBN.Size = new Size(450, 23);
-            tbERMEISBN.TabIndex = 11;
+            tbERMEISBN.TabIndex = 25;
+            ttMain.SetToolTip(tbERMEISBN, "Международный стандартный книжный номер.\r\nПример: «978-5-1234-5678-0»");
             tbERMEISBN.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERMEOrganization
@@ -8519,6 +8983,7 @@
             labelERMEOrganization.Size = new Size(79, 15);
             labelERMEOrganization.TabIndex = 6;
             labelERMEOrganization.Text = "Организация";
+            ttMain.SetToolTip(labelERMEOrganization, "Научная, образовательная или иная организация, участвующая в создании.\r\nПример: «Российская академия наук»");
             // 
             // tpERWebsite
             // 
@@ -8564,6 +9029,7 @@
             labelERWWebsiteName.Size = new Size(92, 15);
             labelERWWebsiteName.TabIndex = 4;
             labelERWWebsiteName.Text = "Название сайта";
+            ttMain.SetToolTip(labelERWWebsiteName, "Название ресурса, как указано на самом сайте.\r\nПример: «Министерство финансов Российской Федерации»");
             // 
             // labelERWURL
             // 
@@ -8573,21 +9039,26 @@
             labelERWURL.Size = new Size(28, 15);
             labelERWURL.TabIndex = 14;
             labelERWURL.Text = "URL";
+            ttMain.SetToolTip(labelERWURL, "Полный адрес ресурса в интернете.\r\nПример: «https://minfin.gov.ru»");
             // 
             // tbERWAccessDate
             // 
+            tbERWAccessDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWAccessDate.Location = new Point(0, 106);
             tbERWAccessDate.Name = "tbERWAccessDate";
             tbERWAccessDate.Size = new Size(450, 23);
-            tbERWAccessDate.TabIndex = 7;
+            tbERWAccessDate.TabIndex = 12;
+            ttMain.SetToolTip(tbERWAccessDate, "Дата, когда вы последний раз обращались к ресурсу.\r\nПример: «02.06.2025»");
             tbERWAccessDate.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERWURL
             // 
+            tbERWURL.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWURL.Location = new Point(0, 62);
             tbERWURL.Name = "tbERWURL";
             tbERWURL.Size = new Size(450, 23);
-            tbERWURL.TabIndex = 15;
+            tbERWURL.TabIndex = 11;
+            ttMain.SetToolTip(tbERWURL, "Полный адрес ресурса в интернете.\r\nПример: «https://minfin.gov.ru»");
             tbERWURL.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWAccessDate
@@ -8598,13 +9069,16 @@
             labelERWAccessDate.Size = new Size(99, 15);
             labelERWAccessDate.TabIndex = 6;
             labelERWAccessDate.Text = "Дата обращения";
+            ttMain.SetToolTip(labelERWAccessDate, "Дата, когда вы последний раз обращались к ресурсу.\r\nПример: «02.06.2025»");
             // 
             // tbERWWebsiteName
             // 
+            tbERWWebsiteName.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWWebsiteName.Location = new Point(0, 18);
             tbERWWebsiteName.Name = "tbERWWebsiteName";
             tbERWWebsiteName.Size = new Size(450, 23);
-            tbERWWebsiteName.TabIndex = 5;
+            tbERWWebsiteName.TabIndex = 10;
+            ttMain.SetToolTip(tbERWWebsiteName, "Название ресурса, как указано на самом сайте.\r\nПример: «Министерство финансов Российской Федерации»");
             tbERWWebsiteName.KeyDown += this.TextBox_KeyDown;
             // 
             // gbERWebsiteOptional
@@ -8660,6 +9134,7 @@
             lbERWPublishingLocationSelect.Name = "lbERWPublishingLocationSelect";
             lbERWPublishingLocationSelect.Size = new Size(207, 64);
             lbERWPublishingLocationSelect.TabIndex = 55;
+            lbERWPublishingLocationSelect.TabStop = false;
             // 
             // cbERWPublisher
             // 
@@ -8667,8 +9142,9 @@
             cbERWPublisher.Location = new Point(339, 222);
             cbERWPublisher.Name = "cbERWPublisher";
             cbERWPublisher.Size = new Size(111, 19);
-            cbERWPublisher.TabIndex = 54;
+            cbERWPublisher.TabIndex = 19;
             cbERWPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbERWPublisher, "Включение «умного режима» добавления издательств");
             cbERWPublisher.UseVisualStyleBackColor = true;
             // 
             // buttonERWPublisherAdd
@@ -8676,7 +9152,7 @@
             buttonERWPublisherAdd.Location = new Point(243, 220);
             buttonERWPublisherAdd.Name = "buttonERWPublisherAdd";
             buttonERWPublisherAdd.Size = new Size(90, 23);
-            buttonERWPublisherAdd.TabIndex = 53;
+            buttonERWPublisherAdd.TabIndex = 18;
             buttonERWPublisherAdd.Text = "Добавить";
             buttonERWPublisherAdd.UseVisualStyleBackColor = true;
             buttonERWPublisherAdd.Click += this.buttonERWPublisherAdd_Click;
@@ -8690,6 +9166,7 @@
             lbERWPublisher.Name = "lbERWPublisher";
             lbERWPublisher.Size = new Size(237, 64);
             lbERWPublisher.TabIndex = 52;
+            lbERWPublisher.TabStop = false;
             lbERWPublisher.DragDrop += this.ListBox_DragDrop;
             lbERWPublisher.DragOver += this.ListBox_DragOver;
             lbERWPublisher.KeyDown += this.ListBox_KeyDown;
@@ -8701,7 +9178,7 @@
             buttonERWPublishingLocationAdd.Location = new Point(360, 106);
             buttonERWPublishingLocationAdd.Name = "buttonERWPublishingLocationAdd";
             buttonERWPublishingLocationAdd.Size = new Size(90, 23);
-            buttonERWPublishingLocationAdd.TabIndex = 51;
+            buttonERWPublishingLocationAdd.TabIndex = 16;
             buttonERWPublishingLocationAdd.Text = "Добавить";
             buttonERWPublishingLocationAdd.UseVisualStyleBackColor = true;
             buttonERWPublishingLocationAdd.Click += this.buttonERWPublishingLocationAdd_Click;
@@ -8715,6 +9192,7 @@
             lbERWPublishingLocation.Name = "lbERWPublishingLocation";
             lbERWPublishingLocation.Size = new Size(450, 64);
             lbERWPublishingLocation.TabIndex = 50;
+            lbERWPublishingLocation.TabStop = false;
             lbERWPublishingLocation.DragDrop += this.ListBox_DragDrop;
             lbERWPublishingLocation.DragOver += this.ListBox_DragOver;
             lbERWPublishingLocation.KeyDown += this.ListBox_KeyDown;
@@ -8723,10 +9201,11 @@
             // 
             // tbERWPublisher
             // 
+            tbERWPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWPublisher.Location = new Point(0, 220);
             tbERWPublisher.Name = "tbERWPublisher";
             tbERWPublisher.Size = new Size(237, 23);
-            tbERWPublisher.TabIndex = 49;
+            tbERWPublisher.TabIndex = 17;
             ttMain.SetToolTip(tbERWPublisher, resources.GetString("tbERWPublisher.ToolTip"));
             tbERWPublisher.KeyDown += this.TextBox_KeyDown;
             // 
@@ -8742,11 +9221,12 @@
             // 
             // tbERWPublishingLocation
             // 
+            tbERWPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWPublishingLocation.Location = new Point(0, 106);
             tbERWPublishingLocation.Name = "tbERWPublishingLocation";
             tbERWPublishingLocation.Size = new Size(354, 23);
-            tbERWPublishingLocation.TabIndex = 47;
-            ttMain.SetToolTip(tbERWPublishingLocation, resources.GetString("tbERWPublishingLocation.ToolTip"));
+            tbERWPublishingLocation.TabIndex = 15;
+            ttMain.SetToolTip(tbERWPublishingLocation, "Город или несколько городов, где размещён сайт или находится организация.\r\nПример: «Москва»");
             tbERWPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWPublishingLocation
@@ -8757,7 +9237,7 @@
             labelERWPublishingLocation.Size = new Size(89, 15);
             labelERWPublishingLocation.TabIndex = 46;
             labelERWPublishingLocation.Text = "Место издания";
-            ttMain.SetToolTip(labelERWPublishingLocation, resources.GetString("labelERWPublishingLocation.ToolTip"));
+            ttMain.SetToolTip(labelERWPublishingLocation, "Город или несколько городов, где размещён сайт или находится организация.\r\nПример: «Москва»");
             // 
             // labelERWDetails
             // 
@@ -8767,13 +9247,16 @@
             labelERWDetails.Size = new Size(156, 15);
             labelERWDetails.TabIndex = 26;
             labelERWDetails.Text = "Дополнительные сведения";
+            ttMain.SetToolTip(labelERWDetails, "Любая дополнительная информация, не попавшая в другие поля.\r\nПример: «Обновляется ежеквартально»");
             // 
             // tbERWDetails
             // 
+            tbERWDetails.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWDetails.Location = new Point(0, 422);
             tbERWDetails.Name = "tbERWDetails";
             tbERWDetails.Size = new Size(450, 23);
-            tbERWDetails.TabIndex = 27;
+            tbERWDetails.TabIndex = 22;
+            ttMain.SetToolTip(tbERWDetails, "Любая дополнительная информация, не попавшая в другие поля.\r\nПример: «Обновляется ежеквартально»");
             tbERWDetails.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWPublicationDate
@@ -8784,15 +9267,16 @@
             labelERWPublicationDate.Size = new Size(102, 15);
             labelERWPublicationDate.TabIndex = 24;
             labelERWPublicationDate.Text = "Дата публикации";
-            ttMain.SetToolTip(labelERWPublicationDate, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelERWPublicationDate, "Дата последнего значимого обновления конкретного раздела или страницы.\r\nПример: «17 января 2023»");
             // 
             // tbERWPublicationDate
             // 
+            tbERWPublicationDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWPublicationDate.Location = new Point(0, 510);
             tbERWPublicationDate.Name = "tbERWPublicationDate";
             tbERWPublicationDate.Size = new Size(450, 23);
-            tbERWPublicationDate.TabIndex = 25;
-            ttMain.SetToolTip(tbERWPublicationDate, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbERWPublicationDate.TabIndex = 24;
+            ttMain.SetToolTip(tbERWPublicationDate, "Дата последнего значимого обновления конкретного раздела или страницы.\r\nПример: «17 января 2023»");
             tbERWPublicationDate.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWResourceDescription
@@ -8803,13 +9287,16 @@
             labelERWResourceDescription.Size = new Size(109, 15);
             labelERWResourceDescription.TabIndex = 22;
             labelERWResourceDescription.Text = "Описание ресурса";
+            ttMain.SetToolTip(labelERWResourceDescription, "Краткое пояснение о типе сайта или его направленности.\r\nПример: «научная электронная библиотека»");
             // 
             // tbERWResourceDescription
             // 
+            tbERWResourceDescription.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWResourceDescription.Location = new Point(0, 18);
             tbERWResourceDescription.Name = "tbERWResourceDescription";
             tbERWResourceDescription.Size = new Size(450, 23);
-            tbERWResourceDescription.TabIndex = 23;
+            tbERWResourceDescription.TabIndex = 13;
+            ttMain.SetToolTip(tbERWResourceDescription, "Краткое пояснение о типе сайта или его направленности.\r\nПример: «научная электронная библиотека»");
             tbERWResourceDescription.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWContentType
@@ -8820,15 +9307,16 @@
             labelERWContentType.Size = new Size(97, 15);
             labelERWContentType.TabIndex = 20;
             labelERWContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelERWContentType, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelERWContentType, "Уточняет тип содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // tbERWContentType
             // 
+            tbERWContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWContentType.Location = new Point(0, 554);
             tbERWContentType.Name = "tbERWContentType";
             tbERWContentType.Size = new Size(450, 23);
-            tbERWContentType.TabIndex = 21;
-            ttMain.SetToolTip(tbERWContentType, "Уточняет тип содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbERWContentType.TabIndex = 25;
+            ttMain.SetToolTip(tbERWContentType, "Уточняет тип содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             tbERWContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWResourceType
@@ -8839,6 +9327,7 @@
             labelERWResourceType.Size = new Size(74, 15);
             labelERWResourceType.TabIndex = 0;
             labelERWResourceType.Text = "Тип ресурса";
+            ttMain.SetToolTip(labelERWResourceType, "Уточнение типа: сайт, официальный сайт, электронный журнал и т. п.\r\nПример: «официальный сайт»");
             // 
             // labelERWOrganization
             // 
@@ -8848,21 +9337,26 @@
             labelERWOrganization.Size = new Size(146, 15);
             labelERWOrganization.TabIndex = 8;
             labelERWOrganization.Text = "Учредитель/организация";
+            ttMain.SetToolTip(labelERWOrganization, "Организация, ответственно за наполнение или публикацию ресурса.\r\nПример: «Министерство цифрового развития»");
             // 
             // tbERWAccessMode
             // 
+            tbERWAccessMode.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWAccessMode.Location = new Point(0, 378);
             tbERWAccessMode.Name = "tbERWAccessMode";
             tbERWAccessMode.Size = new Size(450, 23);
-            tbERWAccessMode.TabIndex = 7;
+            tbERWAccessMode.TabIndex = 21;
+            ttMain.SetToolTip(tbERWAccessMode, "Как именно осуществляется доступ: свободный, по подписке, платный и т. д.\r\nПример: «свободный»");
             tbERWAccessMode.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERWOrganization
             // 
+            tbERWOrganization.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWOrganization.Location = new Point(0, 466);
             tbERWOrganization.Name = "tbERWOrganization";
             tbERWOrganization.Size = new Size(450, 23);
-            tbERWOrganization.TabIndex = 9;
+            tbERWOrganization.TabIndex = 23;
+            ttMain.SetToolTip(tbERWOrganization, "Организация, ответственно за наполнение или публикацию ресурса.\r\nПример: «Министерство цифрового развития»");
             tbERWOrganization.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWAccessMode
@@ -8873,21 +9367,26 @@
             labelERWAccessMode.Size = new Size(91, 15);
             labelERWAccessMode.TabIndex = 6;
             labelERWAccessMode.Text = "Режим доступа";
+            ttMain.SetToolTip(labelERWAccessMode, "Как именно осуществляется доступ: свободный, по подписке, платный и т. д.\r\nПример: «свободный»");
             // 
             // tbERWCreationYear
             // 
+            tbERWCreationYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWCreationYear.Location = new Point(0, 334);
             tbERWCreationYear.Name = "tbERWCreationYear";
             tbERWCreationYear.Size = new Size(450, 23);
-            tbERWCreationYear.TabIndex = 5;
+            tbERWCreationYear.TabIndex = 20;
+            ttMain.SetToolTip(tbERWCreationYear, "Год первоначального размещения или запуска сайта или обновления сайта.\r\nПример: «2012»\r\n");
             tbERWCreationYear.KeyDown += this.TextBox_KeyDown;
             // 
             // tbERWResourceType
             // 
+            tbERWResourceType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbERWResourceType.Location = new Point(0, 62);
             tbERWResourceType.Name = "tbERWResourceType";
             tbERWResourceType.Size = new Size(450, 23);
-            tbERWResourceType.TabIndex = 1;
+            tbERWResourceType.TabIndex = 14;
+            ttMain.SetToolTip(tbERWResourceType, "Уточнение типа: сайт, официальный сайт, электронный журнал и т. п.\r\nПример: «официальный сайт»");
             tbERWResourceType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelERWCreationYear
@@ -8898,6 +9397,7 @@
             labelERWCreationYear.Size = new Size(151, 15);
             labelERWCreationYear.TabIndex = 4;
             labelERWCreationYear.Text = "Год создания/обновления";
+            ttMain.SetToolTip(labelERWCreationYear, "Год первоначального размещения или запуска сайта или обновления сайта.\r\nПример: «2012»");
             // 
             // tpConstituentParts
             // 
@@ -8922,6 +9422,7 @@
             tcCPTypes.SelectedIndex = 0;
             tcCPTypes.Size = new Size(513, 709);
             tcCPTypes.TabIndex = 2;
+            tcCPTypes.TabStop = false;
             // 
             // tpCPBookArticle
             // 
@@ -8987,7 +9488,7 @@
             cbCPBABookAuthors.Location = new Point(371, 178);
             cbCPBABookAuthors.Name = "cbCPBABookAuthors";
             cbCPBABookAuthors.Size = new Size(79, 19);
-            cbCPBABookAuthors.TabIndex = 58;
+            cbCPBABookAuthors.TabIndex = 16;
             cbCPBABookAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbCPBABookAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbCPBABookAuthors.UseVisualStyleBackColor = true;
@@ -9000,13 +9501,16 @@
             labelCPBABookAuthors.Size = new Size(92, 15);
             labelCPBABookAuthors.TabIndex = 54;
             labelCPBABookAuthors.Text = "Автор(ы) книги";
+            ttMain.SetToolTip(labelCPBABookAuthors, resources.GetString("labelCPBABookAuthors.ToolTip"));
             // 
             // tbCPBABookAuthors
             // 
+            tbCPBABookAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPBABookAuthors.Location = new Point(0, 176);
             tbCPBABookAuthors.Name = "tbCPBABookAuthors";
             tbCPBABookAuthors.Size = new Size(269, 23);
-            tbCPBABookAuthors.TabIndex = 55;
+            tbCPBABookAuthors.TabIndex = 14;
+            ttMain.SetToolTip(tbCPBABookAuthors, resources.GetString("tbCPBABookAuthors.ToolTip"));
             tbCPBABookAuthors.KeyDown += this.TextBox_KeyDown;
             // 
             // lbCPBABookAuthors
@@ -9018,6 +9522,7 @@
             lbCPBABookAuthors.Name = "lbCPBABookAuthors";
             lbCPBABookAuthors.Size = new Size(450, 64);
             lbCPBABookAuthors.TabIndex = 57;
+            lbCPBABookAuthors.TabStop = false;
             lbCPBABookAuthors.DragDrop += this.ListBox_DragDrop;
             lbCPBABookAuthors.DragOver += this.ListBox_DragOver;
             lbCPBABookAuthors.KeyDown += this.ListBox_KeyDown;
@@ -9029,7 +9534,7 @@
             buttonCPBABookAuthorsAdd.Location = new Point(275, 176);
             buttonCPBABookAuthorsAdd.Name = "buttonCPBABookAuthorsAdd";
             buttonCPBABookAuthorsAdd.Size = new Size(90, 23);
-            buttonCPBABookAuthorsAdd.TabIndex = 56;
+            buttonCPBABookAuthorsAdd.TabIndex = 15;
             buttonCPBABookAuthorsAdd.Text = "Добавить";
             buttonCPBABookAuthorsAdd.UseVisualStyleBackColor = true;
             buttonCPBABookAuthorsAdd.Click += this.buttonCPBABookAuthorsAdd_Click;
@@ -9043,6 +9548,7 @@
             lbCPBAPublishingLocationSelect.Name = "lbCPBAPublishingLocationSelect";
             lbCPBAPublishingLocationSelect.Size = new Size(207, 64);
             lbCPBAPublishingLocationSelect.TabIndex = 53;
+            lbCPBAPublishingLocationSelect.TabStop = false;
             lbCPBAPublishingLocationSelect.SelectedIndexChanged += this.lbCPBAPublishingLocationSelect_SelectedIndexChanged;
             // 
             // cbCPBAPublisher
@@ -9051,8 +9557,9 @@
             cbCPBAPublisher.Location = new Point(339, 450);
             cbCPBAPublisher.Name = "cbCPBAPublisher";
             cbCPBAPublisher.Size = new Size(111, 19);
-            cbCPBAPublisher.TabIndex = 52;
+            cbCPBAPublisher.TabIndex = 22;
             cbCPBAPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbCPBAPublisher, "Включение «умного режима» добавления издательств\r\n");
             cbCPBAPublisher.UseVisualStyleBackColor = true;
             cbCPBAPublisher.CheckedChanged += this.cbCPBAPublisher_CheckedChanged;
             // 
@@ -9061,7 +9568,7 @@
             buttonCPBAPublisherAdd.Location = new Point(243, 448);
             buttonCPBAPublisherAdd.Name = "buttonCPBAPublisherAdd";
             buttonCPBAPublisherAdd.Size = new Size(90, 23);
-            buttonCPBAPublisherAdd.TabIndex = 50;
+            buttonCPBAPublisherAdd.TabIndex = 21;
             buttonCPBAPublisherAdd.Text = "Добавить";
             buttonCPBAPublisherAdd.UseVisualStyleBackColor = true;
             buttonCPBAPublisherAdd.Click += this.buttonCPBAPublisherAdd_Click;
@@ -9075,6 +9582,7 @@
             lbCPBAPublisher.Name = "lbCPBAPublisher";
             lbCPBAPublisher.Size = new Size(237, 64);
             lbCPBAPublisher.TabIndex = 51;
+            lbCPBAPublisher.TabStop = false;
             lbCPBAPublisher.DragDrop += this.ListBox_DragDrop;
             lbCPBAPublisher.DragOver += this.ListBox_DragOver;
             lbCPBAPublisher.KeyDown += this.ListBox_KeyDown;
@@ -9086,7 +9594,7 @@
             buttonCPBAPublishingLocationAdd.Location = new Point(360, 334);
             buttonCPBAPublishingLocationAdd.Name = "buttonCPBAPublishingLocationAdd";
             buttonCPBAPublishingLocationAdd.Size = new Size(90, 23);
-            buttonCPBAPublishingLocationAdd.TabIndex = 48;
+            buttonCPBAPublishingLocationAdd.TabIndex = 19;
             buttonCPBAPublishingLocationAdd.Text = "Добавить";
             buttonCPBAPublishingLocationAdd.UseVisualStyleBackColor = true;
             buttonCPBAPublishingLocationAdd.Click += this.buttonCPBAPublishingLocationAdd_Click;
@@ -9100,6 +9608,7 @@
             lbCPBAPublishingLocation.Name = "lbCPBAPublishingLocation";
             lbCPBAPublishingLocation.Size = new Size(450, 64);
             lbCPBAPublishingLocation.TabIndex = 49;
+            lbCPBAPublishingLocation.TabStop = false;
             lbCPBAPublishingLocation.DragDrop += this.ListBox_DragDrop;
             lbCPBAPublishingLocation.DragOver += this.ListBox_DragOver;
             lbCPBAPublishingLocation.KeyDown += this.ListBox_KeyDown;
@@ -9108,10 +9617,12 @@
             // 
             // tbCPBAPublisher
             // 
+            tbCPBAPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPBAPublisher.Location = new Point(0, 448);
             tbCPBAPublisher.Name = "tbCPBAPublisher";
             tbCPBAPublisher.Size = new Size(237, 23);
-            tbCPBAPublisher.TabIndex = 47;
+            tbCPBAPublisher.TabIndex = 20;
+            ttMain.SetToolTip(tbCPBAPublisher, resources.GetString("tbCPBAPublisher.ToolTip"));
             tbCPBAPublisher.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPBAPublisher
@@ -9122,13 +9633,16 @@
             labelCPBAPublisher.Size = new Size(81, 15);
             labelCPBAPublisher.TabIndex = 46;
             labelCPBAPublisher.Text = "Издательство";
+            ttMain.SetToolTip(labelCPBAPublisher, resources.GetString("labelCPBAPublisher.ToolTip"));
             // 
             // tbCPBAPublishingLocation
             // 
+            tbCPBAPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPBAPublishingLocation.Location = new Point(0, 334);
             tbCPBAPublishingLocation.Name = "tbCPBAPublishingLocation";
             tbCPBAPublishingLocation.Size = new Size(354, 23);
-            tbCPBAPublishingLocation.TabIndex = 45;
+            tbCPBAPublishingLocation.TabIndex = 18;
+            ttMain.SetToolTip(tbCPBAPublishingLocation, "Город, где издана статья. Может быть несколько.\r\nПример: «Москва»\r\n\r\n");
             tbCPBAPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPBAPublishingLocation
@@ -9139,6 +9653,7 @@
             labelCPBAPublishingLocation.Size = new Size(89, 15);
             labelCPBAPublishingLocation.TabIndex = 44;
             labelCPBAPublishingLocation.Text = "Место издания";
+            ttMain.SetToolTip(labelCPBAPublishingLocation, "Город, где издана статья. Может быть несколько.\r\nПример: «Москва»\r\n");
             // 
             // cbCPBAArticleAuthors
             // 
@@ -9146,7 +9661,7 @@
             cbCPBAArticleAuthors.Location = new Point(371, 20);
             cbCPBAArticleAuthors.Name = "cbCPBAArticleAuthors";
             cbCPBAArticleAuthors.Size = new Size(79, 19);
-            cbCPBAArticleAuthors.TabIndex = 23;
+            cbCPBAArticleAuthors.TabIndex = 12;
             cbCPBAArticleAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbCPBAArticleAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbCPBAArticleAuthors.UseVisualStyleBackColor = true;
@@ -9159,6 +9674,7 @@
             labelCPBAPages.Size = new Size(108, 15);
             labelCPBAPages.TabIndex = 20;
             labelCPBAPages.Text = "Диапазон страниц";
+            ttMain.SetToolTip(labelCPBAPages, "Номера страниц, на которых размещена статья.\r\nПример: «75-88»");
             // 
             // labelCPBAArticleAuthors
             // 
@@ -9168,13 +9684,16 @@
             labelCPBAArticleAuthors.Size = new Size(95, 15);
             labelCPBAArticleAuthors.TabIndex = 0;
             labelCPBAArticleAuthors.Text = "Автор(ы) статьи";
+            ttMain.SetToolTip(labelCPBAArticleAuthors, resources.GetString("labelCPBAArticleAuthors.ToolTip"));
             // 
             // tbCPBAPages
             // 
+            tbCPBAPages.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPBAPages.Location = new Point(0, 606);
             tbCPBAPages.Name = "tbCPBAPages";
             tbCPBAPages.Size = new Size(450, 23);
-            tbCPBAPages.TabIndex = 21;
+            tbCPBAPages.TabIndex = 24;
+            ttMain.SetToolTip(tbCPBAPages, "Номера страниц, на которых размещена статья.\r\nПример: «75-88»\r\n");
             tbCPBAPages.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPBAPublishYear
@@ -9185,21 +9704,26 @@
             labelCPBAPublishYear.Size = new Size(73, 15);
             labelCPBAPublishYear.TabIndex = 18;
             labelCPBAPublishYear.Text = "Год издания";
+            ttMain.SetToolTip(labelCPBAPublishYear, "Год публикации книги.\r\nПример: «2021»");
             // 
             // tbCPBAPublishYear
             // 
+            tbCPBAPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPBAPublishYear.Location = new Point(0, 562);
             tbCPBAPublishYear.Name = "tbCPBAPublishYear";
             tbCPBAPublishYear.Size = new Size(450, 23);
-            tbCPBAPublishYear.TabIndex = 19;
+            tbCPBAPublishYear.TabIndex = 23;
+            ttMain.SetToolTip(tbCPBAPublishYear, "Год публикации книги.\r\nПример: «2021»");
             tbCPBAPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // tbCPBABookTitle
             // 
+            tbCPBABookTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPBABookTitle.Location = new Point(0, 290);
             tbCPBABookTitle.Name = "tbCPBABookTitle";
             tbCPBABookTitle.Size = new Size(450, 23);
-            tbCPBABookTitle.TabIndex = 9;
+            tbCPBABookTitle.TabIndex = 17;
+            ttMain.SetToolTip(tbCPBABookTitle, "Общее название книги, в которой опубликована статья.\r\nПример: «Современные исследования по истории книги»");
             tbCPBABookTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPBABookTitle
@@ -9210,13 +9734,16 @@
             labelCPBABookTitle.Size = new Size(92, 15);
             labelCPBABookTitle.TabIndex = 8;
             labelCPBABookTitle.Text = "Заглавие книги";
+            ttMain.SetToolTip(labelCPBABookTitle, "Общее название книги, в которой опубликована статья.\r\nПример: «Современные исследования по истории книги»");
             // 
             // tbCPBAArticleTitle
             // 
+            tbCPBAArticleTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPBAArticleTitle.Location = new Point(0, 132);
             tbCPBAArticleTitle.Name = "tbCPBAArticleTitle";
             tbCPBAArticleTitle.Size = new Size(450, 23);
-            tbCPBAArticleTitle.TabIndex = 5;
+            tbCPBAArticleTitle.TabIndex = 13;
+            ttMain.SetToolTip(tbCPBAArticleTitle, "Название конкретной статьи или главы.\r\nПример: «История типографики в России»");
             tbCPBAArticleTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPBAArticleTitle
@@ -9227,13 +9754,16 @@
             labelCPBAArticleTitle.Size = new Size(95, 15);
             labelCPBAArticleTitle.TabIndex = 4;
             labelCPBAArticleTitle.Text = "Заглавие статьи";
+            ttMain.SetToolTip(labelCPBAArticleTitle, "Название конкретной статьи или главы.\r\nПример: «История типографики в России»");
             // 
             // tbCPBAArticleAuthors
             // 
+            tbCPBAArticleAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPBAArticleAuthors.Location = new Point(0, 18);
             tbCPBAArticleAuthors.Name = "tbCPBAArticleAuthors";
             tbCPBAArticleAuthors.Size = new Size(269, 23);
-            tbCPBAArticleAuthors.TabIndex = 1;
+            tbCPBAArticleAuthors.TabIndex = 10;
+            ttMain.SetToolTip(tbCPBAArticleAuthors, resources.GetString("tbCPBAArticleAuthors.ToolTip"));
             tbCPBAArticleAuthors.KeyDown += this.TextBox_KeyDown;
             // 
             // lbCPBAArticleAuthors
@@ -9244,7 +9774,8 @@
             lbCPBAArticleAuthors.Location = new Point(0, 47);
             lbCPBAArticleAuthors.Name = "lbCPBAArticleAuthors";
             lbCPBAArticleAuthors.Size = new Size(450, 64);
-            lbCPBAArticleAuthors.TabIndex = 3;
+            lbCPBAArticleAuthors.TabIndex = 13;
+            lbCPBAArticleAuthors.TabStop = false;
             lbCPBAArticleAuthors.DragDrop += this.ListBox_DragDrop;
             lbCPBAArticleAuthors.DragOver += this.ListBox_DragOver;
             lbCPBAArticleAuthors.KeyDown += this.ListBox_KeyDown;
@@ -9256,7 +9787,7 @@
             buttonCPBAArticleAuthorsAdd.Location = new Point(275, 18);
             buttonCPBAArticleAuthorsAdd.Name = "buttonCPBAArticleAuthorsAdd";
             buttonCPBAArticleAuthorsAdd.Size = new Size(90, 23);
-            buttonCPBAArticleAuthorsAdd.TabIndex = 2;
+            buttonCPBAArticleAuthorsAdd.TabIndex = 11;
             buttonCPBAArticleAuthorsAdd.Text = "Добавить";
             buttonCPBAArticleAuthorsAdd.UseVisualStyleBackColor = true;
             buttonCPBAArticleAuthorsAdd.Click += this.buttonCPBAArticleAuthorsAdd_Click;
@@ -9297,10 +9828,11 @@
             // 
             // tbCPBAContentType
             // 
+            tbCPBAContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPBAContentType.Location = new Point(0, 108);
             tbCPBAContentType.Name = "tbCPBAContentType";
             tbCPBAContentType.Size = new Size(450, 23);
-            tbCPBAContentType.TabIndex = 30;
+            tbCPBAContentType.TabIndex = 27;
             ttMain.SetToolTip(tbCPBAContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             tbCPBAContentType.KeyDown += this.TextBox_KeyDown;
             // 
@@ -9312,13 +9844,16 @@
             labelCPBAOrganization.Size = new Size(79, 15);
             labelCPBAOrganization.TabIndex = 2;
             labelCPBAOrganization.Text = "Организация";
+            ttMain.SetToolTip(labelCPBAOrganization, "Организация, ответственная за издание или координацию публикации.\r\nПример: «Институт русской литературы РАН»");
             // 
             // tbCPBAOrganization
             // 
+            tbCPBAOrganization.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPBAOrganization.Location = new Point(0, 64);
             tbCPBAOrganization.Name = "tbCPBAOrganization";
             tbCPBAOrganization.Size = new Size(450, 23);
-            tbCPBAOrganization.TabIndex = 3;
+            tbCPBAOrganization.TabIndex = 26;
+            ttMain.SetToolTip(tbCPBAOrganization, "Организация, ответственная за издание или координацию публикации.\r\nПример: «Институт русской литературы РАН»");
             tbCPBAOrganization.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPBABookDocumentType
@@ -9329,13 +9864,16 @@
             labelCPBABookDocumentType.Size = new Size(123, 15);
             labelCPBABookDocumentType.TabIndex = 0;
             labelCPBABookDocumentType.Text = "Вид документа книги";
+            ttMain.SetToolTip(labelCPBABookDocumentType, "Тип книги, если он указан: «монография», «учебник», «сборник научных трудов» и т.д.\r\nПример: «монография»");
             // 
             // tbCPBABookDocumentType
             // 
+            tbCPBABookDocumentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPBABookDocumentType.Location = new Point(0, 20);
             tbCPBABookDocumentType.Name = "tbCPBABookDocumentType";
             tbCPBABookDocumentType.Size = new Size(450, 23);
-            tbCPBABookDocumentType.TabIndex = 1;
+            tbCPBABookDocumentType.TabIndex = 25;
+            ttMain.SetToolTip(tbCPBABookDocumentType, "Тип книги, если он указан: «монография», «учебник», «сборник научных трудов» и т.д.\r\nПример: «монография»");
             tbCPBABookDocumentType.KeyDown += this.TextBox_KeyDown;
             // 
             // tpCPConferenceArticle
@@ -9404,10 +9942,11 @@
             // 
             // tbCPCAPublicationType
             // 
+            tbCPCAPublicationType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAPublicationType.Location = new Point(0, 220);
             tbCPCAPublicationType.Name = "tbCPCAPublicationType";
             tbCPCAPublicationType.Size = new Size(450, 23);
-            tbCPCAPublicationType.TabIndex = 55;
+            tbCPCAPublicationType.TabIndex = 15;
             ttMain.SetToolTip(tbCPCAPublicationType, "Как оформлено издание: сборник статей, материалы конференции и т. д.\r\nПример: «Сборник научных статей», «Материалы конференции»\r\n**Чаще всего с маленькой буквы**\r\n");
             tbCPCAPublicationType.KeyDown += this.TextBox_KeyDown;
             // 
@@ -9420,6 +9959,7 @@
             lbCPCAPublishingLocationSelect.Name = "lbCPCAPublishingLocationSelect";
             lbCPCAPublishingLocationSelect.Size = new Size(207, 64);
             lbCPCAPublishingLocationSelect.TabIndex = 53;
+            lbCPCAPublishingLocationSelect.TabStop = false;
             lbCPCAPublishingLocationSelect.SelectedIndexChanged += this.lbCPCAPublishingLocationSelect_SelectedIndexChanged;
             // 
             // cbCPCAPublisher
@@ -9428,8 +9968,9 @@
             cbCPCAPublisher.Location = new Point(339, 380);
             cbCPCAPublisher.Name = "cbCPCAPublisher";
             cbCPCAPublisher.Size = new Size(111, 19);
-            cbCPCAPublisher.TabIndex = 52;
+            cbCPCAPublisher.TabIndex = 20;
             cbCPCAPublisher.Text = "Отдельные изд.";
+            ttMain.SetToolTip(cbCPCAPublisher, "Включение «умного режима» добавления издательств");
             cbCPCAPublisher.UseVisualStyleBackColor = true;
             cbCPCAPublisher.CheckedChanged += this.cbCPCAPublisher_CheckedChanged;
             // 
@@ -9438,7 +9979,7 @@
             buttonCPCAPublisherAdd.Location = new Point(243, 378);
             buttonCPCAPublisherAdd.Name = "buttonCPCAPublisherAdd";
             buttonCPCAPublisherAdd.Size = new Size(90, 23);
-            buttonCPCAPublisherAdd.TabIndex = 50;
+            buttonCPCAPublisherAdd.TabIndex = 19;
             buttonCPCAPublisherAdd.Text = "Добавить";
             buttonCPCAPublisherAdd.UseVisualStyleBackColor = true;
             buttonCPCAPublisherAdd.Click += this.buttonCPCAPublisherAdd_Click;
@@ -9452,6 +9993,7 @@
             lbCPCAPublisher.Name = "lbCPCAPublisher";
             lbCPCAPublisher.Size = new Size(237, 64);
             lbCPCAPublisher.TabIndex = 51;
+            lbCPCAPublisher.TabStop = false;
             lbCPCAPublisher.DragDrop += this.ListBox_DragDrop;
             lbCPCAPublisher.DragOver += this.ListBox_DragOver;
             lbCPCAPublisher.KeyDown += this.ListBox_KeyDown;
@@ -9463,7 +10005,7 @@
             buttonCPCAPublishingLocationAdd.Location = new Point(360, 264);
             buttonCPCAPublishingLocationAdd.Name = "buttonCPCAPublishingLocationAdd";
             buttonCPCAPublishingLocationAdd.Size = new Size(90, 23);
-            buttonCPCAPublishingLocationAdd.TabIndex = 48;
+            buttonCPCAPublishingLocationAdd.TabIndex = 17;
             buttonCPCAPublishingLocationAdd.Text = "Добавить";
             buttonCPCAPublishingLocationAdd.UseVisualStyleBackColor = true;
             buttonCPCAPublishingLocationAdd.Click += this.buttonCPCAPublishingLocationAdd_Click;
@@ -9477,6 +10019,7 @@
             lbCPCAPublishingLocation.Name = "lbCPCAPublishingLocation";
             lbCPCAPublishingLocation.Size = new Size(450, 64);
             lbCPCAPublishingLocation.TabIndex = 49;
+            lbCPCAPublishingLocation.TabStop = false;
             lbCPCAPublishingLocation.DragDrop += this.ListBox_DragDrop;
             lbCPCAPublishingLocation.DragOver += this.ListBox_DragOver;
             lbCPCAPublishingLocation.KeyDown += this.ListBox_KeyDown;
@@ -9485,10 +10028,12 @@
             // 
             // tbCPCAPublisher
             // 
+            tbCPCAPublisher.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAPublisher.Location = new Point(0, 378);
             tbCPCAPublisher.Name = "tbCPCAPublisher";
             tbCPCAPublisher.Size = new Size(237, 23);
-            tbCPCAPublisher.TabIndex = 47;
+            tbCPCAPublisher.TabIndex = 18;
+            ttMain.SetToolTip(tbCPCAPublisher, resources.GetString("tbCPCAPublisher.ToolTip"));
             tbCPCAPublisher.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPCAPublisher
@@ -9499,13 +10044,16 @@
             labelCPCAPublisher.Size = new Size(81, 15);
             labelCPCAPublisher.TabIndex = 46;
             labelCPCAPublisher.Text = "Издательство";
+            ttMain.SetToolTip(labelCPCAPublisher, resources.GetString("labelCPCAPublisher.ToolTip"));
             // 
             // tbCPCAPublishingLocation
             // 
+            tbCPCAPublishingLocation.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAPublishingLocation.Location = new Point(0, 264);
             tbCPCAPublishingLocation.Name = "tbCPCAPublishingLocation";
             tbCPCAPublishingLocation.Size = new Size(354, 23);
-            tbCPCAPublishingLocation.TabIndex = 45;
+            tbCPCAPublishingLocation.TabIndex = 16;
+            ttMain.SetToolTip(tbCPCAPublishingLocation, "Город, где издан сборник. Может быть несколько.\r\nПример: «Москва»");
             tbCPCAPublishingLocation.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPCAPublishingLocation
@@ -9516,6 +10064,7 @@
             labelCPCAPublishingLocation.Size = new Size(89, 15);
             labelCPCAPublishingLocation.TabIndex = 44;
             labelCPCAPublishingLocation.Text = "Место издания";
+            ttMain.SetToolTip(labelCPCAPublishingLocation, "Город, где издан сборник. Может быть несколько.\r\nПример: «Москва»");
             // 
             // cbCPCAArticleAuthors
             // 
@@ -9523,7 +10072,7 @@
             cbCPCAArticleAuthors.Location = new Point(371, 20);
             cbCPCAArticleAuthors.Name = "cbCPCAArticleAuthors";
             cbCPCAArticleAuthors.Size = new Size(79, 19);
-            cbCPCAArticleAuthors.TabIndex = 23;
+            cbCPCAArticleAuthors.TabIndex = 12;
             cbCPCAArticleAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbCPCAArticleAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbCPCAArticleAuthors.UseVisualStyleBackColor = true;
@@ -9536,6 +10085,7 @@
             labelCPCAPages.Size = new Size(108, 15);
             labelCPCAPages.TabIndex = 20;
             labelCPCAPages.Text = "Диапазон страниц";
+            ttMain.SetToolTip(labelCPCAPages, "Номера страниц статьи в сборнике.\r\nПример: «112-117»");
             // 
             // labelCPCAArticleAuthors
             // 
@@ -9545,13 +10095,16 @@
             labelCPCAArticleAuthors.Size = new Size(95, 15);
             labelCPCAArticleAuthors.TabIndex = 0;
             labelCPCAArticleAuthors.Text = "Автор(ы) статьи";
+            ttMain.SetToolTip(labelCPCAArticleAuthors, resources.GetString("labelCPCAArticleAuthors.ToolTip"));
             // 
             // tbCPCAPages
             // 
+            tbCPCAPages.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAPages.Location = new Point(0, 536);
             tbCPCAPages.Name = "tbCPCAPages";
             tbCPCAPages.Size = new Size(450, 23);
-            tbCPCAPages.TabIndex = 21;
+            tbCPCAPages.TabIndex = 22;
+            ttMain.SetToolTip(tbCPCAPages, "Номера страниц статьи в сборнике.\r\nПример: «112-117»\r\n");
             tbCPCAPages.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPCAPublishYear
@@ -9562,21 +10115,26 @@
             labelCPCAPublishYear.Size = new Size(73, 15);
             labelCPCAPublishYear.TabIndex = 18;
             labelCPCAPublishYear.Text = "Год издания";
+            ttMain.SetToolTip(labelCPCAPublishYear, "Год выпуска сборника.\r\nПример: «2023»");
             // 
             // tbCPCAPublishYear
             // 
+            tbCPCAPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAPublishYear.Location = new Point(0, 492);
             tbCPCAPublishYear.Name = "tbCPCAPublishYear";
             tbCPCAPublishYear.Size = new Size(450, 23);
-            tbCPCAPublishYear.TabIndex = 19;
+            tbCPCAPublishYear.TabIndex = 21;
+            ttMain.SetToolTip(tbCPCAPublishYear, "Год выпуска сборника.\r\nПример: «2023»");
             tbCPCAPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // tbCPCAEventTitle
             // 
+            tbCPCAEventTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAEventTitle.Location = new Point(0, 176);
             tbCPCAEventTitle.Name = "tbCPCAEventTitle";
             tbCPCAEventTitle.Size = new Size(450, 23);
-            tbCPCAEventTitle.TabIndex = 9;
+            tbCPCAEventTitle.TabIndex = 14;
+            ttMain.SetToolTip(tbCPCAEventTitle, "Полное название конференции, форума, семинара и т. п.\r\nПример: «Международная научно-практическая конференция «Румянцевские чтения 2023»»");
             tbCPCAEventTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPCAEventTitle
@@ -9587,13 +10145,16 @@
             labelCPCAEventTitle.Size = new Size(136, 15);
             labelCPCAEventTitle.TabIndex = 8;
             labelCPCAEventTitle.Text = "Название мероприятия";
+            ttMain.SetToolTip(labelCPCAEventTitle, "Полное название конференции, форума, семинара и т. п.\r\nПример: «Международная научно-практическая конференция «Румянцевские чтения 2023»»");
             // 
             // tbCPCAArticleTitle
             // 
+            tbCPCAArticleTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAArticleTitle.Location = new Point(0, 132);
             tbCPCAArticleTitle.Name = "tbCPCAArticleTitle";
             tbCPCAArticleTitle.Size = new Size(450, 23);
-            tbCPCAArticleTitle.TabIndex = 5;
+            tbCPCAArticleTitle.TabIndex = 13;
+            ttMain.SetToolTip(tbCPCAArticleTitle, "Название статьи, опубликованной в материалах конференции.\r\nПример: «Цифровые ресурсы в гуманитарных исследованиях»");
             tbCPCAArticleTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPCAArticleTitle
@@ -9604,13 +10165,16 @@
             labelCPCAArticleTitle.Size = new Size(95, 15);
             labelCPCAArticleTitle.TabIndex = 4;
             labelCPCAArticleTitle.Text = "Заглавие статьи";
+            ttMain.SetToolTip(labelCPCAArticleTitle, "Название статьи, опубликованной в материалах конференции.\r\nПример: «Цифровые ресурсы в гуманитарных исследованиях»");
             // 
             // tbCPCAArticleAuthors
             // 
+            tbCPCAArticleAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAArticleAuthors.Location = new Point(0, 18);
             tbCPCAArticleAuthors.Name = "tbCPCAArticleAuthors";
             tbCPCAArticleAuthors.Size = new Size(269, 23);
-            tbCPCAArticleAuthors.TabIndex = 1;
+            tbCPCAArticleAuthors.TabIndex = 10;
+            ttMain.SetToolTip(tbCPCAArticleAuthors, resources.GetString("tbCPCAArticleAuthors.ToolTip"));
             tbCPCAArticleAuthors.KeyDown += this.TextBox_KeyDown;
             // 
             // lbCPCAArticleAuthors
@@ -9622,6 +10186,7 @@
             lbCPCAArticleAuthors.Name = "lbCPCAArticleAuthors";
             lbCPCAArticleAuthors.Size = new Size(450, 64);
             lbCPCAArticleAuthors.TabIndex = 3;
+            lbCPCAArticleAuthors.TabStop = false;
             lbCPCAArticleAuthors.DragDrop += this.ListBox_DragDrop;
             lbCPCAArticleAuthors.DragOver += this.ListBox_DragOver;
             lbCPCAArticleAuthors.KeyDown += this.ListBox_KeyDown;
@@ -9633,7 +10198,7 @@
             buttonCPCAArticleAuthorsAdd.Location = new Point(275, 18);
             buttonCPCAArticleAuthorsAdd.Name = "buttonCPCAArticleAuthorsAdd";
             buttonCPCAArticleAuthorsAdd.Size = new Size(90, 23);
-            buttonCPCAArticleAuthorsAdd.TabIndex = 2;
+            buttonCPCAArticleAuthorsAdd.TabIndex = 11;
             buttonCPCAArticleAuthorsAdd.Text = "Добавить";
             buttonCPCAArticleAuthorsAdd.UseVisualStyleBackColor = true;
             buttonCPCAArticleAuthorsAdd.Click += this.buttonCPCAArticleAuthorsAdd_Click;
@@ -9680,11 +10245,12 @@
             // 
             // tbCPCAEventDate
             // 
+            tbCPCAEventDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAEventDate.Location = new Point(0, 150);
             tbCPCAEventDate.Name = "tbCPCAEventDate";
             tbCPCAEventDate.Size = new Size(450, 23);
-            tbCPCAEventDate.TabIndex = 59;
-            ttMain.SetToolTip(tbCPCAEventDate, "Дата, когда проходило мероприятие.\r\nПример: «15 ноября 2017 г.»\r\n");
+            tbCPCAEventDate.TabIndex = 26;
+            ttMain.SetToolTip(tbCPCAEventDate, "Даты проведения конференции.\r\nПример: «18-19 апреля 2023 г.»");
             tbCPCAEventDate.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPCAEventDate
@@ -9695,7 +10261,7 @@
             labelCPCAEventDate.Size = new Size(100, 15);
             labelCPCAEventDate.TabIndex = 58;
             labelCPCAEventDate.Text = "Дата проведения";
-            ttMain.SetToolTip(labelCPCAEventDate, "Дата, когда проходило мероприятие.\r\nПример: «15 ноября 2017 г.»");
+            ttMain.SetToolTip(labelCPCAEventDate, "Даты проведения конференции.\r\nПример: «18-19 апреля 2023 г.»");
             // 
             // cbCPCAConferenceAuthors
             // 
@@ -9703,18 +10269,19 @@
             cbCPCAConferenceAuthors.Location = new Point(371, 196);
             cbCPCAConferenceAuthors.Name = "cbCPCAConferenceAuthors";
             cbCPCAConferenceAuthors.Size = new Size(79, 19);
-            cbCPCAConferenceAuthors.TabIndex = 44;
+            cbCPCAConferenceAuthors.TabIndex = 29;
             cbCPCAConferenceAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbCPCAConferenceAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbCPCAConferenceAuthors.UseVisualStyleBackColor = true;
             // 
             // tbCPCAEventPlace
             // 
+            tbCPCAEventPlace.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAEventPlace.Location = new Point(0, 106);
             tbCPCAEventPlace.Name = "tbCPCAEventPlace";
             tbCPCAEventPlace.Size = new Size(450, 23);
-            tbCPCAEventPlace.TabIndex = 57;
-            ttMain.SetToolTip(tbCPCAEventPlace, "Город, в котором проходило мероприятие.\r\nПример: «Москва»\r\n");
+            tbCPCAEventPlace.TabIndex = 25;
+            ttMain.SetToolTip(tbCPCAEventPlace, "Город или место, где проходила конференция.\r\nПример: «Москва»");
             tbCPCAEventPlace.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPCAConferenceAuthors
@@ -9725,13 +10292,16 @@
             labelCPCAConferenceAuthors.Size = new Size(126, 15);
             labelCPCAConferenceAuthors.TabIndex = 40;
             labelCPCAConferenceAuthors.Text = "Автор(ы) материалов";
+            ttMain.SetToolTip(labelCPCAConferenceAuthors, resources.GetString("labelCPCAConferenceAuthors.ToolTip"));
             // 
             // tbCPCAConferenceAuthors
             // 
+            tbCPCAConferenceAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAConferenceAuthors.Location = new Point(0, 194);
             tbCPCAConferenceAuthors.Name = "tbCPCAConferenceAuthors";
             tbCPCAConferenceAuthors.Size = new Size(269, 23);
-            tbCPCAConferenceAuthors.TabIndex = 41;
+            tbCPCAConferenceAuthors.TabIndex = 27;
+            ttMain.SetToolTip(tbCPCAConferenceAuthors, resources.GetString("tbCPCAConferenceAuthors.ToolTip"));
             tbCPCAConferenceAuthors.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPCAEventPlace
@@ -9742,7 +10312,7 @@
             labelCPCAEventPlace.Size = new Size(108, 15);
             labelCPCAEventPlace.TabIndex = 56;
             labelCPCAEventPlace.Text = "Город проведения";
-            ttMain.SetToolTip(labelCPCAEventPlace, "Город, в котором проходило мероприятие.\r\nПример: «Москва»");
+            ttMain.SetToolTip(labelCPCAEventPlace, "Город или место, где проходила конференция.\r\nПример: «Москва»");
             // 
             // lbCPCAConferenceAuthors
             // 
@@ -9752,7 +10322,8 @@
             lbCPCAConferenceAuthors.Location = new Point(0, 223);
             lbCPCAConferenceAuthors.Name = "lbCPCAConferenceAuthors";
             lbCPCAConferenceAuthors.Size = new Size(450, 64);
-            lbCPCAConferenceAuthors.TabIndex = 43;
+            lbCPCAConferenceAuthors.TabIndex = 30;
+            lbCPCAConferenceAuthors.TabStop = false;
             lbCPCAConferenceAuthors.DragDrop += this.ListBox_DragDrop;
             lbCPCAConferenceAuthors.DragOver += this.ListBox_DragOver;
             lbCPCAConferenceAuthors.KeyDown += this.ListBox_KeyDown;
@@ -9764,7 +10335,7 @@
             buttonCPCAConferenceAuthorsAdd.Location = new Point(275, 194);
             buttonCPCAConferenceAuthorsAdd.Name = "buttonCPCAConferenceAuthorsAdd";
             buttonCPCAConferenceAuthorsAdd.Size = new Size(90, 23);
-            buttonCPCAConferenceAuthorsAdd.TabIndex = 42;
+            buttonCPCAConferenceAuthorsAdd.TabIndex = 28;
             buttonCPCAConferenceAuthorsAdd.Text = "Добавить";
             buttonCPCAConferenceAuthorsAdd.UseVisualStyleBackColor = true;
             buttonCPCAConferenceAuthorsAdd.Click += this.buttonCPCAConferenceAuthorsAdd_Click;
@@ -9777,7 +10348,7 @@
             cbCPCAEditorType.Location = new Point(194, 352);
             cbCPCAEditorType.Name = "cbCPCAEditorType";
             cbCPCAEditorType.Size = new Size(160, 23);
-            cbCPCAEditorType.TabIndex = 39;
+            cbCPCAEditorType.TabIndex = 32;
             // 
             // lbCPCAEditor
             // 
@@ -9788,6 +10359,7 @@
             lbCPCAEditor.Name = "lbCPCAEditor";
             lbCPCAEditor.Size = new Size(450, 64);
             lbCPCAEditor.TabIndex = 38;
+            lbCPCAEditor.TabStop = false;
             lbCPCAEditor.DragDrop += this.ListBox_DragDrop;
             lbCPCAEditor.DragOver += this.ListBox_DragOver;
             lbCPCAEditor.KeyDown += this.ListBox_KeyDown;
@@ -9799,7 +10371,7 @@
             buttonCPCAEditorAdd.Location = new Point(360, 352);
             buttonCPCAEditorAdd.Name = "buttonCPCAEditorAdd";
             buttonCPCAEditorAdd.Size = new Size(90, 23);
-            buttonCPCAEditorAdd.TabIndex = 37;
+            buttonCPCAEditorAdd.TabIndex = 33;
             buttonCPCAEditorAdd.Text = "Добавить";
             buttonCPCAEditorAdd.UseVisualStyleBackColor = true;
             buttonCPCAEditorAdd.Click += this.buttonCPCAEditorAdd_Click;
@@ -9812,15 +10384,16 @@
             labelCPCAPartNumberAndTitle.Size = new Size(180, 15);
             labelCPCAPartNumberAndTitle.TabIndex = 35;
             labelCPCAPartNumberAndTitle.Text = "Номер и название части (тома)";
-            ttMain.SetToolTip(labelCPCAPartNumberAndTitle, resources.GetString("labelCPCAPartNumberAndTitle.ToolTip"));
+            ttMain.SetToolTip(labelCPCAPartNumberAndTitle, "Конкретная часть сборника.\r\nПример: «Ч. 1: Методология»");
             // 
             // tbCPCAPartNumberAndTitle
             // 
+            tbCPCAPartNumberAndTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAPartNumberAndTitle.Location = new Point(0, 62);
             tbCPCAPartNumberAndTitle.Name = "tbCPCAPartNumberAndTitle";
             tbCPCAPartNumberAndTitle.Size = new Size(450, 23);
-            tbCPCAPartNumberAndTitle.TabIndex = 36;
-            ttMain.SetToolTip(tbCPCAPartNumberAndTitle, resources.GetString("tbCPCAPartNumberAndTitle.ToolTip"));
+            tbCPCAPartNumberAndTitle.TabIndex = 24;
+            ttMain.SetToolTip(tbCPCAPartNumberAndTitle, "Конкретная часть сборника.\r\nПример: «Ч. 1: Методология»");
             tbCPCAPartNumberAndTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPCAPartCount
@@ -9831,23 +10404,25 @@
             labelCPCAPartCount.Size = new Size(157, 15);
             labelCPCAPartCount.TabIndex = 31;
             labelCPCAPartCount.Text = "Количество частей (томов)";
-            ttMain.SetToolTip(labelCPCAPartCount, "Количество частей, если издание состоит из нескольких частей или томов.\r\nПример: «3»");
+            ttMain.SetToolTip(labelCPCAPartCount, "Если сборник состоит из нескольких частей.\r\nПример: «2»");
             // 
             // tbCPCAPartCount
             // 
+            tbCPCAPartCount.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAPartCount.Location = new Point(0, 18);
             tbCPCAPartCount.Name = "tbCPCAPartCount";
             tbCPCAPartCount.Size = new Size(450, 23);
-            tbCPCAPartCount.TabIndex = 32;
-            ttMain.SetToolTip(tbCPCAPartCount, "Количество частей, если издание состоит из нескольких частей или томов.\r\nПример: «3»\r\n");
+            tbCPCAPartCount.TabIndex = 23;
+            ttMain.SetToolTip(tbCPCAPartCount, "Если сборник состоит из нескольких частей.\r\nПример: «2»");
             tbCPCAPartCount.KeyDown += this.TextBox_KeyDown;
             // 
             // tbCPCAEditor
             // 
+            tbCPCAEditor.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAEditor.Location = new Point(0, 352);
             tbCPCAEditor.Name = "tbCPCAEditor";
             tbCPCAEditor.Size = new Size(188, 23);
-            tbCPCAEditor.TabIndex = 34;
+            tbCPCAEditor.TabIndex = 31;
             ttMain.SetToolTip(tbCPCAEditor, resources.GetString("tbCPCAEditor.ToolTip"));
             tbCPCAEditor.KeyDown += this.TextBox_KeyDown;
             // 
@@ -9869,15 +10444,16 @@
             labelCPCAContentType.Size = new Size(97, 15);
             labelCPCAContentType.TabIndex = 29;
             labelCPCAContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelCPCAContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelCPCAContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // tbCPCAContentType
             // 
+            tbCPCAContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAContentType.Location = new Point(0, 466);
             tbCPCAContentType.Name = "tbCPCAContentType";
             tbCPCAContentType.Size = new Size(450, 23);
-            tbCPCAContentType.TabIndex = 30;
-            ttMain.SetToolTip(tbCPCAContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbCPCAContentType.TabIndex = 34;
+            ttMain.SetToolTip(tbCPCAContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             tbCPCAContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPCAOrganization
@@ -9888,13 +10464,16 @@
             labelCPCAOrganization.Size = new Size(79, 15);
             labelCPCAOrganization.TabIndex = 2;
             labelCPCAOrganization.Text = "Организация";
+            ttMain.SetToolTip(labelCPCAOrganization, "Организация, проводившая конференцию или ответственная за публикацию.\r\nПример: «Институт философии РАН»");
             // 
             // tbCPCAOrganization
             // 
+            tbCPCAOrganization.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPCAOrganization.Location = new Point(0, 308);
             tbCPCAOrganization.Name = "tbCPCAOrganization";
             tbCPCAOrganization.Size = new Size(450, 23);
-            tbCPCAOrganization.TabIndex = 3;
+            tbCPCAOrganization.TabIndex = 30;
+            ttMain.SetToolTip(tbCPCAOrganization, "Организация, проводившая конференцию или ответственная за публикацию.\r\nПример: «Институт философии РАН»");
             tbCPCAOrganization.KeyDown += this.TextBox_KeyDown;
             // 
             // tpCPJournalArticle
@@ -9946,7 +10525,7 @@
             cbCPJAArticleAuthors.Location = new Point(371, 20);
             cbCPJAArticleAuthors.Name = "cbCPJAArticleAuthors";
             cbCPJAArticleAuthors.Size = new Size(79, 19);
-            cbCPJAArticleAuthors.TabIndex = 28;
+            cbCPJAArticleAuthors.TabIndex = 12;
             cbCPJAArticleAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbCPJAArticleAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbCPJAArticleAuthors.UseVisualStyleBackColor = true;
@@ -9959,13 +10538,16 @@
             labelCPJAArticleAuthors.Size = new Size(95, 15);
             labelCPJAArticleAuthors.TabIndex = 24;
             labelCPJAArticleAuthors.Text = "Автор(ы) статьи";
+            ttMain.SetToolTip(labelCPJAArticleAuthors, resources.GetString("labelCPJAArticleAuthors.ToolTip"));
             // 
             // tbCPJAArticleAuthors
             // 
+            tbCPJAArticleAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPJAArticleAuthors.Location = new Point(0, 18);
             tbCPJAArticleAuthors.Name = "tbCPJAArticleAuthors";
             tbCPJAArticleAuthors.Size = new Size(269, 23);
-            tbCPJAArticleAuthors.TabIndex = 25;
+            tbCPJAArticleAuthors.TabIndex = 10;
+            ttMain.SetToolTip(tbCPJAArticleAuthors, resources.GetString("tbCPJAArticleAuthors.ToolTip"));
             tbCPJAArticleAuthors.KeyDown += this.TextBox_KeyDown;
             // 
             // lbCPJAArticleAuthors
@@ -9977,6 +10559,7 @@
             lbCPJAArticleAuthors.Name = "lbCPJAArticleAuthors";
             lbCPJAArticleAuthors.Size = new Size(450, 64);
             lbCPJAArticleAuthors.TabIndex = 27;
+            lbCPJAArticleAuthors.TabStop = false;
             lbCPJAArticleAuthors.DragDrop += this.ListBox_DragDrop;
             lbCPJAArticleAuthors.DragOver += this.ListBox_DragOver;
             lbCPJAArticleAuthors.KeyDown += this.ListBox_KeyDown;
@@ -9988,17 +10571,19 @@
             buttonCPJAArticleAuthorsAdd.Location = new Point(275, 18);
             buttonCPJAArticleAuthorsAdd.Name = "buttonCPJAArticleAuthorsAdd";
             buttonCPJAArticleAuthorsAdd.Size = new Size(90, 23);
-            buttonCPJAArticleAuthorsAdd.TabIndex = 26;
+            buttonCPJAArticleAuthorsAdd.TabIndex = 11;
             buttonCPJAArticleAuthorsAdd.Text = "Добавить";
             buttonCPJAArticleAuthorsAdd.UseVisualStyleBackColor = true;
             buttonCPJAArticleAuthorsAdd.Click += this.buttonCPJAArticleAuthorsAdd_Click;
             // 
             // tbCPJAPages
             // 
+            tbCPJAPages.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPJAPages.Location = new Point(0, 264);
             tbCPJAPages.Name = "tbCPJAPages";
             tbCPJAPages.Size = new Size(450, 23);
-            tbCPJAPages.TabIndex = 13;
+            tbCPJAPages.TabIndex = 16;
+            ttMain.SetToolTip(tbCPJAPages, "Номера страниц, на которых размещена статья.\r\nПример: «139-146»\r\n");
             tbCPJAPages.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPJAPages
@@ -10009,6 +10594,7 @@
             labelCPJAPages.Size = new Size(108, 15);
             labelCPJAPages.TabIndex = 12;
             labelCPJAPages.Text = "Диапазон страниц";
+            ttMain.SetToolTip(labelCPJAPages, "Номера страниц, на которых размещена статья.\r\nПример: «139-146»");
             // 
             // labelCPJAArticleTitle
             // 
@@ -10018,21 +10604,26 @@
             labelCPJAArticleTitle.Size = new Size(95, 15);
             labelCPJAArticleTitle.TabIndex = 4;
             labelCPJAArticleTitle.Text = "Заглавие статьи";
+            ttMain.SetToolTip(labelCPJAArticleTitle, "Название статьи, как оно указано в журнале.\r\nПример: «Лингвистический поворот и философия языка Дж. Локка»");
             // 
             // tbCPJAArticleTitle
             // 
+            tbCPJAArticleTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPJAArticleTitle.Location = new Point(0, 132);
             tbCPJAArticleTitle.Name = "tbCPJAArticleTitle";
             tbCPJAArticleTitle.Size = new Size(450, 23);
-            tbCPJAArticleTitle.TabIndex = 5;
+            tbCPJAArticleTitle.TabIndex = 13;
+            ttMain.SetToolTip(tbCPJAArticleTitle, "Название статьи, как оно указано в журнале.\r\nПример: «Лингвистический поворот и философия языка Дж. Локка»");
             tbCPJAArticleTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbCPJAPublishYear
             // 
+            tbCPJAPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPJAPublishYear.Location = new Point(0, 220);
             tbCPJAPublishYear.Name = "tbCPJAPublishYear";
             tbCPJAPublishYear.Size = new Size(450, 23);
-            tbCPJAPublishYear.TabIndex = 9;
+            tbCPJAPublishYear.TabIndex = 15;
+            ttMain.SetToolTip(tbCPJAPublishYear, "Год выпуска журнала.\r\nПример: «2017»");
             tbCPJAPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPJAJournalName
@@ -10043,6 +10634,7 @@
             labelCPJAJournalName.Size = new Size(110, 15);
             labelCPJAJournalName.TabIndex = 6;
             labelCPJAJournalName.Text = "Название журнала";
+            ttMain.SetToolTip(labelCPJAJournalName, "Полное название журнала, в котором опубликована статья.\r\nПример: «Вестник Удмуртского университета»");
             // 
             // labelCPJAPublishYear
             // 
@@ -10052,13 +10644,16 @@
             labelCPJAPublishYear.Size = new Size(73, 15);
             labelCPJAPublishYear.TabIndex = 8;
             labelCPJAPublishYear.Text = "Год издания";
+            ttMain.SetToolTip(labelCPJAPublishYear, "Год выпуска журнала.\r\nПример: «2017»");
             // 
             // tbCPJAJournalName
             // 
+            tbCPJAJournalName.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPJAJournalName.Location = new Point(0, 176);
             tbCPJAJournalName.Name = "tbCPJAJournalName";
             tbCPJAJournalName.Size = new Size(450, 23);
-            tbCPJAJournalName.TabIndex = 7;
+            tbCPJAJournalName.TabIndex = 14;
+            ttMain.SetToolTip(tbCPJAJournalName, "Полное название журнала, в котором опубликована статья.\r\nПример: «Вестник Удмуртского университета»");
             tbCPJAJournalName.KeyDown += this.TextBox_KeyDown;
             // 
             // gbCPJournalArticleOptional
@@ -10105,15 +10700,16 @@
             labelCPJAContentType.Size = new Size(97, 15);
             labelCPJAContentType.TabIndex = 31;
             labelCPJAContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelCPJAContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelCPJAContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             // 
             // tbCPJAContentType
             // 
+            tbCPJAContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPJAContentType.Location = new Point(0, 327);
             tbCPJAContentType.Name = "tbCPJAContentType";
             tbCPJAContentType.Size = new Size(450, 23);
-            tbCPJAContentType.TabIndex = 32;
-            ttMain.SetToolTip(tbCPJAContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbCPJAContentType.TabIndex = 26;
+            ttMain.SetToolTip(tbCPJAContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             tbCPJAContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPJAIssue
@@ -10124,13 +10720,16 @@
             labelCPJAIssue.Size = new Size(48, 15);
             labelCPJAIssue.TabIndex = 18;
             labelCPJAIssue.Text = "Выпуск";
+            ttMain.SetToolTip(labelCPJAIssue, "Дополнительный номер внутри тома.\r\nПример: «2»");
             // 
             // tbCPJAIssue
             // 
+            tbCPJAIssue.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPJAIssue.Location = new Point(0, 151);
             tbCPJAIssue.Name = "tbCPJAIssue";
             tbCPJAIssue.Size = new Size(450, 23);
-            tbCPJAIssue.TabIndex = 19;
+            tbCPJAIssue.TabIndex = 22;
+            ttMain.SetToolTip(tbCPJAIssue, "Дополнительный номер внутри тома.\r\nПример: «2»");
             tbCPJAIssue.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPJAJournalSeries
@@ -10141,13 +10740,16 @@
             labelCPJAJournalSeries.Size = new Size(92, 15);
             labelCPJAJournalSeries.TabIndex = 16;
             labelCPJAJournalSeries.Text = "Серия журнала";
+            ttMain.SetToolTip(labelCPJAJournalSeries, "Название серии, если журнал выпускается по сериям.\r\nПример: «Философия. Психология. Педагогика»");
             // 
             // tbCPJAJournalSeries
             // 
+            tbCPJAJournalSeries.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPJAJournalSeries.Location = new Point(0, 62);
             tbCPJAJournalSeries.Name = "tbCPJAJournalSeries";
             tbCPJAJournalSeries.Size = new Size(450, 23);
-            tbCPJAJournalSeries.TabIndex = 17;
+            tbCPJAJournalSeries.TabIndex = 18;
+            ttMain.SetToolTip(tbCPJAJournalSeries, "Название серии, если журнал выпускается по сериям.\r\nПример: «Философия. Психология. Педагогика»");
             tbCPJAJournalSeries.KeyDown += this.TextBox_KeyDown;
             // 
             // rbCPJAVolume
@@ -10156,7 +10758,8 @@
             rbCPJAVolume.Location = new Point(403, 108);
             rbCPJAVolume.Name = "rbCPJAVolume";
             rbCPJAVolume.Size = new Size(47, 19);
-            rbCPJAVolume.TabIndex = 15;
+            rbCPJAVolume.TabIndex = 21;
+            rbCPJAVolume.TabStop = true;
             rbCPJAVolume.Text = "Том";
             rbCPJAVolume.UseVisualStyleBackColor = true;
             // 
@@ -10167,7 +10770,7 @@
             rbCPJANumber.Location = new Point(334, 108);
             rbCPJANumber.Name = "rbCPJANumber";
             rbCPJANumber.Size = new Size(63, 19);
-            rbCPJANumber.TabIndex = 14;
+            rbCPJANumber.TabIndex = 20;
             rbCPJANumber.TabStop = true;
             rbCPJANumber.Text = "Номер";
             rbCPJANumber.UseVisualStyleBackColor = true;
@@ -10180,13 +10783,16 @@
             labelCPJAAccessMode.Size = new Size(91, 15);
             labelCPJAAccessMode.TabIndex = 12;
             labelCPJAAccessMode.Text = "Режим доступа";
+            ttMain.SetToolTip(labelCPJAAccessMode, "Дополнительная информация о доступе.\r\nПример: «свободный доступ»");
             // 
             // tbCPJAAccessMode
             // 
+            tbCPJAAccessMode.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPJAAccessMode.Location = new Point(0, 283);
             tbCPJAAccessMode.Name = "tbCPJAAccessMode";
             tbCPJAAccessMode.Size = new Size(450, 23);
-            tbCPJAAccessMode.TabIndex = 13;
+            tbCPJAAccessMode.TabIndex = 25;
+            ttMain.SetToolTip(tbCPJAAccessMode, "Дополнительная информация о доступе.\r\nПример: «свободный доступ»");
             tbCPJAAccessMode.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPJAAccessDate
@@ -10197,13 +10803,16 @@
             labelCPJAAccessDate.Size = new Size(99, 15);
             labelCPJAAccessDate.TabIndex = 4;
             labelCPJAAccessDate.Text = "Дата обращения";
+            ttMain.SetToolTip(labelCPJAAccessDate, "Дата, когда был осуществлён доступ по URL.\r\nПример: «11.03.2017»");
             // 
             // tbCPJAAccessDate
             // 
+            tbCPJAAccessDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPJAAccessDate.Location = new Point(0, 239);
             tbCPJAAccessDate.Name = "tbCPJAAccessDate";
             tbCPJAAccessDate.Size = new Size(450, 23);
-            tbCPJAAccessDate.TabIndex = 5;
+            tbCPJAAccessDate.TabIndex = 24;
+            ttMain.SetToolTip(tbCPJAAccessDate, "Дата, когда был осуществлён доступ по URL.\r\nПример: «11.03.2017»");
             tbCPJAAccessDate.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPJAURL
@@ -10214,13 +10823,16 @@
             labelCPJAURL.Size = new Size(28, 15);
             labelCPJAURL.TabIndex = 2;
             labelCPJAURL.Text = "URL";
+            ttMain.SetToolTip(labelCPJAURL, "Ссылка на статью в интернете, если доступна онлайн.\r\nПример: «https://cyberleninka.ru/article/n/...»");
             // 
             // tbCPJAURL
             // 
+            tbCPJAURL.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPJAURL.Location = new Point(0, 195);
             tbCPJAURL.Name = "tbCPJAURL";
             tbCPJAURL.Size = new Size(450, 23);
-            tbCPJAURL.TabIndex = 3;
+            tbCPJAURL.TabIndex = 23;
+            ttMain.SetToolTip(tbCPJAURL, "Ссылка на статью в интернете, если доступна онлайн.\r\nПример: «https://cyberleninka.ru/article/n/...»");
             tbCPJAURL.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPJADOI
@@ -10231,13 +10843,16 @@
             labelCPJADOI.Size = new Size(27, 15);
             labelCPJADOI.TabIndex = 0;
             labelCPJADOI.Text = "DOI";
+            ttMain.SetToolTip(labelCPJADOI, "Идентификатор DOI статьи, если есть.\r\nПример: «10.14515/monitoring.2017.6.02»");
             // 
             // tbCPJADOI
             // 
+            tbCPJADOI.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPJADOI.Location = new Point(0, 18);
             tbCPJADOI.Name = "tbCPJADOI";
             tbCPJADOI.Size = new Size(450, 23);
-            tbCPJADOI.TabIndex = 1;
+            tbCPJADOI.TabIndex = 17;
+            ttMain.SetToolTip(tbCPJADOI, "Идентификатор DOI статьи, если есть.\r\nПример: «10.14515/monitoring.2017.6.02»");
             tbCPJADOI.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPJANumberOrVolume
@@ -10248,13 +10863,16 @@
             labelCPJANumberOrVolume.Size = new Size(122, 15);
             labelCPJANumberOrVolume.TabIndex = 10;
             labelCPJANumberOrVolume.Text = "Номер/том журнала";
+            ttMain.SetToolTip(labelCPJANumberOrVolume, "Номер выпуска или том журнала, с радиокнопкой, определяющей, как его подписывать (например, Т. или №).\r\nПример: «27»");
             // 
             // tbCPJANumberOrVolume
             // 
+            tbCPJANumberOrVolume.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPJANumberOrVolume.Location = new Point(0, 107);
             tbCPJANumberOrVolume.Name = "tbCPJANumberOrVolume";
             tbCPJANumberOrVolume.Size = new Size(328, 23);
-            tbCPJANumberOrVolume.TabIndex = 11;
+            tbCPJANumberOrVolume.TabIndex = 19;
+            ttMain.SetToolTip(tbCPJANumberOrVolume, "Номер выпуска или том журнала, с радиокнопкой, определяющей, как его подписывать (например, Т. или №).\r\nПример: «27»");
             tbCPJANumberOrVolume.KeyDown += this.TextBox_KeyDown;
             // 
             // tpCPNewspaperArticle
@@ -10306,10 +10924,12 @@
             // 
             // tbCPNANumber
             // 
+            tbCPNANumber.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPNANumber.Location = new Point(0, 308);
             tbCPNANumber.Name = "tbCPNANumber";
             tbCPNANumber.Size = new Size(450, 23);
-            tbCPNANumber.TabIndex = 35;
+            tbCPNANumber.TabIndex = 17;
+            ttMain.SetToolTip(tbCPNANumber, "Номер газеты, в которой напечатана статья.\r\nПример: «143»");
             tbCPNANumber.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPNANumber
@@ -10320,6 +10940,7 @@
             labelCPNANumber.Size = new Size(84, 15);
             labelCPNANumber.TabIndex = 34;
             labelCPNANumber.Text = "Номер газеты";
+            ttMain.SetToolTip(labelCPNANumber, "Номер газеты, в которой напечатана статья.\r\nПример: «143»");
             // 
             // cbCPNAArticleAuthors
             // 
@@ -10327,7 +10948,7 @@
             cbCPNAArticleAuthors.Location = new Point(371, 20);
             cbCPNAArticleAuthors.Name = "cbCPNAArticleAuthors";
             cbCPNAArticleAuthors.Size = new Size(79, 19);
-            cbCPNAArticleAuthors.TabIndex = 33;
+            cbCPNAArticleAuthors.TabIndex = 12;
             cbCPNAArticleAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbCPNAArticleAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbCPNAArticleAuthors.UseVisualStyleBackColor = true;
@@ -10340,13 +10961,16 @@
             labelCPNAArticleAuthors.Size = new Size(95, 15);
             labelCPNAArticleAuthors.TabIndex = 29;
             labelCPNAArticleAuthors.Text = "Автор(ы) статьи";
+            ttMain.SetToolTip(labelCPNAArticleAuthors, resources.GetString("labelCPNAArticleAuthors.ToolTip"));
             // 
             // tbCPNAArticleAuthors
             // 
+            tbCPNAArticleAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPNAArticleAuthors.Location = new Point(0, 18);
             tbCPNAArticleAuthors.Name = "tbCPNAArticleAuthors";
             tbCPNAArticleAuthors.Size = new Size(269, 23);
-            tbCPNAArticleAuthors.TabIndex = 30;
+            tbCPNAArticleAuthors.TabIndex = 10;
+            ttMain.SetToolTip(tbCPNAArticleAuthors, resources.GetString("tbCPNAArticleAuthors.ToolTip"));
             tbCPNAArticleAuthors.KeyDown += this.TextBox_KeyDown;
             // 
             // lbCPNAArticleAuthors
@@ -10358,6 +10982,7 @@
             lbCPNAArticleAuthors.Name = "lbCPNAArticleAuthors";
             lbCPNAArticleAuthors.Size = new Size(450, 64);
             lbCPNAArticleAuthors.TabIndex = 32;
+            lbCPNAArticleAuthors.TabStop = false;
             lbCPNAArticleAuthors.DragDrop += this.ListBox_DragDrop;
             lbCPNAArticleAuthors.DragOver += this.ListBox_DragOver;
             lbCPNAArticleAuthors.KeyDown += this.ListBox_KeyDown;
@@ -10369,17 +10994,19 @@
             buttonCPNAArticleAuthorsAdd.Location = new Point(275, 18);
             buttonCPNAArticleAuthorsAdd.Name = "buttonCPNAArticleAuthorsAdd";
             buttonCPNAArticleAuthorsAdd.Size = new Size(90, 23);
-            buttonCPNAArticleAuthorsAdd.TabIndex = 31;
+            buttonCPNAArticleAuthorsAdd.TabIndex = 11;
             buttonCPNAArticleAuthorsAdd.Text = "Добавить";
             buttonCPNAArticleAuthorsAdd.UseVisualStyleBackColor = true;
             buttonCPNAArticleAuthorsAdd.Click += this.buttonCPNAArticleAuthorsAdd_Click;
             // 
             // tbCPNAPages
             // 
+            tbCPNAPages.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPNAPages.Location = new Point(0, 352);
             tbCPNAPages.Name = "tbCPNAPages";
             tbCPNAPages.Size = new Size(450, 23);
-            tbCPNAPages.TabIndex = 13;
+            tbCPNAPages.TabIndex = 18;
+            ttMain.SetToolTip(tbCPNAPages, "Номера страниц, на которых размещена статья.\r\nПример: «6-7»\r\n");
             tbCPNAPages.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPNAPages
@@ -10390,13 +11017,16 @@
             labelCPNAPages.Size = new Size(108, 15);
             labelCPNAPages.TabIndex = 12;
             labelCPNAPages.Text = "Диапазон страниц";
+            ttMain.SetToolTip(labelCPNAPages, "Номера страниц, на которых размещена статья.\r\nПример: «6-7»");
             // 
             // tbCPNAReleaseDate
             // 
+            tbCPNAReleaseDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPNAReleaseDate.Location = new Point(0, 264);
             tbCPNAReleaseDate.Name = "tbCPNAReleaseDate";
             tbCPNAReleaseDate.Size = new Size(450, 23);
-            tbCPNAReleaseDate.TabIndex = 11;
+            tbCPNAReleaseDate.TabIndex = 16;
+            ttMain.SetToolTip(tbCPNAReleaseDate, "Конкретная дата выхода газеты.\r\nПример: «22 дек.»");
             tbCPNAReleaseDate.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPNAArticleTitle
@@ -10407,6 +11037,7 @@
             labelCPNAArticleTitle.Size = new Size(95, 15);
             labelCPNAArticleTitle.TabIndex = 4;
             labelCPNAArticleTitle.Text = "Заглавие статьи";
+            ttMain.SetToolTip(labelCPNAArticleTitle, "Основное название статьи.\r\nПример: «„Пустое занятие“: кто лишает Россию права вето в СБ ООН»");
             // 
             // labelCPNAReleaseDate
             // 
@@ -10416,21 +11047,26 @@
             labelCPNAReleaseDate.Size = new Size(81, 15);
             labelCPNAReleaseDate.TabIndex = 10;
             labelCPNAReleaseDate.Text = "Дата выпуска";
+            ttMain.SetToolTip(labelCPNAReleaseDate, "Конкретная дата выхода газеты.\r\nПример: «22 дек.»");
             // 
             // tbCPNAArticleTitle
             // 
+            tbCPNAArticleTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPNAArticleTitle.Location = new Point(0, 132);
             tbCPNAArticleTitle.Name = "tbCPNAArticleTitle";
             tbCPNAArticleTitle.Size = new Size(450, 23);
-            tbCPNAArticleTitle.TabIndex = 5;
+            tbCPNAArticleTitle.TabIndex = 13;
+            ttMain.SetToolTip(tbCPNAArticleTitle, "Основное название статьи.\r\nПример: «„Пустое занятие“: кто лишает Россию права вето в СБ ООН»\r\n");
             tbCPNAArticleTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbCPNAPublishYear
             // 
+            tbCPNAPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPNAPublishYear.Location = new Point(0, 220);
             tbCPNAPublishYear.Name = "tbCPNAPublishYear";
             tbCPNAPublishYear.Size = new Size(450, 23);
-            tbCPNAPublishYear.TabIndex = 9;
+            tbCPNAPublishYear.TabIndex = 15;
+            ttMain.SetToolTip(tbCPNAPublishYear, "Год выхода газеты, в которой опубликована статья.\r\nПример: «2017»");
             tbCPNAPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPNANewspaperName
@@ -10441,6 +11077,7 @@
             labelCPNANewspaperName.Size = new Size(98, 15);
             labelCPNANewspaperName.TabIndex = 6;
             labelCPNANewspaperName.Text = "Название газеты";
+            ttMain.SetToolTip(labelCPNANewspaperName, "Полное наименование газеты, где опубликована статья.\r\nПример: «Новая газета»");
             // 
             // labelCPNAPublishYear
             // 
@@ -10450,13 +11087,16 @@
             labelCPNAPublishYear.Size = new Size(73, 15);
             labelCPNAPublishYear.TabIndex = 8;
             labelCPNAPublishYear.Text = "Год издания";
+            ttMain.SetToolTip(labelCPNAPublishYear, "Год выхода газеты, в которой опубликована статья.\r\nПример: «2017»");
             // 
             // tbCPNANewspaperName
             // 
+            tbCPNANewspaperName.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPNANewspaperName.Location = new Point(0, 176);
             tbCPNANewspaperName.Name = "tbCPNANewspaperName";
             tbCPNANewspaperName.Size = new Size(450, 23);
-            tbCPNANewspaperName.TabIndex = 7;
+            tbCPNANewspaperName.TabIndex = 14;
+            ttMain.SetToolTip(tbCPNANewspaperName, "Полное наименование газеты, где опубликована статья.\r\nПример: «Новая газета»\r\n");
             tbCPNANewspaperName.KeyDown += this.TextBox_KeyDown;
             // 
             // gbCPNewspaperArticleOptional
@@ -10490,15 +11130,16 @@
             labelCPNAContentType.Size = new Size(97, 15);
             labelCPNAContentType.TabIndex = 33;
             labelCPNAContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelCPNAContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelCPNAContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             // 
             // tbCPNAContentType
             // 
+            tbCPNAContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPNAContentType.Location = new Point(0, 106);
             tbCPNAContentType.Name = "tbCPNAContentType";
             tbCPNAContentType.Size = new Size(450, 23);
-            tbCPNAContentType.TabIndex = 34;
-            ttMain.SetToolTip(tbCPNAContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbCPNAContentType.TabIndex = 21;
+            ttMain.SetToolTip(tbCPNAContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
             tbCPNAContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPNAArticleNote
@@ -10509,21 +11150,26 @@
             labelCPNAArticleNote.Size = new Size(124, 15);
             labelCPNAArticleNote.TabIndex = 0;
             labelCPNAArticleNote.Text = "Примечание к статье";
+            ttMain.SetToolTip(labelCPNAArticleNote, "Дополнительное пояснение к содержанию статьи, например, форма подачи или контекст.\r\nПример: «об экономической ситуации: беседа с научным руководителем ВШЭ»");
             // 
             // tbCPNAInterviewer
             // 
+            tbCPNAInterviewer.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPNAInterviewer.Location = new Point(0, 62);
             tbCPNAInterviewer.Name = "tbCPNAInterviewer";
             tbCPNAInterviewer.Size = new Size(450, 23);
-            tbCPNAInterviewer.TabIndex = 3;
+            tbCPNAInterviewer.TabIndex = 20;
+            ttMain.SetToolTip(tbCPNAInterviewer, "Имя лица, записавшего интервью или беседу.\r\nПример: «П. Каныгин»");
             tbCPNAInterviewer.KeyDown += this.TextBox_KeyDown;
             // 
             // tbCPNAArticleNote
             // 
+            tbCPNAArticleNote.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPNAArticleNote.Location = new Point(0, 18);
             tbCPNAArticleNote.Name = "tbCPNAArticleNote";
             tbCPNAArticleNote.Size = new Size(450, 23);
-            tbCPNAArticleNote.TabIndex = 1;
+            tbCPNAArticleNote.TabIndex = 19;
+            ttMain.SetToolTip(tbCPNAArticleNote, "Дополнительное пояснение к содержанию статьи, например, форма подачи или контекст.\r\nПример: «об экономической ситуации: беседа с научным руководителем ВШЭ»");
             tbCPNAArticleNote.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPNAInterviewer
@@ -10534,6 +11180,7 @@
             labelCPNAInterviewer.Size = new Size(131, 15);
             labelCPNAInterviewer.TabIndex = 2;
             labelCPNAInterviewer.Text = "Записал (интервьюер)";
+            ttMain.SetToolTip(labelCPNAInterviewer, "Имя лица, записавшего интервью или беседу.\r\nПример: «П. Каныгин»");
             // 
             // tpCPWebsiteArticle
             // 
@@ -10573,11 +11220,12 @@
             // 
             // tbCPWAURL
             // 
+            tbCPWAURL.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPWAURL.Location = new Point(0, 106);
             tbCPWAURL.Name = "tbCPWAURL";
             tbCPWAURL.Size = new Size(450, 23);
-            tbCPWAURL.TabIndex = 9;
-            ttMain.SetToolTip(tbCPWAURL, "Прямая ссылка на сайт.\r\nПример: «http://www.nilc.ru/journal/»");
+            tbCPWAURL.TabIndex = 12;
+            ttMain.SetToolTip(tbCPWAURL, "Прямая ссылка на электронную публикацию. Всегда указывается в полном формате, начинающемся с http или https.\r\nПример: «http://www.nilc.ru/journal/»");
             tbCPWAURL.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPWAArticleTitle
@@ -10598,24 +11246,26 @@
             labelCPWAURL.Size = new Size(28, 15);
             labelCPWAURL.TabIndex = 8;
             labelCPWAURL.Text = "URL";
-            ttMain.SetToolTip(labelCPWAURL, "Прямая ссылка на сайт.\r\nПример: «http://www.nilc.ru/journal/»\r\n");
+            ttMain.SetToolTip(labelCPWAURL, "Прямая ссылка на электронную публикацию. Всегда указывается в полном формате, начинающемся с http или https.\r\nПример: «http://www.nilc.ru/journal/»");
             // 
             // tbCPWAArticleTitle
             // 
+            tbCPWAArticleTitle.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPWAArticleTitle.Location = new Point(0, 18);
             tbCPWAArticleTitle.Name = "tbCPWAArticleTitle";
             tbCPWAArticleTitle.Size = new Size(450, 23);
-            tbCPWAArticleTitle.TabIndex = 5;
+            tbCPWAArticleTitle.TabIndex = 10;
             ttMain.SetToolTip(tbCPWAArticleTitle, "Основное заглавие статьи без кавычек, включая подзаголовки и уточнения.\r\nПример: «От MARC 21 к модели BIBFRAME: эволюция машиночитаемых форматов Библиотеки Конгресса США»");
             tbCPWAArticleTitle.KeyDown += this.TextBox_KeyDown;
             // 
             // tbCPWAWebsiteName
             // 
+            tbCPWAWebsiteName.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPWAWebsiteName.Location = new Point(0, 62);
             tbCPWAWebsiteName.Name = "tbCPWAWebsiteName";
             tbCPWAWebsiteName.Size = new Size(450, 23);
-            tbCPWAWebsiteName.TabIndex = 7;
-            ttMain.SetToolTip(tbCPWAWebsiteName, "Название сайта, на котором размещена статья.\nПример: «Теория и практика каталогизации и поиска библиотечных ресурсов»");
+            tbCPWAWebsiteName.TabIndex = 11;
+            ttMain.SetToolTip(tbCPWAWebsiteName, "Наименование электронного ресурса (сайта), на котором размещена статья. Указывается без URL и технических подробностей.\r\nПример: «Теория и практика каталогизации и поиска библиотечных ресурсов»");
             tbCPWAWebsiteName.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPWAWebsiteName
@@ -10626,7 +11276,7 @@
             labelCPWAWebsiteName.Size = new Size(92, 15);
             labelCPWAWebsiteName.TabIndex = 6;
             labelCPWAWebsiteName.Text = "Название сайта";
-            ttMain.SetToolTip(labelCPWAWebsiteName, "Название сайта, на котором размещена статья.\nПример: «Теория и практика каталогизации и поиска библиотечных ресурсов»");
+            ttMain.SetToolTip(labelCPWAWebsiteName, "Наименование электронного ресурса (сайта), на котором размещена статья. Указывается без URL и технических подробностей.\r\nПример: «Теория и практика каталогизации и поиска библиотечных ресурсов»");
             // 
             // gbCPWebsiteArticleOptional
             // 
@@ -10673,10 +11323,12 @@
             // 
             // tbCPWAAccessDate
             // 
+            tbCPWAAccessDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPWAAccessDate.Location = new Point(0, 440);
             tbCPWAAccessDate.Name = "tbCPWAAccessDate";
             tbCPWAAccessDate.Size = new Size(450, 23);
-            tbCPWAAccessDate.TabIndex = 11;
+            tbCPWAAccessDate.TabIndex = 23;
+            ttMain.SetToolTip(tbCPWAAccessDate, "Дата последнего обращения к ресурсу. Используется для всех электронных публикаций.\r\nПример: «02.05.2025»");
             tbCPWAAccessDate.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPWAPublicationType
@@ -10687,6 +11339,7 @@
             labelCPWAPublicationType.Size = new Size(74, 15);
             labelCPWAPublicationType.TabIndex = 68;
             labelCPWAPublicationType.Text = "Вид издания";
+            ttMain.SetToolTip(labelCPWAPublicationType, resources.GetString("labelCPWAPublicationType.ToolTip"));
             // 
             // labelCPWAAccessDate
             // 
@@ -10696,13 +11349,16 @@
             labelCPWAAccessDate.Size = new Size(99, 15);
             labelCPWAAccessDate.TabIndex = 10;
             labelCPWAAccessDate.Text = "Дата обращения";
+            ttMain.SetToolTip(labelCPWAAccessDate, "Дата последнего обращения к ресурсу. Используется для всех электронных публикаций.\r\nПример: «02.05.2025»");
             // 
             // tbCPWAPublicationType
             // 
+            tbCPWAPublicationType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPWAPublicationType.Location = new Point(0, 176);
             tbCPWAPublicationType.Name = "tbCPWAPublicationType";
             tbCPWAPublicationType.Size = new Size(450, 23);
-            tbCPWAPublicationType.TabIndex = 69;
+            tbCPWAPublicationType.TabIndex = 17;
+            ttMain.SetToolTip(tbCPWAPublicationType, resources.GetString("tbCPWAPublicationType.ToolTip"));
             tbCPWAPublicationType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPWAMaterialType
@@ -10713,15 +11369,16 @@
             labelCPWAMaterialType.Size = new Size(89, 15);
             labelCPWAMaterialType.TabIndex = 66;
             labelCPWAMaterialType.Text = "Вид материала";
-            ttMain.SetToolTip(labelCPWAMaterialType, "Вид представленного материала. \r\nПример: «презентация»");
+            ttMain.SetToolTip(labelCPWAMaterialType, "Тип представленного материала - указание на форму представления, например: презентация, интервью, доклад. Не включает в себя сведения о конференции.\r\nПример: «презентация»");
             // 
             // tbCPWAMaterialType
             // 
+            tbCPWAMaterialType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPWAMaterialType.Location = new Point(0, 132);
             tbCPWAMaterialType.Name = "tbCPWAMaterialType";
             tbCPWAMaterialType.Size = new Size(450, 23);
-            tbCPWAMaterialType.TabIndex = 67;
-            ttMain.SetToolTip(tbCPWAMaterialType, "Вид представленного материала. \r\nПример: «презентация»\r\n");
+            tbCPWAMaterialType.TabIndex = 16;
+            ttMain.SetToolTip(tbCPWAMaterialType, "Тип представленного материала - указание на форму представления, например: презентация, интервью, доклад. Не включает в себя сведения о конференции.\r\nПример: «презентация»\r\n");
             tbCPWAMaterialType.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPWAContentType
@@ -10732,24 +11389,26 @@
             labelCPWAContentType.Size = new Size(97, 15);
             labelCPWAContentType.TabIndex = 64;
             labelCPWAContentType.Text = "Вид содержания";
-            ttMain.SetToolTip(labelCPWAContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            ttMain.SetToolTip(labelCPWAContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             // 
             // tbCPWAContentType
             // 
+            tbCPWAContentType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPWAContentType.Location = new Point(0, 528);
             tbCPWAContentType.Name = "tbCPWAContentType";
             tbCPWAContentType.Size = new Size(450, 23);
-            tbCPWAContentType.TabIndex = 65;
-            ttMain.SetToolTip(tbCPWAContentType, "Уточняет вид содержания. Формат: тип содержания без \"Текст\".\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".");
+            tbCPWAContentType.TabIndex = 25;
+            ttMain.SetToolTip(tbCPWAContentType, "Уточняет вид содержания.\r\nПример: Текст : непосредственный\" или \"Текст : электронный\".\r\n");
             tbCPWAContentType.KeyDown += this.TextBox_KeyDown;
             // 
             // tbCPWAEventDate
             // 
+            tbCPWAEventDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPWAEventDate.Location = new Point(0, 264);
             tbCPWAEventDate.Name = "tbCPWAEventDate";
             tbCPWAEventDate.Size = new Size(450, 23);
-            tbCPWAEventDate.TabIndex = 63;
-            ttMain.SetToolTip(tbCPWAEventDate, "Дата, когда проходило мероприятие.\r\nПример: «15 ноября 2017 г.»\r\n");
+            tbCPWAEventDate.TabIndex = 19;
+            ttMain.SetToolTip(tbCPWAEventDate, "Конкретные даты проведения мероприятия. Указывается в полной форме.\r\nПример: «18–19 апреля 2017 г.»");
             tbCPWAEventDate.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPWAEventDate
@@ -10760,15 +11419,16 @@
             labelCPWAEventDate.Size = new Size(100, 15);
             labelCPWAEventDate.TabIndex = 62;
             labelCPWAEventDate.Text = "Дата проведения";
-            ttMain.SetToolTip(labelCPWAEventDate, "Дата, когда проходило мероприятие.\r\nПример: «15 ноября 2017 г.»");
+            ttMain.SetToolTip(labelCPWAEventDate, "Конкретные даты проведения мероприятия. Указывается в полной форме.\r\nПример: «18–19 апреля 2017 г.»");
             // 
             // tbCPWAEventPlace
             // 
+            tbCPWAEventPlace.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPWAEventPlace.Location = new Point(0, 220);
             tbCPWAEventPlace.Name = "tbCPWAEventPlace";
             tbCPWAEventPlace.Size = new Size(450, 23);
-            tbCPWAEventPlace.TabIndex = 61;
-            ttMain.SetToolTip(tbCPWAEventPlace, "Город, в котором проходило мероприятие.\r\nПример: «Москва»\r\n");
+            tbCPWAEventPlace.TabIndex = 18;
+            ttMain.SetToolTip(tbCPWAEventPlace, "Город или населённый пункт, где проводилось мероприятие, связанное с публикацией статьи.\r\nПример: «Москва»");
             tbCPWAEventPlace.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPWAEventPlace
@@ -10779,7 +11439,7 @@
             labelCPWAEventPlace.Size = new Size(108, 15);
             labelCPWAEventPlace.TabIndex = 60;
             labelCPWAEventPlace.Text = "Город проведения";
-            ttMain.SetToolTip(labelCPWAEventPlace, "Город, в котором проходило мероприятие.\r\nПример: «Москва»");
+            ttMain.SetToolTip(labelCPWAEventPlace, "Город или населённый пункт, где проводилось мероприятие, связанное с публикацией статьи.\r\nПример: «Москва»");
             // 
             // labelCPWAResourceDescription
             // 
@@ -10789,13 +11449,16 @@
             labelCPWAResourceDescription.Size = new Size(109, 15);
             labelCPWAResourceDescription.TabIndex = 39;
             labelCPWAResourceDescription.Text = "Описание ресурса";
+            ttMain.SetToolTip(labelCPWAResourceDescription, "Дополнительное описание ресурса, поясняющее его назначение или тематику.\r\nПример: «научная электронная библиотека»");
             // 
             // tbCPWAResourceDescription
             // 
+            tbCPWAResourceDescription.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPWAResourceDescription.Location = new Point(0, 308);
             tbCPWAResourceDescription.Name = "tbCPWAResourceDescription";
             tbCPWAResourceDescription.Size = new Size(450, 23);
-            tbCPWAResourceDescription.TabIndex = 40;
+            tbCPWAResourceDescription.TabIndex = 20;
+            ttMain.SetToolTip(tbCPWAResourceDescription, "Дополнительное описание ресурса, поясняющее его назначение или тематику.\r\nПример: «научная электронная библиотека»");
             tbCPWAResourceDescription.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPWAResourceType
@@ -10806,13 +11469,16 @@
             labelCPWAResourceType.Size = new Size(74, 15);
             labelCPWAResourceType.TabIndex = 12;
             labelCPWAResourceType.Text = "Тип ресурса";
+            ttMain.SetToolTip(labelCPWAResourceType, "Тип сайта или платформы, на которой опубликован материал (например, официальный сайт, электронный журнал и т. д.).\r\nПример: «электронный журнал»");
             // 
             // tbCPWAResourceType
             // 
+            tbCPWAResourceType.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPWAResourceType.Location = new Point(0, 352);
             tbCPWAResourceType.Name = "tbCPWAResourceType";
             tbCPWAResourceType.Size = new Size(450, 23);
-            tbCPWAResourceType.TabIndex = 13;
+            tbCPWAResourceType.TabIndex = 21;
+            ttMain.SetToolTip(tbCPWAResourceType, "Тип сайта или платформы, на которой опубликован материал (например, официальный сайт, электронный журнал и т. д.).\r\nПример: «электронный журнал»");
             tbCPWAResourceType.KeyDown += this.TextBox_KeyDown;
             // 
             // cbCPWAArticleAuthors
@@ -10821,7 +11487,7 @@
             cbCPWAArticleAuthors.Location = new Point(371, 20);
             cbCPWAArticleAuthors.Name = "cbCPWAArticleAuthors";
             cbCPWAArticleAuthors.Size = new Size(79, 19);
-            cbCPWAArticleAuthors.TabIndex = 38;
+            cbCPWAArticleAuthors.TabIndex = 15;
             cbCPWAArticleAuthors.Text = "5 авторов";
             ttMain.SetToolTip(cbCPWAArticleAuthors, "Включить логику формирования для 5 и более авторов.\r\n**Включается автоматически при добавлении 5 и более авторов**");
             cbCPWAArticleAuthors.UseVisualStyleBackColor = true;
@@ -10834,15 +11500,16 @@
             labelCPWAArticleAuthors.Size = new Size(95, 15);
             labelCPWAArticleAuthors.TabIndex = 34;
             labelCPWAArticleAuthors.Text = "Автор(ы) статьи";
-            ttMain.SetToolTip(labelCPWAArticleAuthors, "Фамилии и инициалы авторов статьи. \r\nПример: «Бахтурина, Т. А.»");
+            ttMain.SetToolTip(labelCPWAArticleAuthors, resources.GetString("labelCPWAArticleAuthors.ToolTip"));
             // 
             // tbCPWAArticleAuthors
             // 
+            tbCPWAArticleAuthors.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPWAArticleAuthors.Location = new Point(0, 18);
             tbCPWAArticleAuthors.Name = "tbCPWAArticleAuthors";
             tbCPWAArticleAuthors.Size = new Size(269, 23);
-            tbCPWAArticleAuthors.TabIndex = 35;
-            ttMain.SetToolTip(tbCPWAArticleAuthors, "Фамилии и инициалы авторов статьи. \r\nПример: «Бахтурина, Т. А.»\r\n");
+            tbCPWAArticleAuthors.TabIndex = 13;
+            ttMain.SetToolTip(tbCPWAArticleAuthors, resources.GetString("tbCPWAArticleAuthors.ToolTip"));
             tbCPWAArticleAuthors.KeyDown += this.TextBox_KeyDown;
             // 
             // lbCPWAArticleAuthors
@@ -10854,6 +11521,7 @@
             lbCPWAArticleAuthors.Name = "lbCPWAArticleAuthors";
             lbCPWAArticleAuthors.Size = new Size(450, 64);
             lbCPWAArticleAuthors.TabIndex = 37;
+            lbCPWAArticleAuthors.TabStop = false;
             lbCPWAArticleAuthors.DragDrop += this.ListBox_DragDrop;
             lbCPWAArticleAuthors.DragOver += this.ListBox_DragOver;
             lbCPWAArticleAuthors.KeyDown += this.ListBox_KeyDown;
@@ -10865,7 +11533,7 @@
             buttonCPWAArticleAuthorsAdd.Location = new Point(275, 18);
             buttonCPWAArticleAuthorsAdd.Name = "buttonCPWAArticleAuthorsAdd";
             buttonCPWAArticleAuthorsAdd.Size = new Size(90, 23);
-            buttonCPWAArticleAuthorsAdd.TabIndex = 36;
+            buttonCPWAArticleAuthorsAdd.TabIndex = 14;
             buttonCPWAArticleAuthorsAdd.Text = "Добавить";
             buttonCPWAArticleAuthorsAdd.UseVisualStyleBackColor = true;
             buttonCPWAArticleAuthorsAdd.Click += this.buttonCPWAArticleAuthorsAdd_Click;
@@ -10878,21 +11546,26 @@
             labelCPWAPublishYear.Size = new Size(96, 15);
             labelCPWAPublishYear.TabIndex = 2;
             labelCPWAPublishYear.Text = "Год публикации";
+            ttMain.SetToolTip(labelCPWAPublishYear, "Год публикации статьи (если известен). Обычно указывается рядом с названием сайта.\r\nПример: «2018»");
             // 
             // tbCPWAPublishDate
             // 
+            tbCPWAPublishDate.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPWAPublishDate.Location = new Point(0, 484);
             tbCPWAPublishDate.Name = "tbCPWAPublishDate";
             tbCPWAPublishDate.Size = new Size(450, 23);
-            tbCPWAPublishDate.TabIndex = 5;
+            tbCPWAPublishDate.TabIndex = 24;
+            ttMain.SetToolTip(tbCPWAPublishDate, "Дата выхода статьи или её размещения на сайте. Если известны только день и месяц, указываются они; если известна вся дата — используется она одна.\r\nПример: «2 февр.»");
             tbCPWAPublishDate.KeyDown += this.TextBox_KeyDown;
             // 
             // tbCPWAPublishYear
             // 
+            tbCPWAPublishYear.ContextMenuStrip = cmsRichTextBox_TextBox;
             tbCPWAPublishYear.Location = new Point(0, 396);
             tbCPWAPublishYear.Name = "tbCPWAPublishYear";
             tbCPWAPublishYear.Size = new Size(450, 23);
-            tbCPWAPublishYear.TabIndex = 3;
+            tbCPWAPublishYear.TabIndex = 22;
+            ttMain.SetToolTip(tbCPWAPublishYear, "Год публикации статьи (если известен). Обычно указывается рядом с названием сайта.\r\nПример: «2018»");
             tbCPWAPublishYear.KeyDown += this.TextBox_KeyDown;
             // 
             // labelCPWAPublishDate
@@ -10903,11 +11576,11 @@
             labelCPWAPublishDate.Size = new Size(102, 15);
             labelCPWAPublishDate.TabIndex = 4;
             labelCPWAPublishDate.Text = "Дата публикации";
+            ttMain.SetToolTip(labelCPWAPublishDate, "Дата выхода статьи или её размещения на сайте. Если известны только день и месяц, указываются они; если известна вся дата — используется она одна.\r\nПример: «2 февр.»");
             // 
             // GOST2018
             // 
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
+            this.AutoScaleMode = AutoScaleMode.None;
             this.ClientSize = new Size(837, 808);
             this.Controls.Add(splitContainer1);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -10933,7 +11606,7 @@
             ((global::System.ComponentModel.ISupportInitialize)(splitContainer3)).EndInit();
             splitContainer3.ResumeLayout(false);
             panelRtbMLA.ResumeLayout(false);
-            cmsRichTextBox.ResumeLayout(false);
+            cmsRichTextBox_TextBox.ResumeLayout(false);
             panelRtbGOST.ResumeLayout(false);
             panelConvertTitle.ResumeLayout(false);
             panelConvertTitle.PerformLayout();
@@ -11991,7 +12664,22 @@
         private ToolStripMenuItem tsmiRestoreLastEntry;
         private ToolStripMenuItem tsmiRestoreEntry;
         private ToolStripMenuItem tsmiClearForm;
-        private ContextMenuStrip cmsRichTextBox;
+        private ContextMenuStrip cmsRichTextBox_TextBox;
         private ToolStripMenuItem tsmiClearRichTextBox;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem tsmiUndoRichTextBox;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripMenuItem tsmiCutRichTextBox;
+        private ToolStripMenuItem tsmiCopyRichTextBox;
+        private ToolStripMenuItem tsmiPasteRichTextBox;
+        private ToolStripMenuItem tsmiDeleteRichTextBox;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripMenuItem tsmiSelectAllRichTextBox;
+        private ToolStripSeparator toolStripSeparator4;
+        private ToolStripMenuItem tsmiUnableClearingRichTextBox1;
+        private ToolStripMenuItem tsmiUnableClearingRichTextBox2;
+        private ToolStripMenuItem tsmiUndo;
+        private ToolStripSeparator toolStripSeparator6;
+        private ToolStripSeparator toolStripSeparator5;
     }
 }

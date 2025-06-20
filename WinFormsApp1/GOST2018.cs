@@ -8,6 +8,9 @@ using MigraDoc.Rendering;
 using PdfSharp.Pdf;
 using System;
 using static WinFormsApp1.GOST2018;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Bibliography;
 
 
 namespace WinFormsApp1
@@ -17,7 +20,9 @@ namespace WinFormsApp1
         public GOST2018()
         {
             InitializeComponent();
+            RegisterAllListBoxes(this);
         }
+        private readonly UndoRedoListBoxManager _undoManager = new UndoRedoListBoxManager();
 
         private readonly Dictionary<TabPage, FormSnapshot> _initialSnapshots = new();
 
@@ -112,6 +117,66 @@ namespace WinFormsApp1
             lbERWPublisher.Tag = lbERWPublishingLocation;
             lbCPBAPublisher.Tag = lbCPBAPublishingLocationSelect;
             lbCPCAPublisher.Tag = lbCPCAPublishingLocationSelect;
+
+            // Привязка текстбоксов к своим листбоксам
+            tbSVBAuthors.Tag = lbSVBAuthors;
+            tbSVBPublishingLocation.Tag = lbSVBPublishingLocation;
+            tbSVBPublisher.Tag = lbSVBPublisher;
+            tbSVBEditor.Tag = lbSVBEditor;
+            tbSVCMPublishingLocation.Tag = lbSVCMPublishingLocation;
+            tbSVCMPublisher.Tag = lbSVCMPublisher;
+            tbSVCMEditor.Tag = lbSVCMEditor;
+            tbSVGOSTPublishingLocation.Tag = lbSVGOSTPublishingLocation;
+            tbSVGOSTPublisher.Tag = lbSVGOSTPublisher;
+            tbSVLMPublishingLocation.Tag = lbSVLMPublishingLocation;
+            tbSVLMPublisher.Tag = lbSVLMPublisher;
+            tbMVWMAuthors.Tag = lbMVWMAuthors;
+            tbMVWMPublishingLocation.Tag = lbMVWMPublishingLocation;
+            tbMVWMPublisher.Tag = lbMVWMPublisher;
+            tbMVWMEditor.Tag = lbMVWMEditor;
+            tbMVSVAuthors.Tag = lbMVSVAuthors;
+            tbMVSVPublishingLocation.Tag = lbMVSVPublishingLocation;
+            tbMVSVPublisher.Tag = lbMVSVPublisher;
+            tbMVSVEditor.Tag = lbMVSVEditor;
+            tbEREbAuthors.Tag = lbEREbAuthors;
+            tbEREbPublishingLocation.Tag = lbEREbPublishingLocation;
+            tbEREbPublisher.Tag = lbEREbPublisher;
+            tbEREbEditor.Tag = lbEREbEditor;
+            tbERWEEAuthors.Tag = lbERWEEAuthors;
+            tbERWEEPublishingLocation.Tag = lbERWEEPublishingLocation;
+            tbERWEEPublisher.Tag = lbERWEEPublisher;
+            tbERWEEEditor.Tag = lbERWEEEditor;
+            tbEREESVAuthors.Tag = lbEREESVAuthors;
+            tbEREESVPublishingLocation.Tag = lbEREESVPublishingLocation;
+            tbEREESVPublisher.Tag = lbEREESVPublisher;
+            tbEREESVEditor.Tag = lbEREESVEditor;
+            tbERECMEditorialBoard.Tag = lbERECMEditorialBoard;
+            tbERECMEditor.Tag = lbERECMEditor;
+            tbERECMPublishingLocation.Tag = lbERECMPublishingLocation;
+            tbERECMPublisher.Tag = lbERECMPublisher;
+            tbERECEditorialBoard.Tag = lbERECEditorialBoard;
+            tbERECEditor.Tag = lbERECEditor;
+            tbERECPublishingLocation.Tag = lbERECPublishingLocation;
+            tbERECPublisher.Tag = lbERECPublisher;
+            tbEREjAAuthors.Tag = lbEREjAAuthors;
+            tbERMEAuthors.Tag = lbERMEAuthors;
+            tbERMEPublishingLocation.Tag = lbERMEPublishingLocation;
+            tbERMEPublisher.Tag = lbERMEPublisher;
+            tbERWPublishingLocation.Tag = lbERWPublishingLocation;
+            tbERWPublisher.Tag = lbERWPublisher;
+            tbCPBAArticleAuthors.Tag = lbCPBAArticleAuthors;
+            tbCPBABookAuthors.Tag = lbCPBABookAuthors;
+            tbCPBAPublishingLocation.Tag = lbCPBAPublishingLocation;
+            tbCPBAPublisher.Tag = lbCPBAPublisher;
+            tbCPCAArticleAuthors.Tag = lbCPCAArticleAuthors;
+            tbCPCAConferenceAuthors.Tag = lbCPCAConferenceAuthors;
+            tbCPCAEditor.Tag = lbCPCAEditor;
+            tbCPCAPublishingLocation.Tag = lbCPCAPublishingLocation;
+            tbCPCAPublisher.Tag = lbCPCAPublisher;
+            tbCPJAArticleAuthors.Tag = lbCPJAArticleAuthors;
+            tbCPNAArticleAuthors.Tag = lbCPNAArticleAuthors;
+            tbCPWAArticleAuthors.Tag = lbCPWAArticleAuthors;
+
 
             UpdateListCheckBox(lbSVBAuthors, 1, 5);
             UpdateListCheckBox(lbMVWMAuthors, 1, 5);
@@ -424,7 +489,7 @@ namespace WinFormsApp1
                 Font = new System.Drawing.Font("Consolas", 10)
             };
             dlg.Controls.Add(rtb);
-            rtb.ContextMenuStrip = cmsRichTextBox;
+            rtb.ContextMenuStrip = cmsRichTextBox_TextBox;
 
             // кнопки ОК и Отмена
             var pnl = new Panel()
@@ -483,48 +548,53 @@ namespace WinFormsApp1
         // Обработка нажатия мыши — начало перетаскивания или контекстное меню
         private void ListBox_MouseDown(object sender, MouseEventArgs e)
         {
-            if (sender is ListBox lb)
-            {
-                if (e.Button == MouseButtons.Left)
-                {
-                    dragIndex = lb.IndexFromPoint(e.Location);
+            if (sender is not ListBox lb) return;
 
-                    if (lb.Name.Contains("Publisher") && lb.Tag is ListBox selector)
+            if (e.Button == MouseButtons.Left)
+            {
+                dragIndex = lb.IndexFromPoint(e.Location);
+
+                if (lb.Name.Contains("Publisher"))
+                {
+                    // mainLocationList = lbSVBPublishingLocation
+                    var mainLocationList = lb.Tag as ListBox;
+                    // selector          = lbSVBPublishingLocationSelect
+                    var selector = mainLocationList?.Tag as ListBox;
+
+                    bool smartModeOn = selector != null && selector.Enabled;
+
+                    if (smartModeOn)                                    // проверяем ТОЛЬКО в Smart Mode
                     {
-                        if (selector.SelectedItem is string temp)
-                        {
-                            _dragSelectedPlace = temp;
-                        }
+                        if (selector.SelectedItem is string place)
+                            _dragSelectedPlace = place;
                         else if (!string.IsNullOrEmpty(_savedPublishingLocation))
-                        {
                             _dragSelectedPlace = _savedPublishingLocation;
-                        }
                         else
                         {
-                            MessageBox.Show("Пожалуйста, выберите место издания, прежде чем перетаскивать издательства местами.",
-                                            "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show(
+                                "Пожалуйста, выберите место издания, прежде чем перетаскивать издательства местами.",
+                                "Ошибка",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
                             return;
                         }
                     }
                     else
                     {
+                        // Обычный режим – свободное перетаскивание
                         _dragSelectedPlace = null;
                     }
+                }
 
-                    if (dragIndex != -1)
-                    {
-                        lb.DoDragDrop(lb.Items[dragIndex], DragDropEffects.Move);
-                    }
-                }
-                else if (e.Button == MouseButtons.Right)
-                {
-                    _currentListBox = lb;
-                    int index = lb.IndexFromPoint(e.Location);
-                    if (index >= 0)
-                    {
-                        lb.SelectedIndex = index;
-                    }
-                }
+                if (dragIndex != -1)
+                    lb.DoDragDrop(lb.Items[dragIndex], DragDropEffects.Move);
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                _currentListBox = lb;
+                int index = lb.IndexFromPoint(e.Location);
+                if (index >= 0)
+                    lb.SelectedIndex = index;
             }
         }
 
@@ -600,6 +670,7 @@ namespace WinFormsApp1
                 tsmiCopy.Visible = false;
                 tsmiEdit.Visible = false;
                 tsmiRestoreEntry.Visible = false;
+                toolStripSeparator5.Visible = false;
             }
             else
             {
@@ -607,7 +678,11 @@ namespace WinFormsApp1
                 tsmiCopy.Visible = true;
                 tsmiEdit.Visible = true;
                 tsmiRestoreEntry.Visible = (_currentListBox == lbResult);
+                toolStripSeparator5.Visible = true;
             }
+
+            tsmiUndo.Enabled = _currentListBox != null && _undoManager.CanUndo(_currentListBox);
+            tsmiDeleteAll.Enabled = _currentListBox.Items.Count > 0;
         }
 
         // Кнопка "Удалить"
@@ -615,7 +690,7 @@ namespace WinFormsApp1
         {
             if (_currentListBox != null && _currentListBox.SelectedIndex >= 0)
             {
-                _currentListBox.Items.RemoveAt(_currentListBox.SelectedIndex);
+                _undoManager.DeleteItem(_currentListBox);
 
                 // Если удаляем автора из lbSVBAuthors — обновляем чекбокс
                 if (_currentListBox.Name.Contains("Authors"))
@@ -635,7 +710,7 @@ namespace WinFormsApp1
         {
             if (_currentListBox != null)
             {
-                _currentListBox.Items.Clear();
+                _undoManager.ClearItems(_currentListBox);
 
                 // Если удаляем автора из lbSVBAuthors — обновляем чекбокс
                 if (_currentListBox.Name.Contains("Authors"))
@@ -772,12 +847,67 @@ namespace WinFormsApp1
             RefreshAuthorCheckboxes();
         }
 
-        private void tsmiClearRichTextBox_Click(object sender, EventArgs e)
+        private void cmsRichTextBox_TextBox_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (cmsRichTextBox.SourceControl is RichTextBox rtb)
+            // Определяем, для какого RichTextBox вызвано меню
+            var menu = sender as ContextMenuStrip;
+            var tb = menu?.SourceControl as TextBoxBase;
+            if (tb == null)
             {
-                rtb.Clear();
+                e.Cancel = true;
+                return;
             }
+
+            // Активируем/деактивируем пункты меню
+            tsmiUndoRichTextBox.Enabled = tb.CanUndo;
+            tsmiCutRichTextBox.Enabled = tb.SelectionLength > 0;
+            tsmiCopyRichTextBox.Enabled = tb.SelectionLength > 0;
+            tsmiPasteRichTextBox.Enabled = Clipboard.ContainsText();
+            tsmiDeleteRichTextBox.Enabled = tb.SelectionLength > 0;
+            tsmiSelectAllRichTextBox.Enabled = tb.TextLength > 0;
+            tsmiUnableClearingRichTextBox1.Visible = tb == rtbGOST;
+            tsmiUnableClearingRichTextBox2.Visible = tb == rtbMLA;
+            toolStripSeparator4.Visible = tb == rtbGOST || tb == rtbMLA;
+            tsmiClearRichTextBox.Enabled = tb.TextLength > 0;
+        }
+
+        private void UniversalRichTextBox_TextBox_MenuItemClick(object sender, EventArgs e)
+        {
+            var menuItem = sender as ToolStripMenuItem;
+            var tb = cmsRichTextBox_TextBox.SourceControl as TextBoxBase;
+            if (tb == null || menuItem == null) return;
+
+            // Определяем действие по тексту пункта меню
+            switch (menuItem.Text)
+            {
+                case "Очистить":
+                    if (tb.TextLength > 0) tb.Clear();
+                    break;
+                case "Отменить":
+                    if (tb.CanUndo) tb.Undo();
+                    break;
+                case "Вырезать":
+                    if (tb.SelectionLength > 0) tb.Cut();
+                    break;
+                case "Копировать":
+                    if (tb.SelectionLength > 0) tb.Copy();
+                    break;
+                case "Вставить":
+                    if (Clipboard.ContainsText()) tb.Paste();
+                    break;
+                case "Удалить":
+                    if (tb.SelectionLength > 0) tb.SelectedText = "";
+                    break;
+                case "Выделить все":
+                    if (tb.TextLength > 0) tb.SelectAll();
+                    break;
+            }
+        }
+
+        private void tsmiUndo_Click(object sender, EventArgs e)
+        {
+            if (_currentListBox != null && _undoManager.CanUndo(_currentListBox))
+                _undoManager.Undo(_currentListBox);
         }
 
         //
@@ -796,20 +926,50 @@ namespace WinFormsApp1
         // Функция обработчик вставки текста через Ctrl V
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
+            if (sender is not TextBox textBox)
+                return;
+
             if (e.Control && e.KeyCode == Keys.V)
             {
                 e.SuppressKeyPress = true;
 
-                // Получаем текст из буфера обмена
                 string clipboardText = Clipboard.GetText();
-
-                // Убираем переносы строк
                 string cleanedText = clipboardText.Replace("\r", "").Replace("\n", "");
 
-                TextBox textBox = sender as TextBox;
-                if (textBox != null)
+                textBox.SelectedText = cleanedText;
+                return;
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;                      // убираем «пик» Windows
+
+                // В Tag TextBox-а должен лежать «его» ListBox
+                if (textBox.Tag is ListBox targetListBox)
                 {
-                    textBox.SelectedText = cleanedText;
+                    // ――― 2.1  Обычные списки (авторы, места и т. д.) ―――
+                    if (!targetListBox.Name.Contains("Publisher"))
+                    {
+                        AddStringToListBox(textBox, targetListBox);
+                        return;
+                    }
+
+                    // ――― 2.2  Списки издательств ―――
+                    // mainLocationList = lbSVBPublishingLocation, … (лежит в Tag у Publisher-ListBox’а)
+                    var mainLocationList = targetListBox.Tag as ListBox;
+                    // selector = lbSVBPublishingLocationSelect, … (лежит в Tag у mainLocationList)
+                    var selector = mainLocationList?.Tag as ListBox;
+
+                    bool smartModeEnabled = selector != null && selector.Enabled;
+                    Dictionary<string, List<string>> groupedPublishers =
+                        GetDictionaryByListBox(targetListBox);
+
+                    AddStringToPublisherListBox(
+                        textBox,
+                        targetListBox,
+                        smartModeEnabled,
+                        selector,
+                        groupedPublishers);
                 }
             }
         }
@@ -817,28 +977,59 @@ namespace WinFormsApp1
         // Функция обработчик нажатий delete и backspace для удаления записей из listbox
         private void ListBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (sender is ListBox listBox &&
-                (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back))
+            if (!(sender is ListBox listBox))
+                return;
+
+            // Ctrl+Z → Undo
+            if (e.Control && e.KeyCode == Keys.Z)
+            {
+                if (_undoManager.CanUndo(listBox))
+                {
+                    _undoManager.Undo(listBox);
+
+                    // Повторяем вашу «после изменения» логику
+                    if (listBox.Name.Contains("Authors"))
+                        UpdateListCheckBox(listBox, 1, 5);
+                    if (listBox.Name.Contains("PublishingLocation") && listBox.Tag is ListBox selectListBox)
+                        UpdatePublishingLocationSelector(listBox, selectListBox);
+                }
+                e.Handled = true;
+                return;
+            }
+
+            // Ctrl+Y → Redo
+            if (e.Control && e.KeyCode == Keys.Y)
+            {
+                if (_undoManager.CanRedo(listBox))
+                {
+                    _undoManager.Redo(listBox);
+
+                    // Повторяем вашу «после изменения» логику
+                    if (listBox.Name.Contains("Authors"))
+                        UpdateListCheckBox(listBox, 1, 5);
+                    if (listBox.Name.Contains("PublishingLocation") && listBox.Tag is ListBox selectListBox)
+                        UpdatePublishingLocationSelector(listBox, selectListBox);
+                }
+                e.Handled = true;
+                return;
+            }
+
+            // Delete или Backspace → удаление с сохранением для Undo
+            if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
             {
                 int selectedIndex = listBox.SelectedIndex;
+                if (selectedIndex < 0)
+                    return;
 
-                if (selectedIndex >= 0)
-                {
-                    listBox.Items.RemoveAt(selectedIndex);
+                _undoManager.DeleteItem(listBox);
 
-                    // Если список авторов — обновим чекбокс
-                    if (listBox.Name.Contains("Authors"))
-                    {
-                        UpdateListCheckBox(listBox, 1, 5);
-                    }
+                // Ваша существующая логика после удаления
+                if (listBox.Name.Contains("Authors"))
+                    UpdateListCheckBox(listBox, 1, 5);
+                if (listBox.Name.Contains("PublishingLocation") && listBox.Tag is ListBox selectListBox)
+                    UpdatePublishingLocationSelector(listBox, selectListBox);
 
-                    if (listBox.Name.Contains("PublishingLocation") && listBox.Tag is ListBox selectListBox)
-                    {
-                        UpdatePublishingLocationSelector(listBox, selectListBox);
-                    }
-
-                    e.Handled = true;
-                }
+                e.Handled = true;
             }
         }
 
@@ -858,7 +1049,8 @@ namespace WinFormsApp1
                 }
             }
 
-            targetListBox.Items.Add(input);
+            //targetListBox.Items.Add(input);
+            _undoManager.AddItem(targetListBox, input);
             sourceTextBox.Clear();
 
             if (targetListBox.Name.Contains("Authors"))
@@ -900,8 +1092,9 @@ namespace WinFormsApp1
             }
             else
             {
+                _undoManager.AddItem(targetListBox, input);
                 // Если умный режим выключен, просто добавляем издательство
-                targetListBox.Items.Add(input);
+                //targetListBox.Items.Add(input);
             }
 
             sourceTextBox.Clear();
@@ -1443,6 +1636,36 @@ namespace WinFormsApp1
             }
             // Для типов без UI издательств/мест
             return (new Dictionary<string, List<string>>(), false);
+        }
+
+        // Рекурсивно пробегаем все контролы и регистрируем ListBox у менеджера
+        private void RegisterAllListBoxes(System.Windows.Forms.Control parent)
+        {
+            foreach (System.Windows.Forms.Control c in parent.Controls)
+            {
+                if (c is ListBox lb)
+                    _undoManager.Register(lb);
+
+                // Если есть вложенные контейнеры, спускаемся внутрь
+                if (c.HasChildren)
+                    RegisterAllListBoxes(c);
+            }
+        }
+
+        // Получить плоский список всех ListBox на форме
+        private IEnumerable<ListBox> GetAllListBoxes(System.Windows.Forms.Control parent)
+        {
+            foreach (System.Windows.Forms.Control c in parent.Controls)
+            {
+                if (c is ListBox lb)
+                    yield return lb;
+
+                if (c.HasChildren)
+                {
+                    foreach (var child in GetAllListBoxes(c))
+                        yield return child;
+                }
+            }
         }
 
         //
@@ -4016,7 +4239,7 @@ namespace WinFormsApp1
 
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
-            
+
             SourceKind kind = GetCurrentKind()!.Value;
             RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
 
@@ -5257,47 +5480,62 @@ namespace WinFormsApp1
                 string mlaRaw = rtbMLA.Text.Trim();
 
                 if (string.IsNullOrWhiteSpace(gostRaw))
-                { MessageBox.Show("Поле ГОСТ не заполнено.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
+                {
+                    MessageBox.Show("Поле ГОСТ не заполнено.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(mlaRaw))
+                {
+                    MessageBox.Show("Поле MLA не заполнено.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 var rgGOST = new Regex(
-                    @"^(?<authors>(?:[А-ЯЁA-Z][а-яёa-z]+(?:\s+(?:[А-ЯЁA-Z]\.){1,2}" +
-                    @"|\s+[А-ЯЁA-Z][а-яёa-z]+){1,2}(?:,\s*)?)+)\s+" +
-                    @"(?<title>.+?)\s+//\s+(?<journal>[^.]+?)\.\s+" +
-                    @"(?<year>\d{4})\.\s+№\s*(?<issue>[^.]+?)\.\s+" +
-                    @"(?:‑|–)?\s*(?:С\.\s*\d{1,4}‑\d{1,4}\.\s+)?" +
-                    @"URL:\s+(?<url>\S+?)\s+\(дата\s+обращения:\s+" +
-                    @"(?<access>\d{2}\.\d{2}\.\d{4})\)",
+                    @"^.*?//\s+(?:(?<journal>.+?)(?=(?:\.\s*\d{4}\.)|(?:\.\s*№\s*\d+(?:\s*\([^)]*\))?\.(?:\s*(?:\d{4}\.|\s*URL:)))))?\s*(?:\.\s*)?(?:(?<year>\d{4})\.\s*)?(?:(?:№\s*(?<issue>\d+(?:\s*\([^)]*\))?)\.\s*)?)(?:-|–)?\s*(?:С\.\s*\d{1,4}-\d{1,4}\.\s*)?URL:\s+(?<url>\S+?)\s*\(дата обращения:\s*(?<access>\d{2}\.\d{2}\.\d{4})\)",
                     RegexOptions.Singleline);
 
                 var rgMLA = new Regex(
-                    @"pp\.?\s*(?<pages>\d{1,4}(?:\s*[‑–—-]\s*\d{1,4})?)\s*[.,;]?\s*(?:.*?\s*doi:(?<doi>10\.\d{4,9}/[-._;()/:A-Z0-9]+))?",
-                    RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-
+                    @"^(?<mlaAuthors>[^""“”«»]+?)\s*[\""“”«»](?<mlaTitle>[^""“”«»]+)[\""“”«»]" +
+                    @"(?=.*\bpp\.?\s*(?<pages>\d{1,4}(?:\s*[-–—-]\s*\d{1,4})?))" +
+                    @"(?:(?=.*\bvol\.\s*(?<vol>\d{1,4})))?" +
+                    @"(?:(?=.*\bno\.\s*(?<no>\d{1,4})))?" +
+                    @"(?:(?=.*doi:(?<doi>10\.\d{4,9}/[-._;()/:A-Z0-9]+)))?.*$",
+                    RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
                 var mG = rgGOST.Match(gostRaw);
                 if (!mG.Success)
-                { MessageBox.Show("Строка ГОСТ не распознана.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
-
-                string[] authors = mG.Groups["authors"].Value.Trim()
-                    .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(a => NameFormatting(a.Trim()))
-                    .ToArray();
-
-                string title = mG.Groups["title"].Value.Trim();
+                {
+                    MessageBox.Show("Строка ГОСТ не распознана.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 string journal = mG.Groups["journal"].Value.Trim();
                 string year = mG.Groups["year"].Value;
-                string issue = mG.Groups["issue"].Value.Trim();
+                string gostNo = mG.Groups["issue"].Value.Trim();
                 string url = mG.Groups["url"].Value.Trim();
                 string accDate = mG.Groups["access"].Value;
 
                 var mM = rgMLA.Match(mlaRaw);
-                string pages = mM.Success ? mM.Groups["pages"].Value : "";
-                string doi = mM.Success ? mM.Groups["doi"].Value : "";
+                if (!mM.Success)
+                {
+                    MessageBox.Show("Строка MLA не распознана.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-                int n = authors.Length;
+                string rawAuth = mM.Groups["mlaAuthors"].Value
+                    .TrimEnd('.', ' ')
+                    .Replace(" and ", ",", StringComparison.OrdinalIgnoreCase);
+                var authors = rawAuth
+                    .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(a => NameFormatting(a.Trim()))
+                    .ToArray();
+                string title = mM.Groups["mlaTitle"].Value.Trim();
+                string pages = mM.Groups["pages"].Value;
+                string vol = mM.Groups["vol"].Value;
+                string noMla = mM.Groups["no"].Value;
+                string doi = mM.Groups["doi"].Value;
+
                 string res;
-
+                int n = authors.Length;
                 if (n <= 3)
                 {
                     res = EnsureComma(authors[0]) + " " + title + " / " +
@@ -5306,29 +5544,37 @@ namespace WinFormsApp1
                 else
                 {
                     res = title + " / ";
-
                     if (n == 4)
-                    {
                         res += string.Join(", ", authors.Select(ReverseAuthorName)) + ". – ";
-                    }
                     else
-                    {
-                        res += string.Join(", ", authors.Take(3).Select(ReverseAuthorName)) +
-                               " [и др.]. – ";
-                    }
+                        res += string.Join(", ", authors.Take(3).Select(ReverseAuthorName)) + " [и др.]. – ";
                 }
-
                 if (!string.IsNullOrEmpty(doi))
                     res += "DOI " + doi + ". – ";
-
-                res += "Текст : электронный // " + journal + ". – " + year +
-                       ". – № " + issue + ".";
+                res += "Текст : электронный // " + journal + ". – " + year;
+                if (!string.IsNullOrEmpty(vol))
+                {
+                    res += ". – Т. " + vol;
+                    if (!string.IsNullOrEmpty(noMla))
+                        res += ", вып. " + noMla;
+                    res += ".";
+                }
+                else if (!string.IsNullOrEmpty(noMla))
+                {
+                    res += ". – № " + noMla + ".";
+                }
+                else if (!string.IsNullOrEmpty(gostNo))
+                {
+                    res += ". – № " + gostNo + ".";
+                }
                 if (!string.IsNullOrEmpty(pages))
                     res += " – С. " + pages + ".";
                 res += " – URL: " + url + " (дата обращения: " + accDate + ").";
 
-                rtbGOST.Clear();
-                rtbMLA.Clear();
+                if (!tsmiUnableClearingRichTextBox1.Checked)
+                    rtbGOST.Clear();
+                if (!tsmiUnableClearingRichTextBox2.Checked)
+                    rtbMLA.Clear();
 
                 lbResult.Items.Add(res);
             }
@@ -5346,61 +5592,104 @@ namespace WinFormsApp1
                 string mlaRaw = rtbMLA.Text.Trim();
 
                 if (string.IsNullOrWhiteSpace(gostRaw))
-                { MessageBox.Show("Поле ГОСТ не заполнено.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
+                {
+                    MessageBox.Show("Поле ГОСТ не заполнено.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(mlaRaw))
+                {
+                    MessageBox.Show("Поле MLA не заполнено.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 var rgGOST = new Regex(
-                    @"^(?<authors>(?:[А-ЯЁA-Z][а-яёa-z]+(?:\s+(?:[А-ЯЁA-Z]\.){1,2}" +
-                    @"|\s+[А-ЯЁA-Z][а-яёa-z]+){1,2}(?:,\s*)?)+)\s+" +
-                    @"(?<title>.+?)\s+//\s+(?<journal>[^.]+?)\.\s+" +
-                    @"(?<year>\d{4})\.\s+№\s*(?<issue>[^.]+?)\.\s+" +
-                    @"(?:‑|–)?\s*(?:С\.\s*\d{1,4}‑\d{1,4}\.\s+)?" +
-                    @"URL:\s+(?<url>\S+?)\s+\(дата\s+обращения:\s+" +
-                    @"(?<access>\d{2}\.\d{2}\.\d{4})\)",
+                    @"^.*?//\s+(?:(?<journal>.+?)(?=(?:\.\s*\d{4}\.)|(?:\.\s*№\s*\d+(?:\s*\([^)]*\))?\.(?:\s*(?:\d{4}\.|\s*URL:)))))?\s*(?:\.\s*)?(?:(?<year>\d{4})\.\s*)?(?:(?:№\s*(?<issue>\d+(?:\s*\([^)]*\))?)\.\s*)?)(?:-|–)?\s*(?:С\.\s*\d{1,4}-\d{1,4}\.\s*)?URL:\s+(?<url>\S+?)\s*\(дата обращения:\s*(?<access>\d{2}\.\d{2}\.\d{4})\)",
                     RegexOptions.Singleline);
 
                 var rgMLA = new Regex(
-                    @"pp\.?\s*(?<pages>\d{1,4}(?:\s*[‑–—-]\s*\d{1,4})?)\s*[.,;]?\s*(?:.*?\s*doi:(?<doi>10\.\d{4,9}/[-._;()/:A-Z0-9]+))?",
-                    RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-
+                  @"^(?<mlaAuthors>[^""“”«»]+?)\s*[\""“”«»](?<mlaTitle>[^""“”«»]+)[\""“”«»]" +
+                  @"(?=.*\bpp\.?\s*(?<pages>\d{1,4}(?:\s*[-–—-]\s*\d{1,4})?))" +
+                  @"(?:(?=.*\bvol\.\s*(?<vol>\d{1,4})))?" +
+                  @"(?:(?=.*\bno\.\s*(?<no>\d{1,4}(?:\s*\([^)]*\))?)))?" +
+                  @"(?:(?=.*doi:(?<doi>10\.\d{4,9}\/[-._;()\/:A-Z0-9]+)))?.*$",
+                  RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
                 var mG = rgGOST.Match(gostRaw);
                 if (!mG.Success)
-                { MessageBox.Show("Строка ГОСТ не распознана.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
-
-                string[] authorsSurnameIO = mG.Groups["authors"].Value.Trim()
-                    .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(a => NameFormatting(a.Trim()))   // «Фамилия И. О.»
-                    .ToArray();
+                {
+                    MessageBox.Show("Строка ГОСТ не распознана.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                string journal = mG.Groups["journal"].Value.Trim();
+                string year = mG.Groups["year"].Value;
+                string gostNo = mG.Groups["issue"].Value.Trim();
+                string url = mG.Groups["url"].Value.Trim();
+                string accDate = mG.Groups["access"].Value;
 
                 var mM = rgMLA.Match(mlaRaw);
-                string pages = mM.Success ? mM.Groups["pages"].Value : "";
-                string doi = mM.Success ? mM.Groups["doi"].Value : "";
+                if (!mM.Success)
+                {
+                    MessageBox.Show("Строка MLA не распознана.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                string rawAuth = mM.Groups["mlaAuthors"].Value
+                    .TrimEnd('.', ' ')
+                    .Replace(" and ", ",", StringComparison.OrdinalIgnoreCase);
+                var authors = rawAuth
+                    .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(a => NameFormatting(a.Trim()))
+                    .ToArray();
+
+                string title = mM.Groups["mlaTitle"].Value.Trim();
+                string pages = mM.Groups["pages"].Value;
+                string vol = mM.Groups["vol"].Value;
+                string noMla = mM.Groups["no"].Value;
+                string doi = mM.Groups["doi"].Value;
 
                 lbCPJAArticleAuthors.Items.Clear();
-                foreach (var a in authorsSurnameIO.Select(ReverseAuthorName))
+                foreach (var a in authors.Select(ReverseAuthorName))
                 {
                     lbCPJAArticleAuthors.Items.Add(a);
                     UpdateListCheckBox(lbCPJAArticleAuthors, 1, 5);
                 }
 
-                tbCPJAArticleTitle.Text = mG.Groups["title"].Value.Trim();
-                tbCPJAJournalName.Text = mG.Groups["journal"].Value.Trim();
-                tbCPJAPublishYear.Text = mG.Groups["year"].Value;
-                tbCPJAIssue.Text = mG.Groups["issue"].Value.Trim();
+                tbCPJAArticleTitle.Text = title;
+                tbCPJAJournalName.Text = journal;
+                tbCPJAPublishYear.Text = year;
                 tbCPJAPages.Text = pages;
                 tbCPJADOI.Text = doi;
-                tbCPJAURL.Text = mG.Groups["url"].Value.Trim();
-                tbCPJAAccessDate.Text = mG.Groups["access"].Value;
+                tbCPJAURL.Text = url;
+                tbCPJAAccessDate.Text = accDate;
 
-                if (tcCategories.SelectedTab != tpConstituentParts || tcCPTypes.SelectedTab != tpCPJournalArticle)
+                if (!string.IsNullOrEmpty(vol))
+                {
+                    tbCPJANumberOrVolume.Text = vol;
+                    rbCPJAVolume.Checked = true;
+                    if (!string.IsNullOrEmpty(noMla))
+                        tbCPJAIssue.Text = noMla;
+                }
+                else if (!string.IsNullOrEmpty(noMla))
+                {
+                    tbCPJANumberOrVolume.Text = noMla;
+                    rbCPJANumber.Checked = true;
+                }
+                else if (!string.IsNullOrEmpty(gostNo))
+                {
+                    tbCPJANumberOrVolume.Text = gostNo;
+                    rbCPJANumber.Checked = true;
+                }
+
+                if (tcCategories.SelectedTab != tpConstituentParts ||
+                    tcCPTypes.SelectedTab != tpCPJournalArticle)
                 {
                     tcCategories.SelectedTab = tpConstituentParts;
                     tcCPTypes.SelectedTab = tpCPJournalArticle;
                 }
 
-                rtbGOST.Clear();
-                rtbMLA.Clear();
+                if (!tsmiUnableClearingRichTextBox1.Checked)
+                    rtbGOST.Clear();
+                if (!tsmiUnableClearingRichTextBox2.Checked)
+                    rtbMLA.Clear();
             }
             catch (Exception ex)
             {
@@ -5719,7 +6008,7 @@ namespace WinFormsApp1
         private void buttonReturnToMenu_Click(object sender, EventArgs e)
         {
             this.Hide();
-            GOST2008 gost2008 = new GOST2008();
+            GOST2008 gost2008 = new GOST2008(this);
             gost2008.Show();
         }
 
