@@ -2006,7 +2006,7 @@ namespace WinFormsApp1
             if (!string.IsNullOrEmpty(isbnBlock)) blocks.Add(isbnBlock.TrimEnd('.'));
             if (!string.IsNullOrEmpty(contBlock)) blocks.Add(contBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -2162,7 +2162,7 @@ namespace WinFormsApp1
             if (!string.IsNullOrEmpty(isbnBlock)) blocks.Add(isbnBlock.TrimEnd('.'));
             if (!string.IsNullOrEmpty(contBlock)) blocks.Add(contBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -2302,7 +2302,7 @@ namespace WinFormsApp1
             if (!string.IsNullOrEmpty(pagesBlock)) blocks.Add(pagesBlock.TrimEnd('.'));
             if (!string.IsNullOrEmpty(contBlock)) blocks.Add(contBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -2444,7 +2444,7 @@ namespace WinFormsApp1
             if (!string.IsNullOrEmpty(isbnBlock)) blocks.Add(isbnBlock.TrimEnd('.'));
             blocks.Add(contBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -2553,7 +2553,7 @@ namespace WinFormsApp1
             blocks.Add(defenseBlock.TrimEnd('.'));
             blocks.Add(contBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -2653,7 +2653,7 @@ namespace WinFormsApp1
             if (!string.IsNullOrEmpty(biblioBlock)) blocks.Add(biblioBlock.TrimEnd('.'));
             blocks.Add(contBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -2843,11 +2843,11 @@ namespace WinFormsApp1
                 titleAndAuthors += " ; " + responsibilityBlock;
 
             if (!string.IsNullOrEmpty(editionNumber) && !string.IsNullOrEmpty(translator))
-                titleAndAuthors += ". - " + editionNumber + " ; перевод с " + translator;
+                titleAndAuthors += ". – " + editionNumber + " ; перевод с " + translator;
             else if (!string.IsNullOrEmpty(editionNumber))
-                titleAndAuthors += ". - " + editionNumber;
+                titleAndAuthors += ". – " + editionNumber;
             else if (!string.IsNullOrEmpty(translator))
-                titleAndAuthors += ". - перевод с " + translator;
+                titleAndAuthors += ". – перевод с " + translator;
 
             string imprint;
             if (cbMVWMPublisher.Checked)
@@ -2868,7 +2868,7 @@ namespace WinFormsApp1
             if (!string.IsNullOrEmpty(isbnBlock)) blocks.Add(isbnBlock.TrimEnd('.'));
             blocks.Add(contBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -3055,9 +3055,9 @@ namespace WinFormsApp1
                 : $"{titleAndAuthorsBlock} ; {responsibilityBlock}";
 
             if (!string.IsNullOrEmpty(editionNumber))
-                firstBlock += $". - {editionNumber}";
+                firstBlock += $". – {editionNumber}";
             if (!string.IsNullOrEmpty(translator))
-                firstBlock += string.IsNullOrEmpty(editionNumber) ? ". - перевод с " + translator : "; перевод с " + translator;
+                firstBlock += string.IsNullOrEmpty(editionNumber) ? ". – перевод с " + translator : "; перевод с " + translator;
 
             string imprintBlock = cbMVSVPublisher.Checked
                 ? $"{CombinePlacesAndGroupedPublishers(places, groupedPublishersMVSeparateVolume)}, {year}"
@@ -3076,7 +3076,7 @@ namespace WinFormsApp1
             if (!string.IsNullOrEmpty(isbnBlock)) blocks.Add(isbnBlock.TrimEnd('.'));
             blocks.Add(contBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -3293,11 +3293,11 @@ namespace WinFormsApp1
                 titleAndAuthors += " ; " + responsibilityBlock;
 
             if (!string.IsNullOrEmpty(editionNumber) && !string.IsNullOrEmpty(translator))
-                titleAndAuthors += ". - " + editionNumber + " ; перевод с " + translator;
+                titleAndAuthors += ". – " + editionNumber + " ; перевод с " + translator;
             else if (!string.IsNullOrEmpty(editionNumber))
-                titleAndAuthors += ". - " + editionNumber;
+                titleAndAuthors += ". – " + editionNumber;
             else if (!string.IsNullOrEmpty(translator))
-                titleAndAuthors += ". - перевод с " + translator;
+                titleAndAuthors += ". – перевод с " + translator;
 
             string imprintBlock = cbEREbPublisher.Checked
                 ? $"{CombinePlacesAndGroupedPublishers(places, groupedPublishersEREbook)}, {year}"
@@ -3320,7 +3320,7 @@ namespace WinFormsApp1
             blocks.Add(accessBlock.TrimEnd('.'));
             blocks.Add(contBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -3521,10 +3521,10 @@ namespace WinFormsApp1
                 : $"{titleAndAuthors} ; {responsibilityBlock}";
 
             if (!string.IsNullOrEmpty(editionNumber))
-                firstBlock += ". - " + editionNumber;
+                firstBlock += ". – " + editionNumber;
 
             if (!string.IsNullOrEmpty(translator))
-                firstBlock += (string.IsNullOrEmpty(editionNumber) ? ". -" : ";") + $" перевод с {translator}";
+                firstBlock += (string.IsNullOrEmpty(editionNumber) ? ". –" : ";") + $" перевод с {translator}";
 
             string imprintBlock = cbERWEEPublisher.Checked
                 ? $"{CombinePlacesAndGroupedPublishers(places, groupedPublishersERWholeElectronicEdition)}, {year}"
@@ -3547,7 +3547,7 @@ namespace WinFormsApp1
             blocks.Add(accessBlock.TrimEnd('.'));
             blocks.Add(contentBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -3744,10 +3744,10 @@ namespace WinFormsApp1
                 : $"{titleAndAuthorsBlock} ; {responsibilityBlock}";
 
             if (!string.IsNullOrEmpty(editionNumber))
-                firstBlock += ". - " + editionNumber;
+                firstBlock += ". – " + editionNumber;
 
             if (!string.IsNullOrEmpty(translator))
-                firstBlock += (string.IsNullOrEmpty(editionNumber) ? ". -" : ";") + $" перевод с {translator}";
+                firstBlock += (string.IsNullOrEmpty(editionNumber) ? ". –" : ";") + $" перевод с {translator}";
 
             string imprintBlock = cbEREESVPublisher.Checked
                 ? $"{CombinePlacesAndGroupedPublishers(places, groupedPublishersERElectronicEditionSeparateVolume)}, {year}"
@@ -3772,7 +3772,7 @@ namespace WinFormsApp1
             blocks.Add(accessBlock.TrimEnd('.'));
             blocks.Add(contentBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -3971,7 +3971,7 @@ namespace WinFormsApp1
             blocks.Add(accessBlock.TrimEnd('.'));
             blocks.Add(contBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -4153,7 +4153,7 @@ namespace WinFormsApp1
             blocks.Add(accessBlock.TrimEnd('.'));
             blocks.Add(contBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -4263,18 +4263,18 @@ namespace WinFormsApp1
                 ? "Текст : электронный"
                 : contentType;
 
-            string journalBlock = $"{journalTitle}. - {year}. - № {issueNumber}. - С. {pages}";
+            string journalBlock = $"{journalTitle}. – {year}. – № {issueNumber}. – С. {pages}";
             string contentJournalBlock = $"{contentTypeBlock} // {journalBlock}";
 
             string urlBlock = $"URL: {url} (дата обращения: {accessDate})";
             string accessBlock = $"Режим доступа: {accessMode}";
 
             List<string> blocks = new List<string>();
-            blocks.Add($"{titleAndAuthors}. - {contentJournalBlock}");
+            blocks.Add($"{titleAndAuthors}. – {contentJournalBlock}");
             blocks.Add(urlBlock);
             blocks.Add(accessBlock);
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -4442,7 +4442,7 @@ namespace WinFormsApp1
             if (!string.IsNullOrEmpty(isbnBlock)) blocks.Add(isbnBlock.TrimEnd('.'));
             blocks.Add(contentBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -4583,7 +4583,7 @@ namespace WinFormsApp1
             if (!string.IsNullOrEmpty(accessBlock)) blocks.Add(accessBlock);
             blocks.Add(contentBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -4790,7 +4790,7 @@ namespace WinFormsApp1
             blocks.Add(imprintBlock.TrimEnd('.'));
             blocks.Add(pageBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -5019,7 +5019,7 @@ namespace WinFormsApp1
             blocks.Add(imprint.TrimEnd('.'));
             blocks.Add(pagesBlock.TrimEnd('.'));
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -5137,7 +5137,7 @@ namespace WinFormsApp1
             if (!string.IsNullOrWhiteSpace(series))
                 journalBlock += $". Серия: {series}";
 
-            journalBlock += ". - " + year;
+            journalBlock += ". – " + year;
 
             List<string> numberParts = new();
             if (!string.IsNullOrWhiteSpace(combinedNumber))
@@ -5151,9 +5151,9 @@ namespace WinFormsApp1
             }
 
             if (numberParts.Count > 0)
-                journalBlock += $". - {string.Join(", ", numberParts)}";
+                journalBlock += $". – {string.Join(", ", numberParts)}";
 
-            journalBlock += $". - С. {pages}";
+            journalBlock += $". – С. {pages}";
 
             List<string> blocks = new();
             blocks.Add(authorBlock.TrimEnd('.'));
@@ -5167,7 +5167,7 @@ namespace WinFormsApp1
             if (!string.IsNullOrWhiteSpace(accessMode))
                 blocks.Add($"Режим доступа: {accessMode}");
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kindOpt = GetCurrentKind();
@@ -5269,12 +5269,12 @@ namespace WinFormsApp1
                 ? "Текст : непосредственный"
                 : contentType;
 
-            string newspaperBlock = $"{newspaperName}. - {year}. - {date} (№ {number}). - С. {pages}";
+            string newspaperBlock = $"{newspaperName}. – {year}. – {date} (№ {number}). – С. {pages}";
 
             List<string> blocks = new();
-            blocks.Add($"{authorBlock}. - {contentBlock} // {newspaperBlock}");
+            blocks.Add($"{authorBlock}. – {contentBlock} // {newspaperBlock}");
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;
@@ -5398,7 +5398,7 @@ namespace WinFormsApp1
                 urlBlock += $" (дата обращения: {accessDate})";
 
             List<string> blocks = new();
-            blocks.Add($"{authorBlock.TrimEnd('.')}. - {contentBlock.TrimEnd('.')} {siteBlock.TrimEnd('.')}");
+            blocks.Add($"{authorBlock.TrimEnd('.')}. – {contentBlock.TrimEnd('.')} {siteBlock.TrimEnd('.')}");
 
             if (!string.IsNullOrWhiteSpace(publishYear))
             {
@@ -5412,7 +5412,7 @@ namespace WinFormsApp1
             if (string.IsNullOrWhiteSpace(publishYear) && !string.IsNullOrWhiteSpace(publishDate))
                 blocks.Add($"Дата публикации: {publishDate.TrimEnd('.')}");
 
-            string result = string.Join(". - ", blocks) + ".";
+            string result = string.Join(". – ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
             var kind = GetCurrentKind()!.Value;

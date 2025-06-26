@@ -1471,7 +1471,7 @@
             // 
             cmsListBox.Items.AddRange(new ToolStripItem[] { tsmiUndo, toolStripSeparator6, tsmiDeleteAll, toolStripSeparator5, tsmiDeleteSelected, tsmiEdit, tsmiCopy, tsmiRestoreEntry });
             cmsListBox.Name = "contextMenuStrip1";
-            cmsListBox.Size = new Size(190, 148);
+            cmsListBox.Size = new Size(190, 170);
             cmsListBox.Opening += this.cmsListBox_Opening;
             // 
             // tsmiUndo
@@ -1580,6 +1580,7 @@
             cmsMainTabControl.Items.AddRange(new ToolStripItem[] { tsmiSaveFormData, tsmiRestoreLastEntry, tsmiClearForm });
             cmsMainTabControl.Name = "contextMenuStrip1";
             cmsMainTabControl.Size = new Size(259, 70);
+            cmsMainTabControl.Opening += this.cmsMainTabControl_Opening;
             // 
             // tsmiSaveFormData
             // 
