@@ -55,7 +55,7 @@
             splitContainer1 = new SplitContainer();
             splitContainer2 = new SplitContainer();
             splitContainer3 = new SplitContainer();
-            buttonReturnToMenu = new Button();
+            buttonToGOST2008 = new Button();
             buttonFillForm = new Button();
             panelRtbMLA = new Panel();
             rtbMLA = new RichTextBox();
@@ -1174,7 +1174,7 @@
             // 
             // splitContainer3.Panel1
             // 
-            splitContainer3.Panel1.Controls.Add(buttonReturnToMenu);
+            splitContainer3.Panel1.Controls.Add(buttonToGOST2008);
             // 
             // splitContainer3.Panel2
             // 
@@ -1189,18 +1189,18 @@
             splitContainer3.SplitterDistance = 47;
             splitContainer3.TabIndex = 0;
             // 
-            // buttonReturnToMenu
+            // buttonToGOST2008
             // 
-            buttonReturnToMenu.BackColor = SystemColors.ActiveBorder;
-            buttonReturnToMenu.FlatStyle = FlatStyle.Flat;
-            buttonReturnToMenu.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            buttonReturnToMenu.Location = new Point(4, 3);
-            buttonReturnToMenu.Name = "buttonReturnToMenu";
-            buttonReturnToMenu.Size = new Size(291, 39);
-            buttonReturnToMenu.TabIndex = 0;
-            buttonReturnToMenu.Text = "ГОСТ Р 7.0.5-2008";
-            buttonReturnToMenu.UseVisualStyleBackColor = false;
-            buttonReturnToMenu.Click += this.buttonReturnToMenu_Click;
+            buttonToGOST2008.BackColor = SystemColors.ActiveBorder;
+            buttonToGOST2008.FlatStyle = FlatStyle.Flat;
+            buttonToGOST2008.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonToGOST2008.Location = new Point(4, 3);
+            buttonToGOST2008.Name = "buttonToGOST2008";
+            buttonToGOST2008.Size = new Size(291, 39);
+            buttonToGOST2008.TabIndex = 0;
+            buttonToGOST2008.Text = "ГОСТ Р 7.0.5-2008";
+            buttonToGOST2008.UseVisualStyleBackColor = false;
+            buttonToGOST2008.Click += this.buttonToGOST2008_Click;
             // 
             // buttonFillForm
             // 
@@ -11589,8 +11589,8 @@
             this.MinimizeBox = false;
             this.Name = "GOST2018";
             this.Text = "Оформление списка литературы по ГОСТ Р 7.0.100-2018";
-            this.FormClosed += this.Form1_FormClosed;
-            this.Load += this.Form1_Load;
+            this.FormClosed += this.GOST2018_FormClosed;
+            this.Load += this.GOST2018_Load;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             ((global::System.ComponentModel.ISupportInitialize)(splitContainer1)).EndInit();
@@ -12084,7 +12084,7 @@
         private Label labelGOST;
         private RichTextBox rtbGOST;
         private Panel panelConvertTitle;
-        private Button buttonReturnToMenu;
+        private Button buttonToGOST2008;
         private Panel panelRtbGOST;
         private Panel panelRtbMLA;
         private ToolTip ttMain;

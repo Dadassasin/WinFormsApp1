@@ -117,51 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="cmsRichTextBox_TextBox.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>410, 17</value>
+  </metadata>
   <metadata name="cmsListBox.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>135, 17</value>
   </metadata>
   <metadata name="cmsMainTabControl.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>249, 17</value>
   </metadata>
-  <data name="labelSVBOrganization.ToolTip" xml:space="preserve">
-    <value>Название учреждения, связанного с изданием (например, вуз), после авторов или редактора.
-Пример: "Московский государственный институт международных отношений (университет) Министерства иностранных дел Российской Федерации".</value>
-  </data>
-  <metadata name="cmsRichTextBox_TextBox.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>410, 17</value>
-  </metadata>
-  <metadata name="ttMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="tbSVBOrganization.ToolTip" xml:space="preserve">
-    <value>Название учреждения, связанного с изданием (например, вуз), после авторов или редактора.
-Пример: "Московский государственный институт международных отношений (университет) Министерства иностранных дел Российской Федерации".</value>
-  </data>
-  <data name="labelSVBEditor.ToolTip" xml:space="preserve">
-    <value>Это поле используется для указания редактора книги. Если редактор указан, необходимо выбрать подходящий тип редакторской ответственности:
-- под редакцией (сокращённо: под ред.)
-- под общей редакцией (сокращённо: под общ. ред.)
-- ответственный редактор (сокращённо: отв. ред.)
-Формат ввода редактора для всех типов: инициалы фамилия (например, Н. Р. Кельчевская).
-
-Примеры корректного оформления:
-под ред. Н. Р. Кельчевской
-под общ. ред. В. А. Иванова
-отв. ред. С. И. Ашмарина
-</value>
-  </data>
-  <data name="tbSVBEditor.ToolTip" xml:space="preserve">
-    <value>Это поле используется для указания редактора книги. Если редактор указан, необходимо выбрать подходящий тип редакторской ответственности:
-- под редакцией (сокращённо: под ред.)
-- под общей редакцией (сокращённо: под общ. ред.)
-- ответственный редактор (сокращённо: отв. ред.)
-Формат ввода редактора для всех типов: инициалы фамилия (например, Н. Р. Кельчевская).
-
-Примеры корректного оформления:
-под ред. Н. Р. Кельчевской
-под общ. ред. В. А. Иванова
-отв. ред. С. И. Ашмарина</value>
-  </data>
   <metadata name="ttMain.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -192,6 +156,39 @@
 Чтобы добавить или просмотреть издательства другого города, просто смените выбор в «Месте издания» – список обновится сам.
 Если «умный режим» выключен, все новые записи попадут в один общий список без фильтрации по месту.
 </value>
+  </data>
+  <data name="labelSVBOrganization.ToolTip" xml:space="preserve">
+    <value>Название учреждения, связанного с изданием (например, вуз), после авторов или редактора.
+Пример: "Московский государственный институт международных отношений (университет) Министерства иностранных дел Российской Федерации".</value>
+  </data>
+  <data name="tbSVBOrganization.ToolTip" xml:space="preserve">
+    <value>Название учреждения, связанного с изданием (например, вуз), после авторов или редактора.
+Пример: "Московский государственный институт международных отношений (университет) Министерства иностранных дел Российской Федерации".</value>
+  </data>
+  <data name="labelSVBEditor.ToolTip" xml:space="preserve">
+    <value>Это поле используется для указания редактора книги. Если редактор указан, необходимо выбрать подходящий тип редакторской ответственности:
+- под редакцией (сокращённо: под ред.)
+- под общей редакцией (сокращённо: под общ. ред.)
+- ответственный редактор (сокращённо: отв. ред.)
+Формат ввода редактора для всех типов: инициалы фамилия (например, Н. Р. Кельчевская).
+
+Примеры корректного оформления:
+под ред. Н. Р. Кельчевской
+под общ. ред. В. А. Иванова
+отв. ред. С. И. Ашмарина
+</value>
+  </data>
+  <data name="tbSVBEditor.ToolTip" xml:space="preserve">
+    <value>Это поле используется для указания редактора книги. Если редактор указан, необходимо выбрать подходящий тип редакторской ответственности:
+- под редакцией (сокращённо: под ред.)
+- под общей редакцией (сокращённо: под общ. ред.)
+- ответственный редактор (сокращённо: отв. ред.)
+Формат ввода редактора для всех типов: инициалы фамилия (например, Н. Р. Кельчевская).
+
+Примеры корректного оформления:
+под ред. Н. Р. Кельчевской
+под общ. ред. В. А. Иванова
+отв. ред. С. И. Ашмарина</value>
   </data>
   <data name="tbSVCMPublisher.ToolTip" xml:space="preserve">
     <value>Организация, которая издала материалы конференции.

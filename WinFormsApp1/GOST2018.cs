@@ -68,8 +68,63 @@ namespace WinFormsApp1
 
         private readonly Dictionary<SourceKind, SmartUi> _smartMap = new();
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void GOST2018_Load(object sender, EventArgs e)
         {
+            _undoManager.Register(lbResult);
+
+            // ДОБАВЛЕНИЕ
+            _undoManager.ItemAdded += (lb, item, idx) =>
+            {
+                if (lb != lbResult || item is not ResultItem<SavedEntry> ri)
+                    return;
+
+                // Если индекс слишком большой — добавляем в конец,
+                // если отрицательный — в начало:
+                if (idx < 0)
+                    _entries.Insert(0, ri.Entry);
+                else if (idx > _entries.Count)
+                    _entries.Add(ri.Entry);
+                else
+                    _entries.Insert(idx, ri.Entry);
+
+                RefreshRestoreButtons();
+            };
+
+            // УДАЛЕНИЕ
+            _undoManager.ItemRemoved += (lb, item, idx) =>
+            {
+                if (lb == lbResult)
+                {
+                    // сначала удаляем из внутреннего списка
+                    if (idx >= 0 && idx < _entries.Count)
+                        _entries.RemoveAt(idx);
+
+                    // затем корректируем выделение в ListBox
+                    if (lbResult.Items.Count == 0)
+                    {
+                        lbResult.SelectedIndex = -1;
+                    }
+                    else if (lbResult.SelectedIndex >= lbResult.Items.Count)
+                    {
+                        // если удалили последний, то выбираем новый последний
+                        lbResult.SelectedIndex = lbResult.Items.Count - 1;
+                    }
+
+                    RefreshRestoreButtons();
+                }
+            };
+
+            // ОЧИСТКА
+            _undoManager.ItemsCleared += lb =>
+            {
+                if (lb == lbResult)
+                {
+                    _entries.Clear();
+                    RefreshRestoreButtons();
+                }
+            };
+
+
             lbSVBAuthors.Tag = cbSVBAuthors;
             lbMVWMAuthors.Tag = cbMVWMAuthors;
             lbMVSVAuthors.Tag = cbMVSVAuthors;
@@ -807,13 +862,6 @@ namespace WinFormsApp1
 
         private void tsmiRestoreLastEntry_Click(object sender, EventArgs e)
         {
-            if (_entries.Count == 0)
-            {
-                MessageBox.Show("Нечего восстанавливать", "Внимание",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
             RestoreEntry(_entries.Count - 1);
         }
 
@@ -910,6 +958,11 @@ namespace WinFormsApp1
                 _undoManager.Undo(_currentListBox);
         }
 
+        private void cmsMainTabControl_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            tsmiRestoreLastEntry.Enabled = _entries.Count != 0;
+        }
+
         //
         // ------------------------- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ----------------------------
         //
@@ -942,27 +995,32 @@ namespace WinFormsApp1
 
             if (e.KeyCode == Keys.Enter)
             {
-                e.SuppressKeyPress = true;                      // убираем «пик» Windows
+                e.SuppressKeyPress = true;
 
-                // В Tag TextBox-а должен лежать «его» ListBox
-                if (textBox.Tag is ListBox targetListBox)
+                if (textBox.Tag is not ListBox targetListBox)
+                    return;
+
+                // Обработка ввода места издания
+                if (targetListBox.Name.Contains("PublishingLocation"))
                 {
-                    // ――― 2.1  Обычные списки (авторы, места и т. д.) ―――
-                    if (!targetListBox.Name.Contains("Publisher"))
-                    {
-                        AddStringToListBox(textBox, targetListBox);
-                        return;
-                    }
+                    AddStringToListBox(textBox, targetListBox);
 
-                    // ――― 2.2  Списки издательств ―――
-                    // mainLocationList = lbSVBPublishingLocation, … (лежит в Tag у Publisher-ListBox’а)
+                    // после добавления места обновляем селектор умного режима
+                    if (targetListBox.Tag is ListBox selector)
+                        UpdatePublishingLocationSelector(targetListBox, selector);
+
+                    return;
+                }
+
+                // Обработка ввода издательства (умный режим или нет)
+                if (targetListBox.Name.Contains("Publisher"))
+                {
+                    // основный список мест, к которому привязано это поле
                     var mainLocationList = targetListBox.Tag as ListBox;
-                    // selector = lbSVBPublishingLocationSelect, … (лежит в Tag у mainLocationList)
                     var selector = mainLocationList?.Tag as ListBox;
 
                     bool smartModeEnabled = selector != null && selector.Enabled;
-                    Dictionary<string, List<string>> groupedPublishers =
-                        GetDictionaryByListBox(targetListBox);
+                    var groupedPublishers = GetDictionaryByListBox(targetListBox);
 
                     AddStringToPublisherListBox(
                         textBox,
@@ -970,7 +1028,12 @@ namespace WinFormsApp1
                         smartModeEnabled,
                         selector,
                         groupedPublishers);
+
+                    // в обычном режиме ничего больше не нужно
+                    return;
                 }
+
+                AddStringToListBox(textBox, targetListBox);
             }
         }
 
@@ -987,7 +1050,6 @@ namespace WinFormsApp1
                 {
                     _undoManager.Undo(listBox);
 
-                    // Повторяем вашу «после изменения» логику
                     if (listBox.Name.Contains("Authors"))
                         UpdateListCheckBox(listBox, 1, 5);
                     if (listBox.Name.Contains("PublishingLocation") && listBox.Tag is ListBox selectListBox)
@@ -1004,7 +1066,6 @@ namespace WinFormsApp1
                 {
                     _undoManager.Redo(listBox);
 
-                    // Повторяем вашу «после изменения» логику
                     if (listBox.Name.Contains("Authors"))
                         UpdateListCheckBox(listBox, 1, 5);
                     if (listBox.Name.Contains("PublishingLocation") && listBox.Tag is ListBox selectListBox)
@@ -1014,7 +1075,6 @@ namespace WinFormsApp1
                 return;
             }
 
-            // Delete или Backspace → удаление с сохранением для Undo
             if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
             {
                 int selectedIndex = listBox.SelectedIndex;
@@ -1023,7 +1083,6 @@ namespace WinFormsApp1
 
                 _undoManager.DeleteItem(listBox);
 
-                // Ваша существующая логика после удаления
                 if (listBox.Name.Contains("Authors"))
                     UpdateListCheckBox(listBox, 1, 5);
                 if (listBox.Name.Contains("PublishingLocation") && listBox.Tag is ListBox selectListBox)
@@ -1037,6 +1096,18 @@ namespace WinFormsApp1
         public void AddStringToListBox(TextBox sourceTextBox, ListBox targetListBox)
         {
             string input = sourceTextBox.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                MessageBox.Show(
+                    "Пустую строку добавить нельзя",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
             if (targetListBox.Name.Contains("Authors") || targetListBox.Name.Contains("Editor"))
             {
                 var regex = new Regex(@"^(([А-ЯЁA-Z]\.)\s*([А-ЯЁA-Z]\.)?\s+([А-ЯЁA-Z][а-яёa-z]+))|(([А-ЯЁA-Z][а-яёa-z]+)\s+([А-ЯЁA-Z]\.)(?:\s*([А-ЯЁA-Z]\.))?)|(([А-ЯЁA-Z][а-яёa-z]+),\s*([А-ЯЁA-Z]\.)(?:\s*([А-ЯЁA-Z]\.))?)$");
@@ -1049,7 +1120,6 @@ namespace WinFormsApp1
                 }
             }
 
-            //targetListBox.Items.Add(input);
             _undoManager.AddItem(targetListBox, input);
             sourceTextBox.Clear();
 
@@ -1470,67 +1540,67 @@ namespace WinFormsApp1
 
         private void RestoreEntry(int entryIndex)
         {
-            if (entryIndex < 0 || entryIndex >= _entries.Count)
+            if (entryIndex < 0 || entryIndex >= lbResult.Items.Count)
+            {
+                MessageBox.Show("Нет результатов для восстановления.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
+            }
 
-            // Подсветим в списке результатов
             lbResult.SelectedIndex = entryIndex;
-
             var entry = _entries[entryIndex];
 
-            // Восстанавливаем вкладки
+            // Восстановить вкладки
             tcCategories.SelectedIndex = entry.CategoryIndex;
             var catPage = tcCategories.SelectedTab;
             var inner = catPage.Controls.OfType<TabControl>().FirstOrDefault();
             if (inner != null && entry.TypeIndex >= 0)
                 inner.SelectedIndex = entry.TypeIndex;
 
-            // Восстанавливаем обычные поля (текстбоксы, чекбоксы и т.д.)
+            // Восстановить все стандартные поля (TextBox, CheckBox, ListBox и т.д.)
             entry.Snapshot.Restore();
 
-            // Восстанавливаем smart-режим
+            // Восстановить Smart-режим издательств
             if (_smartMap.TryGetValue(entry.Kind, out var ui))
             {
                 const string DefaultKey = "Default";
 
-                // Восстанавливаем состояние чекбокса
                 ui.CbSmartMode.Checked = entry.IsSmartMode;
 
-                // Клонируем сохранённый словарь обратно в ui.Dict
                 ui.Dict.Clear();
                 foreach (var kv in entry.PublishersMap)
                     ui.Dict[kv.Key] = new List<string>(kv.Value);
 
-                // Перерисовываем список мест издания, пропуская Default
-                ui.LbPlaces.Items.Clear();
-                foreach (var place in ui.Dict.Keys.Where(k => k != DefaultKey))
-                    ui.LbPlaces.Items.Add(place);
-
-                // Перерисовываем селектор мест, тоже без Default
-                ui.LbSelector.Items.Clear();
-                foreach (var place in ui.Dict.Keys.Where(k => k != DefaultKey))
-                    ui.LbSelector.Items.Add(place);
-
-                // Если есть хотя бы одно место — выбираем его и показываем издательства для него
-                if (ui.LbSelector.Items.Count > 0)
+                if (entry.IsSmartMode)
                 {
-                    ui.LbSelector.SelectedIndex = 0;
-                    UpdatePublishersForSelectedPlace(
-                        ui.LbPublishers,
-                        ui.LbSelector,
-                        ui.Dict);
+                    // Заполнить LbPlaces и LbSelector всеми местами (кроме Default)
+                    ui.LbPlaces.Items.Clear();
+                    ui.LbSelector.Items.Clear();
+                    foreach (var place in ui.Dict.Keys.Where(k => k != DefaultKey))
+                    {
+                        ui.LbPlaces.Items.Add(place);
+                        ui.LbSelector.Items.Add(place);
+                    }
+
+                    // Если есть хотя бы одно место — выбрать первый и обновить список издательств
+                    if (ui.LbSelector.Items.Count > 0)
+                    {
+                        ui.LbSelector.SelectedIndex = 0;
+                        UpdatePublishersForSelectedPlace(
+                            ui.LbPublishers,
+                            ui.LbSelector,
+                            ui.Dict);
+                    }
+                    else
+                    {
+                        ui.LbPublishers.Items.Clear();
+                    }
                 }
-                else
-                {
-                    // иначе чистим ListBox издательств
-                    ui.LbPublishers.Items.Clear();
-                }
+                // иначе ничего не трогаем
             }
 
-            // Обновляем чекбоксы авторов
+            // Обновить состояние чекбоксов авторов
             RefreshAuthorCheckboxes();
         }
-
 
         private void RememberCurrentState(out FormSnapshot snapshot,
                                   out int categoryIndex,
@@ -5479,14 +5549,10 @@ namespace WinFormsApp1
                 string gostRaw = rtbGOST.Text.Trim();
                 string mlaRaw = rtbMLA.Text.Trim();
 
-                if (string.IsNullOrWhiteSpace(gostRaw))
+                if (string.IsNullOrEmpty(gostRaw) || string.IsNullOrEmpty(mlaRaw))
                 {
-                    MessageBox.Show("Поле ГОСТ не заполнено.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (string.IsNullOrWhiteSpace(mlaRaw))
-                {
-                    MessageBox.Show("Поле MLA не заполнено.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Оба поля (ГОСТ и MLA) должны быть заполнены.",
+                                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -5591,14 +5657,10 @@ namespace WinFormsApp1
                 string gostRaw = rtbGOST.Text.Trim();
                 string mlaRaw = rtbMLA.Text.Trim();
 
-                if (string.IsNullOrWhiteSpace(gostRaw))
+                if (string.IsNullOrEmpty(gostRaw) || string.IsNullOrEmpty(mlaRaw))
                 {
-                    MessageBox.Show("Поле ГОСТ не заполнено.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (string.IsNullOrWhiteSpace(mlaRaw))
-                {
-                    MessageBox.Show("Поле MLA не заполнено.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Оба поля (ГОСТ и MLA) должны быть заполнены.",
+                                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -6005,14 +6067,14 @@ namespace WinFormsApp1
             }
         }
 
-        private void buttonReturnToMenu_Click(object sender, EventArgs e)
+        private void buttonToGOST2008_Click(object sender, EventArgs e)
         {
             this.Hide();
             GOST2008 gost2008 = new GOST2008(this);
             gost2008.Show();
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        private void GOST2018_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }

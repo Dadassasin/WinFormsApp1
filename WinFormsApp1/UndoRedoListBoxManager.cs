@@ -7,12 +7,17 @@ internal sealed class UndoRedoListBoxManager
 {
     // Для каждого ListBox храним два стека команд: Do/Undo
     private readonly Dictionary<ListBox, Stack<(Action Do, Action Undo)>> _undoStacks
-        = new Dictionary<ListBox, Stack<(Action, Action)>>();
+        = new();
     private readonly Dictionary<ListBox, Stack<(Action Do, Action Undo)>> _redoStacks
-        = new Dictionary<ListBox, Stack<(Action, Action)>>();
+        = new();
+
+    // События для подписки
+    public event Action<ListBox, object, int>? ItemAdded;
+    public event Action<ListBox, object, int>? ItemRemoved;
+    public event Action<ListBox>? ItemsCleared;
 
     /// <summary>
-    /// Публичный метод для инициализации истории данного ListBox.
+    /// Инициализировать историю для данного ListBox.
     /// </summary>
     public void Register(ListBox lb)
     {
@@ -20,9 +25,6 @@ internal sealed class UndoRedoListBoxManager
         EnsureRegistered(lb);
     }
 
-    /// <summary>
-    /// Гарантирует, что для данного ListBox инициализированы стеки.
-    /// </summary>
     private void EnsureRegistered(ListBox lb)
     {
         if (!_undoStacks.ContainsKey(lb))
@@ -33,7 +35,7 @@ internal sealed class UndoRedoListBoxManager
     }
 
     /// <summary>
-    /// Выполнить произвольную операцию и сохранить её в истории.
+    /// Общая обёртка для выполнения операции и записи в историю.
     /// </summary>
     public void Execute(ListBox lb, Action doAction, Action undoAction)
     {
@@ -48,30 +50,69 @@ internal sealed class UndoRedoListBoxManager
     }
 
     /// <summary>
-    /// Удалить текущий выбранный элемент (Delete/Backspace) с поддержкой Undo.
+    /// Добавить элемент с поддержкой Undo/Redo.
     /// </summary>
-    public void DeleteItem(ListBox lb)
+    public void AddItem(ListBox lb, object item)
     {
         if (lb == null) throw new ArgumentNullException(nameof(lb));
-        int idx = lb.SelectedIndex;
-        if (idx < 0) return;
+        if (item == null) throw new ArgumentNullException(nameof(item));
 
-        var item = lb.Items[idx];
         Execute(
             lb,
-            // Do
-            () => lb.Items.RemoveAt(idx),
-            // Undo c безопасной вставкой
+            // Do: добавить и поднять событие
             () =>
             {
-                int insertIndex = Math.Min(idx, lb.Items.Count);
-                lb.Items.Insert(insertIndex, item);
+                lb.Items.Add(item);
+                ItemAdded?.Invoke(lb, item, lb.Items.Count - 1);
+            },
+            // Undo: найти и удалить, поднять событие
+            () =>
+            {
+                int idx = lb.Items.IndexOf(item);
+                if (idx >= 0)
+                {
+                    lb.Items.RemoveAt(idx);
+                    ItemRemoved?.Invoke(lb, item, idx);
+                }
             }
         );
     }
 
     /// <summary>
-    /// Полностью очистить список с поддержкой Undo.
+    /// Удалить выбранный элемент (Delete/Backspace) с поддержкой Undo/Redo.
+    /// </summary>
+    public void DeleteItem(ListBox lb)
+    {
+        var item = lb.SelectedItem;
+        if (item == null) return;
+
+        // Сохраняем исходный индекс ДО удаления
+        int originalIndex = lb.Items.IndexOf(item);
+        if (originalIndex < 0) return;
+
+        Execute(
+            lb,
+            // Do: удалить и поднять событие
+            () =>
+            {
+                lb.Items.RemoveAt(originalIndex);
+                ItemRemoved?.Invoke(lb, item, originalIndex);
+            },
+            // Undo: вставить обратно в ту же позицию
+            () =>
+            {
+                // если уже есть — пропускаем
+                if (lb.Items.Contains(item)) return;
+
+                int idx = Math.Clamp(originalIndex, 0, lb.Items.Count);
+                lb.Items.Insert(idx, item);
+                ItemAdded?.Invoke(lb, item, idx);
+            }
+        );
+    }
+
+    /// <summary>
+    /// Очистить все элементы с поддержкой Undo/Redo.
     /// </summary>
     public void ClearItems(ListBox lb)
     {
@@ -80,27 +121,48 @@ internal sealed class UndoRedoListBoxManager
 
         Execute(
             lb,
-            () => lb.Items.Clear(),
+            // Do: очистить и поднять событие
+            () =>
+            {
+                lb.Items.Clear();
+                ItemsCleared?.Invoke(lb);
+            },
+            // Undo: восстановить и поднять событие
             () =>
             {
                 lb.Items.Clear();
                 foreach (var it in backup)
                     lb.Items.Add(it);
+                ItemsCleared?.Invoke(lb);
             }
         );
     }
 
-    public void AddItem(ListBox lb, object item)
+    public void EditItem(ListBox lb, int index, object newItem)
     {
         if (lb == null) throw new ArgumentNullException(nameof(lb));
-        if (item == null) throw new ArgumentNullException(nameof(item));
+        if (newItem == null) throw new ArgumentNullException(nameof(newItem));
+        EnsureRegistered(lb);
+
+        // сохраняем сам старый объект
+        var oldItem = lb.Items[index];
 
         Execute(
             lb,
-            // Do: добавить
-            () => lb.Items.Add(item),
-            // Undo: удалить
-            () => lb.Items.Remove(item)
+            // Do: найти и заменить старый элемент на новый
+            () =>
+            {
+                int i = lb.Items.IndexOf(oldItem);
+                if (i >= 0 && i < lb.Items.Count)
+                    lb.Items[i] = newItem;
+            },
+            // Undo: найти и вернуть на место старый элемент
+            () =>
+            {
+                int i = lb.Items.IndexOf(newItem);
+                if (i >= 0 && i < lb.Items.Count)
+                    lb.Items[i] = oldItem;
+            }
         );
     }
 
@@ -126,13 +188,11 @@ internal sealed class UndoRedoListBoxManager
         _undoStacks[lb].Push((doAction, undoAction));
     }
 
-    /// <summary>Можно ли выполнить Undo для данного ListBox?</summary>
     public bool CanUndo(ListBox lb)
         => lb != null
            && _undoStacks.ContainsKey(lb)
            && _undoStacks[lb].Count > 0;
 
-    /// <summary>Можно ли выполнить Redo для данного ListBox?</summary>
     public bool CanRedo(ListBox lb)
         => lb != null
            && _redoStacks.ContainsKey(lb)
