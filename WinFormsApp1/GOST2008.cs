@@ -1,14 +1,22 @@
-﻿using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml;
-using MigraDoc.DocumentObjectModel;
-using MigraDoc.Rendering;
-using System;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.ComponentModel;
-using System.Text;
+
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml.Math;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+
+using MigraDoc.DocumentObjectModel;
+using MigraDoc.Rendering;
+
+using PdfSharp.Pdf;
 
 namespace WinFormsApp1
 {
@@ -20,6 +28,7 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             this.mainForm = mainForm;
+            RegisterAllListBoxes(this);
         }
 
         private readonly UndoRedoListBoxManager _undoManager = new UndoRedoListBoxManager();
@@ -51,8 +60,6 @@ namespace WinFormsApp1
 
         private void GOST2008_Load(object sender, EventArgs e)
         {
-            _undoManager.Register(lbResult);
-
             // ДОБАВЛЕНИЕ
             _undoManager.ItemAdded += (lb, item, idx) =>
             {
@@ -104,7 +111,6 @@ namespace WinFormsApp1
                     RefreshRestoreButtons();
                 }
             };
-
 
 
             lbPRBAuthors.Tag = cbPRBAuthors;
@@ -224,7 +230,7 @@ namespace WinFormsApp1
             SourceKind Kind,
             Dictionary<string, List<string>> PublishersMap,
             bool IsSmartMode,
-            bool CanRestore = true       // новый флаг, по умолчанию true
+            bool CanRestore = true
         );
 
 
@@ -1395,23 +1401,6 @@ namespace WinFormsApp1
 
             return null;
         }
-
-
-        //private void RestoreSmartPublishers(SmartUi ui, Dictionary<string, List<string>> saved)
-        //{
-        //    ui.Dict.Clear();
-        //    foreach (var kv in saved)
-        //        ui.Dict[kv.Key] = new List<string>(kv.Value);
-
-        //    // Обновляем места
-        //    ui.LbPlaces.Items.Clear();
-        //    foreach (var p in ui.Dict.Keys) ui.LbPlaces.Items.Add(p);
-
-        //    // Селектор + список издателей
-        //    UpdatePublishingLocationSelector(ui.LbPlaces, ui.LbSelector);
-        //    if (ui.LbSelector.Items.Count > 0)
-        //        ui.LbSelector.SelectedIndex = 0;
-        //}
 
         // Возвращает «снимок» groupedPublishers и признак включённого smart-режима для данного типа.
         private (Dictionary<string, List<string>> snapshot, bool smartModeEnabled) GetPublisherSnapshot(SourceKind kind)

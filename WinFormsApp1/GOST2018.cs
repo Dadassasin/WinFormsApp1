@@ -1,16 +1,22 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
-using MigraDoc.DocumentObjectModel;
-using MigraDoc.Rendering;
-using PdfSharp.Pdf;
-using System;
-using static WinFormsApp1.GOST2018;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using DocumentFormat.OpenXml.Math;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+
+using MigraDoc.DocumentObjectModel;
+using MigraDoc.Rendering;
+
+using PdfSharp.Pdf;
 
 
 namespace WinFormsApp1
@@ -70,8 +76,6 @@ namespace WinFormsApp1
 
         private void GOST2018_Load(object sender, EventArgs e)
         {
-            _undoManager.Register(lbResult);
-
             // ДОБАВЛЕНИЕ
             _undoManager.ItemAdded += (lb, item, idx) =>
             {
@@ -377,9 +381,11 @@ namespace WinFormsApp1
             FormSnapshot Snapshot,
             SourceKind Kind,
             Dictionary<string, List<string>> PublishersMap,
-            bool IsSmartMode
+            bool IsSmartMode,
+            bool CanRestore = true
         );
 
+        private ResultItem<SavedEntry>? _lastSavedResult;
         private readonly List<SavedEntry> _entries = new();
 
         private Dictionary<string, List<string>> groupedPublishersSVBook = new Dictionary<string, List<string>>();
@@ -600,7 +606,7 @@ namespace WinFormsApp1
         private string _savedPublishingLocation = null;
 
 
-        // Обработка нажатия мыши — начало перетаскивания или контекстное меню
+        // Обработка нажатия мыши – начало перетаскивания или контекстное меню
         private void ListBox_MouseDown(object sender, MouseEventArgs e)
         {
             if (sender is not ListBox lb) return;
@@ -611,9 +617,9 @@ namespace WinFormsApp1
 
                 if (lb.Name.Contains("Publisher"))
                 {
-                    // mainLocationList = lbSVBPublishingLocation
+                    // mainLocationList = lbPRBPublishingLocation
                     var mainLocationList = lb.Tag as ListBox;
-                    // selector          = lbSVBPublishingLocationSelect
+                    // selector          = lbPRBPublishingLocationSelect
                     var selector = mainLocationList?.Tag as ListBox;
 
                     bool smartModeOn = selector != null && selector.Enabled;
@@ -653,7 +659,7 @@ namespace WinFormsApp1
             }
         }
 
-        // Движение мыши с зажатой кнопкой — инициирует перетаскивание
+        // Движение мыши с зажатой кнопкой – инициирует перетаскивание
         private void ListBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left && dragIndex != -1 && sender is ListBox lb)
@@ -662,82 +668,129 @@ namespace WinFormsApp1
             }
         }
 
-        // Обработка события DragOver — указываем эффект
+        // Обработка события DragOver – указываем эффект
         private void ListBox_DragOver(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
         }
 
-        // Обработка события DragDrop — перемещение и обновление словаря
+        // Обработка события DragDrop – перемещение и обновление словаря
         private void ListBox_DragDrop(object sender, DragEventArgs e)
         {
             if (sender is not ListBox lb)
                 return;
 
-            Point point = lb.PointToClient(new Point(e.X, e.Y));
-            int dropIndex = lb.IndexFromPoint(point);
-            object dragItem = e.Data.GetData(typeof(string));
+            // 1. Извлекаем перетаскиваемый элемент
+            object dragItem = e.Data.GetData(typeof(ResultItem<SavedEntry>))
+                           ?? e.Data.GetData(typeof(string));
             if (dragItem == null)
                 return;
 
+            // 2. Старый индекс
             int oldIndex = lb.Items.IndexOf(dragItem);
-            if (oldIndex == -1)
+            if (oldIndex < 0)
                 return;
 
-            // Защита от "перетаскивания сам в себя"
-            if (dropIndex == oldIndex || (dropIndex == -1 && lb.Items.Count == 1))
-                return;
+            // 3. Новый индекс по позиции мыши
+            Point pt = lb.PointToClient(new Point(e.X, e.Y));
+            int rawIndex = lb.IndexFromPoint(pt);
+            if (rawIndex < 0 || rawIndex > lb.Items.Count)
+                rawIndex = lb.Items.Count;
 
-            // Если dropIndex за границей — вставляем в конец
-            if (dropIndex < 0 || dropIndex > lb.Items.Count)
-                dropIndex = lb.Items.Count;
+            int newIndex = rawIndex > oldIndex ? rawIndex - 1 : rawIndex;
+            if (newIndex == oldIndex)
+                return; // ничто не меняем
 
-            // Корректировка индекса при удалении элемента
-            lb.Items.Remove(dragItem);
-            if (dropIndex > oldIndex)
-                dropIndex--;
+            // Для списка результатов заранее запоминаем, какой _entries элемент перемещаем
+            SavedEntry? movedEntry = null;
+            if (lb == lbResult)
+                movedEntry = _entries[oldIndex];
 
-            // Вставка
-            lb.Items.Insert(dropIndex, dragItem);
-            lb.SelectedIndex = dropIndex;
+            // 4. Выполняем Do/Undo через UndoRedoManager
+            _undoManager.Execute(
+                lb,
+                // --- Do: удаляем и вставляем в обе коллекции
+                () =>
+                {
+                    // ListBox.Items
+                    lb.Items.RemoveAt(oldIndex);
+                    lb.Items.Insert(newIndex, dragItem);
+                    lb.SelectedIndex = newIndex;
 
-            // Обновление селектора мест издания
-            if (lb.Name.Contains("PublishingLocation") && lb.Tag is ListBox selectListBox1)
+                    // _entries
+                    if (lb == lbResult && movedEntry != null)
+                    {
+                        _entries.RemoveAt(oldIndex);
+                        _entries.Insert(newIndex, movedEntry);
+                        RefreshRestoreButtons();
+                    }
+                },
+                // --- Undo: находим текущие позиции по объекту и возвращаем обратно
+                () =>
+                {
+                    // В ListBox.Items ищем dragItem
+                    int idxInList = lb.Items.IndexOf(dragItem);
+                    if (idxInList >= 0)
+                    {
+                        lb.Items.RemoveAt(idxInList);
+                        lb.Items.Insert(oldIndex, dragItem);
+                        lb.SelectedIndex = oldIndex;
+                    }
+
+                    // В _entries ищем movedEntry
+                    if (lb == lbResult && movedEntry != null)
+                    {
+                        int idxInEntries = _entries.IndexOf(movedEntry);
+                        if (idxInEntries >= 0)
+                        {
+                            _entries.RemoveAt(idxInEntries);
+                            _entries.Insert(oldIndex, movedEntry);
+                            RefreshRestoreButtons();
+                        }
+                    }
+                }
+            );
+
+            // 5. Дополнительная логика для других ListBox
+            if (lb.Name.Contains("PublishingLocation") && lb.Tag is ListBox selector)
             {
-                UpdatePublishingLocationSelector(lb, selectListBox1);
+                UpdatePublishingLocationSelector(lb, selector);
             }
-
-            // Обновление словаря издательств в умном режиме
-            if (lb.Name.Contains("Publisher") && _dragSelectedPlace is not null)
+            else if (lb.Name.Contains("Publisher") && _dragSelectedPlace is not null)
             {
-                Dictionary<string, List<string>> dict = GetDictionaryByListBox(lb);
+                var dict = GetDictionaryByListBox(lb);
                 dict[_dragSelectedPlace] = lb.Items.Cast<string>().ToList();
             }
         }
 
-        private void cmsListBox_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void cmsListBox_Opening(object sender, CancelEventArgs e)
         {
-            // Если _currentListBox == null или ничего не выбрано — пользователь кликнул
-            // в пустое место (или нет текущего списка).
-            if (_currentListBox == null || _currentListBox.SelectedIndex < 0)
+            if (_currentListBox == lbResult)
             {
-                tsmiDeleteSelected.Visible = false;
-                tsmiCopy.Visible = false;
-                tsmiEdit.Visible = false;
-                tsmiRestoreEntry.Visible = false;
-                toolStripSeparator5.Visible = false;
+                int idx = _currentListBox.SelectedIndex;
+                if (idx >= 0 && idx < _entries.Count)
+                {
+                    var entry = _entries[idx];
+                    tsmiRestoreEntry.Visible = true;
+                    tsmiRestoreEntry.Enabled = entry.CanRestore;
+                }
+                else
+                {
+                    tsmiRestoreEntry.Visible = false;
+                }
             }
             else
             {
-                tsmiDeleteSelected.Visible = true;
-                tsmiCopy.Visible = true;
-                tsmiEdit.Visible = true;
-                tsmiRestoreEntry.Visible = (_currentListBox == lbResult);
-                toolStripSeparator5.Visible = true;
+                tsmiRestoreEntry.Visible = false;
             }
 
+            bool hasSel = _currentListBox != null && _currentListBox.SelectedIndex >= 0;
+            tsmiDeleteSelected.Visible = hasSel;
+            tsmiCopy.Visible = hasSel;
+            tsmiEdit.Visible = hasSel;
             tsmiUndo.Enabled = _currentListBox != null && _undoManager.CanUndo(_currentListBox);
-            tsmiDeleteAll.Enabled = _currentListBox.Items.Count > 0;
+            tsmiDeleteAll.Enabled = _currentListBox?.Items.Count > 0;
+            toolStripSeparator5.Visible = _currentListBox != null && _currentListBox.SelectedIndex >= 0;
         }
 
         // Кнопка "Удалить"
@@ -747,10 +800,10 @@ namespace WinFormsApp1
             {
                 _undoManager.DeleteItem(_currentListBox);
 
-                // Если удаляем автора из lbSVBAuthors — обновляем чекбокс
+                // Если удаляем автора из lbPRBAuthors – обновляем чекбокс
                 if (_currentListBox.Name.Contains("Authors"))
                 {
-                    UpdateListCheckBox(_currentListBox, 1, 5);
+                    UpdateListCheckBox(_currentListBox, 1, 4);
                 }
 
                 if (_currentListBox.Name.Contains("PublishingLocation") && _currentListBox.Tag is ListBox selectListBox)
@@ -767,10 +820,10 @@ namespace WinFormsApp1
             {
                 _undoManager.ClearItems(_currentListBox);
 
-                // Если удаляем автора из lbSVBAuthors — обновляем чекбокс
+                // Если удаляем автора из lbPRBAuthors – обновляем чекбокс
                 if (_currentListBox.Name.Contains("Authors"))
                 {
-                    UpdateListCheckBox(_currentListBox, 1, 5);
+                    UpdateListCheckBox(_currentListBox, 1, 4);
                 }
 
                 if (_currentListBox.Name.Contains("PublishingLocation") && _currentListBox.Tag is ListBox selectListBox)
@@ -790,6 +843,15 @@ namespace WinFormsApp1
             }
         }
 
+        private void RefreshRestoreButtons()
+        {
+            // «Восстановить последнюю запись» активна, только если именно последняя запись CanRestore == true
+            if (_entries.Count > 0)
+                tsmiRestoreLastEntry.Enabled = _entries[^1].CanRestore;  // ^1 — последний элемент
+            else
+                tsmiRestoreLastEntry.Enabled = false;
+        }
+
         private void tsmiEdit_Click(object sender, EventArgs e)
         {
             if (_currentListBox == null || _currentListBox.SelectedIndex < 0)
@@ -797,60 +859,98 @@ namespace WinFormsApp1
 
             int idx = _currentListBox.SelectedIndex;
             string oldText = _currentListBox.Items[idx].ToString();
+            string newText = oldText;
+            bool isAuthor = _currentListBox.Name.Contains("Authors")
+                            || _currentListBox.Name.Contains("Editor");
 
-            // Показываем диалог
-            if (!ShowEditDialog(oldText, out string newText))
-                return;
-
-            // Не сохраняем пустую строку
-            if (string.IsNullOrWhiteSpace(newText))
-                return;
-
-            // Если это список авторов — проверяем по шаблону
-            if (_currentListBox.Name.Contains("Authors") || _currentListBox.Name.Contains("Editor"))
+            // Цикл повторного показа диалога, пока ввод не станет валидным
+            while (true)
             {
-                var authorRegex = new Regex(
-                    @"^(([А-ЯЁA-Z]\.)\s*([А-ЯЁA-Z]\.)?\s+([А-ЯЁA-Z][а-яёa-z]+))" +
-                    @"|(([А-ЯЁA-Z][а-яёa-z]+)\s+([А-ЯЁA-Z]\.)(?:\s*([А-ЯЁA-Z]\.))?)" +
-                    @"|(([А-ЯЁA-Z][а-яёa-z]+),\s*([А-ЯЁA-Z]\.)(?:\s*([А-ЯЁA-Z]\.))?)$",
-                    RegexOptions.Compiled
-                );
-                if (!authorRegex.IsMatch(newText))
+                // Показываем диалог с текущим значением
+                if (!ShowEditDialog(newText, out string candidate))
+                    return;  // Отмена
+
+                // Проверяем на пустую строку
+                if (string.IsNullOrWhiteSpace(candidate))
                 {
                     MessageBox.Show(
-                        "Неверный формат имени. Используйте формат: «Фамилия И. О.», «И. О. Фамилия», «Фамилия И.» или «И. Фамилия».",
+                        "Пустую строку добавить нельзя",
                         "Ошибка",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning
                     );
-                    return;
+                    newText = candidate;  // подставим в поле то, что ввёл пользователь
+                    continue;             // повторяем диалог
                 }
+
+                // Проверка авторов/редакторов
+                if (isAuthor && !AuthorsRegex.IsMatch(candidate))
+                {
+                    MessageBox.Show(
+                        "Неверный формат имени. Разрешены те же варианты, что и при добавлении",
+                        "Ошибка",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    newText = candidate;
+                    continue; // повторяем диалог
+                }
+
+                // Всё валидно — выходим из цикла
+                newText = candidate;
+                break;
             }
 
-            // Заменяем старый элемент на новый
-            _currentListBox.Items[idx] = newText;
+            // редактируем элемент в lbResult
+            if (_currentListBox == lbResult)
+            {
+                var oldItem = (ResultItem<SavedEntry>)_currentListBox.Items[idx];
+                var oldEntry = oldItem.Entry;
 
-            // Если редактируем место публикации — переименовываем ключ в словаре
-            if (_currentListBox.Name.Contains("PublishingLocation")
-                && _currentListBox.Tag is ListBox locationSelector)
-            {
-                var dict = GetDictionaryByListBox(_currentListBox);
-                if (dict.TryGetValue(oldText, out var pubs))
-                {
-                    dict.Remove(oldText);
-                    dict[newText] = pubs;
-                }
-                UpdatePublishingLocationSelector(_currentListBox, locationSelector);
+                // создаём новую запись с CanRestore = false
+                var newEntry = oldEntry with { ResultText = newText, CanRestore = false };
+                var newItem = new ResultItem<SavedEntry>(newText, newEntry);
+
+                // регистрируем замену в Undo/Redo
+                _undoManager.Execute(
+                    lbResult,
+                    doAction: () =>
+                    {
+                        lbResult.Items[idx] = newItem;
+                        _entries[idx] = newEntry;
+                    },
+                    undoAction: () =>
+                    {
+                        lbResult.Items[idx] = oldItem;
+                        _entries[idx] = oldEntry;
+                    });
+
+                RefreshRestoreButtons();
+                return;
             }
-            // Если редактируем издательство в умном режиме — сохраняем новый текст в соответствующей группе
-            else if (_currentListBox.Name.Contains("Publisher")
-                && _currentListBox.Tag is ListBox pubSelector
-                && pubSelector.SelectedItem is string placeKey)
+            // остальные ListBox
+            else
             {
-                var dict = GetDictionaryByListBox(_currentListBox);
-                if (dict.TryGetValue(placeKey, out var list) && idx < list.Count)
+                _undoManager.EditItem(_currentListBox, idx, newText);
+
+                if (_currentListBox.Name.Contains("PublishingLocation") &&
+                    _currentListBox.Tag is ListBox locationSelector)
                 {
-                    list[idx] = newText;
+                    var dict = GetDictionaryByListBox(_currentListBox);
+                    if (dict.TryGetValue(oldText, out var pubs))
+                    {
+                        dict.Remove(oldText);
+                        dict[newText] = pubs;
+                    }
+                    UpdatePublishingLocationSelector(_currentListBox, locationSelector);
+                }
+                else if (_currentListBox.Name.Contains("Publisher") &&
+                         _currentListBox.Tag is ListBox pubSelector &&
+                         pubSelector.SelectedItem is string placeKey)
+                {
+                    var dict = GetDictionaryByListBox(_currentListBox);
+                    if (dict.TryGetValue(placeKey, out var list) && idx < list.Count)
+                        list[idx] = newText;
                 }
             }
         }
@@ -862,7 +962,14 @@ namespace WinFormsApp1
 
         private void tsmiRestoreLastEntry_Click(object sender, EventArgs e)
         {
-            RestoreEntry(_entries.Count - 1);
+            int idx = _entries.FindLastIndex(ent => ent.CanRestore);
+            if (idx == -1)
+            {
+                MessageBox.Show("Нет результатов для восстановления.",
+                                "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            RestoreEntry(idx);
         }
 
         private void tsmiClearForm_Click(object sender, EventArgs e)
@@ -941,7 +1048,7 @@ namespace WinFormsApp1
                     if (tb.SelectionLength > 0) tb.Copy();
                     break;
                 case "Вставить":
-                    if (Clipboard.ContainsText()) tb.Paste();
+                    if (Clipboard.ContainsText()) CleanPasteHelper.PasteWithoutNewlines(tb);
                     break;
                 case "Удалить":
                     if (tb.SelectionLength > 0) tb.SelectedText = "";
@@ -958,14 +1065,39 @@ namespace WinFormsApp1
                 _undoManager.Undo(_currentListBox);
         }
 
-        private void cmsMainTabControl_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void cmsMainTabControl_Opening(object sender, CancelEventArgs e)
         {
-            tsmiRestoreLastEntry.Enabled = _entries.Count != 0;
+            RefreshRestoreButtons();
         }
 
         //
         // ------------------------- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ----------------------------
         //
+
+        private static readonly Regex AuthorsRegex = new Regex(
+           @"^\s*" +
+           @"(?:" +                                                  // Автор 1
+               @"(?:[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё]+)\s+[A-ZА-ЯЁ]{1,}\.\s*(?:[A-ZА-ЯЁ]{1,}\.)?" +
+               @"|" +
+               @"[A-ZА-ЯЁ]{1,}\.\s*(?:[A-ZА-ЯЁ]{1,}\.)?\s+[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё]+" +
+           @")" +
+           @"(?:\s*,\s*" +                                           // , Автор N
+               @"(?:" +
+                   @"(?:[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё]+)\s+[A-ZА-ЯЁ]{1,}\.\s*(?:[A-ZА-ЯЁ]{1,}\.)?" +
+                   @"|" +
+                   @"[A-ZА-ЯЁ]{1,}\.\s*(?:[A-ZА-ЯЁ]{1,}\.)?\s+[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё]+" +
+               @")" +
+           @")*" +
+           @"\s*$",
+           RegexOptions.Compiled);
+
+        private static readonly Regex SurnameInitialsRegex = new Regex(
+            @"^\s*" +
+            @"(?<surname>[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё]+)\s+" +
+            @"(?<i1>[A-ZА-ЯЁ]{1,}\.)\s*" +
+            @"(?<i2>[A-ZА-ЯЁ]{1,}\.)?" +
+            @"\s*$",
+            RegexOptions.Compiled);
 
         private void HandlePublishingLocationSelection(object sender)
         {
@@ -985,11 +1117,7 @@ namespace WinFormsApp1
             if (e.Control && e.KeyCode == Keys.V)
             {
                 e.SuppressKeyPress = true;
-
-                string clipboardText = Clipboard.GetText();
-                string cleanedText = clipboardText.Replace("\r", "").Replace("\n", "");
-
-                textBox.SelectedText = cleanedText;
+                CleanPasteHelper.PasteWithoutNewlines(textBox);
                 return;
             }
 
@@ -1051,7 +1179,7 @@ namespace WinFormsApp1
                     _undoManager.Undo(listBox);
 
                     if (listBox.Name.Contains("Authors"))
-                        UpdateListCheckBox(listBox, 1, 5);
+                        UpdateListCheckBox(listBox, 1, 4);
                     if (listBox.Name.Contains("PublishingLocation") && listBox.Tag is ListBox selectListBox)
                         UpdatePublishingLocationSelector(listBox, selectListBox);
                 }
@@ -1067,7 +1195,7 @@ namespace WinFormsApp1
                     _undoManager.Redo(listBox);
 
                     if (listBox.Name.Contains("Authors"))
-                        UpdateListCheckBox(listBox, 1, 5);
+                        UpdateListCheckBox(listBox, 1, 4);
                     if (listBox.Name.Contains("PublishingLocation") && listBox.Tag is ListBox selectListBox)
                         UpdatePublishingLocationSelector(listBox, selectListBox);
                 }
@@ -1075,6 +1203,7 @@ namespace WinFormsApp1
                 return;
             }
 
+            // Delete или Backspace → удаление с сохранением для Undo
             if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
             {
                 int selectedIndex = listBox.SelectedIndex;
@@ -1084,7 +1213,7 @@ namespace WinFormsApp1
                 _undoManager.DeleteItem(listBox);
 
                 if (listBox.Name.Contains("Authors"))
-                    UpdateListCheckBox(listBox, 1, 5);
+                    UpdateListCheckBox(listBox, 1, 4);
                 if (listBox.Name.Contains("PublishingLocation") && listBox.Tag is ListBox selectListBox)
                     UpdatePublishingLocationSelector(listBox, selectListBox);
 
@@ -1095,38 +1224,42 @@ namespace WinFormsApp1
         // Добавление строк в ListBox
         public void AddStringToListBox(TextBox sourceTextBox, ListBox targetListBox)
         {
-            string input = sourceTextBox.Text.Trim();
+            string raw = sourceTextBox.Text;
+            string input = raw.Trim();
 
             if (string.IsNullOrWhiteSpace(input))
             {
-                MessageBox.Show(
-                    "Пустую строку добавить нельзя",
-                    "Ошибка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                MessageBox.Show("Пустую строку добавить нельзя",
+                                "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (targetListBox.Name.Contains("Authors") || targetListBox.Name.Contains("Editor"))
             {
-                var regex = new Regex(@"^(([А-ЯЁA-Z]\.)\s*([А-ЯЁA-Z]\.)?\s+([А-ЯЁA-Z][а-яёa-z]+))|(([А-ЯЁA-Z][а-яёa-z]+)\s+([А-ЯЁA-Z]\.)(?:\s*([А-ЯЁA-Z]\.))?)|(([А-ЯЁA-Z][а-яёa-z]+),\s*([А-ЯЁA-Z]\.)(?:\s*([А-ЯЁA-Z]\.))?)$");
-
-                if (!regex.IsMatch(input))
+                if (!AuthorsRegex.IsMatch(input))
                 {
-                    MessageBox.Show("Неверный формат имени. Используйте формат: Фамилия И. О., И. О. Фамилия, Фамилия И. или И. Фамилия",
+                    MessageBox.Show(
+                        "Неверный формат имени.\n" +
+                        "Допустимые варианты: «Фамилия И. О.», «И. О. Фамилия», «Фамилия И.» или «И. Фамилия».\n" +
+                        "Можно перечислять несколько авторов через запятую.",
                         "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
 
-            _undoManager.AddItem(targetListBox, input);
+            // Если это список авторов/редакторов — разбиваем по запятым
+            IEnumerable<string> items =
+                (targetListBox.Name.Contains("Authors") || targetListBox.Name.Contains("Editor"))
+                    ? input.Split(',').Select(x => x.Trim()).Where(x => x.Length > 0)
+                    : new[] { input };
+
+            foreach (string item in items)
+                _undoManager.AddItem(targetListBox, item);
+
             sourceTextBox.Clear();
 
             if (targetListBox.Name.Contains("Authors"))
-            {
-                UpdateListCheckBox(targetListBox, 1, 5);
-            }
+                UpdateListCheckBox(targetListBox, 1, 4);
         }
 
         public void AddStringToPublisherListBox(TextBox sourceTextBox, ListBox targetListBox,
@@ -1185,158 +1318,106 @@ namespace WinFormsApp1
 
         static string NameFormatting(string author)
         {
-            // Удаляем лишние запятые и пробелы
-            string cleanedInput = Regex.Replace(author, @"\s*,\s*", " ").Trim();
-            cleanedInput = Regex.Replace(cleanedInput, @"\s+", " ");
+            string cleaned = Regex.Replace(author, @"\s*,\s*", " ").Trim();
+            cleaned = Regex.Replace(cleaned, @"\s+", " ");
 
-            var pattern1 = new Regex(@"^([A-ZА-ЯЁ][a-zа-яё]+)\s*([A-ZА-ЯЁ])\.?\s*([A-ZА-ЯЁ])\.?$");             // Фамилия И. О.
-            var pattern2 = new Regex(@"^([A-ZА-ЯЁ])\.?\s*([A-ZА-ЯЁ])\.?\s*([A-ZА-ЯЁ][a-zа-яё]+)$");             // И. О. Фамилия
-            var pattern3 = new Regex(@"^([A-ZА-ЯЁ][a-zа-яё]+)\s*([A-ZА-ЯЁ])\.?$");                              // Фамилия И.
-            var pattern4 = new Regex(@"^([A-ZА-ЯЁ])\.?\s*([A-ZА-ЯЁ][a-zа-яё]+)$");                              // И. Фамилия
-            var pattern5 = new Regex(@"^([A-ZА-ЯЁ][a-zа-яё]+)\s+([A-ZА-ЯЁ][a-zа-яё]+)\s+([A-ZА-ЯЁ][a-zа-яё]+)$"); // Фамилия Имя Отчество
-            var pattern6 = new Regex(@"^([A-ZА-ЯЁ][a-zа-яё]+)\s+([A-ZА-ЯЁ][a-zа-яё]+)$");                        // Фамилия Имя
+            var match = Regex.Match(cleaned,
+                @"^(?:" +
+                    @"(?<surname>[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё]+)\s+" +
+                    @"(?<i1>[A-ZА-ЯЁ]{1,})\.?\s*(?<i2>[A-ZА-ЯЁ]{1,})?\.?" +
+                  @"|" +
+                    @"(?<i1>[A-ZА-ЯЁ]{1,})\.?\s*(?<i2>[A-ZА-ЯЁ]{1,})?\.?\s+" +
+                    @"(?<surname>[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё]+)" +
+                @")$");
 
-            if (pattern1.IsMatch(cleanedInput))
-            {
-                var match = pattern1.Match(cleanedInput);
-                return $"{match.Groups[1].Value} {match.Groups[2].Value}. {match.Groups[3].Value}.";
-            }
-            else if (pattern2.IsMatch(cleanedInput))
-            {
-                var match = pattern2.Match(cleanedInput);
-                return $"{match.Groups[3].Value} {match.Groups[1].Value}. {match.Groups[2].Value}.";
-            }
-            else if (pattern3.IsMatch(cleanedInput))
-            {
-                var match = pattern3.Match(cleanedInput);
-                return $"{match.Groups[1].Value} {match.Groups[2].Value}.";
-            }
-            else if (pattern4.IsMatch(cleanedInput))
-            {
-                var match = pattern4.Match(cleanedInput);
-                return $"{match.Groups[2].Value} {match.Groups[1].Value}.";
-            }
-            else if (pattern5.IsMatch(cleanedInput)) // Фамилия Имя Отчество
-            {
-                var match = pattern5.Match(cleanedInput);
-                string fam = match.Groups[1].Value;
-                string initial1 = match.Groups[2].Value[0].ToString();
-                string initial2 = match.Groups[3].Value[0].ToString();
-                return $"{fam} {initial1}. {initial2}.";
-            }
-            else if (pattern6.IsMatch(cleanedInput)) // Фамилия Имя
-            {
-                var match = pattern6.Match(cleanedInput);
-                string fam = match.Groups[1].Value;
-                string initial1 = match.Groups[2].Value[0].ToString();
-                return $"{fam} {initial1}.";
-            }
-            else
-            {
-                return cleanedInput; // если не распознано — вернуть как есть
-            }
+            if (!match.Success)
+                return cleaned;
+
+            string fam = match.Groups["surname"].Value;
+            string i1 = match.Groups["i1"].Value;
+            string i2 = match.Groups["i2"].Value;
+
+            // Берём только первые буквы и ставим точку.
+            var sb = new StringBuilder();
+            sb.Append(fam).Append(' ')
+              .Append(i1[0]).Append('.');
+
+            if (!string.IsNullOrEmpty(i2))
+                sb.Append(' ').Append(i2[0]).Append('.');
+
+            return sb.ToString();
         }
+
 
         // Принимает строку вида "Фамилия В. Н." (запятая опциональна)
         // и возвращает строку "В. Н. Фамилия", если строка соответствует шаблону.
         private string ReverseAuthorName(string author)
         {
-            var regex = new System.Text.RegularExpressions.Regex(
-                @"^(([А-ЯЁ]\.)\s*([А-ЯЁ]\.)?\s+([А-ЯЁ][а-яё]+))" +
-                @"|(([А-ЯЁ][а-яё]+)\s+([А-ЯЁ]\.)(?:\s*([А-ЯЁ]\.))?)"
-            );
+            var regex = new Regex(
+                @"^(?:" +
+                    @"(?<surname>[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё]+)\s+" +
+                    @"(?<i1>[A-ZА-ЯЁ]{1,}\.)\s*(?<i2>[A-ZА-ЯЁ]{1,}\.)?" +
+                  @"|" +
+                    @"(?<i1>[A-ZА-ЯЁ]{1,}\.)\s*(?<i2>[A-ZА-ЯЁ]{1,}\.)?\s+" +
+                    @"(?<surname>[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё]+)" +
+                @")$");
 
-            var match = regex.Match(author);
+            var m = regex.Match(author.Trim());
+            if (!m.Success) return author;
 
-            if (!match.Success)
-            {
-                return author;
-            }
+            string s = m.Groups["surname"].Value;
+            string i1 = m.Groups["i1"].Value.Trim();
+            string i2 = m.Groups["i2"].Value.Trim();
 
-            string surname = "";
-            string init1 = "";
-            string init2 = "";
-
-            // Если фамилия оказалась в Group[4] ("И. И. Фамилия").
-            if (!string.IsNullOrEmpty(match.Groups[4].Value))
-            {
-                init1 = match.Groups[2].Value;
-                init2 = match.Groups[3].Value;
-                surname = match.Groups[4].Value;
-            }
-            // Если фамилия оказалась в Group[6] ("Фамилия И. И.")
-            else if (!string.IsNullOrEmpty(match.Groups[6].Value))
-            {
-                surname = match.Groups[6].Value;
-                init1 = match.Groups[7].Value;
-                init2 = match.Groups[8].Value;
-            }
-
-            // Склеиваем
-            init1 = init1.Trim();
-            init2 = init2.Trim();
-            if (string.IsNullOrEmpty(init2))
-                return $"{init1} {surname}".Trim();
-            else
-                return $"{init1} {init2} {surname}".Trim();
+            return string.IsNullOrEmpty(i2)
+                ? $"{i1} {s}"
+                : $"{i1} {i2} {s}";
         }
 
         // Метод, который гарантирует, что после фамилии вставлена запятая,
         // если её нет во входной строке (например, преобразует "Дорман В. Н." в "Дорман, В. Н.").
         private string EnsureComma(string author)
         {
-            var regex = new System.Text.RegularExpressions.Regex(
-                @"^(([А-ЯЁ][а-яё]+)\s+([А-ЯЁ]\.)(?:\s*([А-ЯЁ]\.))?)"
-            );
+            if (author.Contains(','))           // Запятая уже есть — ничего не трогаем
+                return author.Trim();
 
-            var match = regex.Match(author);
-
-            if (!match.Success)
-            {
+            var m = SurnameInitialsRegex.Match(author);
+            if (!m.Success)                     // Не тот формат — вернуть как есть
                 return author;
-            }
 
-            string surname = match.Groups[2].Value;
-            string init1 = match.Groups[3].Value;
-            string init2 = match.Groups[4].Value;
+            string fam = m.Groups["surname"].Value;
+            string i1 = m.Groups["i1"].Value.Trim();
+            string i2 = m.Groups["i2"].Value.Trim();
 
-            init1 = init1.Trim();
-            init2 = init2.Trim();
-
-            if (string.IsNullOrEmpty(init2))
-                return $"{surname}, {init1}".Trim();
-            else
-                return $"{surname}, {init1} {init2}".Trim();
+            return string.IsNullOrEmpty(i2)
+                ? $"{fam}, {i1}".Trim()
+                : $"{fam}, {i1} {i2}".Trim();
         }
 
         // Преобразование полного имени в формат "Фамилия Инициалы"
         public static string ToSurnameWithInitials(string fullName)
         {
-            string pattern = @"^([А-ЯЁA-Z][а-яёa-z]+)\s+([А-ЯЁA-Z])[а-яёa-z]+(?:\s+([А-ЯЁA-Z])[а-яёa-z]+)?$";
+            var regex = new Regex(
+                @"^\s*" +
+                @"(?<surname>[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё]+)\s+" +
+                @"(?<name>[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё]+)" +
+                @"(?:\s+(?<patr>[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё]+))?" +
+                @"\s*$",
+                RegexOptions.Compiled);
 
-            // Убираем лишние пробелы из шаблона
-            pattern = System.Text.RegularExpressions.Regex.Replace(pattern, @"\s+", "");
-
-            var match = System.Text.RegularExpressions.Regex.Match(fullName.Trim(), pattern);
-            if (!match.Success)
-            {
+            var m = regex.Match(fullName);
+            if (!m.Success)                     // Не узнаётся — вернуть пустую строку
                 return string.Empty;
-            }
 
-            string surname = match.Groups[1].Value;    // Фамилия
-            string nameInitial = match.Groups[2].Value; // Первая буква имени
-            string patronymicInitial = match.Groups[3].Value; // Первая буква отчества
+            string fam = m.Groups["surname"].Value;
+            string nIni = m.Groups["name"].Value.Substring(0, 1);
+            string pIni = m.Groups["patr"].Success
+                            ? m.Groups["patr"].Value.Substring(0, 1)
+                            : null;
 
-            if (!string.IsNullOrEmpty(patronymicInitial))
-            {
-                // Три слова: «Фамилия, И. О.»
-                return $"{surname} {nameInitial}. {patronymicInitial}.";
-            }
-            else
-            {
-                // Два слова: «Фамилия, И.»
-                return $"{surname} {nameInitial}.";
-            }
+            return pIni == null
+                ? $"{fam} {nIni}."
+                : $"{fam} {nIni}. {pIni}.";
         }
 
         // Связь мест издания и издателей через ":"
@@ -1540,7 +1621,14 @@ namespace WinFormsApp1
 
         private void RestoreEntry(int entryIndex)
         {
-            if (entryIndex < 0 || entryIndex >= lbResult.Items.Count)
+            if (entryIndex < 0 || entryIndex >= _entries.Count || _entries[entryIndex] == null)
+            {
+                MessageBox.Show("Эту запись восстановить нельзя.",
+                                "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (entryIndex < 0 || entryIndex >= _entries.Count)
             {
                 MessageBox.Show("Нет результатов для восстановления.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -1626,7 +1714,7 @@ namespace WinFormsApp1
             {
                 if (lb.Name.Contains("Authors") && lb.Tag is System.Windows.Forms.CheckBox cb)
                 {
-                    UpdateListCheckBox(lb, 1, 5);
+                    UpdateListCheckBox(lb, 1, 4);
                 }
             }
         }
@@ -1673,23 +1761,6 @@ namespace WinFormsApp1
 
             return null;
         }
-
-
-        //private void RestoreSmartPublishers(SmartUi ui, Dictionary<string, List<string>> saved)
-        //{
-        //    ui.Dict.Clear();
-        //    foreach (var kv in saved)
-        //        ui.Dict[kv.Key] = new List<string>(kv.Value);
-
-        //    // Обновляем места
-        //    ui.LbPlaces.Items.Clear();
-        //    foreach (var p in ui.Dict.Keys) ui.LbPlaces.Items.Add(p);
-
-        //    // Селектор + список издателей
-        //    UpdatePublishingLocationSelector(ui.LbPlaces, ui.LbSelector);
-        //    if (ui.LbSelector.Items.Count > 0)
-        //        ui.LbSelector.SelectedIndex = 0;
-        //}
 
         // Возвращает «снимок» groupedPublishers и признак включённого smart-режима для данного типа.
         private (Dictionary<string, List<string>> snapshot, bool smartModeEnabled) GetPublisherSnapshot(SourceKind kind)
@@ -1938,20 +2009,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -1976,8 +2041,6 @@ namespace WinFormsApp1
                 cbSVBPublisher.Checked = false;
                 UpdateListCheckBox(lbSVBAuthors, 1, 5);
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "МАТЕРИАЛЫ КОНФЕРЕНЦИИ" ----------------------------
@@ -2102,20 +2165,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -2136,8 +2193,6 @@ namespace WinFormsApp1
                 lbSVCMPublishingLocationSelect.Items.Clear();
                 cbSVCMPublisher.Checked = false;
             }
-
-            lbResult.Items.Add(result);
         }
 
 
@@ -2250,20 +2305,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -2285,8 +2334,6 @@ namespace WinFormsApp1
                 groupedPublishersSVGOST.Clear();
                 cbSVGOSTPublisher.Checked = false;
             }
-
-            lbResult.Items.Add(result);
         }
 
 
@@ -2400,20 +2447,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -2434,8 +2475,6 @@ namespace WinFormsApp1
                 groupedPublishersSVLegislativeMaterial.Clear();
                 cbSVLMPublisher.Checked = false;
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "АВТОРЕФЕРАТ ДИССЕРТАЦИИ" ----------------------------
@@ -2517,20 +2556,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -2546,8 +2579,6 @@ namespace WinFormsApp1
                 tbSVDADefenseLocation.Clear();
                 tbSVDAContentType.Clear();
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "ДИССЕРТАЦИЯ" ----------------------------
@@ -2625,20 +2656,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -2653,8 +2678,6 @@ namespace WinFormsApp1
                 tbSVDBibliography.Clear();
                 tbSVDContentType.Clear();
             }
-
-            lbResult.Items.Add(result);
         }
 
         //
@@ -2848,20 +2871,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -2886,8 +2903,6 @@ namespace WinFormsApp1
                 cbMVWMPublisher.Checked = false;
                 UpdateListCheckBox(lbMVWMAuthors, 1, 5);
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "ОТДЕЛЬНЫЙ ТОМ" ----------------------------
@@ -3064,20 +3079,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -3104,8 +3113,6 @@ namespace WinFormsApp1
                 groupedPublishersMVSeparateVolume.Clear();
                 UpdateListCheckBox(lbMVSVAuthors, 1, 5);
             }
-
-            lbResult.Items.Add(result);
         }
 
         //
@@ -3316,20 +3323,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -3356,8 +3357,6 @@ namespace WinFormsApp1
                 cbEREbPublisher.Checked = false;
                 UpdateListCheckBox(lbEREbAuthors, 1, 5);
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "МНОГОТОМНОЕ ЭЛЕКТРОННОЕ ИЗДАНИЕ В ЦЕЛОМ" ----------------------------
@@ -3551,20 +3550,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -3592,8 +3585,6 @@ namespace WinFormsApp1
                 cbERWEEPublisher.Checked = false;
                 UpdateListCheckBox(lbERWEEAuthors, 1, 5);
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "ОТДЕЛЬНЫЙ ТОМ ЭЛЕКТРОННОГО ИЗДАНИЯ" ----------------------------
@@ -3784,20 +3775,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -3827,8 +3812,6 @@ namespace WinFormsApp1
                 cbEREESVPublisher.Checked = false;
                 UpdateListCheckBox(lbEREESVAuthors, 1, 5);
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "ЭЛЕКТРОННЫЕ МАТЕРИАЛЫ КОНФЕРЕНЦИЙ" ----------------------------
@@ -3991,20 +3974,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -4028,8 +4005,6 @@ namespace WinFormsApp1
                 lbERECMPublishingLocationSelect.Items.Clear();
                 cbERECMPublisher.Checked = false;
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "ЭЛЕКТРОННЫЕ СБОРНИКИ" ----------------------------
@@ -4181,20 +4156,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -4216,8 +4185,6 @@ namespace WinFormsApp1
                 lbERECPublishingLocationSelect.Items.Clear();
                 cbERECPublisher.Checked = false;
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "СТАТЬЯ ИЗ ЖУРНАЛА" ----------------------------
@@ -4310,20 +4277,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -4339,8 +4300,6 @@ namespace WinFormsApp1
                 tbEREjAContentType.Clear();
                 UpdateListCheckBox(lbEREjAAuthors, 1, 5);
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "МУЛЬТИМЕДИЙНОЕ ИЗДАНИЕ (НА ДИСКЕ)" ----------------------------
@@ -4486,20 +4445,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -4520,8 +4473,6 @@ namespace WinFormsApp1
                 cbERMEPublisher.Checked = false;
                 UpdateListCheckBox(lbERMEAuthors, 1, 5);
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "САЙТ" ----------------------------
@@ -4635,20 +4586,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -4669,8 +4614,6 @@ namespace WinFormsApp1
                 groupedPublishersERWebsite.Clear();
                 cbERWPublisher.Checked = false;
             }
-
-            lbResult.Items.Add(result);
         }
 
         //
@@ -4850,20 +4793,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -4884,8 +4821,6 @@ namespace WinFormsApp1
                 UpdateListCheckBox(lbCPBAArticleAuthors, 1, 5);
                 UpdateListCheckBox(lbCPBABookAuthors, 1, 5);
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "СТАТЬЯ ИЗ МАТЕРИАЛОВ КОНФЕРЕНЦИИ" ----------------------------
@@ -5087,20 +5022,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -5126,8 +5055,6 @@ namespace WinFormsApp1
                 UpdateListCheckBox(lbCPCAArticleAuthors, 1, 5);
                 UpdateListCheckBox(lbCPCAConferenceAuthors, 1, 5);
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "СТАТЬЯ ИЗ ЖУРНАЛА" ----------------------------
@@ -5255,20 +5182,14 @@ namespace WinFormsApp1
                 return;
             }
 
-            SourceKind kind = kindOpt.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -5288,8 +5209,6 @@ namespace WinFormsApp1
                 cbCPJAArticleAuthors.Checked = false;
                 UpdateListCheckBox(lbCPJAArticleAuthors, 1, 5);
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "СТАТЬЯ ИЗ ГАЗЕТЫ" ----------------------------
@@ -5358,20 +5277,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -5387,8 +5300,6 @@ namespace WinFormsApp1
                 tbCPNAPages.Clear();
                 UpdateListCheckBox(lbCPNAArticleAuthors, 1, 5);
             }
-
-            lbResult.Items.Add(result);
         }
 
         // ------------------------- ТИП "СТАТЬЯ С САЙТА" ----------------------------
@@ -5504,20 +5415,14 @@ namespace WinFormsApp1
             string result = string.Join(". - ", blocks) + ".";
             result = ApplyAbbreviations(result);
 
-            SourceKind kind = GetCurrentKind()!.Value;
-            RememberCurrentState(out FormSnapshot snap, out int catIx, out int typeIx);
-
-            var (publishersSnapshot, smartModeEnabled) = GetPublisherSnapshot(kind);
-
-            _entries.Add(new SavedEntry(
-                result,
-                catIx,
-                typeIx,
-                snap,
-                kind,
-                publishersSnapshot,
-                smartModeEnabled
-            ));
+            var kind = GetCurrentKind()!.Value;
+            RememberCurrentState(out var snap, out int catIx, out int typeIx);
+            var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+            var saved = new SavedEntry(result, catIx, typeIx, snap, kind, pubSnap, smartOn);
+            // оборачиваем
+            _lastSavedResult = new ResultItem<SavedEntry>(result, saved);
+            // передаём в Undo-менеджер
+            _undoManager.AddItem(lbResult, _lastSavedResult);
 
             if (!tsmiSaveFormData.Checked)
             {
@@ -5538,8 +5443,6 @@ namespace WinFormsApp1
                 cbCPWAArticleAuthors.Checked = false;
                 UpdateListCheckBox(lbCPWAArticleAuthors, 1, 5);
             }
-
-            lbResult.Items.Add(result);
         }
 
         private void buttonConvert_Click(object sender, EventArgs e)
@@ -5642,7 +5545,26 @@ namespace WinFormsApp1
                 if (!tsmiUnableClearingRichTextBox2.Checked)
                     rtbMLA.Clear();
 
-                lbResult.Items.Add(res);
+                RememberCurrentState(out var snap, out int catIx, out int typeIx);
+
+                // для конвертации это просто пустой словарь и false
+                var kind = GetCurrentKind() ?? SourceKind.SVDissertation;
+                var (pubSnap, smartOn) = GetPublisherSnapshot(kind);
+
+                // собираем SavedEntry, но запрещаем восстановления
+                var saved = new SavedEntry(
+                    res,
+                    catIx,
+                    typeIx,
+                    snap,
+                    kind,
+                    pubSnap,
+                    smartOn,
+                    false
+                );
+
+                _lastSavedResult = new ResultItem<SavedEntry>(res, saved);
+                _undoManager.AddItem(lbResult, _lastSavedResult);
             }
             catch (Exception ex)
             {
@@ -6015,7 +5937,10 @@ namespace WinFormsApp1
 
         private void buttonWordExportResult_Click(object sender, EventArgs e)
         {
-            var lines = lbResult.Items.Cast<string>().ToList();
+            var lines = lbResult.Items
+                    .Cast<ResultItem<SavedEntry>>()  // приводим к нужному типу
+                    .Select(ri => ri.Text)           // берём только текст
+                    .ToList();
 
             if (lines.Count == 0)
             {
@@ -6042,7 +5967,10 @@ namespace WinFormsApp1
 
         private void buttonPDFExportResult_Click(object sender, EventArgs e)
         {
-            var lines = lbResult.Items.Cast<string>().ToList();
+            var lines = lbResult.Items
+                    .Cast<ResultItem<SavedEntry>>()  // приводим к нужному типу
+                    .Select(ri => ri.Text)           // берём только текст
+                    .ToList();
 
             if (lines.Count == 0)
             {
